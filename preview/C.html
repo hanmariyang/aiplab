@@ -15,6 +15,7 @@
     --green:#0E7B62; --greenT:#E9F5F1;
     --blue:#3B5BDB; --blueT:#EDEFFC;
     --teal:#12B39A; --tealT:#E3F5F1;
+    --amber:#C77C1A; --amberT:#FAEFD9;
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -25,7 +26,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -41,7 +42,7 @@
   .cast .m{position:relative}
   .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
-  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}
   @media(max-width:560px){.cast{gap:12px}.cast img,.cast svg{height:76px}}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
   .eyebrow .pr{color:var(--ink)}
@@ -61,22 +62,36 @@
   .band.d{background:linear-gradient(180deg,var(--greenT),transparent 70%)}
   .band.s{background:linear-gradient(180deg,var(--blueT),transparent 70%)}
   .band.c{background:linear-gradient(180deg,var(--tealT),transparent 70%)}
+  .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   .band.s .prow{grid-template-columns:1.15fr .85fr}
   @media(max-width:860px){.prow,.band.s .prow{grid-template-columns:1fr;gap:26px}}
   .pinfo .top{display:flex;align-items:center;gap:14px}
   .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
   .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
-  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}
+  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}
   .code{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint)}
   .ptag{font-weight:700;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.01em;margin:16px 0 8px}
   .pinfo p{color:var(--soft);margin:0 0 18px;max-width:42ch}
   .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
   .chip .lv{width:7px;height:7px;border-radius:50%}
-  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}
+  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}
+  .chip.soon{border-style:dashed}.chip.soon .lv{box-shadow:0 0 0 3px var(--amberT)}
   .plinks{display:flex;gap:16px;margin-top:18px}
   .plinks a{font-family:var(--mono);font-size:12.5px;display:inline-flex;gap:6px;align-items:center}
-  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}
+  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}
+  .indev{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:16px}
+  .bookcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
+  .bookcard .hd{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .bookcard .hd .sp{flex:1}.bookcard .hd .prog{color:var(--amber);font-weight:500}
+  .bookcard .bd{padding:20px 22px 22px}
+  .bookcard .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--faint);text-transform:uppercase}
+  .bookcard h5{font-size:17px;margin:9px 0 8px;font-weight:700}
+  .bookcard .txt{font-size:15px;color:var(--ink);line-height:1.55}
+  .bookcard mark{background:var(--amberT);color:var(--amber);border-bottom:1.5px solid var(--amber);padding:0 2px;border-radius:2px}
+  .bookcard .bfoot{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line2);font-family:var(--mono);font-size:12px}
+  .bookcard .exp{background:var(--amber);color:#fff;padding:7px 13px;border-radius:8px}
+  .bookcard .chk{color:var(--amber)}
 
   /* Drafting suggestion card (recreated signature) */
   .dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
@@ -132,7 +147,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs">the tools</a>
       <a href="#values" class="hs">why</a>
@@ -156,6 +171,10 @@
       <div class="m c">
         <img src="img/coxpit-mark.png" alt="Coxpit mascot"/>
         <div class="tag">COXPIT</div>
+      </div>
+      <div class="m l">
+        <svg viewBox="0 0 120 120" aria-label="Lighting mascot"><g stroke="#C77C1A" stroke-width="3.4" stroke-linecap="round" opacity=".8"><line x1="60" y1="7" x2="60" y2="17"/><line x1="22" y1="22" x2="29" y2="29"/><line x1="98" y1="22" x2="91" y2="29"/></g><circle cx="60" cy="52" r="30" fill="#FBE6B4" stroke="#1B1C1E" stroke-width="3.2"/><path d="M49 79 h22 v7 a6 6 0 0 1 -6 6 h-10 a6 6 0 0 1 -6 -6 z" fill="#EDE9E1" stroke="#1B1C1E" stroke-width="3" stroke-linejoin="round"/><line x1="50" y1="86" x2="70" y2="86" stroke="#1B1C1E" stroke-width="2.3"/><circle cx="51" cy="50" r="3.5" fill="#1B1C1E"/><circle cx="69" cy="50" r="3.5" fill="#1B1C1E"/><path d="M53 59 q7 6 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/></svg>
+        <div class="tag">LIGHTING · soon</div>
       </div>
     </div>
     <div class="eyebrow"><span class="pr">&gt;</span> AIP LAB — a one-person tool studio</div>
@@ -236,6 +255,31 @@
   </div>
 </section>
 
+<!-- Lighting (building) -->
+<section class="band l">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <svg viewBox="0 0 120 120" aria-label="Lighting" style="height:56px"><g stroke="#C77C1A" stroke-width="3.4" stroke-linecap="round" opacity=".8"><line x1="60" y1="7" x2="60" y2="17"/><line x1="22" y1="22" x2="29" y2="29"/><line x1="98" y1="22" x2="91" y2="29"/></g><circle cx="60" cy="52" r="30" fill="#FBE6B4" stroke="#1B1C1E" stroke-width="3.2"/><path d="M49 79 h22 v7 a6 6 0 0 1 -6 6 h-10 a6 6 0 0 1 -6 -6 z" fill="#EDE9E1" stroke="#1B1C1E" stroke-width="3" stroke-linejoin="round"/><line x1="50" y1="86" x2="70" y2="86" stroke="#1B1C1E" stroke-width="2.3"/><circle cx="51" cy="50" r="3.5" fill="#1B1C1E"/><circle cx="69" cy="50" r="3.5" fill="#1B1C1E"/><path d="M53 59 q7 6 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/></svg>
+        <div><div class="pname">Lighting</div><div class="code">AIP·004 · building</div></div>
+      </div>
+      <div class="ptag">AI writes your chapters.<br>You write the book.</div>
+      <p>An AI e-book studio. An interview becomes chapter drafts; you edit, add a cover, and export to EPUB3 and PDF — validated and self-hosted, on your machine.</p>
+      <span class="chip soon"><span class="lv"></span> building · in development</span>
+      <div class="indev">Joining the family soon — same interview → draft → yours flow.</div>
+    </div>
+    <div class="bookcard">
+      <div class="hd">manuscript · draft <span class="sp"></span><span class="prog">3 / 8 chapters</span></div>
+      <div class="bd">
+        <div class="lab">Chapter 02</div>
+        <h5>The first prototype</h5>
+        <div class="txt">The studio shipped its first tool over a single weekend, before anyone asked for it. <mark>What you accept becomes the chapter.</mark></div>
+        <div class="bfoot"><span class="exp">Export → EPUB3 · PDF</span><span class="chk">epubcheck ✓</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k">&gt; what the family shares</div>
@@ -271,7 +315,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
       <a href="https://aiplab.kr">aiplab.kr</a>
