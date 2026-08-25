@@ -1,0 +1,18 @@
+{
+	admin off
+	auto_https off
+	persist_config off
+}
+
+# Railway가 $PORT 를 주입 → Caddy 가 그 포트로 정적 서빙(0.0.0.0). TLS 는 Railway 엣지에서 종료.
+:{$PORT:8080} {
+	root * /srv
+	encode gzip zstd
+	file_server {
+		index index.html
+	}
+	header {
+		-Server
+		Cache-Control "public, max-age=300"
+	}
+}
