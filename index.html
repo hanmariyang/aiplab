@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AIP Lab — small software you run yourself</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EEF0F3'/%3E%3Cpath d='M16 8v16M8 16h16' stroke='%231B3DF5' stroke-width='2.6'/%3E%3C/svg%3E" />
+<meta name="description" content="AIP Lab is a one-person studio building small, self-hostable tools. The AI writes the first draft; the file never leaves your machine. Drafting, Sliding, Coxpit — open source, runs on localhost." />
+<meta property="og:title" content="AIP Lab — small software you run yourself" />
+<meta property="og:description" content="A one-person studio building self-hostable, open-source tools. AI drafts; you keep the file." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#EEF0F3;        /* lab-paper ground, faint blue bias */
+    --card:#FCFCFD;
+    --ink:#15171C;          /* near-black, slight blue */
+    --ink-soft:#5B616E;     /* muted secondary */
+    --ink-faint:#8B909C;
+    --line:#D7DBE2;         /* hairline */
+    --line-soft:#E3E6EC;
+    --signal:#1B3DF5;       /* single accent — cobalt signal */
+    --signal-ink:#12227d;
+    --maxw:1080px;
+    --disp:"Instrument Serif", Georgia, "Times New Roman", serif;
+    --body:"Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:17px; line-height:1.55;
+    font-feature-settings:"ss01","cv01"; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+
+  /* mono utility labels */
+  .k{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft)}
+  .k.sig{color:var(--signal)}
+
+  /* ---- header ---- */
+  header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent); backdrop-filter:saturate(1.4) blur(9px); border-bottom:1px solid var(--line)}
+  .bar{display:flex; align-items:center; justify-content:space-between; height:58px}
+  .mark{font-family:var(--disp); font-size:27px; line-height:1; letter-spacing:.01em}
+  .mark b{font-weight:400}
+  .mark .dot{color:var(--signal)}
+  .nav{display:flex; align-items:center; gap:20px}
+  .nav a{font-family:var(--mono); font-size:12.5px; letter-spacing:.04em; color:var(--ink-soft); transition:color .15s}
+  .nav a:hover{color:var(--ink)}
+  .lang{font-family:var(--mono); font-size:12px; border:1px solid var(--line); background:var(--card); color:var(--ink-soft); padding:5px 9px; cursor:pointer; border-radius:2px}
+  .lang:hover{border-color:var(--signal); color:var(--signal)}
+  @media(max-width:640px){ .nav a.hidesm{display:none} }
+
+  /* ---- registration marks (technical sheet feel) ---- */
+  .sheet{position:relative}
+  .sheet::before,.sheet::after{content:"+"; position:absolute; font-family:var(--mono); font-size:13px; color:var(--ink-faint); opacity:.55}
+  .sheet::before{left:8px; top:10px}
+  .sheet::after{right:8px; top:10px}
+
+  /* ---- hero ---- */
+  .hero{padding:76px 0 58px; border-bottom:1px solid var(--line)}
+  .eyebrow{display:flex; align-items:center; gap:12px; margin-bottom:26px}
+  .eyebrow .line{height:1px; flex:1; background:var(--line)}
+  h1{font-family:var(--disp); font-weight:400; font-size:clamp(46px,8vw,84px); line-height:.98; letter-spacing:-.01em; margin:0; text-wrap:balance}
+  h1 em{font-style:italic; color:var(--signal)}
+  html[lang="ko"] h1 em{font-style:normal}  /* 한글 이탤릭은 어색 — 색만 유지 */
+  .lead{max-width:60ch; margin:26px 0 0; font-size:clamp(17px,2.2vw,20px); color:var(--ink-soft)}
+  .lead strong{color:var(--ink); font-weight:600}
+  .herocta{display:flex; flex-wrap:wrap; gap:12px; margin-top:32px}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:13px; letter-spacing:.02em; padding:11px 16px; border-radius:2px; border:1px solid var(--ink); background:var(--ink); color:var(--paper); transition:transform .12s, background .15s}
+  .btn:hover{transform:translateY(-1px); background:#000}
+  .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--signal); color:var(--signal); background:transparent}
+
+  /* ---- catalog ---- */
+  section{padding:64px 0}
+  .sechead{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:30px}
+  .sechead h2{font-family:var(--disp); font-weight:400; font-size:clamp(28px,4vw,40px); margin:0; letter-spacing:-.01em}
+  .grid{display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); border:1px solid var(--line)}
+  @media(min-width:760px){ .grid{grid-template-columns:1fr 1fr} }
+  .spec{background:var(--card); padding:26px 26px 22px; display:flex; flex-direction:column; min-height:250px; opacity:0; transform:translateY(10px); animation:rise .5s cubic-bezier(.2,.7,.2,1) forwards}
+  .spec:nth-child(1){animation-delay:.04s} .spec:nth-child(2){animation-delay:.1s}
+  .spec:nth-child(3){animation-delay:.16s} .spec:nth-child(4){animation-delay:.22s}
+  @keyframes rise{to{opacity:1; transform:none}}
+  .spectop{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
+  .code{font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--signal)}
+  .badge{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft); border:1px solid var(--line); padding:3px 7px; border-radius:2px}
+  .pname{font-family:var(--disp); font-size:34px; line-height:1; margin:0 0 10px; letter-spacing:0}
+  .pfn{font-size:15.5px; color:var(--ink-soft); margin:0 0 16px; flex:1}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px}
+  .chip{font-family:var(--mono); font-size:11px; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line-soft); padding:3px 8px; border-radius:2px}
+  .run{font-family:var(--mono); font-size:12px; color:var(--ink); background:var(--paper); border:1px solid var(--line-soft); border-radius:2px; padding:8px 10px; margin-bottom:16px; overflow-x:auto; white-space:nowrap}
+  .run .p{color:var(--signal)}
+  .plinks{display:flex; align-items:center; gap:18px; border-top:1px solid var(--line-soft); padding-top:14px}
+  .plinks a{font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; color:var(--ink); display:inline-flex; align-items:center; gap:6px; transition:color .15s}
+  .plinks a:hover{color:var(--signal)}
+  .plinks a .arw{transition:transform .15s}
+  .plinks a:hover .arw{transform:translate(2px,-2px)}
+  .plinks .sp{flex:1}
+
+  .familynote{margin-top:22px; font-size:15px; color:var(--ink-soft); max-width:70ch}
+  .familynote b{color:var(--ink); font-weight:600}
+
+  /* ---- about ---- */
+  .about{border-top:1px solid var(--line); background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--signal) 4%, transparent))}
+  .cols{display:grid; grid-template-columns:1fr; gap:34px}
+  @media(min-width:760px){ .cols{grid-template-columns:1.1fr 1fr; gap:56px} }
+  .cols h3{font-family:var(--disp); font-weight:400; font-size:26px; margin:0 0 12px}
+  .cols p{margin:0 0 14px; color:var(--ink-soft)}
+  .cols p strong{color:var(--ink); font-weight:600}
+  .runbox{font-family:var(--mono); font-size:13px; background:var(--ink); color:#E7E9F2; border-radius:4px; padding:16px 18px; line-height:1.9; overflow-x:auto}
+  .runbox .c{color:#7c86a8}
+  .runbox .p{color:#8fb6ff}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line); padding:30px 0 46px}
+  .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px}
+  .foot .k{color:var(--ink-faint)}
+  .foot a{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft)}
+  .foot a:hover{color:var(--signal)}
+
+  @media (prefers-reduced-motion: reduce){
+    .spec{animation:none; opacity:1; transform:none}
+    .btn:hover,.plinks a:hover .arw{transform:none}
+  }
+</style>
+</head>
+<body>
+<header class="sheet">
+  <div class="wrap bar">
+    <div class="mark"><b>AIP</b> Lab<span class="dot">.</span></div>
+    <nav class="nav">
+      <a href="#catalog" class="hidesm" data-k="nav_catalog">catalog</a>
+      <a href="#about" class="hidesm" data-k="nav_about">about</a>
+      <a href="https://github.com/hanmariyang" target="_blank" rel="noopener">github</a>
+      <button class="lang" id="lang" aria-label="language">KO</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero sheet">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="k sig">AIP LAB</span>
+        <span class="k" data-k="eyebrow">Workshop index · 2026</span>
+        <span class="line"></span>
+        <span class="k">03 tools</span>
+      </div>
+      <h1 data-k="h1">Small software,<br>run on <em>your own</em> machine.</h1>
+      <p class="lead" data-k="lead">AIP Lab is a one-person studio building self-hostable tools. The AI writes the first draft; <strong>the file never leaves your machine.</strong> Every product is open source and runs on localhost.</p>
+      <div class="herocta">
+        <a class="btn" href="#catalog" data-k="cta_catalog">See the catalog ↓</a>
+        <a class="btn ghost" href="https://github.com/hanmariyang" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog" class="sheet">
+    <div class="wrap">
+      <div class="sechead">
+        <h2 data-k="cat_h">Catalog</h2>
+        <span class="k" data-k="cat_sub">Shipped &amp; open source</span>
+      </div>
+
+      <div class="grid">
+        <!-- 001 Drafting -->
+        <article class="spec">
+          <div class="spectop"><span class="code">AIP·001</span><span class="badge">OSS · npm</span></div>
+          <h3 class="pname">Drafting</h3>
+          <p class="pfn" data-k="d_fn">AI planning workspace. Idea interview → PRD, feature spec, IA. Every AI sentence arrives as a suggestion; only what you accept becomes the document.</p>
+          <div class="chips"><span class="chip">Node</span><span class="chip">MIT</span><span class="chip">npx · docker</span></div>
+          <div class="run"><span class="p">$</span> npx @hanmariyang/drafting serve</div>
+          <div class="plinks">
+            <a href="https://hanmariyang.github.io/drafting/" target="_blank" rel="noopener">Open <span class="arw">↗</span></a>
+            <a href="https://github.com/hanmariyang/drafting" target="_blank" rel="noopener">Code</a>
+            <span class="sp"></span>
+          </div>
+        </article>
+
+        <!-- 002 Sliding -->
+        <article class="spec">
+          <div class="spectop"><span class="code">AIP·002</span><span class="badge">OSS</span></div>
+          <h3 class="pname">Sliding</h3>
+          <p class="pfn" data-k="s_fn">AI slide studio on your local Claude subscription. AI writes layout code per slide; a render scan measures cropping, overlap and typesetting. No credits — the deck lives on your machine.</p>
+          <div class="chips"><span class="chip">Local Claude</span><span class="chip">Render scan</span><span class="chip">MIT</span></div>
+          <div class="run"><span class="p">$</span> git clone hanmariyang/sliding</div>
+          <div class="plinks">
+            <a href="https://hanmariyang.github.io/sliding/" target="_blank" rel="noopener">Open <span class="arw">↗</span></a>
+            <a href="https://github.com/hanmariyang/sliding" target="_blank" rel="noopener">Code</a>
+            <span class="sp"></span>
+          </div>
+        </article>
+
+        <!-- 003 Coxpit -->
+        <article class="spec">
+          <div class="spectop"><span class="code">AIP·003</span><span class="badge">OSS · npm</span></div>
+          <h3 class="pname">Coxpit</h3>
+          <p class="pfn" data-k="c_fn">Self-hosted cockpit for a fleet of AI coding agents across your own machines. Parallel worktree runs, a live board, compare &amp; merge, and a web terminal.</p>
+          <div class="chips"><span class="chip">Node</span><span class="chip">MIT</span><span class="chip">npx · docker</span></div>
+          <div class="run"><span class="p">$</span> npx coxpit</div>
+          <div class="plinks">
+            <a href="https://hanmariyang.github.io/coxpit-oss/" target="_blank" rel="noopener">Open <span class="arw">↗</span></a>
+            <a href="https://github.com/hanmariyang/coxpit-oss" target="_blank" rel="noopener">Code</a>
+            <span class="sp"></span>
+          </div>
+        </article>
+
+        <!-- next -->
+        <article class="spec">
+          <div class="spectop"><span class="code">AIP·004</span><span class="badge" data-k="next_badge">on the bench</span></div>
+          <h3 class="pname" style="color:var(--ink-faint)">Next</h3>
+          <p class="pfn" data-k="next_fn">Something small and self-hostable is usually in progress. The lab ships when it's ready, not on a calendar.</p>
+          <div class="chips"><span class="chip" data-k="next_chip">in the present tense</span></div>
+          <div class="plinks">
+            <a href="https://github.com/hanmariyang" target="_blank" rel="noopener" data-k="next_link">Follow along</a>
+            <span class="sp"></span>
+          </div>
+        </article>
+      </div>
+
+      <p class="familynote" data-k="family"><b>Drafting</b> and <b>Sliding</b> are the <i>-ing</i> family — software in the present tense, always being made. <b>Coxpit</b> runs the machines that make the rest.</p>
+    </div>
+  </section>
+
+  <section id="about" class="about sheet">
+    <div class="wrap cols">
+      <div>
+        <h3 data-k="ab_h1">Why self-hostable?</h3>
+        <p data-k="ab_p1">Because the useful part of a tool shouldn't depend on someone else's server, subscription, or uptime. AIP Lab tools keep your work in a local file and let the AI help without taking it away.</p>
+        <p data-k="ab_p2"><strong>Bring your own key — or your Claude subscription.</strong> Run it from your terminal and it just works. No accounts to create, nothing to sign up for.</p>
+        <h3 style="margin-top:30px" data-k="ab_h2">Made by one person</h3>
+        <p data-k="ab_p3">AIP Lab is built by <a href="https://github.com/hanmariyang" target="_blank" rel="noopener" style="color:var(--signal)">hanmariyang</a> — one maker, small tools, shipped in public.</p>
+      </div>
+      <div>
+        <div class="runbox">
+<span class="c"># any AIP Lab tool, one line, in your terminal</span><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="c"># → http://localhost:8477</span><br><br>
+<span class="c"># your data stays here</span><br>
+<span class="p">$</span> ls ~/.drafting<br>
+drafting.sqlite<br>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="sheet">
+  <div class="wrap foot">
+    <span class="k">© 2026 AIP LAB</span>
+    <div class="nav">
+      <a href="https://github.com/hanmariyang" target="_blank" rel="noopener">github.com/hanmariyang</a>
+      <span class="k" data-k="foot_soon">aiplab.kr — soon</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- lightweight EN/KO ----
+  var KO = {
+    nav_catalog:"카탈로그", nav_about:"소개",
+    eyebrow:"작업장 인덱스 · 2026",
+    h1:"작은 소프트웨어,<br><em>내 컴퓨터</em>에서 돌아갑니다.",
+    lead:"AIP Lab은 셀프호스트되는 작은 도구를 만드는 1인 스튜디오입니다. AI가 초안을 쓰지만, <strong>파일은 당신의 머신을 떠나지 않습니다.</strong> 모든 제품은 오픈소스이고 localhost에서 돕니다.",
+    cta_catalog:"카탈로그 보기 ↓",
+    cat_h:"카탈로그", cat_sub:"출하됨 · 오픈소스",
+    d_fn:"AI 기획 워크스페이스. 아이디어 인터뷰 → PRD·기능 명세·정보구조. AI의 모든 문장은 '제안'으로 도착하고, 당신이 수락한 것만 문서가 됩니다.",
+    s_fn:"내 로컬 Claude 구독으로 도는 AI 슬라이드 스튜디오. AI가 슬라이드마다 레이아웃 코드를 쓰고, 렌더 스캔이 잘림·겹침·조판을 실측합니다. 크레딧 없음 — 덱은 내 머신에.",
+    c_fn:"내 여러 머신에 걸친 AI 코딩 에이전트 플릿의 셀프호스트 코크핏. 병렬 worktree 실행·라이브 보드·비교/머지·웹 터미널.",
+    next_badge:"작업대 위", next_link:"지켜보기",
+    next_fn:"작고 셀프호스트되는 무언가가 대개 진행 중입니다. 달력이 아니라 준비되면 출하합니다.",
+    next_chip:"현재진행형",
+    family:"<b>Drafting</b>과 <b>Sliding</b>은 <i>-ing</i> 패밀리 — 현재진행형으로, 늘 만들어지는 중인 소프트웨어입니다. <b>Coxpit</b>은 그 나머지를 만드는 머신을 굴립니다.",
+    ab_h1:"왜 셀프호스트인가",
+    ab_p1:"도구의 쓸모 있는 부분이 남의 서버·구독·가동시간에 매이면 안 되니까요. AIP Lab 도구는 작업을 로컬 파일에 두고, AI가 그걸 가져가지 않으면서 돕게 합니다.",
+    ab_p2:"<strong>당신의 키를 쓰거나 — Claude 구독을 쓰세요.</strong> 터미널에서 실행하면 그냥 됩니다. 가입할 계정도, 등록할 것도 없습니다.",
+    ab_h2:"1인이 만듭니다",
+    ab_p3:"AIP Lab은 <a href='https://github.com/hanmariyang' target='_blank' rel='noopener' style='color:var(--signal)'>hanmariyang</a>이 만듭니다 — 한 명의 메이커, 작은 도구, 공개적으로 출하.",
+    foot_soon:"aiplab.kr — 곧"
+  };
+  var EN = null; // captured on first toggle
+  var cur = "en";
+  function apply(dict){
+    document.querySelectorAll("[data-k]").forEach(function(el){
+      var k = el.getAttribute("data-k");
+      if(dict[k] != null) el.innerHTML = dict[k];
+    });
+  }
+  document.getElementById("lang").addEventListener("click", function(){
+    if(EN === null){
+      EN = {};
+      document.querySelectorAll("[data-k]").forEach(function(el){ EN[el.getAttribute("data-k")] = el.innerHTML; });
+    }
+    cur = (cur === "en") ? "ko" : "en";
+    apply(cur === "ko" ? KO : EN);
+    this.textContent = (cur === "ko") ? "EN" : "KO";
+    document.documentElement.lang = cur;
+  });
+</script>
+</body>
+</html>
