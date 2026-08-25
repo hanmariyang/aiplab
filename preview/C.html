@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AIP Lab — the studio behind Drafting, Sliding & Coxpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F5F4F0; --card:#FFFFFF; --ink:#1B1C1E; --soft:#6B6B66; --faint:#9B9A94;
+    --line:#E5E3DC; --line2:#EEEDE7;
+    --green:#0E7B62; --greenT:#E9F5F1;
+    --blue:#3B5BDB; --blueT:#EDEFFC;
+    --teal:#12B39A; --tealT:#E3F5F1;
+    --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--disp);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 30px}
+  .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+  .dots{display:inline-flex;gap:4px;align-items:center}
+  .dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.01em}
+  nav.n{display:flex;align-items:center;gap:22px}
+  nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  nav.n a:hover{color:var(--ink)}
+  @media(max-width:720px){nav.n a.hs{display:none}}
+
+  /* hero */
+  .hero{text-align:center;padding:56px 0 54px}
+  .cast{display:flex;justify-content:center;align-items:flex-end;gap:26px;margin-bottom:30px}
+  .cast .m{position:relative}
+  .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
+  .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}
+  @media(max-width:560px){.cast{gap:12px}.cast img,.cast svg{height:76px}}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
+  .eyebrow .pr{color:var(--ink)}
+  h1{font-weight:800;font-size:clamp(34px,5.6vw,60px);line-height:1.02;letter-spacing:-.025em;margin:0 auto;max-width:15ch;text-wrap:balance}
+  h1 .g{color:var(--green)}h1 .b{color:var(--blue)}h1 .t{color:var(--teal)}
+  .sub{max-width:56ch;margin:20px auto 0;color:var(--soft);font-size:clamp(16px,2vw,19px)}
+  .sub b{color:var(--ink);font-weight:600}
+  .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:12px 20px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);transition:transform .12s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.g:hover{border-color:var(--ink)}
+  .micro{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:22px;letter-spacing:.02em}
+
+  /* product bands */
+  .band{border-top:1px solid var(--line);padding:64px 0}
+  .band.d{background:linear-gradient(180deg,var(--greenT),transparent 70%)}
+  .band.s{background:linear-gradient(180deg,var(--blueT),transparent 70%)}
+  .band.c{background:linear-gradient(180deg,var(--tealT),transparent 70%)}
+  .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+  .band.s .prow{grid-template-columns:1.15fr .85fr}
+  @media(max-width:860px){.prow,.band.s .prow{grid-template-columns:1fr;gap:26px}}
+  .pinfo .top{display:flex;align-items:center;gap:14px}
+  .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
+  .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
+  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}
+  .code{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint)}
+  .ptag{font-weight:700;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.01em;margin:16px 0 8px}
+  .pinfo p{color:var(--soft);margin:0 0 18px;max-width:42ch}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+  .chip .lv{width:7px;height:7px;border-radius:50%}
+  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}
+  .plinks{display:flex;gap:16px;margin-top:18px}
+  .plinks a{font-family:var(--mono);font-size:12.5px;display:inline-flex;gap:6px;align-items:center}
+  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}
+
+  /* Drafting suggestion card (recreated signature) */
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
+  .dcard .hd{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .dcard .hd .tl{display:flex;gap:5px}.dcard .hd .tl i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+  .dcard .hd .sp{flex:1}
+  .dcard .hd .lv{color:var(--green);display:flex;align-items:center;gap:5px}.dcard .hd .lv i{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .dcard .bd{padding:20px 22px 22px}
+  .dcard .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--faint);text-transform:uppercase}
+  .dcard h5{font-size:17px;margin:10px 0 8px;font-weight:700}
+  .dcard .txt{font-size:15px;color:var(--ink);line-height:1.55}
+  .dcard mark{background:var(--greenT);color:var(--green);border-bottom:1.5px solid var(--green);padding:0 2px;border-radius:2px}
+  .dcard .act{display:flex;align-items:center;gap:9px;margin-top:18px}
+  .dcard .acc{background:var(--green);color:#fff;border:0;font-family:var(--mono);font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer}
+  .dcard .rej{background:var(--card);color:var(--ink);border:1px solid var(--line);font-family:var(--mono);font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer}
+  .dcard .src{flex:1;text-align:right;font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+  /* screenshot frames */
+  .frame{border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 50px -30px rgba(27,28,30,.42)}
+  .frame .fb{display:flex;align-items:center;gap:8px;padding:9px 14px;font-family:var(--mono);font-size:11.5px}
+  .frame.blue .fb{background:#fff;color:var(--soft);border-bottom:1px solid var(--line2)}
+  .frame.dark{border-color:#23262b}
+  .frame.dark .fb{background:#15181d;color:#8b93a1;border-bottom:1px solid #23262b}
+  .frame .fb .tl{display:flex;gap:5px}.frame .fb .tl i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+  .frame.dark .fb .tl i{background:#2b2f36}
+  .frame .fb .lv{margin-left:auto;display:flex;align-items:center;gap:5px;color:var(--teal)}.frame .fb .lv i{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  .frame img{display:block;width:100%;height:auto}
+
+  /* values */
+  .values{border-top:1px solid var(--line);padding:52px 0;text-align:center}
+  .values .k{margin-bottom:18px}
+  .vgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:0}
+  .v{flex:1;min-width:160px;padding:6px 18px;border-right:1px solid var(--line2)}
+  .v:last-child{border-right:0}
+  .v .vt{font-weight:700;font-size:18px}
+  .v .vd{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;letter-spacing:.03em}
+
+  /* about */
+  .about{border-top:1px solid var(--line);padding:62px 0}
+  .cols{display:grid;grid-template-columns:1.1fr 1fr;gap:50px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;gap:28px}}
+  .cols h3{font-weight:700;font-size:23px;margin:0 0 12px}
+  .cols p{color:var(--soft);margin:0 0 14px}.cols p b{color:var(--ink)}
+  .cols a.ln{color:var(--green)}
+  .runbox{font-family:var(--mono);font-size:13px;background:#1a1c1f;color:#e7e6e1;border-radius:12px;padding:18px 20px;line-height:1.9}
+  .runbox .c{color:#8a8a83}.runbox .p{color:#6fd0b6}.runbox .ok{color:#6fd0b6}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 46px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+  .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i></span> AIP Lab</div>
+    <nav class="n">
+      <a href="#family" class="hs">the tools</a>
+      <a href="#values" class="hs">why</a>
+      <a href="#about" class="hs">about</a>
+      <a href="https://github.com/hanmariyang">github</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="cast">
+      <div class="m d">
+        <svg viewBox="0 0 120 120" aria-label="Drafting mascot"><g transform="rotate(-5 60 60)"><path d="M46 16 h27 l16 16 v57 a15 15 0 0 1 -15 15 h-28 a15 15 0 0 1 -15 -15 v-58 a15 15 0 0 1 15 -15 z" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><path d="M73 16 v16 h16 z" fill="#E9F5F1" stroke="#1B1C1E" stroke-width="2.9" stroke-linejoin="round"/><circle cx="50" cy="45" r="3.6" fill="#1B1C1E"/><circle cx="70" cy="45" r="3.6" fill="#1B1C1E"/><path d="M53 55 q7 6.5 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/><circle cx="47" cy="76" r="5.4" fill="#0E7B62"/><line x1="57" y1="76" x2="75" y2="76" stroke="#1B1C1E" stroke-width="2.7" stroke-linecap="round"/></g></svg>
+        <div class="tag">DRAFTING</div>
+      </div>
+      <div class="m s">
+        <img src="img/mikkeuri.png" alt="Sliding mascot 미끌이"/>
+        <div class="tag">SLIDING</div>
+      </div>
+      <div class="m c">
+        <img src="img/coxpit-mark.png" alt="Coxpit mascot"/>
+        <div class="tag">COXPIT</div>
+      </div>
+    </div>
+    <div class="eyebrow"><span class="pr">&gt;</span> AIP LAB — a one-person tool studio</div>
+    <h1>The workshop behind <span class="g">Drafting</span>, <span class="b">Sliding</span> &amp; <span class="t">Coxpit</span>.</h1>
+    <p class="sub">Small, self-hostable tools from one maker. <b>The AI writes the first draft; the file never leaves your machine.</b> Each one is open source and runs on localhost.</p>
+    <div class="cta">
+      <a class="btn" href="#family">Meet the tools ↓</a>
+      <a class="btn g" href="https://github.com/hanmariyang">GitHub ↗</a>
+    </div>
+    <div class="micro">MIT · self-hostable · runs on your machine · no accounts</div>
+  </div>
+</section>
+
+<div id="family"></div>
+
+<!-- Drafting -->
+<section class="band d">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <svg viewBox="0 0 120 120" aria-label="Drafting"><g transform="rotate(-5 60 60)"><path d="M46 16 h27 l16 16 v57 a15 15 0 0 1 -15 15 h-28 a15 15 0 0 1 -15 -15 v-58 a15 15 0 0 1 15 -15 z" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><path d="M73 16 v16 h16 z" fill="#E9F5F1" stroke="#1B1C1E" stroke-width="2.9" stroke-linejoin="round"/><circle cx="50" cy="45" r="3.6" fill="#1B1C1E"/><circle cx="70" cy="45" r="3.6" fill="#1B1C1E"/><path d="M53 55 q7 6.5 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/><circle cx="47" cy="76" r="5.4" fill="#0E7B62"/><line x1="57" y1="76" x2="75" y2="76" stroke="#1B1C1E" stroke-width="2.7" stroke-linecap="round"/></g></svg>
+        <div><div class="pname">Drafting</div><div class="code">AIP·001 · npm</div></div>
+      </div>
+      <div class="ptag">AI writes proposals.<br>You write the document.</div>
+      <p>An idea interview turns into a PRD, feature spec and IA. Every AI sentence arrives as a suggestion — only what you accept becomes the document.</p>
+      <span class="chip"><span class="lv"></span> live · v1.6.2</span>
+      <div class="plinks"><a href="https://hanmariyang.github.io/drafting/">Open ↗</a><a href="https://github.com/hanmariyang/drafting">Code</a></div>
+    </div>
+    <div class="dcard">
+      <div class="hd"><span class="tl"><i></i><i></i><i></i></span> PRD · v3 <span class="sp"></span><span class="lv"><i></i> 1</span></div>
+      <div class="bd">
+        <div class="lab">Try it — this is the whole product</div>
+        <h5>Scope</h5>
+        <div class="txt">The first release ships one Slack digest bot, reading a single spreadsheet. <mark>It does not ship a dashboard UI.</mark></div>
+        <div class="act"><button class="acc">Accept</button><button class="rej">Reject</button><span class="src">source: interview Q4</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sliding -->
+<section class="band s">
+  <div class="wrap prow">
+    <div class="frame blue">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Sliding · editor</div>
+      <img src="img/sliding-editor.jpg" alt="Sliding editor"/>
+    </div>
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/mikkeuri.png" alt="미끌이"/>
+        <div><div class="pname">Sliding</div><div class="code">AIP·002 · oss</div></div>
+      </div>
+      <div class="ptag">AI writes layout code.<br>A render scan measures it.</div>
+      <p>An AI slide studio on your local Claude subscription. It designs each slide in code, then a render scan checks cropping, overlap and typesetting — no credits, the deck stays on your machine.</p>
+      <span class="chip"><span class="lv"></span> live · v0.1.1</span>
+      <div class="plinks"><a href="https://hanmariyang.github.io/sliding/">Open ↗</a><a href="https://github.com/hanmariyang/sliding">Code</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Coxpit -->
+<section class="band c">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/coxpit-mark.png" alt="Coxpit pilot"/>
+        <div><div class="pname">Coxpit</div><div class="code">AIP·003 · npm</div></div>
+      </div>
+      <div class="ptag">Own your agent fleet.</div>
+      <p>A self-hosted cockpit for a fleet of AI coding agents across your own machines. Parallel worktree runs, a live board, compare &amp; merge, and a web terminal. Your code never leaves your network.</p>
+      <span class="chip"><span class="lv"></span> live · v5.3.1</span>
+      <div class="plinks"><a href="https://hanmariyang.github.io/coxpit-oss/">Open ↗</a><a href="https://github.com/hanmariyang/coxpit-oss">Code</a></div>
+    </div>
+    <div class="frame dark">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> coxpit · fleet console <span class="lv"><i></i> live</span></div>
+      <img src="img/coxpit-board.png" alt="Coxpit fleet console"/>
+    </div>
+  </div>
+</section>
+
+<section id="values" class="values">
+  <div class="wrap">
+    <div class="k">&gt; what the family shares</div>
+    <div class="vgrid">
+      <div class="v"><div class="vt">Self-hostable</div><div class="vd">runs on your machine</div></div>
+      <div class="v"><div class="vt">Local-first</div><div class="vd">your data, one file</div></div>
+      <div class="v"><div class="vt">Open source</div><div class="vd">MIT · outlives us</div></div>
+      <div class="v"><div class="vt">AI-assisted</div><div class="vd">drafts, you decide</div></div>
+      <div class="v"><div class="vt">No accounts</div><div class="vd">nothing to sign up</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap cols">
+    <div>
+      <h3>One maker, small tools</h3>
+      <p>AIP Lab is built by <a class="ln" href="https://github.com/hanmariyang">hanmariyang</a> — one person, shipping small self-hostable tools in public. Each has its own mascot, its own colour, its own repo.</p>
+      <p><b>Bring your own key — or your Claude subscription.</b> Run any of them from your terminal and it just works. No server to trust, no account to make.</p>
+      <h3 style="margin-top:26px">Why self-hostable?</h3>
+      <p>Because the useful part of a tool shouldn't depend on someone else's server, subscription, or uptime. These keep your work in a local file and let the AI help without taking it away.</p>
+    </div>
+    <div class="runbox">
+<span class="c"># any AIP Lab tool, one line</span><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="c"># → http://localhost:8477</span><br><br>
+<span class="c"># your data stays here</span><br>
+<span class="p">$</span> ls ~/.drafting<br>
+drafting.sqlite <span class="ok">✓</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <nav class="n">
+      <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
+      <a href="https://aiplab.kr">aiplab.kr</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
