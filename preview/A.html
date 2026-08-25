@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AIP Lab — tools you run yourself</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F6F7F9; --card:#FFFFFF; --ink:#15171C; --soft:#5B616E; --faint:#9AA0AC;
+    --line:#E3E6EC; --line2:#EDEFF3; --blue:#1B3DF5; --live:#12A150; --term:#141824;
+    --disp:"Bricolage Grotesque",-apple-system,system-ui,sans-serif;
+    --body:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+  .k .pr{color:var(--blue)}
+  .cur{display:inline-block;width:.56em;height:1.02em;background:var(--blue);margin-left:.06em;transform:translateY(.14em);animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(246,247,249,.82);backdrop-filter:blur(10px) saturate(1.3);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .mark{font-family:var(--disp);font-weight:800;font-size:23px;letter-spacing:-.01em;display:flex;align-items:center}
+  .mark .cur{height:.82em;transform:translateY(.02em)}
+  nav.n{display:flex;align-items:center;gap:22px}
+  nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  nav.n a:hover{color:var(--ink)}
+  .lang{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--soft);padding:5px 9px;border-radius:6px;cursor:pointer}
+  @media(max-width:720px){nav.n a.hs{display:none}}
+
+  .grid-bg{background-image:linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px);background-size:44px 44px}
+
+  .hero{padding:70px 0 46px;border-bottom:1px solid var(--line)}
+  .herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  @media(max-width:900px){.herogrid{grid-template-columns:1fr;gap:30px}}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,6.4vw,72px);line-height:.98;letter-spacing:-.025em;margin:16px 0 0;text-wrap:balance}
+  h1 .b{color:var(--blue)}
+  .lead{max-width:44ch;margin:20px 0 0;color:var(--soft);font-size:clamp(16px,2vw,19px)}
+  .lead b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:12px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;transition:transform .12s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.g:hover{border-color:var(--blue);color:var(--blue)}
+
+  .term{background:var(--term);border-radius:12px;box-shadow:0 24px 60px -24px rgba(20,24,36,.5);overflow:hidden;font-family:var(--mono);font-size:13.5px;line-height:1.85}
+  .term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#1b2030;border-bottom:1px solid #262d40}
+  .term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+  .term .tbar .t{margin-left:10px;color:#7b849b;font-size:12px}
+  .term .body{padding:16px 18px 20px;color:#c7cddc}
+  .term .p{color:#8fb6ff}.term .c{color:#707a92}
+  .term .ok{color:#4ade80}.term .dim{color:#7b849b}.term .w{color:#e7ebf4}
+  .term .cur2{display:inline-block;width:.55em;height:1.05em;background:#4ade80;transform:translateY(.15em);animation:blink 1.05s steps(1) infinite}
+
+  .stats{border-bottom:1px solid var(--line);background:var(--card)}
+  .statrow{display:flex;flex-wrap:wrap;gap:0;align-items:stretch}
+  .stat{flex:1;min-width:150px;padding:20px 8px;text-align:center;border-right:1px solid var(--line2)}
+  .stat:last-child{border-right:0}
+  .stat .n{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.02em}
+  .stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+
+  section{padding:66px 0}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .eyebrow .ln{flex:1;height:1px;background:var(--line)}
+  h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;margin:0}
+
+  .beats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  @media(max-width:760px){.beats{grid-template-columns:1fr}}
+  .beat{background:var(--card);padding:26px 24px 22px}
+  .beat .num{font-family:var(--mono);font-size:12px;color:var(--blue)}
+  .beat h3{font-family:var(--disp);font-weight:700;font-size:22px;margin:10px 0 8px;letter-spacing:-.01em}
+  .beat p{margin:0 0 16px;color:var(--soft);font-size:15px}
+  .beat .art{font-family:var(--mono);font-size:12px;color:var(--soft);background:var(--paper);border:1px solid var(--line2);border-radius:7px;padding:8px 10px;overflow-x:auto;white-space:nowrap}
+  .beat .art .p{color:var(--blue)}
+
+  .shiplog{background:var(--term);border-radius:16px;padding:30px 30px 26px;color:#c7cddc;font-family:var(--mono)}
+  .shiplog .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .shiplog .head .k{color:#7b849b}
+  .logrow{display:grid;grid-template-columns:118px 1fr 84px 74px 78px;gap:10px;font-size:13px;padding:9px 0;border-top:1px solid #262d40;align-items:center}
+  .logrow .dt{color:#7b849b}.logrow .nm{color:#e7ebf4;font-family:var(--disp);font-weight:700;font-size:15px}
+  .logrow .vr{color:#8fb6ff}.logrow .ch{color:#7b849b}
+  .logrow .st{color:#4ade80;display:flex;align-items:center;gap:6px;justify-content:flex-end}
+  .logrow .st .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.18)}
+  @media(max-width:640px){.logrow{grid-template-columns:70px 1fr 70px;}.logrow .ch,.logrow .vr{display:none}}
+  .statline{display:flex;gap:26px;margin-top:20px;padding-top:16px;border-top:1px solid #262d40;font-size:13px;color:#7b849b;flex-wrap:wrap}
+  .statline b{color:#e7ebf4;font-family:var(--disp)}
+
+  .marq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;background:var(--card);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .track{display:flex;gap:0;width:max-content;animation:scroll 34s linear infinite}
+  .marq:hover .track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .chip{display:flex;align-items:center;gap:14px;padding:22px 34px;border-right:1px solid var(--line2)}
+  .mono-tile{width:46px;height:46px;border-radius:11px;background:var(--blue);color:#fff;font-family:var(--disp);font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .mono-tile.n{background:var(--ink)} .mono-tile.soon{background:var(--paper);color:var(--faint);border:1.5px dashed var(--line)}
+  .chip .nm{font-family:var(--disp);font-weight:700;font-size:19px;line-height:1.05}
+  .chip .cat{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
+  .chip .code{font-family:var(--mono);font-size:11px;color:var(--blue)}
+
+  .about{border-top:1px solid var(--line)}
+  .cols{display:grid;grid-template-columns:1.1fr 1fr;gap:52px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;gap:30px}}
+  .cols h3{font-family:var(--disp);font-weight:700;font-size:24px;margin:0 0 12px;letter-spacing:-.01em}
+  .cols p{margin:0 0 14px;color:var(--soft)}
+  .cols p b{color:var(--ink)}
+  .cols a.ln{color:var(--blue)}
+  .whobox{font-family:var(--mono);font-size:13px;background:var(--term);color:#c7cddc;border-radius:12px;padding:18px 20px;line-height:1.9}
+  .whobox .p{color:#8fb6ff}.whobox .c{color:#707a92}.whobox .ok{color:#4ade80}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 46px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+  .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  .foot a:hover{color:var(--blue)}
+  @media(prefers-reduced-motion:reduce){.track{animation:none}.cur,.cur2,.logrow .st .dot{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <div class="mark">AIP&nbsp;Lab<span class="cur"></span></div>
+    <nav class="n">
+      <a href="#tools" class="hs">tools</a>
+      <a href="#log" class="hs">ship log</a>
+      <a href="#about" class="hs">about</a>
+      <a href="https://github.com/hanmariyang">github</a>
+      <button class="lang">KO</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero grid-bg">
+  <div class="wrap herogrid">
+    <div>
+      <span class="k"><span class="pr">&gt;</span> WHO WE ARE</span>
+      <h1>We build tools<br>you <span class="b">run yourself.</span></h1>
+      <p class="lead">AIP Lab is a one-person studio making small, self-hostable software. <b>The AI writes the first draft — the file stays on your machine.</b> Everything is open source and runs on localhost.</p>
+      <div class="cta">
+        <a class="btn" href="#tools">See the tools →</a>
+        <a class="btn g" href="https://github.com/hanmariyang">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="term">
+      <div class="tbar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">you@localhost:~</span></div>
+      <div class="body">
+<span class="p">$</span> <span class="w">whoami</span><br>
+<span class="dim">&gt; AIP Lab — a one-person tool studio.</span><br><br>
+<span class="p">$</span> <span class="w">what we make</span><br>
+<span class="dim">&gt; small · self-hostable · open source</span><br><br>
+<span class="p">$</span> <span class="w">try one</span><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="c">▸ starting…</span><br>
+<span class="ok">✓ running</span> <span class="dim">→</span> http://localhost:8477 <span class="cur2"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats"><div class="wrap statrow">
+  <div class="stat"><div class="n">3</div><div class="l">tools shipped</div></div>
+  <div class="stat"><div class="n">100%</div><div class="l">local · no cloud</div></div>
+  <div class="stat"><div class="n">0</div><div class="l">accounts</div></div>
+  <div class="stat"><div class="n">MIT</div><div class="l">open source</div></div>
+  <div class="stat"><div class="n">npx</div><div class="l">+ docker</div></div>
+</div></div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow"><span class="k"><span class="pr">&gt;</span> HOW WE WORK</span><span class="ln"></span></div>
+    <div class="beats">
+      <div class="beat"><div class="num">01</div><h3>Find the friction</h3><p>A small annoyance in the day's work. We watch what people already do around it.</p><div class="art"><span class="p">$</span> observe --daily</div></div>
+      <div class="beat"><div class="num">02</div><h3>Ship the smallest thing</h3><p>One tool, one job. It runs on your machine from the first version — no waiting list.</p><div class="art"><span class="p">$</span> npx @hanmariyang/… serve</div></div>
+      <div class="beat"><div class="num">03</div><h3>Keep it yours</h3><p>Your data lives in a local file. Open source, so it outlives the studio.</p><div class="art">~/.drafting/drafting.sqlite</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap">
+    <div class="shiplog">
+      <div class="head"><span class="k">&gt; SHIP LOG</span><a class="btn g" style="border-color:#39415a;color:#c7cddc" href="https://github.com/hanmariyang">View on GitHub ↗</a></div>
+      <div class="logrow"><span class="dt">2026.08.17</span><span class="nm">Coxpit</span><span class="vr">v5.3.1</span><span class="ch">npm</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="logrow"><span class="dt">2026.08.20</span><span class="nm">Drafting</span><span class="vr">v1.6.2</span><span class="ch">npm</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="logrow"><span class="dt">2026.08.21</span><span class="nm">Sliding</span><span class="vr">v0.1.1</span><span class="ch">github</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="statline"><span>$ aip ship --stats</span><span>shipped <b>3</b></span><span>building <b>1</b></span><span>next <b>soon</b></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marq"><div class="track" id="track">
+  <a class="chip" href="https://hanmariyang.github.io/drafting/"><div class="mono-tile">D</div><div><div class="nm">Drafting</div><div><span class="code">AIP·001</span> <span class="cat">· PLAN</span></div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/sliding/"><div class="mono-tile">S</div><div><div class="nm">Sliding</div><div><span class="code">AIP·002</span> <span class="cat">· DECK</span></div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/coxpit-oss/"><div class="mono-tile">C</div><div><div class="nm">Coxpit</div><div><span class="code">AIP·003</span> <span class="cat">· FLEET</span></div></div></a>
+  <a class="chip" href="https://github.com/hanmariyang"><div class="mono-tile soon">+</div><div><div class="nm" style="color:var(--faint)">Next</div><div><span class="code">AIP·004</span> <span class="cat">· SOON</span></div></div></a>
+</div></div>
+
+<section id="tools" style="padding-top:34px">
+  <div class="wrap">
+    <div class="eyebrow"><span class="k"><span class="pr">&gt;</span> OUR TOOLS</span><span class="ln"></span></div>
+    <h2 style="max-width:16ch">Small tools, in the present tense.</h2>
+    <p style="color:var(--soft);max-width:60ch;margin-top:14px">Drafting and Sliding are the <b style="color:var(--ink)">-ing</b> family — always being made. Coxpit runs the machines that make the rest. Click any tile above to open it.</p>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap cols">
+    <div>
+      <h3>Why self-hostable?</h3>
+      <p>Because the useful part of a tool shouldn't depend on someone else's server, subscription, or uptime. AIP Lab tools keep your work in a local file and let the AI help without taking it away.</p>
+      <p><b>Bring your own key — or your Claude subscription.</b> Run it from your terminal and it just works. No accounts, nothing to sign up for.</p>
+      <h3 style="margin-top:28px">Made by one person</h3>
+      <p>AIP Lab is built by <a class="ln" href="https://github.com/hanmariyang">hanmariyang</a> — one maker, small tools, shipped in public.</p>
+    </div>
+    <div class="whobox">
+<span class="c"># one line, in your terminal</span><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="c"># → http://localhost:8477</span><br><br>
+<span class="c"># your data stays here</span><br>
+<span class="p">$</span> ls ~/.drafting<br>
+drafting.sqlite <span class="ok">✓</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="k">© 2026 AIP LAB</span>
+    <nav class="n">
+      <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
+      <a href="https://aiplab.kr">aiplab.kr</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

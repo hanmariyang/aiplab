@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AIP Lab — small software you run yourself</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#EEF0F3; --card:#FCFCFD; --ink:#15171C; --soft:#5B616E; --faint:#8B909C;
+    --line:#D7DBE2; --line2:#E6E9EF; --blue:#1B3DF5; --live:#12A150;
+    --disp:"Instrument Serif",Georgia,serif;
+    --body:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 30px}
+  .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+  .k .pr{color:var(--blue)}
+  .sheet{position:relative}
+  .sheet::before,.sheet::after{content:"+";position:absolute;font-family:var(--mono);font-size:13px;color:var(--faint);opacity:.55;top:10px}
+  .sheet::before{left:8px}.sheet::after{right:8px}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(238,240,243,.84);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .mark{font-family:var(--disp);font-size:27px;letter-spacing:.01em}
+  .mark .dot{color:var(--blue)}
+  nav.n{display:flex;align-items:center;gap:20px}
+  nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  nav.n a:hover{color:var(--ink)}
+  .lang{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--soft);padding:5px 9px;border-radius:3px;cursor:pointer}
+  @media(max-width:720px){nav.n a.hs{display:none}}
+
+  .hero{padding:66px 0 44px;border-bottom:1px solid var(--line)}
+  .herogrid{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
+  @media(max-width:900px){.herogrid{grid-template-columns:1fr;gap:28px}}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .eyebrow .ln{flex:1;height:1px;background:var(--line)}
+  h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--blue)}
+  .lead{max-width:46ch;margin:22px 0 0;color:var(--soft);font-size:clamp(16px,2vw,19px)}
+  .lead b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:11px 16px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);transition:transform .12s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.g:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* light "print" terminal */
+  .term{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:13.5px;line-height:1.9;box-shadow:0 18px 44px -28px rgba(21,23,28,.35)}
+  .term .tbar{display:flex;align-items:center;gap:8px;padding:9px 13px;border-bottom:1px solid var(--line2);color:var(--faint);font-size:11.5px}
+  .term .tbar b{width:8px;height:8px;border-radius:50%;background:var(--line);display:block}
+  .term .body{padding:15px 17px 18px;color:var(--ink)}
+  .term .p{color:var(--blue)}.term .c{color:var(--faint)}.term .ok{color:var(--live);font-weight:600}.term .dim{color:var(--soft)}
+  .term .cur2{display:inline-block;width:.55em;height:1.05em;background:var(--live);transform:translateY(.15em);animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .stats{border-bottom:1px solid var(--line)}
+  .statrow{display:flex;flex-wrap:wrap}
+  .stat{flex:1;min-width:150px;padding:18px 8px;text-align:center;border-right:1px solid var(--line2)}
+  .stat:last-child{border-right:0}
+  .stat .n{font-family:var(--disp);font-size:30px;line-height:1}
+  .stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+
+  section{padding:62px 0}
+  h2{font-family:var(--disp);font-weight:400;font-size:clamp(28px,4vw,42px);letter-spacing:-.01em;margin:0}
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:26px}
+
+  /* ship log — light bordered table */
+  .log{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+  .logrow{display:grid;grid-template-columns:120px 1fr 84px 78px 78px;gap:10px;align-items:center;padding:15px 22px;border-top:1px solid var(--line2);font-family:var(--mono);font-size:13px}
+  .logrow:first-child{border-top:0}
+  .logrow .dt{color:var(--faint)}
+  .logrow .nm{font-family:var(--disp);font-size:21px;color:var(--ink)}
+  .logrow .vr{color:var(--blue)}.logrow .ch{color:var(--soft)}
+  .logrow .st{color:var(--live);display:flex;align-items:center;gap:6px;justify-content:flex-end;font-weight:500}
+  .logrow .st .dot{width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 0 3px rgba(18,161,80,.16)}
+  .logrow.foot{background:var(--paper);color:var(--soft);font-size:12.5px;display:flex;gap:24px;flex-wrap:wrap}
+  .logrow.foot b{color:var(--ink);font-family:var(--disp);font-size:16px}
+  @media(max-width:640px){.logrow{grid-template-columns:72px 1fr 72px}.logrow .ch,.logrow .vr{display:none}}
+
+  /* kinetic specimen marquee */
+  .marq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--card);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .track{display:flex;width:max-content;animation:scroll 36s linear infinite}
+  .marq:hover .track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .chip{display:flex;align-items:center;gap:16px;padding:22px 36px;border-right:1px solid var(--line2)}
+  .chip .code{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.05em}
+  .chip .nm{font-family:var(--disp);font-size:26px;line-height:1}
+  .chip .cat{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
+
+  .about{border-top:1px solid var(--line);background:linear-gradient(180deg,transparent,rgba(27,61,245,.04))}
+  .cols{display:grid;grid-template-columns:1.1fr 1fr;gap:52px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;gap:28px}}
+  .cols h3{font-family:var(--disp);font-weight:400;font-size:26px;margin:0 0 12px}
+  .cols p{margin:0 0 14px;color:var(--soft)}
+  .cols p b{color:var(--ink)}.cols a.ln{color:var(--blue)}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 44px}
+  .foot2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+  .foot2 a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}.foot2 a:hover{color:var(--blue)}
+  @media(prefers-reduced-motion:reduce){.track{animation:none}.term .cur2,.logrow .st .dot{animation:none}}
+</style>
+</head>
+<body>
+<header class="sheet">
+  <div class="wrap bar">
+    <div class="mark">AIP Lab<span class="dot">.</span></div>
+    <nav class="n">
+      <a href="#tools" class="hs">catalog</a>
+      <a href="#log" class="hs">ship log</a>
+      <a href="#about" class="hs">about</a>
+      <a href="https://github.com/hanmariyang">github</a>
+      <button class="lang">KO</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero sheet">
+  <div class="wrap">
+    <div class="eyebrow"><span class="k"><span class="pr">&gt;</span> AIP LAB · WORKSHOP INDEX</span><span class="ln"></span><span class="k">03 tools</span></div>
+    <div class="herogrid">
+      <div>
+        <h1>Small software,<br>run on <em>your own</em> machine.</h1>
+        <p class="lead">A one-person studio building self-hostable tools. <b>The AI writes the first draft; the file never leaves your machine.</b> Open source, runs on localhost.</p>
+        <div class="cta">
+          <a class="btn" href="#tools">See the catalog ↓</a>
+          <a class="btn g" href="https://github.com/hanmariyang">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="term">
+        <div class="tbar"><b></b><b></b><b></b><span style="margin-left:6px">you@localhost</span></div>
+        <div class="body">
+<span class="p">$</span> whoami<br>
+<span class="dim">AIP Lab — a one-person tool studio.</span><br><br>
+<span class="p">$</span> what we make<br>
+<span class="dim">small · self-hostable · open source</span><br><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="c">▸ starting…</span><br>
+<span class="ok">✓ running</span> <span class="dim">→ http://localhost:8477</span><span class="cur2"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats sheet"><div class="wrap statrow">
+  <div class="stat"><div class="n">3</div><div class="l">tools shipped</div></div>
+  <div class="stat"><div class="n">100%</div><div class="l">local · no cloud</div></div>
+  <div class="stat"><div class="n">0</div><div class="l">accounts</div></div>
+  <div class="stat"><div class="n">MIT</div><div class="l">open source</div></div>
+  <div class="stat"><div class="n">npx</div><div class="l">+ docker</div></div>
+</div></div>
+
+<section id="log" class="sheet">
+  <div class="wrap">
+    <div class="sechead"><h2>Ship log</h2><span class="k">continuously shipping</span></div>
+    <div class="log">
+      <div class="logrow"><span class="dt">2026.08.17</span><span class="nm">Coxpit</span><span class="vr">v5.3.1</span><span class="ch">npm</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="logrow"><span class="dt">2026.08.20</span><span class="nm">Drafting</span><span class="vr">v1.6.2</span><span class="ch">npm</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="logrow"><span class="dt">2026.08.21</span><span class="nm">Sliding</span><span class="vr">v0.1.1</span><span class="ch">github</span><span class="st"><span class="dot"></span>live</span></div>
+      <div class="logrow foot"><span>$ aip ship --stats</span><span>shipped <b>3</b></span><span>building <b>1</b></span><span>next <b>soon</b></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marq"><div class="track">
+  <a class="chip" href="https://hanmariyang.github.io/drafting/"><span class="code">AIP·001</span><div><div class="nm">Drafting</div><div class="cat">PLAN · npm</div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/sliding/"><span class="code">AIP·002</span><div><div class="nm">Sliding</div><div class="cat">DECK · oss</div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/coxpit-oss/"><span class="code">AIP·003</span><div><div class="nm">Coxpit</div><div class="cat">FLEET · npm</div></div></a>
+  <a class="chip" href="https://github.com/hanmariyang"><span class="code">AIP·004</span><div><div class="nm" style="color:var(--faint)">Next</div><div class="cat">on the bench</div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/drafting/"><span class="code">AIP·001</span><div><div class="nm">Drafting</div><div class="cat">PLAN · npm</div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/sliding/"><span class="code">AIP·002</span><div><div class="nm">Sliding</div><div class="cat">DECK · oss</div></div></a>
+  <a class="chip" href="https://hanmariyang.github.io/coxpit-oss/"><span class="code">AIP·003</span><div><div class="nm">Coxpit</div><div class="cat">FLEET · npm</div></div></a>
+  <a class="chip" href="https://github.com/hanmariyang"><span class="code">AIP·004</span><div><div class="nm" style="color:var(--faint)">Next</div><div class="cat">on the bench</div></div></a>
+</div></div>
+
+<section id="tools" class="sheet" style="padding-top:34px">
+  <div class="wrap">
+    <div class="sechead"><h2 style="max-width:16ch">Small tools, in the present tense.</h2><span class="k">click a specimen ↑</span></div>
+    <p style="color:var(--soft);max-width:62ch;margin:0"><b style="color:var(--ink)">Drafting</b> and <b style="color:var(--ink)">Sliding</b> are the <i>-ing</i> family — always being made. <b style="color:var(--ink)">Coxpit</b> runs the machines that make the rest.</p>
+  </div>
+</section>
+
+<section id="about" class="about sheet">
+  <div class="wrap cols">
+    <div>
+      <h3>Why self-hostable?</h3>
+      <p>Because the useful part of a tool shouldn't depend on someone else's server, subscription, or uptime. AIP Lab tools keep your work in a local file and let the AI help without taking it away.</p>
+      <p><b>Bring your own key — or your Claude subscription.</b> Run it from your terminal and it just works. No accounts, nothing to sign up for.</p>
+      <h3 style="margin-top:28px">Made by one person</h3>
+      <p>AIP Lab is built by <a class="ln" href="https://github.com/hanmariyang">hanmariyang</a> — one maker, small tools, shipped in public.</p>
+    </div>
+    <div class="term">
+      <div class="tbar"><b></b><b></b><b></b><span style="margin-left:6px">~/.drafting</span></div>
+      <div class="body">
+<span class="c"># one line, in your terminal</span><br>
+<span class="p">$</span> npx @hanmariyang/drafting serve<br>
+<span class="dim"># → http://localhost:8477</span><br><br>
+<span class="c"># your data stays here</span><br>
+<span class="p">$</span> ls ~/.drafting<br>
+drafting.sqlite <span class="ok">✓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="sheet">
+  <div class="wrap foot2">
+    <span class="k">© 2026 AIP LAB</span>
+    <nav class="n">
+      <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
+      <a href="https://aiplab.kr">aiplab.kr</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
