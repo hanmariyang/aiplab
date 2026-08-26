@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Shipping Working — AIP Lab Blog</title>
+<title>Shipping Working · AIP Lab Blog</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='11' r='5' fill='%230E7B62'/%3E%3Ccircle cx='21' cy='11' r='5' fill='%233B5BDB'/%3E%3Ccircle cx='11' cy='21' r='5' fill='%2312B39A'/%3E%3Ccircle cx='21' cy='21' r='5' fill='%23C77C1A'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -62,10 +62,14 @@
   .body figure img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
   .body figcaption{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:8px;text-align:center}
 
-  /* inline CTA card */
-  .inlinecta{margin:32px 0;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:12px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-  .inlinecta .t{font-weight:700;font-size:17px}
-  .inlinecta .d{color:var(--soft);font-size:14px;margin-top:2px}
+  /* inline product callout */
+  .callout{margin:34px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;box-shadow:0 10px 30px -22px rgba(27,28,30,.4)}
+  .callout .cm{width:50px;height:50px;flex-shrink:0}
+  .callout .ct{flex:1;min-width:190px}
+  .callout .cn{font-weight:700;font-size:16px;display:flex;align-items:baseline;gap:8px}
+  .callout .cn .cv{font-family:var(--mono);font-size:11px;color:var(--faint);font-weight:400}
+  .callout .cd{color:var(--soft);font-size:14px;margin-top:3px;line-height:1.45}
+  .callout .cs{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:7px;letter-spacing:.02em}
   .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--coral);background:var(--coral);color:#fff;white-space:nowrap}
   .btn.d{background:var(--ink);border-color:var(--ink)}
   .btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
@@ -121,24 +125,29 @@
 
 <article class="art">
   <div class="body">
-    <p>Working proposes a structure, drafts the sections, and suggests the wording. But nothing lands on disk until you accept it. That sounds like a setting. It isn't — the database enforces it. A document with no record of a human accepting it simply cannot reach a confirmed state.</p>
+    <p>Working proposes a structure, drafts the sections, and suggests the wording. But nothing lands on disk until you accept it. That sounds like a setting. It isn't. The database enforces it. A document with no record of a human accepting it simply cannot reach a confirmed state.</p>
 
-    <blockquote>A document the human never accepted can't be confirmed. Not by policy — by schema.</blockquote>
+    <blockquote>A document the human never accepted can't be confirmed. Not by policy. By schema.</blockquote>
 
     <p>A single test, <code>api/test/automatic-confirmation.test.js</code>, guards this rule. If a future change ever lets the AI confirm its own output, that test goes red before the change ships.</p>
 
     <figure>
       <img src="../img/working-accept.jpg" alt="Working proposing a plan structure with accept and reject buttons"/>
-      <figcaption>Working proposes a structure — you accept before any file is created.</figcaption>
+      <figcaption>Working proposes a structure, and you accept before any file is created.</figcaption>
     </figure>
 
     <h2>Why bother</h2>
-    <p>Because "AI-assisted" quietly slides into "AI-authored" the moment the human is only a spectator. The accept step keeps a person in the loop where it matters — not as a rubber stamp, but as the one who decides what becomes real.</p>
+    <p>Because "AI-assisted" quietly slides into "AI-authored" the moment the human is only a spectator. The accept step keeps a person in the loop where it matters, not as a rubber stamp, but as the one who decides what becomes real.</p>
 
-    <div class="inlinecta">
-      <div><div class="t">Try it on your Mac</div><div class="d">Signed & notarized · Apple Silicon · macOS 12+</div></div>
-      <a class="btn" href="../working/">Download for macOS ↓</a>
-    </div>
+    <aside class="callout">
+      <img class="cm" src="../img/worky.png" alt="Worky"/>
+      <div class="ct">
+        <div class="cn">Working <span class="cv">v0.1.0</span></div>
+        <div class="cd">A free macOS app for planning. Signed, notarized, and it runs entirely on your machine.</div>
+        <div class="cs">APPLE SILICON · MACOS 12+ · 107MB</div>
+      </div>
+      <a class="btn" href="../working/">Download ↓</a>
+    </aside>
 
     <h2>Where the files go</h2>
     <p>Every accepted document is a real <code>.md</code> file in a folder you chose. No account, no server, no lock-in. Close the app and the work is still yours, in plain text, on your machine.</p>
@@ -169,7 +178,7 @@
 <div class="related">
   <div class="k">Keep reading</div>
   <div class="rgrid">
-    <a class="rc" href="post.html"><div class="cv" style="background:#E4F3EE"><img src="../img/drafting-doc.png" alt=""/></div><h4>Drafting v1.6 — terminal mode</h4><div class="rm">Release · Drafting · 4 min</div></a>
+    <a class="rc" href="post.html"><div class="cv" style="background:#E4F3EE"><img src="../img/drafting-doc.png" alt=""/></div><h4>Drafting v1.6 · terminal mode</h4><div class="rm">Release · Drafting · 4 min</div></a>
     <a class="rc" href="post.html"><div class="cv" style="background:#0d1117"><img src="../img/coxpit-board.png" alt=""/></div><h4>Running a fleet of agents on your machines</h4><div class="rm">Build log · Coxpit · 7 min</div></a>
     <a class="rc" href="post.html"><div class="cv" style="background:linear-gradient(120deg,#E4F3EE,#EAEDFB,#FBEFD8,#FDE8E0)"></div><h4>The -ing family: software in the present tense</h4><div class="rm">Note · Studio · 3 min</div></a>
   </div>
