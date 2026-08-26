@@ -16,6 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.normpath(os.path.join(HERE, '..', 'blog'))
 POSTS_DIR = os.path.join(HERE, 'posts')
 SITE = 'https://aiplab.kr'
+# 조회수: goatcounter.com 무료 가입 후 사이트코드(예 'aiplab')를 넣고 재빌드하면 활성.
+# 비어 있으면 조회수 요소는 숨김(허수 표시 안 함). 활성 시 각 글 조회수를 GoatCounter 에서 읽어 표시.
+GOATCOUNTER = ''
 
 # 제품 레지스트리 — 색·마스코트·커버·CTA 를 product 하나로 결정한다.
 DL_WORKING = 'https://github.com/hanmariyang/aiplab/releases/download/working-v0.1.0/Working-0.1.0-arm64.dmg'
@@ -150,7 +153,10 @@ def cover(p, cls_extra=''):
                 % (cls_extra, p['cover_bg'], p['mascot']))
     return '<div class="cover" style="--cg:%s"></div>' % p['cover_bg']
 
-def views_html(meta):
+def views_html(meta, path=''):
+    if GOATCOUNTER and path:
+        # JS 가 GoatCounter 에서 조회수를 읽어 채운다(성공 전엔 숨김)
+        return '<span class="views" data-vc="%s" style="display:none">%s</span>' % (path, EYE)
     v = meta.get('views')
     return ('<span class="views">%s%s</span>' % (EYE, v)) if v else ''
 
@@ -176,6 +182,8 @@ HEAD = ('<!doctype html><html lang="en"><head><meta charset="utf-8"/>'
         '<meta name="description" content="__DESC__"/>'
         '<meta property="og:title" content="__TITLE__"/><meta property="og:description" content="__DESC__"/>'
         '<meta property="og:type" content="__OGTYPE__"/>'
+        '<meta property="og:image" content="__OGIMG__"/><meta name="twitter:card" content="summary_large_image"/>'
+        '<link rel="canonical" href="__CANON__"/>'
         '<link rel="alternate" type="application/rss+xml" title="AIP Lab" href="rss.xml"/>'
         '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E'
         '%3Ccircle cx=\'11\' cy=\'11\' r=\'5\' fill=\'%230E7B62\'/%3E%3Ccircle cx=\'21\' cy=\'11\' r=\'5\' fill=\'%233B5BDB\'/%3E'
@@ -189,8 +197,22 @@ FOOT = ('<footer><div class="foot"><span class="k"><span class="dots"><i class="
         '<nav class="n"><a href="rss.xml">rss</a><a href="https://github.com/hanmariyang">github.com/hanmariyang</a>'
         '<a href="https://aiplab.kr">aiplab.kr</a></nav></div></footer></body></html>')
 
-def head(title, desc, ogtype='website'):
-    return HEAD.replace('__TITLE__', esc(title)).replace('__DESC__', esc(desc)).replace('__OGTYPE__', ogtype)
+def head(title, desc, ogtype='website', canon='', ogimg=''):
+    if not ogimg:
+        ogimg = SITE + '/blog/og/studio.png'
+    return (HEAD.replace('__TITLE__', esc(title)).replace('__DESC__', esc(desc))
+            .replace('__OGTYPE__', ogtype).replace('__CANON__', canon or SITE + '/blog/').replace('__OGIMG__', ogimg))
+
+def gc_scripts():
+    """GoatCounter 활성 시: 페이지뷰 카운트 + 각 [data-vc] 요소에 조회수 채워 표시."""
+    if not GOATCOUNTER:
+        return ''
+    g = 'https://%s.goatcounter.com' % GOATCOUNTER
+    return ('<script data-goatcounter="%s/count" async src="//gc.zgo.at/count.js"></script>'
+            '<script>(function(){document.querySelectorAll("[data-vc]").forEach(function(e){'
+            'fetch("%s/counter/"+encodeURIComponent(e.getAttribute("data-vc"))+".json")'
+            '.then(function(r){return r.json()}).then(function(d){if(d&&d.count){'
+            "e.innerHTML='" + EYE + "'+d.count;e.style.display=\"\";}}).catch(function(){});});})();</script>") % (g, g)
 
 # ---------- 목록 ----------
 def render_list(posts):
@@ -206,7 +228,7 @@ def render_list(posts):
         '<span class="meta">%s<span>%s</span></span></div><h2>%s</h2><p>%s</p>'
         '<div style="display:flex;gap:10px;flex-wrap:wrap">%s</div></div></div>'
     ) % (fp['cover_bg'], feat['slug'], fp['mascot'] if fp.get('mascot') and fp['mascot'] != 'dots' else 'worky.png',
-         fp['cls'], esc(feat.get('category', 'Note')), fp['name'], views_html(feat), feat.get('date', ''),
+         fp['cls'], esc(feat.get('category', 'Note')), fp['name'], views_html(feat, '/blog/%s.html' % feat['slug']), feat.get('date', ''),
          esc(feat['title']), esc(feat.get('excerpt', '')), fbtns)
 
     cards = []
@@ -218,7 +240,7 @@ def render_list(posts):
             '<span class="meta">%s</span></div><h4>%s</h4><p>%s</p>'
             '<div class="foot"><span class="cta-lite">%s</span><span class="meta">%s min</span></div></a>'
             % (p['cls'], m['slug'], cover(p), p['cls'], esc(m.get('category', 'Note')), p['name'],
-               views_html(m), esc(m['title']), esc(m.get('excerpt', '')), cta_lite, esc(str(m.get('read', '3')))))
+               views_html(m, '/blog/%s.html' % m['slug']), esc(m['title']), esc(m.get('excerpt', '')), cta_lite, esc(str(m.get('read', '3')))))
 
     nav = ('<header><div class="bar"><a class="mark" href="../index.html">' + MARK + '</a>'
            '<nav class="n"><a href="../index.html#family" class="hs">the tools</a><a href="index.html" class="on">blog</a>'
@@ -233,7 +255,9 @@ def render_list(posts):
         '<p>A short email when something ships or a build log goes up. No spam, unsubscribe any time.</p></div>'
         '<div><form class="subf" onsubmit="return false"><input type="email" placeholder="you@example.com"/>'
         '<button>Subscribe</button></form><div class="subnote">or follow on GitHub · RSS</div></div></section></div>')
-    return head('Blog · AIP Lab', 'Build logs and release notes from AIP Lab, a one-person studio building small self-hostable tools.') + nav + body + FOOT
+    page = head('Blog · AIP Lab', 'Build logs and release notes from AIP Lab, a one-person studio building small self-hostable tools.',
+                canon=SITE + '/blog/', ogimg=SITE + '/blog/og/studio.png') + nav + body + FOOT
+    return page.replace('</body>', gc_scripts() + '</body>')
 
 # ---------- 글 ----------
 def render_post(m, allposts):
@@ -277,11 +301,13 @@ def render_post(m, allposts):
         '<h1>%s</h1><p class="lead">%s</p>'
         '<div class="byline"><span class="who"><span class="av"></span> %s</span>'
         '<span class="share"><a href="#">X</a><a href="#">in</a><a href="#">↗</a></span></div></div>'
-    ) % (p['cls'], esc(m.get('category', 'Note')), p['name'], views_html(m), m.get('date', ''),
+    ) % (p['cls'], esc(m.get('category', 'Note')), p['name'], views_html(m, '/blog/%s.html' % m['slug']), m.get('date', ''),
          esc(str(m.get('read', '3'))), esc(m['title']), esc(m.get('excerpt', '')), esc(m.get('author', 'hanmariyang')))
 
-    return (head(m['title'] + ' · AIP Lab Blog', m.get('excerpt', ''), 'article') + nav + art + hero +
+    page = (head(m['title'] + ' · AIP Lab Blog', m.get('excerpt', ''), 'article',
+                 canon=SITE + '/blog/' + m['slug'] + '.html', ogimg=SITE + '/blog/og/' + m['prod'] + '.png') + nav + art + hero +
             '<article class="art"><div class="body">' + body + '</div></article>' + endcta + related + FOOT)
+    return page.replace('</body>', gc_scripts() + '</body>')
 
 # ---------- RSS ----------
 def render_rss(posts):
@@ -296,9 +322,47 @@ def render_rss(posts):
             '<description>Build logs and release notes from AIP Lab.</description>%s</channel></rss>'
             % (SITE, ''.join(items)))
 
+# ---------- OG 공유 카드(1200x630) ----------
+CLS_HEX = {'g': '#0E7B62', 'b': '#3B5BDB', 't': '#12B39A', 'a': '#C77C1A', 'c': '#E24A28', 'n': '#1B1C1E'}
+
+def og_card_html(prod):
+    """제품 하나당 1200x630 공유 카드 HTML. blog-src/og.mjs 가 이걸 PNG 로 스크린샷."""
+    p = PRODUCTS[prod]
+    hexc = CLS_HEX.get(p['cls'], '#1B1C1E')
+    if p.get('mascot') == 'dots':
+        vis = ('<span style="display:inline-flex;gap:16px"><i style="width:34px;height:34px;border-radius:50%;background:#0E7B62"></i>'
+               '<i style="width:34px;height:34px;border-radius:50%;background:#3B5BDB"></i>'
+               '<i style="width:34px;height:34px;border-radius:50%;background:#12B39A"></i>'
+               '<i style="width:34px;height:34px;border-radius:50%;background:#C77C1A"></i>'
+               '<i style="width:34px;height:34px;border-radius:50%;background:#E24A28"></i></span>')
+    elif p.get('mascot'):
+        vis = '<img src="../../img/%s" style="height:300px;filter:drop-shadow(0 20px 30px rgba(27,28,30,.22))"/>' % p['mascot']
+    elif p.get('shot'):
+        vis = '<img src="../../img/%s" style="width:520px;border-radius:16px;box-shadow:0 24px 50px -18px rgba(27,28,30,.4)"/>' % p['shot']
+    else:
+        vis = ''
+    label = 'Build log' if prod != 'studio' else 'Blog'
+    return ('<!doctype html><meta charset="utf-8"/>'
+            '<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet"/>'
+            '<style>*{margin:0;box-sizing:border-box}#c{width:1200px;height:630px;background:%s;'
+            'display:flex;align-items:center;justify-content:space-between;padding:0 80px;font-family:"Hanken Grotesk",sans-serif}'
+            '.mk{font-family:"JetBrains Mono",monospace;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:rgba(27,28,30,.5)}'
+            '.nm{font-size:104px;font-weight:800;letter-spacing:-.03em;color:%s;margin:14px 0 18px}'
+            '.bl{font-size:27px;color:rgba(27,28,30,.62);max-width:15ch;line-height:1.35}</style>'
+            '<div id="c"><div style="max-width:560px"><div class="mk">AIP Lab · %s</div>'
+            '<div class="nm">%s</div><div class="bl">%s</div></div>'
+            '<div style="flex-shrink:0">%s</div></div>') % (p['cover_bg'], hexc, label, p['name'], esc(p['blurb']), vis)
+
+def render_sitemap(posts):
+    urls = [SITE + '/', SITE + '/working/', SITE + '/blog/']
+    urls += [SITE + '/blog/%s.html' % m['slug'] for m in posts]
+    body = ''.join('<url><loc>%s</loc></url>' % u for u in urls)
+    return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">%s</urlset>' % body
+
 # ---------- 실행 ----------
 def main():
     os.makedirs(OUT, exist_ok=True)
+    os.makedirs(os.path.join(OUT, 'og'), exist_ok=True)
     posts = load_posts()
     if not posts:
         print('글이 없습니다: blog-src/posts/*.md'); return
@@ -306,7 +370,15 @@ def main():
     for m in posts:
         open(os.path.join(OUT, m['slug'] + '.html'), 'w', encoding='utf-8').write(render_post(m, posts))
     open(os.path.join(OUT, 'rss.xml'), 'w', encoding='utf-8').write(render_rss(posts))
-    print('생성 완료: %d 글 → %s' % (len(posts), OUT))
+    # OG 카드 소스(HTML) — PNG 는 og.mjs 가 생성
+    for prod in PRODUCTS:
+        open(os.path.join(OUT, 'og', prod + '.html'), 'w', encoding='utf-8').write(og_card_html(prod))
+    # sitemap + robots (사이트 루트로) — Dockerfile 이 COPY
+    root = os.path.normpath(os.path.join(HERE, '..'))
+    open(os.path.join(root, 'sitemap.xml'), 'w', encoding='utf-8').write(render_sitemap(posts))
+    open(os.path.join(root, 'robots.txt'), 'w', encoding='utf-8').write(
+        'User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n' % SITE)
+    print('생성 완료: %d 글 → %s (+ og/ · sitemap.xml · robots.txt)' % (len(posts), OUT))
     for m in posts:
         print('  ·', m['slug'], '(%s)' % m.get('category', ''))
 
