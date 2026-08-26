@@ -6,5 +6,5 @@ COPY index.html /srv/index.html
 COPY README.md /srv/README.md
 COPY img /srv/img
 COPY working /srv/working
-COPY blog-preview /srv/blog-preview
+COPY blog /srv/blog
 EXPOSE 8080
