@@ -5,4 +5,5 @@ COPY Caddyfile /etc/caddy/Caddyfile
 COPY index.html /srv/index.html
 COPY README.md /srv/README.md
 COPY img /srv/img
+COPY working /srv/working
 EXPOSE 8080

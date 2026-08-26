@@ -20,6 +20,7 @@
     --blue:#3B5BDB; --blueT:#EDEFFC;
     --teal:#12B39A; --tealT:#E3F5F1;
     --amber:#C77C1A; --amberT:#FAEFD9;
+    --coral:#E24A28; --coralT:#FCEAE4;
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -30,7 +31,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -48,7 +49,7 @@
   .cast .m{position:relative}
   .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
-  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
   .eyebrow .pr{color:var(--ink)}
@@ -70,23 +71,24 @@
   .band.s{background:linear-gradient(180deg,var(--blueT),transparent 70%)}
   .band.c{background:linear-gradient(180deg,var(--tealT),transparent 70%)}
   .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
+  .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   .band.s .prow{grid-template-columns:1.15fr .85fr}
   @media(max-width:860px){.prow,.band.s .prow{grid-template-columns:1fr;gap:26px}}
   .pinfo .top{display:flex;align-items:center;gap:14px}
   .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
   .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
-  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}
+  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}.w .pname{color:var(--coral)}
   .code{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint)}
   .ptag{font-weight:700;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.01em;margin:16px 0 8px}
   .pinfo p{color:var(--soft);margin:0 0 18px;max-width:42ch}
   .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
   .chip .lv{width:7px;height:7px;border-radius:50%}
-  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}
+  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}.w .chip .lv{background:var(--coral)}
   .chip.soon{border-style:dashed}.chip.soon .lv{box-shadow:0 0 0 3px var(--amberT)}
   .plinks{display:flex;gap:16px;margin-top:18px}
   .plinks a{font-family:var(--mono);font-size:12.5px;display:inline-flex;gap:6px;align-items:center}
-  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}
+  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}.w .plinks a:hover{color:var(--coral)}
   .indev{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:16px}
   .bookcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
   .bookcard .hd{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:12px;color:var(--soft)}
@@ -158,7 +160,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs" data-k="nav_tools">the tools</a>
       <a href="#values" class="hs" data-k="nav_why">why</a>
@@ -188,6 +190,10 @@
       <div class="m l">
         <svg viewBox="0 0 100 100" style="display:block;overflow:visible;color:#1B1C1E" aria-label="Lighting mascot Bandi"><defs><linearGradient id="bw-cast" x1="15%" y1="10%" x2="85%" y2="90%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs><path d="M 40 78 Q 36 88 33 93" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="33" cy="93" r="2.6" fill="currentColor"/><path d="M 60 78 Q 64 88 67 93" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="67" cy="93" r="2.6" fill="currentColor"/><path d="M 73.7 47.6 Q 76.1 56.0 72.9 63.8 Q 69.7 71.6 62.2 76.1 Q 54.6 80.6 45.1 80.1 Q 35.6 79.5 30.0 72.1 Q 24.4 64.8 25.2 56.3 Q 26.0 47.8 31.4 41.1 Q 36.7 34.4 45.7 32.6 Q 54.7 30.8 63.0 35.0 Q 71.3 39.2 73.7 47.6 Z" fill="url(#bw-cast)" opacity="0.3"/><path d="M 72.6 48.4 Q 75.9 56.0 73.4 64.2 Q 70.9 72.4 62.7 76.4 Q 54.6 80.3 45.5 79.2 Q 36.4 78.1 29.7 71.7 Q 22.9 65.3 23.0 56.0 Q 23.1 46.8 30.2 41.0 Q 37.2 35.2 46.0 33.0 Q 54.7 30.8 62.1 35.7 Q 69.4 40.7 72.6 48.4 Z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round" opacity="0.5"/><path d="M 73.4 48.2 Q 77.1 56.0 74.0 64.3 Q 70.9 72.5 62.8 76.7 Q 54.7 80.8 45.8 79.0 Q 37.0 77.1 31.3 70.7 Q 25.5 64.4 26.0 56.1 Q 26.4 47.9 31.8 41.5 Q 37.1 35.0 45.8 33.6 Q 54.5 32.2 62.1 36.3 Q 69.8 40.4 73.4 48.2 Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M 33 49 Q 38 43 43 49" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 55 48 Q 60 42 65 48" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 43 63 Q 50 71 58 62.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><line x1="18" y1="20" x2="18" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="rotate(-20 18 20)"/><line x1="82" y1="18" x2="82" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="rotate(20 82 18)"/><line x1="50" y1="8" x2="50" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="rotate(0 50 8)"/><line x1="26" y1="32" x2="26" y2="26" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="rotate(-35 26 32)"/><line x1="74" y1="30" x2="74" y2="24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="rotate(35 74 30)"/></svg>
         <div class="tag" data-k="tag_soon">LIGHTING · soon</div>
+      </div>
+      <div class="m w">
+        <img src="img/worky.png" alt="Working mascot 워키"/>
+        <div class="tag">WORKING</div>
       </div>
     </div>
     <div class="eyebrow"><span class="pr">&gt;</span> <span data-k="eyebrow">AIP LAB — a one-person tool studio</span></div>
@@ -283,6 +289,26 @@
   </div>
 </section>
 
+<!-- Working (macOS app) -->
+<section class="band w">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/worky.png" alt="Working mascot 워키" style="height:56px"/>
+        <div><div class="pname">Working</div><div class="code">AIP·005 · macOS</div></div>
+      </div>
+      <div class="ptag" data-k="w_tag">Start with one question,<br>not a blank page.</div>
+      <p data-k="w_desc">A macOS app for planning a program end to end — understand, plan, run, wrap up. The AI proposes; nothing is created until you accept. Every document lands as a real .md file in your own folder. No account, no server.</p>
+      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · v0.1.0 · Apple Silicon</span>
+      <div class="plinks"><a href="working/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/aiplab/releases/download/working-v0.1.0/Working-0.1.0-arm64.dmg" data-k="w_dl">Download ↓</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Working · propose + accept</div>
+      <img src="img/working-accept.jpg" alt="Working — AI proposes a plan structure; you accept to create the files"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -331,7 +357,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
@@ -366,6 +392,9 @@ drafting.sqlite <span class="ok">✓</span>
     l_indev:"곧 합류 — 같은 인터뷰 → 초안 → 내 것 흐름.",
     l_ms:"원고 · 초안", l_prog:"3 / 8 챕터", l_ch:"Chapter 02", l_h5:"첫 프로토타입",
     l_txt:"이 스튜디오는 누가 요청하기도 전에 첫 도구를 주말 하나로 출하했다. <mark>당신이 수락한 것이 챕터가 됩니다.</mark>",
+    w_tag:"빈 페이지 대신,<br>질문 하나로 시작하세요.",
+    w_desc:"프로그램을 처음부터 끝까지 기획하는 macOS 앱 — 파악·기획·실행·정리. AI는 제안만 하고, 채택해야 만들어집니다. 모든 문서는 내 폴더에 실제 .md 파일로 남습니다. 계정도 서버도 없습니다.",
+    w_dl:"내려받기 ↓",
     v_head:"&gt; 가족이 공유하는 것",
     v1t:"셀프호스트", v1d:"내 머신에서 실행", v2t:"로컬 우선", v2d:"내 데이터, 한 파일",
     v3t:"오픈소스", v3d:"MIT · 우리보다 오래", v4t:"AI 보조", v4d:"초안은 AI, 결정은 나",
