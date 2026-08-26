@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Shipping Working — AIP Lab</title>
+<title>Shipping Working — AIP Lab Blog</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='11' r='5' fill='%230E7B62'/%3E%3Ccircle cx='21' cy='11' r='5' fill='%233B5BDB'/%3E%3Ccircle cx='11' cy='21' r='5' fill='%2312B39A'/%3E%3Ccircle cx='21' cy='21' r='5' fill='%23C77C1A'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -22,36 +22,73 @@
   .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:900px;margin:0 auto;padding:0 30px}
-  .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1080px;margin:0 auto;padding:0 30px}
+  .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
   nav.n{display:flex;align-items:center;gap:22px}
   nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none}
   nav.n a:hover,nav.n a.on{color:var(--ink)}
+  .navcta{font-family:var(--mono);font-size:12px;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:999px}
 
-  .art{max-width:660px;margin:0 auto;padding:0 30px}
-  .back{display:inline-block;font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none;margin:40px 0 26px}
+  .head{max-width:760px;margin:0 auto;padding:0 30px}
+  .back{display:inline-block;font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none;margin:34px 0 22px}
   .back:hover{color:var(--ink)}
-  .ameta{display:flex;align-items:center;gap:12px;margin-bottom:16px}
   .tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--soft)}
   .tag .lv{width:8px;height:8px;border-radius:50%;background:var(--coral)}
-  .adate{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-  h1{font-weight:800;font-size:clamp(30px,4.6vw,44px);line-height:1.08;letter-spacing:-.025em;margin:0 0 18px;word-break:keep-all}
-  .lead{font-size:clamp(18px,2.4vw,21px);color:var(--soft);margin:0 0 26px;line-height:1.6;word-break:keep-all}
-  .byline{display:flex;align-items:center;gap:9px;padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:34px;font-family:var(--mono);font-size:12.5px;color:var(--soft)}
-  .byline .av{width:22px;height:22px;border-radius:50%;background:var(--coral)}
+  .hmeta{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .meta{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .views{display:inline-flex;align-items:center;gap:5px}.eye{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.4}
+  h1{font-weight:800;font-size:clamp(30px,4.6vw,46px);line-height:1.07;letter-spacing:-.025em;margin:0 0 16px;word-break:keep-all}
+  .lead{font-size:clamp(18px,2.4vw,21px);color:var(--soft);margin:0 0 22px;line-height:1.6;word-break:keep-all}
+  .byline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .who{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  .who .av{width:24px;height:24px;border-radius:50%;background:var(--coral)}
+  .share{display:flex;gap:8px}
+  .share a{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .share a:hover{border-color:var(--ink);color:var(--ink)}
 
-  .body h2{font-weight:800;font-size:24px;letter-spacing:-.01em;margin:38px 0 12px;word-break:keep-all}
+  .hero-cover{max-width:960px;margin:30px auto;padding:0 30px}
+  .hero-cover .cv{aspect-ratio:16/8;border-radius:16px;overflow:hidden;background:linear-gradient(140deg,#FDE8E0,#F6C3B2);display:flex;align-items:flex-end;justify-content:center}
+  .hero-cover .cv img{height:82%;filter:drop-shadow(0 16px 22px rgba(27,28,30,.2));margin-bottom:-1%}
+
+  .art{max-width:660px;margin:0 auto;padding:0 30px}
+  .body{margin-top:34px}
+  .body h2{font-weight:800;font-size:25px;letter-spacing:-.01em;margin:40px 0 12px;word-break:keep-all}
   .body p{margin:0 0 20px;word-break:keep-all}
-  .body a.inl{color:var(--coral);text-decoration:underline;text-underline-offset:2px}
   .body code{font-family:var(--mono);font-size:.86em;background:#EDEBE4;padding:.1em .4em;border-radius:4px}
-  .body blockquote{margin:26px 0;padding:4px 0 4px 22px;border-left:3px solid var(--coral);color:var(--ink);font-size:20px;font-weight:500;word-break:keep-all}
+  .body blockquote{margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid var(--coral);font-size:21px;font-weight:600;word-break:keep-all}
   .body pre{background:#1a1c1f;color:#e7e6e1;border-radius:10px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.8;margin:24px 0}
   .body pre .c{color:#8a8a83}
-  .end{margin:44px 0 20px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--soft)}
-  .end a{color:var(--coral);text-decoration:none}
+  .body figure{margin:28px 0}
+  .body figure img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+  .body figcaption{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:8px;text-align:center}
 
-  footer{border-top:1px solid var(--line);padding:28px 0 46px;margin-top:40px}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;max-width:900px;margin:0 auto;padding:0 30px}
+  /* inline CTA card */
+  .inlinecta{margin:32px 0;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:12px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .inlinecta .t{font-weight:700;font-size:17px}
+  .inlinecta .d{color:var(--soft);font-size:14px;margin-top:2px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--coral);background:var(--coral);color:#fff;white-space:nowrap}
+  .btn.d{background:var(--ink);border-color:var(--ink)}
+  .btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+
+  /* big end CTA */
+  .endcta{max-width:760px;margin:44px auto;padding:0 30px}
+  .endcta .box{background:var(--ink);color:var(--paper);border-radius:18px;padding:38px 36px;text-align:center}
+  .endcta h3{font-weight:800;font-size:28px;letter-spacing:-.02em;margin:0 0 8px}
+  .endcta p{color:#c9c7c0;margin:0 0 20px;font-size:15px}
+  .endcta .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .endcta .fine{font-family:var(--mono);font-size:11px;color:#8a897f;margin-top:14px}
+
+  .related{max-width:960px;margin:0 auto 20px;padding:0 30px}
+  .related .k{margin-bottom:16px}
+  .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:720px){.rgrid{grid-template-columns:1fr}}
+  .rc .cv{aspect-ratio:16/10;border-radius:10px;overflow:hidden;margin-bottom:10px}
+  .rc .cv img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .rc h4{font-weight:700;font-size:15.5px;line-height:1.25;margin:0;word-break:keep-all}
+  .rc .rm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 46px;margin-top:20px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;max-width:1080px;margin:0 auto;padding:0 30px}
   .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none}.foot a:hover{color:var(--ink)}
 </style>
 </head>
@@ -59,26 +96,48 @@
 <header>
   <div class="bar">
     <a class="mark" href="../index.html"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> AIP Lab</a>
-    <nav class="n"><a href="index.html" class="on">blog</a><a href="https://github.com/hanmariyang">github</a></nav>
+    <nav class="n"><a href="index.html" class="on">blog</a><a href="../working/" class="navcta">Download Working ↓</a></nav>
   </div>
 </header>
 
-<article class="art">
+<div class="head">
   <a class="back" href="index.html">← Notes</a>
-  <div class="ameta"><span class="tag"><span class="lv"></span>Note · Working</span><span class="adate">2026.08.26</span></div>
+  <div class="hmeta">
+    <span class="tag"><span class="lv"></span>Note · Working</span>
+    <span class="meta"><span class="views"><svg class="eye" viewBox="0 0 16 16"><path d="M1 8s2.5-4.5 7-4.5S15 8 15 8s-2.5 4.5-7 4.5S1 8 1 8Z"/><circle cx="8" cy="8" r="1.8"/></svg>3,214 views</span><span>2026.08.26</span><span>6 min read</span></span>
+  </div>
   <h1>Shipping Working: nothing exists until you accept it</h1>
   <p class="lead">The fifth tool in the family is a macOS app for planning a program from the first question to the final instruction sheet. Its hardest rule isn't a feature you can toggle.</p>
-  <div class="byline"><span class="av"></span> hanmariyang · 6 min read</div>
+  <div class="byline">
+    <span class="who"><span class="av"></span> hanmariyang</span>
+    <span class="share"><a href="#">X</a><a href="#">in</a><a href="#">↗</a></span>
+  </div>
+</div>
 
+<div class="hero-cover">
+  <div class="cv"><img src="../img/worky.png" alt="Working mascot Worky"/></div>
+</div>
+
+<article class="art">
   <div class="body">
     <p>Working proposes a structure, drafts the sections, and suggests the wording. But nothing lands on disk until you accept it. That sounds like a setting. It isn't — the database enforces it. A document with no record of a human accepting it simply cannot reach a confirmed state.</p>
 
     <blockquote>A document the human never accepted can't be confirmed. Not by policy — by schema.</blockquote>
 
-    <p>A single test, <code>api/test/automatic-confirmation.test.js</code>, guards this. If a future change ever lets the AI confirm its own output, that test goes red before the change ships.</p>
+    <p>A single test, <code>api/test/automatic-confirmation.test.js</code>, guards this rule. If a future change ever lets the AI confirm its own output, that test goes red before the change ships.</p>
+
+    <figure>
+      <img src="../img/working-accept.jpg" alt="Working proposing a plan structure with accept and reject buttons"/>
+      <figcaption>Working proposes a structure — you accept before any file is created.</figcaption>
+    </figure>
 
     <h2>Why bother</h2>
     <p>Because "AI-assisted" quietly slides into "AI-authored" the moment the human is only a spectator. The accept step keeps a person in the loop where it matters — not as a rubber stamp, but as the one who decides what becomes real.</p>
+
+    <div class="inlinecta">
+      <div><div class="t">Try it on your Mac</div><div class="d">Signed & notarized · Apple Silicon · macOS 12+</div></div>
+      <a class="btn" href="../working/">Download for macOS ↓</a>
+    </div>
 
     <h2>Where the files go</h2>
     <p>Every accepted document is a real <code>.md</code> file in a folder you chose. No account, no server, no lock-in. Close the app and the work is still yours, in plain text, on your machine.</p>
@@ -92,9 +151,28 @@
 
     <p>That's the whole idea, and it's the same idea in every tool the studio ships: <strong>the AI writes the first draft; you write the document.</strong></p>
   </div>
-
-  <div class="end">Written while shipping <a href="../working/">Working 0.1.0</a>. Questions? <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></div>
 </article>
+
+<div class="endcta">
+  <div class="box">
+    <h3>Plan your next program with Working</h3>
+    <p>One question to start. Real .md files to keep. Free, and it runs entirely on your machine.</p>
+    <div class="row">
+      <a class="btn d" href="../working/">Download for macOS ↓</a>
+      <a class="btn g" style="color:#fff;border-color:#3a3a36" href="https://github.com/hanmariyang">★ Star on GitHub</a>
+    </div>
+    <div class="fine">Apple Silicon · macOS 12+ · 107MB</div>
+  </div>
+</div>
+
+<div class="related">
+  <div class="k">Keep reading</div>
+  <div class="rgrid">
+    <a class="rc" href="post.html"><div class="cv" style="background:#E4F3EE"><img src="../img/drafting-doc.png" alt=""/></div><h4>Drafting v1.6 — terminal mode</h4><div class="rm">Release · Drafting · 4 min</div></a>
+    <a class="rc" href="post.html"><div class="cv" style="background:#0d1117"><img src="../img/coxpit-board.png" alt=""/></div><h4>Running a fleet of agents on your machines</h4><div class="rm">Build log · Coxpit · 7 min</div></a>
+    <a class="rc" href="post.html"><div class="cv" style="background:linear-gradient(120deg,#E4F3EE,#EAEDFB,#FBEFD8,#FDE8E0)"></div><h4>The -ing family: software in the present tense</h4><div class="rm">Note · Studio · 3 min</div></a>
+  </div>
+</div>
 
 <footer>
   <div class="foot">
