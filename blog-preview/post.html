@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Shipping Working — AIP Lab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='11' r='5' fill='%230E7B62'/%3E%3Ccircle cx='21' cy='11' r='5' fill='%233B5BDB'/%3E%3Ccircle cx='11' cy='21' r='5' fill='%2312B39A'/%3E%3Ccircle cx='21' cy='21' r='5' fill='%23C77C1A'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F5F4F0;--card:#FFFFFF;--ink:#1B1C1E;--soft:#5B5B56;--faint:#9B9A94;--line:#E5E3DC;--line2:#EEEDE7;
+    --green:#0E7B62;--blue:#3B5BDB;--teal:#12B39A;--amber:#C77C1A;--coral:#E24A28;
+    --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--disp);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+  .dots{display:inline-flex;gap:4px;align-items:center}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:900px;margin:0 auto;padding:0 30px}
+  .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  nav.n{display:flex;align-items:center;gap:22px}
+  nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none}
+  nav.n a:hover,nav.n a.on{color:var(--ink)}
+
+  .art{max-width:660px;margin:0 auto;padding:0 30px}
+  .back{display:inline-block;font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none;margin:40px 0 26px}
+  .back:hover{color:var(--ink)}
+  .ameta{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--soft)}
+  .tag .lv{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+  .adate{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  h1{font-weight:800;font-size:clamp(30px,4.6vw,44px);line-height:1.08;letter-spacing:-.025em;margin:0 0 18px;word-break:keep-all}
+  .lead{font-size:clamp(18px,2.4vw,21px);color:var(--soft);margin:0 0 26px;line-height:1.6;word-break:keep-all}
+  .byline{display:flex;align-items:center;gap:9px;padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:34px;font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  .byline .av{width:22px;height:22px;border-radius:50%;background:var(--coral)}
+
+  .body h2{font-weight:800;font-size:24px;letter-spacing:-.01em;margin:38px 0 12px;word-break:keep-all}
+  .body p{margin:0 0 20px;word-break:keep-all}
+  .body a.inl{color:var(--coral);text-decoration:underline;text-underline-offset:2px}
+  .body code{font-family:var(--mono);font-size:.86em;background:#EDEBE4;padding:.1em .4em;border-radius:4px}
+  .body blockquote{margin:26px 0;padding:4px 0 4px 22px;border-left:3px solid var(--coral);color:var(--ink);font-size:20px;font-weight:500;word-break:keep-all}
+  .body pre{background:#1a1c1f;color:#e7e6e1;border-radius:10px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.8;margin:24px 0}
+  .body pre .c{color:#8a8a83}
+  .end{margin:44px 0 20px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  .end a{color:var(--coral);text-decoration:none}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 46px;margin-top:40px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;max-width:900px;margin:0 auto;padding:0 30px}
+  .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft);text-decoration:none}.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="mark" href="../index.html"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> AIP Lab</a>
+    <nav class="n"><a href="index.html" class="on">blog</a><a href="https://github.com/hanmariyang">github</a></nav>
+  </div>
+</header>
+
+<article class="art">
+  <a class="back" href="index.html">← Notes</a>
+  <div class="ameta"><span class="tag"><span class="lv"></span>Note · Working</span><span class="adate">2026.08.26</span></div>
+  <h1>Shipping Working: nothing exists until you accept it</h1>
+  <p class="lead">The fifth tool in the family is a macOS app for planning a program from the first question to the final instruction sheet. Its hardest rule isn't a feature you can toggle.</p>
+  <div class="byline"><span class="av"></span> hanmariyang · 6 min read</div>
+
+  <div class="body">
+    <p>Working proposes a structure, drafts the sections, and suggests the wording. But nothing lands on disk until you accept it. That sounds like a setting. It isn't — the database enforces it. A document with no record of a human accepting it simply cannot reach a confirmed state.</p>
+
+    <blockquote>A document the human never accepted can't be confirmed. Not by policy — by schema.</blockquote>
+
+    <p>A single test, <code>api/test/automatic-confirmation.test.js</code>, guards this. If a future change ever lets the AI confirm its own output, that test goes red before the change ships.</p>
+
+    <h2>Why bother</h2>
+    <p>Because "AI-assisted" quietly slides into "AI-authored" the moment the human is only a spectator. The accept step keeps a person in the loop where it matters — not as a rubber stamp, but as the one who decides what becomes real.</p>
+
+    <h2>Where the files go</h2>
+    <p>Every accepted document is a real <code>.md</code> file in a folder you chose. No account, no server, no lock-in. Close the app and the work is still yours, in plain text, on your machine.</p>
+
+    <pre><span class="c"># a project, on your disk</span>
+~/Projects/2026-hackathon/
+  01-파악.md
+  02-기획.md
+  03-실행.md
+  04-정리.md</pre>
+
+    <p>That's the whole idea, and it's the same idea in every tool the studio ships: <strong>the AI writes the first draft; you write the document.</strong></p>
+  </div>
+
+  <div class="end">Written while shipping <a href="../working/">Working 0.1.0</a>. Questions? <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></div>
+</article>
+
+<footer>
+  <div class="foot">
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <nav class="n"><a href="https://github.com/hanmariyang">github.com/hanmariyang</a><a href="https://aiplab.kr">aiplab.kr</a></nav>
+  </div>
+</footer>
+</body>
+</html>

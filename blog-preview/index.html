@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Notes — AIP Lab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='11' r='5' fill='%230E7B62'/%3E%3Ccircle cx='21' cy='11' r='5' fill='%233B5BDB'/%3E%3Ccircle cx='11' cy='21' r='5' fill='%2312B39A'/%3E%3Ccircle cx='21' cy='21' r='5' fill='%23C77C1A'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F5F4F0;--card:#FFFFFF;--ink:#1B1C1E;--soft:#6B6B66;--faint:#9B9A94;--line:#E5E3DC;--line2:#EEEDE7;
+    --green:#0E7B62;--blue:#3B5BDB;--teal:#12B39A;--amber:#C77C1A;--coral:#E24A28;
+    --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--disp);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:860px;margin:0 auto;padding:0 30px}
+  .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+  .dots{display:inline-flex;gap:4px;align-items:center}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:860px;margin:0 auto;padding:0 30px}
+  .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.01em}
+  nav.n{display:flex;align-items:center;gap:22px}
+  nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+  nav.n a:hover,nav.n a.on{color:var(--ink)}
+  @media(max-width:640px){nav.n a.hs{display:none}}
+
+  .head{padding:52px 0 32px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:14px}
+  .eyebrow .pr{color:var(--ink)}
+  h1{font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0;max-width:16ch}
+  .sub{max-width:56ch;margin:16px 0 0;color:var(--soft);font-size:clamp(16px,2vw,18px)}
+
+  /* featured */
+  .feat{display:block;padding:34px 0;border-bottom:1px solid var(--line);transition:opacity .15s}
+  .feat:hover{opacity:.78}
+  .fmeta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--soft)}
+  .tag .lv{width:8px;height:8px;border-radius:50%}
+  .tag.g .lv{background:var(--green)}.tag.b .lv{background:var(--blue)}.tag.t .lv{background:var(--teal)}.tag.a .lv{background:var(--amber)}.tag.c .lv{background:var(--coral)}.tag.n .lv{background:var(--faint)}
+  .date{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .feat h2{font-weight:800;font-size:clamp(26px,3.6vw,36px);letter-spacing:-.02em;line-height:1.06;margin:0 0 12px;max-width:20ch;word-break:keep-all}
+  .feat p{color:var(--soft);margin:0;max-width:60ch;word-break:keep-all}
+  .feat .rd{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:14px}
+
+  /* list */
+  .list{padding:8px 0 20px}
+  .post{display:grid;grid-template-columns:170px 1fr 66px;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line2);transition:padding-left .15s}
+  .post:hover{padding-left:8px}
+  .post .pm{display:flex;flex-direction:column;gap:6px}
+  .post h3{font-weight:700;font-size:19px;letter-spacing:-.01em;margin:0 0 6px;line-height:1.2;word-break:keep-all}
+  .post:hover h3{color:var(--ink)}
+  .post .ex{color:var(--soft);font-size:14.5px;margin:0;max-width:56ch;word-break:keep-all}
+  .post .rd{font-family:var(--mono);font-size:11.5px;color:var(--faint);text-align:right}
+  @media(max-width:640px){.post{grid-template-columns:1fr;gap:8px}.post .rd{display:none}.post .pm{flex-direction:row;gap:10px;align-items:center}}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 46px;margin-top:24px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;max-width:860px;margin:0 auto;padding:0 30px}
+  .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}.foot a:hover{color:var(--ink)}
+  .rss{font-family:var(--mono);font-size:12px;color:var(--amber)}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="mark" href="../index.html"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> AIP Lab</a>
+    <nav class="n">
+      <a href="../index.html#family" class="hs">the tools</a>
+      <a href="#" class="on">blog</a>
+      <a href="../index.html#about" class="hs">about</a>
+      <a href="https://github.com/hanmariyang">github</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="head">
+    <div class="eyebrow"><span class="pr">&gt;</span> BLOG · NOTES FROM THE WORKSHOP</div>
+    <h1>Build logs, release notes, thinking out loud.</h1>
+    <p class="sub">Short posts about making small, self-hostable tools — what shipped, how it works, and why it's built the way it is. <span class="rss">RSS →</span></p>
+  </section>
+
+  <!-- featured -->
+  <a class="feat" href="post.html">
+    <div class="fmeta"><span class="tag c"><span class="lv"></span>Note · Working</span><span class="date">2026.08.26</span></div>
+    <h2>Shipping Working: nothing exists until you accept it</h2>
+    <p>The fifth tool is a macOS app for planning a program end to end. Its hardest rule isn't a feature you can toggle — the database itself refuses to create a file the human never accepted.</p>
+    <div class="rd">6 min read</div>
+  </a>
+
+  <div class="list">
+    <a class="post" href="post.html">
+      <div class="pm"><span class="tag g"><span class="lv"></span>Release · Drafting</span><span class="date">2026.08.25</span></div>
+      <div><h3>Drafting v1.6 — terminal mode, and why npx fixes the subscription problem</h3><p class="ex">The desktop app couldn't reach your Claude login in the keychain. Running the same server from your terminal just works.</p></div>
+      <div class="rd">4 min</div>
+    </a>
+    <a class="post" href="post.html">
+      <div class="pm"><span class="tag t"><span class="lv"></span>Build log · Coxpit</span><span class="date">2026.08.23</span></div>
+      <div><h3>Running a fleet of coding agents on your own machines</h3><p class="ex">Parallel git worktrees, a live board, and merging the winner — a cockpit for agents, with no cloud in the loop.</p></div>
+      <div class="rd">7 min</div>
+    </a>
+    <a class="post" href="post.html">
+      <div class="pm"><span class="tag b"><span class="lv"></span>Build log · Sliding</span><span class="date">2026.08.21</span></div>
+      <div><h3>Measure the slide, don't trust the AI</h3><p class="ex">The model writes layout code; a render scan checks cropping, overlap and typesetting before you ever open the deck.</p></div>
+      <div class="rd">5 min</div>
+    </a>
+    <a class="post" href="post.html">
+      <div class="pm"><span class="tag n"><span class="lv"></span>Note · Studio</span><span class="date">2026.08.20</span></div>
+      <div><h3>The -ing family: software in the present tense</h3><p class="ex">Why the tools are named the way they are, and the one rule that ties every one of them together.</p></div>
+      <div class="rd">3 min</div>
+    </a>
+    <a class="post" href="post.html">
+      <div class="pm"><span class="tag n"><span class="lv"></span>Note · Studio</span><span class="date">2026.08.18</span></div>
+      <div><h3>One file, on your machine: the case for local-first</h3><p class="ex">The useful part of a tool shouldn't depend on someone else's server, subscription, or uptime.</p></div>
+      <div class="rd">4 min</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot">
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <nav class="n">
+      <a href="#">rss</a>
+      <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
+      <a href="https://aiplab.kr">aiplab.kr</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
