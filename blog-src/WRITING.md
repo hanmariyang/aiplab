@@ -71,9 +71,22 @@ cta_title: 큰 엔드 CTA 제목 (선택, studio 글은 무시)
 - 실제 내용으로. 톤은 담백하게, 제품과 연결.
 - 이미지 대체텍스트 꼭.
 
-## 아직 백엔드 필요 (지금은 미동작)
+## SEO · 공유 카드 (자동)
 
-- **조회수**: `views` 슬롯은 있으나 자동 집계 없음 → GoatCounter(무료 스크립트) 또는 aiplab 백엔드 카운터 붙이면 표시.
+- **canonical · og:image · sitemap · robots** 는 `build.py` 가 매 빌드 자동 생성. 신경 쓸 것 없음.
+- **OG 공유 카드**(링크 공유 시 미리보기 이미지, `blog/og/<product>.png`)는 **제품별**이라 일반 글 추가엔 재생성 불필요.
+  제품이 늘거나 커버 디자인을 바꿨을 때만: `node blog-src/og.mjs`(playwright 필요) → PNG 재생성.
+
+## 조회수 (GoatCounter, 활성 1스텝)
+
+코드는 완비. 켜려면:
+1. goatcounter.com 무료 가입 → 사이트코드 `aiplab`
+2. Settings → "Allow adding visitor counts to your website" ON
+3. `build.py` 의 `GOATCOUNTER = 'aiplab'` 로 바꾸고 재빌드 → 모든 글에 실조회수 표시
+- 비어 있으면(`''`) 조회수는 **숨김**(허수 안 보임). aiplab 백엔드 생기면 자체 카운터로 교체 가능.
+
+## 아직 안 붙음
+
 - **구독**: 이메일 폼 UI 만. Buttondown/Resend 등 연동해야 실제 수집.
 
 ## 파일 지도
