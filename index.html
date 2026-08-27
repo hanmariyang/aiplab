@@ -37,7 +37,7 @@
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
   .mark{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-  nav.n{display:flex;align-items:center;gap:22px}
+  nav.n{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
   nav.n a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}
   nav.n a:hover{color:var(--ink)}
   .lang{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--soft);padding:5px 9px;border-radius:6px;cursor:pointer}
@@ -162,6 +162,7 @@
   footer{border-top:1px solid var(--line);padding:28px 0 46px}
   .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
   .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}.foot a:hover{color:var(--ink)}
+  @media(max-width:560px){.foot{flex-direction:column;align-items:flex-start;gap:14px}footer nav.n{gap:8px 16px}}
 </style>
 </head>
 <body>
