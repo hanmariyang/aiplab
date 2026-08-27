@@ -75,8 +75,13 @@
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
-  .band.s .prow{grid-template-columns:1.15fr .85fr}
-  @media(max-width:860px){.prow,.band.s .prow{grid-template-columns:1fr;gap:26px}}
+  /* 짝수 밴드(Sliding·Lighting·Grouping) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
+  @media(min-width:861px){
+    .band.s .prow,.band.l .prow,.band.g .prow{grid-template-columns:1.15fr .85fr}
+    .band.s .pinfo,.band.l .pinfo,.band.g .pinfo{grid-column:2}
+    .band.s .frame,.band.l .frame,.band.g .frame{grid-column:1}
+  }
+  @media(max-width:860px){.prow{grid-template-columns:1fr;gap:26px}}
   .pinfo .top{display:flex;align-items:center;gap:14px}
   .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
   .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
@@ -239,10 +244,6 @@
 <!-- Sliding -->
 <section class="band s">
   <div class="wrap prow">
-    <div class="frame blue">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Sliding · editor</div>
-      <img src="img/sliding-editor.jpg" alt="Sliding editor"/>
-    </div>
     <div class="pinfo">
       <div class="top">
         <img src="img/mikkeuri.png" alt="미끌이"/>
@@ -252,6 +253,10 @@
       <p data-k="s_desc">An AI slide studio on your local Claude subscription. It designs each slide in code, then a render scan checks cropping, overlap and typesetting — no credits, the deck stays on your machine.</p>
       <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · v0.1.1</span>
       <div class="plinks"><a href="https://hanmariyang.github.io/sliding/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/sliding">Code</a></div>
+    </div>
+    <div class="frame blue">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Sliding · editor</div>
+      <img src="img/sliding-editor.jpg" alt="Sliding editor"/>
     </div>
   </div>
 </section>
