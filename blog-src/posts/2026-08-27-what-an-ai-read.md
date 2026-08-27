@@ -1,12 +1,14 @@
 ---
 title: "We had an AI read the whole studio. It found the rule."
 date: 2026.08.27
-category: Note
+category: Outside read
 product: studio
 read: 4
 excerpt: We pointed an outside model at the site and the GitHub next to it, with no explanation, and asked it to work out who made this and why. It didn't lead with the tech stack. It found the one sentence every tool is built on.
 ccard_cta: Read →
 ---
+This is part one of a short series where we hand the whole studio to an AI, cold, and publish whatever it says back. This read was the generous one. [Part two](outside-read-blunt.html) was not.
+
 We ran a small experiment. We pointed an outside model at `aiplab.kr` and the GitHub account next to it, gave it no context, and asked it to reverse-engineer the person behind it, the way a hiring interviewer would size up a candidate from a portfolio alone.
 
 What came back was interesting, and not for the reason you'd expect.
