@@ -6,6 +6,7 @@ COPY index.html /srv/index.html
 COPY README.md /srv/README.md
 COPY img /srv/img
 COPY working /srv/working
+COPY grouping /srv/grouping
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt

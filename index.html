@@ -21,6 +21,7 @@
     --teal:#12B39A; --tealT:#E3F5F1;
     --amber:#C77C1A; --amberT:#FAEFD9;
     --coral:#E24A28; --coralT:#FCEAE4;
+    --navy:#3A3F55; --navyT:#EBECF2;
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -31,7 +32,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -49,7 +50,7 @@
   .cast .m{position:relative}
   .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
-  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
   .eyebrow .pr{color:var(--ink)}
@@ -72,6 +73,7 @@
   .band.c{background:linear-gradient(180deg,var(--tealT),transparent 70%)}
   .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
+  .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   .band.s .prow{grid-template-columns:1.15fr .85fr}
   @media(max-width:860px){.prow,.band.s .prow{grid-template-columns:1fr;gap:26px}}
@@ -160,7 +162,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs" data-k="nav_tools">the tools</a>
       <a href="#values" class="hs" data-k="nav_why">why</a>
@@ -195,6 +197,10 @@
       <div class="m w">
         <img src="img/worky.png" alt="Working mascot 워키"/>
         <div class="tag">WORKING</div>
+      </div>
+      <div class="m g">
+        <img src="img/modumi.png" alt="Grouping mascot 모둠이"/>
+        <div class="tag">GROUPING</div>
       </div>
     </div>
     <div class="eyebrow"><span class="pr">&gt;</span> <span data-k="eyebrow">AIP LAB — a one-person tool studio</span></div>
@@ -310,6 +316,26 @@
   </div>
 </section>
 
+<!-- Grouping (macOS app) -->
+<section class="band g">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/modumi.png" alt="Grouping mascot 모둠이" style="height:56px"/>
+        <div><div class="pname">Grouping</div><div class="code">AIP·006 · macOS</div></div>
+      </div>
+      <div class="ptag" data-k="g_tag">Your products,<br>working as your team.</div>
+      <p data-k="g_desc">The hub where AIP Lab tools become team members. Mention a member in a channel and its product does the work in its own workshop. Results arrive as proposal cards, you accept, and accepted work relays to the next member on one hash-chained log.</p>
+      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · v0.1.0 · Apple Silicon</span>
+      <div class="plinks"><a href="grouping/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/aiplab/releases/download/grouping-v0.1.0/Grouping-0.1.0-arm64.dmg" data-k="g_dl">Download ↓</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Grouping · request, proposal, relay</div>
+      <img src="img/grouping-channel.jpg" alt="Grouping — a channel where product members deliver proposal cards and relay accepted work"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -358,7 +384,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
@@ -396,6 +422,9 @@ drafting.sqlite <span class="ok">✓</span>
     w_tag:"빈 페이지 대신,<br>질문 하나로 시작하세요.",
     w_desc:"프로그램을 처음부터 끝까지 기획하는 macOS 앱 — 파악·기획·실행·정리. AI는 제안만 하고, 채택해야 만들어집니다. 모든 문서는 내 폴더에 실제 .md 파일로 남습니다. 계정도 서버도 없습니다.",
     w_dl:"내려받기 ↓",
+    g_tag:"나의 제품이<br>나의 팀이 됩니다.",
+    g_desc:"AIP Lab 도구들이 팀 멤버가 되는 허브. 채널에서 @멤버를 부르면 그 제품이 자기 공방에서 일하고, 결과는 제안 카드로 도착합니다. 수락한 산출물은 다음 멤버에게 릴레이, 기록은 해시 체인 단일 로그에 남습니다.",
+    g_dl:"내려받기 ↓",
     v_head:"&gt; 가족이 공유하는 것",
     v1t:"셀프호스트", v1d:"내 머신에서 실행", v2t:"로컬 우선", v2d:"내 데이터, 한 파일",
     v3t:"오픈소스", v3d:"MIT · 우리보다 오래", v4t:"AI 보조", v4d:"초안은 AI, 결정은 나",

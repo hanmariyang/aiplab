@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grouping — 나의 제품이 나의 팀</title>
+<meta name="description" content="-ing 제품들을 팀 멤버로 부리는 로컬 허브. 채널에서 @멤버를 부르면 각 제품이 자기 공방에서 일해 제안으로 돌아온다. 수락은 언제나 사람." />
+<link rel="icon" type="image/png" href="assets/favicon-64.png" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+:root {
+  --paper: #ffffff;
+  --ink: #17181a;
+  --hair: #e6e8ee;
+  --faint: #a3a7b1;
+  --mute: #6d717c;
+  --navy: #232635;
+  --draft: #1a8a64;
+  --slide: #2f54eb;
+  --pilot: #3ba892;
+  --draft-bg: #ecf7f2;
+  --slide-bg: #eef2fe;
+  --pilot-bg: #ebf6f3;
+  --warnc: #9a6700;
+  --warn-bg: #fff4d6;
+  --ok-bg: #ecf7f2;
+  --mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, monospace;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+img { max-width: 100%; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+/* ---- nav ---- */
+nav {
+  border-bottom: 1px solid var(--hair);
+  position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  z-index: 10;
+}
+nav .wrap { display: flex; align-items: center; gap: 10px; height: 58px; }
+.wordmark { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.wordmark i { font-style: normal; color: var(--slide); }
+nav .tag { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+nav .links { margin-left: auto; display: flex; gap: 18px; font-size: 13.5px; }
+nav .links a { text-decoration: none; color: var(--mute); }
+nav .links a:hover { color: var(--ink); }
+nav img { width: 26px; height: 26px; object-fit: contain; }
+
+/* ---- hero ---- */
+.hero { padding: 72px 0 84px; border-bottom: 1px solid var(--hair); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; }
+.hero-copy img.mascot { width: 72px; height: 72px; object-fit: contain; margin-bottom: 18px; }
+h1 {
+  font-size: clamp(34px, 4.6vw, 50px);
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--slide); }
+.hero-sub { margin-top: 18px; font-size: 16.5px; color: var(--mute); max-width: 42ch; text-wrap: pretty; }
+.hero-sub b { color: var(--ink); font-weight: 650; }
+.cta-row { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-block; text-decoration: none; font-size: 14.5px; font-weight: 650;
+  padding: 11px 22px; border-radius: 8px; border: 1.5px solid var(--ink);
+}
+.btn.pri { background: var(--ink); color: #fff; }
+.btn.pri:hover { background: var(--navy); border-color: var(--navy); }
+.btn.sec:hover { background: #f5f6f8; }
+.marks { margin-top: 26px; display: flex; gap: 8px 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+.marks span::before { content: "· "; color: var(--hair); }
+.marks span:first-child::before { content: ""; }
+
+/* ---- relay demo (hero visual) ---- */
+.demo {
+  border: 1px solid var(--hair); border-radius: 14px; background: #fff;
+  box-shadow: 0 24px 60px -36px rgba(23,24,26,.25);
+  overflow: hidden;
+}
+.demo-bar {
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+  border-bottom: 1px solid var(--hair); font-size: 12.5px; color: var(--mute);
+}
+.demo-bar b { font-weight: 700; color: var(--ink); }
+.demo-bar .live { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+.stage { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; min-height: 372px; }
+.ev { opacity: 0; transform: translateY(7px); }
+.play .ev { animation: appear .45s ease forwards; }
+.play .e1 { animation-delay: .4s; }
+.play .e2 { animation-delay: 1.6s; }
+.play .e3 { animation-delay: 3.4s; }
+.play .e4 { animation-delay: 6.2s; }
+.play .e5 { animation-delay: 7.4s; }
+.play .e6 { animation-delay: 9.2s; }
+@keyframes appear { to { opacity: 1; transform: none; } }
+.msg { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; }
+.msg .who {
+  width: 30px; height: 30px; border-radius: 50%; flex: none; overflow: hidden;
+  border: 1px solid var(--hair); display: grid; place-items: center;
+  font-size: 12px; font-weight: 800; color: #fff; background: var(--navy);
+}
+.e3 .who { background: var(--draft-bg); }
+.e6 .who { background: var(--slide-bg); }
+.msg .who img { width: 100%; height: 100%; object-fit: cover; }
+.msg .name { font-weight: 700; font-size: 13px; margin-right: 6px; }
+.msg .t { font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+.mention { color: var(--draft); font-weight: 700; }
+.mention.blue { color: var(--slide); }
+.prog {
+  font-family: var(--mono); font-size: 11.5px; color: var(--mute);
+  display: flex; align-items: center; gap: 8px; padding-left: 40px;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--draft); flex: none;
+}
+.play .dot { animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.card {
+  margin-left: 40px; border: 1px solid var(--hair); border-radius: 10px; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.card .ct { display: flex; align-items: center; gap: 9px; font-size: 13.5px; flex-wrap: wrap; }
+.chip {
+  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .04em;
+  padding: 2.5px 8px; border-radius: 5px;
+}
+.chip.prop { background: var(--warn-bg); color: var(--warnc); }
+.chip.conf { background: var(--ok-bg); color: var(--draft); }
+.flip { position: relative; }
+.flip .chip { transition: opacity .3s; }
+.flip .conf { position: absolute; inset: 0; opacity: 0; }
+.play .flip .conf { animation: flipin .3s ease 5.4s forwards; }
+.play .flip .prop { animation: flipout .3s ease 5.4s forwards; }
+@keyframes flipin { to { opacity: 1; } }
+@keyframes flipout { to { opacity: 0; } }
+.facts { display: flex; gap: 6px; flex-wrap: wrap; }
+.fact {
+  font-size: 11.5px; border: 1px solid var(--hair); border-radius: 6px; padding: 3px 9px; color: var(--mute);
+}
+.fact b { color: var(--ink); font-weight: 650; }
+.hand {
+  display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--faint);
+  font-family: var(--mono);
+}
+.hand::before, .hand::after { content: ""; flex: 1; border-top: 1px dashed var(--hair); }
+
+/* ---- sections ---- */
+section { padding: 76px 0; border-bottom: 1px solid var(--hair); }
+.eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; color: var(--faint); text-transform: uppercase; }
+h2 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.03em; font-weight: 800; margin-top: 8px; text-wrap: balance; }
+.lede { margin-top: 12px; color: var(--mute); max-width: 60ch; font-size: 15.5px; }
+
+/* roster */
+.roster { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.member {
+  border: 1px solid var(--hair); border-radius: 12px; padding: 22px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.member img {
+  width: 64px; height: 64px; object-fit: contain;
+  border-radius: 14px; padding: 7px;
+}
+.member.d img { background: var(--draft-bg); }
+.member.s img { background: var(--slide-bg); }
+.member.p img { background: var(--pilot-bg); }
+.member .nm { font-weight: 800; font-size: 16.5px; }
+.member .nm span { font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--faint); margin-left: 7px; }
+.member p { font-size: 13.5px; color: var(--mute); }
+.member .meta { font-family: var(--mono); font-size: 11px; margin-top: auto; padding-top: 8px; }
+.member.d .meta { color: var(--draft); }
+.member.s .meta { color: var(--slide); }
+.member.p .meta { color: var(--pilot); }
+.slots { margin-top: 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.slot {
+  border: 1.5px dashed var(--hair); border-radius: 12px; padding: 16px 20px;
+  color: var(--faint); font-size: 13px; display: flex; align-items: center; gap: 12px;
+}
+.slot .plus {
+  width: 30px; height: 30px; border-radius: 50%; border: 1.5px dashed var(--hair);
+  display: grid; place-items: center; font-size: 15px; flex: none;
+}
+
+/* grammar */
+.grammar { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gcard { border: 1px solid var(--hair); border-radius: 12px; padding: 24px 22px; }
+.gcard .demo-chip { margin-bottom: 14px; display: inline-flex; gap: 6px; }
+.gcard h3 { font-size: 16.5px; letter-spacing: -0.02em; margin-bottom: 8px; }
+.gcard p { font-size: 13.5px; color: var(--mute); }
+.hashline { font-family: var(--mono); font-size: 10px; color: var(--faint); word-break: break-all; }
+.hashline b { color: var(--pilot); font-weight: 400; }
+
+/* relay pipeline */
+.pipe {
+  margin-top: 40px; display: flex; align-items: stretch; gap: 0; flex-wrap: wrap;
+}
+.pnode {
+  flex: 1; min-width: 180px; border: 1px solid var(--hair); border-radius: 12px; padding: 18px 20px;
+}
+.pnode .pk { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; }
+.pnode.d .pk { color: var(--draft); }
+.pnode.s .pk { color: var(--slide); }
+.pnode.p .pk { color: var(--pilot); }
+.pnode b { display: block; font-size: 15px; margin: 4px 0 6px; }
+.pnode p { font-size: 12.5px; color: var(--mute); }
+.parr { display: grid; place-items: center; padding: 0 10px; color: var(--faint); font-size: 18px; }
+.nums { margin-top: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.num { border-top: 1px solid var(--hair); padding-top: 14px; }
+.num b { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.num span { display: block; font-size: 12.5px; color: var(--mute); margin-top: 2px; }
+.numnote { margin-top: 14px; font-size: 12px; color: var(--faint); }
+
+/* contract + quickstart */
+pre {
+  margin-top: 26px; background: var(--navy); color: #e8eaf2; border-radius: 12px;
+  padding: 22px 24px; font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  overflow-x: auto;
+}
+pre .c { color: #8a90a5; }
+pre .k { color: #9ecbff; }
+pre .s { color: #a8d5b8; }
+.contract-grid { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+.contract-grid ul { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 26px; }
+.contract-grid li { display: flex; gap: 12px; font-size: 14px; }
+.contract-grid li b { font-weight: 700; }
+.contract-grid li p { color: var(--mute); font-size: 13px; }
+.li-mark { font-family: var(--mono); font-size: 11px; color: var(--pilot); padding-top: 3px; flex: none; }
+.contract-grid pre { margin-top: 0; }
+
+/* footer */
+footer { padding: 44px 0 60px; }
+footer .wrap { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+footer img { width: 30px; height: 30px; object-fit: contain; }
+footer .fam { margin-left: auto; display: flex; gap: 16px; font-size: 13px; }
+footer .fam a { color: var(--mute); text-decoration: none; }
+footer .fam a:hover { color: var(--ink); }
+footer .lic { width: 100%; margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+  .roster, .grammar { grid-template-columns: 1fr; }
+  .nums { grid-template-columns: repeat(2, 1fr); }
+  .contract-grid { grid-template-columns: 1fr; }
+  .pipe { flex-direction: column; }
+  .parr { padding: 6px 0; transform: rotate(90deg); }
+  nav .tag { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .play .ev { animation: none; opacity: 1; transform: none; }
+  .play .dot { animation: none; }
+  .play .flip .conf { animation: none; opacity: 1; }
+  .play .flip .prop { animation: none; opacity: 0; }
+}
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--slide); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="assets/modumi-256.png" alt="" />
+    <span class="wordmark">Group<i>ing</i></span>
+    <span class="tag">-ing studio hub</span>
+    <div class="links">
+      <a href="#members">멤버</a>
+      <a href="#grammar">문법</a>
+      <a href="#relay">릴레이</a>
+      <a href="#start">시작하기</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <img class="mascot" src="assets/modumi-256.png" alt="모둠이" />
+      <h1>나의 제품이<br />나의 <em>팀</em>이 된다</h1>
+      <p class="hero-sub">
+        만든 도구가 늘수록 창은 흩어진다. Grouping 은 -ing 제품들을 <b>팀 멤버</b>로 채용한다.
+        채널에서 <b>@멤버</b>를 부르면 각 제품이 자기 공방에서 일해 <b>제안</b>으로 돌아오고,
+        수락은 언제나 사람이 한다.
+      </p>
+      <div class="cta-row">
+        <a class="btn pri" href="https://github.com/hanmariyang/aiplab/releases/download/grouping-v0.1.0/Grouping-0.1.0-arm64.dmg">macOS 다운로드 (Apple Silicon)</a>
+        <a class="btn sec" href="#relay">릴레이 보기</a>
+      </div>
+      <div class="marks">
+        <span>로컬 전용</span>
+        <span>Claude 구독으로 구동 · 크레딧 0</span>
+        <span>append-only 해시 체인 로그</span>
+      </div>
+    </div>
+
+    <div class="demo" aria-label="릴레이 데모 — 기획 요청이 수락을 거쳐 덱이 되는 과정">
+      <div class="demo-bar">
+        <b># 제품-기획</b> 요청 · 산출 · 수락이 한 스레드에
+        <span class="live">replay · 실측 시나리오</span>
+      </div>
+      <div class="stage play" id="stage">
+        <div class="ev e1 msg">
+          <span class="who">나</span>
+          <div><span class="name">나</span><span class="t">01:41</span><br />
+            <span class="mention">@초안이</span> Writing 신제품 기획서 부탁해. 핵심은 셀프호스트 전자책 저작 도구.
+          </div>
+        </div>
+        <div class="ev e2 prog"><span class="dot"></span>초안이 · drafting-add-section "핵심 기능" · 컴파일 통과</div>
+        <div class="ev e3 msg">
+          <span class="who"><img src="assets/choani.png" alt="초안이" /></span>
+          <div style="flex:1"><span class="name">초안이</span><span class="t">01:51</span>
+            <div class="card">
+              <div class="ct"><b>Writing E-book 공방 PRD</b>
+                <span class="flip"><span class="chip prop">PROPOSED</span><span class="chip conf">CONFIRMED</span></span>
+              </div>
+              <div class="facts">
+                <span class="fact"><b>섹션</b> 8</span>
+                <span class="fact"><b>컴파일</b> 통과 · 위반 0</span>
+                <span class="fact"><b>핸드오프</b> 미끌이</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ev e4 hand">핸드오프 · 수락된 산출물이 미끌이 입력으로 전달됨</div>
+        <div class="ev e5 prog"><span class="dot" style="background:var(--slide)"></span>미끌이 · sliding-scan · 위반 2 → fix 적용</div>
+        <div class="ev e6 msg">
+          <span class="who"><img src="assets/mikkeuri.png" alt="미끌이" /></span>
+          <div style="flex:1"><span class="name">미끌이</span><span class="t">01:58</span>
+            <div class="card">
+              <div class="ct"><b>Writing 기획 보고 · 8장 덱</b> <span class="chip prop">PROPOSED</span></div>
+              <div class="facts">
+                <span class="fact"><b>피라미드</b> 7분</span>
+                <span class="fact"><b>스캔</b> fix 1회 후 통과</span>
+                <span class="fact">수락 대기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="members">
+  <div class="wrap">
+    <div class="eyebrow">Studio roster</div>
+    <h2>멤버는 앱이 아니라 동료다</h2>
+    <p class="lede">
+      각 멤버는 검증기를 내장한 전문 공방이다. Grouping 이 대신 만들어 주는 것이 아니라,
+      그 제품이 실제로 일하고 실제 데이터에 남긴다.
+    </p>
+    <div class="roster">
+      <div class="member d">
+        <img src="assets/choani.png" alt="초안이" />
+        <div class="nm">초안이<span>Drafting</span></div>
+        <p>기획 공방. 인터뷰식 PRD 와 기능명세를 쓰고, 기획 컴파일(참조 무결성 검사)을 통과시켜 내놓는다.</p>
+        <div class="meta">MCP 8도구 · ~/.drafting</div>
+      </div>
+      <div class="member s">
+        <img src="assets/mikkeuri.png" alt="미끌이" />
+        <div class="nm">미끌이<span>Sliding</span></div>
+        <p>장표 공방. 레이아웃 코드를 직접 설계하고 렌더 스캔 3층으로 실측 검증한 덱을 export 한다.</p>
+        <div class="meta">MCP 12도구 · ~/.sliding</div>
+      </div>
+      <div class="member p">
+        <img src="assets/pilot.png" alt="파일럿" />
+        <div class="nm">파일럿<span>Coxpit</span></div>
+        <p>개발 발주 공방. 지시서를 받아 에이전트 플릿을 N안 병렬 발주한다. Real 승격과 머지는 보드에서 사람이.</p>
+        <div class="meta">REST 플릿 · 드라이런 우선</div>
+      </div>
+    </div>
+    <div class="slots">
+      <div class="slot"><span class="plus">+</span>Writing · E-book 공방 · 계약(MCP+스킬)을 지키면 합류</div>
+      <div class="slot"><span class="plus">+</span>Working · 업무 기획 · 코어 코드 수정 없이 계약만으로</div>
+    </div>
+  </div>
+</section>
+
+<section id="grammar">
+  <div class="wrap">
+    <div class="eyebrow">Grammar</div>
+    <h2>제안하고, 사람이 수락한다</h2>
+    <p class="lede">AI 산출물이 조용히 반영되는 일은 없다. Grouping 의 문법은 세 가지다.</p>
+    <div class="grammar">
+      <div class="gcard">
+        <div class="demo-chip"><span class="chip prop">PROPOSED</span><span class="chip conf">CONFIRMED</span></div>
+        <h3>산출물은 제안 카드로 온다</h3>
+        <p>모든 결과물은 proposed 카드로 도착한다. 수락 전에는 아무것도 반영되지 않고, 반려에는 사유가 남는다.</p>
+      </div>
+      <div class="gcard">
+        <div class="demo-chip"><span class="fact"><b>컴파일</b> 통과 · 위반 0</span></div>
+        <h3>검증은 멤버가 내장한다</h3>
+        <p>기획 컴파일, 렌더 스캔, 플릿 정착. 카드의 배지는 장식이 아니라 그 공방의 검증기가 실측한 결과다.</p>
+      </div>
+      <div class="gcard">
+        <div class="hashline" style="margin-bottom:14px">seq 70 <b>sha256:9f2c…</b> ← seq 69 <b>sha256:e41a…</b></div>
+        <h3>기록은 하나, 위조는 불가</h3>
+        <p>요청·진행·산출·수락·핸드오프가 채널당 단일 append-only 로그에 쌓이고, 해시 체인으로 변조를 감지한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="relay">
+  <div class="wrap">
+    <div class="eyebrow">Relay</div>
+    <h2>수락된 산출물이 다음 멤버의 입력이 된다</h2>
+    <p class="lede">
+      기획이 수락되면 덱의 입력으로, 지시서가 수락되면 개발 발주의 입력으로.
+      매핑은 자동, 전달 확인은 사람. 이 릴레이가 Grouping 의 존재 이유다.
+    </p>
+    <div class="pipe">
+      <div class="pnode d"><span class="pk">DRAFTING</span><b>기획 세트</b><p>PRD · 기능명세 · 컴파일 통과</p></div>
+      <div class="parr">→</div>
+      <div class="pnode s"><span class="pk">SLIDING</span><b>보고 덱</b><p>기획 payload 가 아웃라인 입력으로</p></div>
+      <div class="parr">→</div>
+      <div class="pnode p"><span class="pk">COXPIT</span><b>플릿 발주</b><p>지시서의 수용 기준이 태스크로</p></div>
+    </div>
+    <div class="nums">
+      <div class="num"><b>2</b><span>풀 릴레이 실증 (기획→덱 · 기획→발주)</span></div>
+      <div class="num"><b>8섹션</b><span>PRD 실작성, 컴파일 위반 0 · 약 5분</span></div>
+      <div class="num"><b>8장</b><span>덱 실생성, 스캔 fix 자율 적용 · 약 10분</span></div>
+      <div class="num"><b>106</b><span>이벤트 해시 체인 검증 OK · 단일 채널</span></div>
+    </div>
+    <p class="numnote">전부 실전 채널에서 실측된 수치다. 데모용 목업이 아니다.</p>
+  </div>
+</section>
+
+<section id="contract">
+  <div class="wrap">
+    <div class="eyebrow">Member contract</div>
+    <h2>계약을 지키면, 어떤 제품이든 합류한다</h2>
+    <div class="contract-grid">
+      <div>
+        <ul>
+          <li><span class="li-mark">01</span><div><b>MCP 도구 또는 REST</b><p>제품이 자기 도구를 stdio MCP 로 노출하거나, 결정적 REST 어댑터를 제공한다.</p></div></li>
+          <li><span class="li-mark">02</span><div><b>오퍼레이터 지침</b><p>제품 사용법의 축약. 오케스트레이터는 이 지침과 허용된 도구만으로 일한다.</p></div></li>
+          <li><span class="li-mark">03</span><div><b>로컬 데이터</b><p>산출물은 그 제품의 정본 데이터에 남는다. 원본 앱을 열면 같은 것이 보인다.</p></div></li>
+        </ul>
+      </div>
+      <pre><span class="c">// 멤버 계약 · 코어 코드 수정 없이 이것만으로 합류</span>
+{
+  <span class="k">"engine"</span>: <span class="s">"cli"</span>,
+  <span class="k">"cli"</span>: {
+    <span class="k">"mcp"</span>: { <span class="k">"command"</span>: <span class="s">"node"</span>, <span class="k">"args"</span>: [<span class="s">"…/api/mcp.ts"</span>] },
+    <span class="k">"allowedTools"</span>: <span class="s">"mcp__drafting__*"</span>,
+    <span class="k">"operatorGuide"</span>: <span class="s">"create-project → … → export"</span>
+  }
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <div class="eyebrow">Install</div>
+    <h2>내려받아 열면 끝</h2>
+    <p class="lede">서버도 계정도 없다. 데이터는 전부 내 머신의 ~/.grouping 에 남는다.</p>
+    <pre><span class="c"># 1. dmg 를 받아 Applications 로 옮긴다</span>
+<a href="https://github.com/hanmariyang/aiplab/releases/download/grouping-v0.1.0/Grouping-0.1.0-arm64.dmg" style="color:#9ecbff">Grouping-0.1.0-arm64.dmg</a>  <span class="c">· Apple Silicon · 비서명 빌드라 첫 실행은 우클릭 → 열기</span>
+
+<span class="c"># 2. 요구사항 — 멤버 제품이 이 머신에 있어야 실배선이 붙는다</span>
+Claude Code CLI (구독 로그인)
+Drafting · Sliding · Coxpit  <span class="c">· 없는 멤버는 빈 슬롯으로 표시된다</span>
+
+<span class="c"># 3. 채널에서</span>
+@초안이 신제품 기획서 부탁해
+@미끌이 이 자료로 5장 요약 덱
+@파일럿 repo:my-app 다크 모드 토글, 2안 드라이런</pre>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/modumi-256.png" alt="모둠이" />
+    <span class="wordmark">Group<i>ing</i></span>
+    <div class="fam">
+      <a href="../">AIP Lab</a>
+      <a href="https://hanmariyang.github.io/drafting/">Drafting</a>
+      <a href="https://hanmariyang.github.io/sliding/">Sliding</a>
+      <a href="https://hanmariyang.github.io/coxpit-oss/">Coxpit</a>
+    </div>
+    <div class="lic">-ing studio · 나의 제품이 나의 팀 · 로컬 전용</div>
+  </div>
+</footer>
+
+<script>
+  // 릴레이 데모 루프 — 16초마다 재생 (reduced-motion 이면 정적 표시 유지)
+  const stage = document.getElementById('stage');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+      stage.classList.remove('play');
+      void stage.offsetWidth;
+      stage.classList.add('play');
+    }, 16000);
+  }
+</script>
+</body>
+</html>
