@@ -17,7 +17,7 @@
 ## 글 파일
 
 - 위치: `blog-src/posts/`
-- 이름: **`YYYY-MM-DD-slug.md`** (앞 11자 = 날짜, 나머지가 URL slug). 예: `2026-09-01-drafting-v2.md` → `aiplab.kr/blog/drafting-v2.html`
+- 이름: **`YYYY-MM-DD-slug.md`** (앞 11자 = 날짜, 나머지가 URL slug). 예: `2026-09-01-drafting-v2.md` → `aiplab.kr/blog/drafting-v2` (확장자 없는 깔끔한 URL — Caddy `try_files` 가 `.html` 을 붙여 서빙. 링크·canonical·sitemap 전부 `.html` 없이 생성됨. 기존 `.html` URL 도 하위호환으로 계속 열림)
 - 목록은 **날짜 내림차순**, 맨 위 글이 자동으로 **featured**(대형 카드).
 
 ## 프론트매터 (파일 맨 위)

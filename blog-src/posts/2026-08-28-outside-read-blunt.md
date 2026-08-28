@@ -7,7 +7,7 @@ read: 5
 excerpt: We ran the experiment again with a different model and asked it to be a hiring manager, not a fan. It was. Part two of a short series where we hand the whole studio to an AI, cold, and publish whatever it says back, kind or not.
 ccard_cta: Read →
 ---
-This is the second in a short series. We hand the whole studio to a model, with no context, and ask it to work out who made this and why. [The first read](what-an-ai-read.html) was generous: it found the one rule every tool obeys. This one was asked to sit in a hiring manager's chair instead of a fan's, and it did.
+This is the second in a short series. We hand the whole studio to a model, with no context, and ask it to work out who made this and why. [The first read](what-an-ai-read) was generous: it found the one rule every tool obeys. This one was asked to sit in a hiring manager's chair instead of a fan's, and it did.
 
 We are publishing it in full, the uncomfortable parts included, because a read you only publish when it flatters you is not worth running.
 
