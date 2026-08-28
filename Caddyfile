@@ -8,6 +8,8 @@
 :{$PORT:8080} {
 	root * /srv
 	encode gzip zstd
+	# 확장자 없는 깔끔한 URL: /blog/foo → foo.html (기존 .html 링크도 그대로 동작)
+	try_files {path} {path}.html {path}/index.html
 	file_server {
 		index index.html
 	}

@@ -219,11 +219,11 @@ def render_list(posts):
     feat = posts[0]
     rest = posts[1:]
     fp = feat['p']
-    fbtns = '<a class="btn" href="%s.html">Read the post →</a>' % feat['slug']
+    fbtns = '<a class="btn" href="%s">Read the post →</a>' % feat['slug']
     if fp.get('cta_href') and feat['prod'] != 'studio':
         fbtns += '<a class="btn g" href="%s">%s</a>' % (fp['cta_href'], fp['cta'])
     featured = (
-        '<div class="feat"><a class="cover masc" style="--cg:%s" href="%s.html"><span class="big">&#9654; Featured</span>'
+        '<div class="feat"><a class="cover masc" style="--cg:%s" href="%s"><span class="big">&#9654; Featured</span>'
         '<img src="../img/%s" alt=""/></a><div class="fx"><div class="fmeta"><span class="tag %s"><span class="lv"></span>%s · %s</span>'
         '<span class="meta">%s<span>%s</span></span></div><h2>%s</h2><p>%s</p>'
         '<div style="display:flex;gap:10px;flex-wrap:wrap">%s</div></div></div>'
@@ -236,20 +236,20 @@ def render_list(posts):
         p = m['p']
         cta_lite = esc(m.get('ccard_cta', 'Read →'))
         cards.append(
-            '<a class="pcard %s" href="%s.html">%s<div class="cmeta"><span class="tag %s"><span class="lv"></span>%s · %s</span>'
+            '<a class="pcard %s" href="%s">%s<div class="cmeta"><span class="tag %s"><span class="lv"></span>%s · %s</span>'
             '<span class="meta">%s</span></div><h4>%s</h4><p>%s</p>'
             '<div class="foot"><span class="cta-lite">%s</span><span class="meta">%s min</span></div></a>'
             % (p['cls'], m['slug'], cover(p), p['cls'], esc(m.get('category', 'Note')), p['name'],
                views_html(m, '/blog/%s.html' % m['slug']), esc(m['title']), esc(m.get('excerpt', '')), cta_lite, esc(str(m.get('read', '3')))))
 
-    nav = ('<header><div class="bar"><a class="mark" href="../index.html">' + MARK + '</a>'
-           '<nav class="n"><a href="../index.html#family" class="hs">the tools</a><a href="index.html" class="on">blog</a>'
-           '<a href="../index.html#about" class="hs">about</a><a href="../index.html#family" class="navcta">Get the tools ↓</a></nav></div></header>')
+    nav = ('<header><div class="bar"><a class="mark" href="../">' + MARK + '</a>'
+           '<nav class="n"><a href="../#family" class="hs">the tools</a><a href="./" class="on">blog</a>'
+           '<a href="../#about" class="hs">about</a><a href="../#family" class="navcta">Get the tools ↓</a></nav></div></header>')
     body = (
         '<div class="wrap"><section class="top"><div class="eyebrow"><span class="pr">&gt;</span> BLOG</div>'
         '<h1>Notes from the workshop.</h1><p class="sub">Build logs, release notes, and the thinking behind small '
         'self-hostable tools, with the products they are about.</p></section>' + featured +
-        '<div class="sech"><h3>Latest</h3><a class="k" href="index.html">All posts</a></div>'
+        '<div class="sech"><h3>Latest</h3><a class="k" href="./">All posts</a></div>'
         '<div class="grid">' + ''.join(cards) + '</div>'
         '<section class="cta"><div><h3>New tools, in your inbox.</h3>'
         '<p>A short email when something ships or a build log goes up. No spam, unsubscribe any time.</p></div>'
@@ -286,16 +286,16 @@ def render_post(m, allposts):
     rc = []
     for x in rel:
         xp = x['p']
-        rc.append('<a class="rc" href="%s.html">%s<h4>%s</h4><div class="rm">%s · %s · %s min</div></a>'
+        rc.append('<a class="rc" href="%s">%s<h4>%s</h4><div class="rm">%s · %s · %s min</div></a>'
                   % (x['slug'], cover(xp), esc(x['title']), esc(x.get('category', 'Note')), xp['name'], esc(str(x.get('read', '3')))))
     related = '<div class="related"><div class="k">Keep reading</div><div class="rgrid">' + ''.join(rc) + '</div></div>'
 
-    nav = ('<header><div class="bar"><a class="mark" href="../index.html">' + MARK + '</a>'
-           '<nav class="n"><a href="index.html" class="on">blog</a><a href="%s" class="navcta">%s</a></nav></div></header>'
-           % (p['cta_href'] if m['prod'] != 'studio' else '../index.html#family', p['cta'] if m['prod'] != 'studio' else 'Get the tools ↓'))
+    nav = ('<header><div class="bar"><a class="mark" href="../">' + MARK + '</a>'
+           '<nav class="n"><a href="./" class="on">blog</a><a href="%s" class="navcta">%s</a></nav></div></header>'
+           % (p['cta_href'] if m['prod'] != 'studio' else '../#family', p['cta'] if m['prod'] != 'studio' else 'Get the tools ↓'))
 
     art = (
-        '<div class="head"><a class="back" href="index.html">← Notes</a>'
+        '<div class="head"><a class="back" href="./">← Notes</a>'
         '<div class="hmeta"><span class="tag %s"><span class="lv"></span>%s · %s</span>'
         '<span class="meta">%s<span>%s</span><span>%s min read</span></span></div>'
         '<h1>%s</h1><p class="lead">%s</p>'
@@ -305,7 +305,7 @@ def render_post(m, allposts):
          esc(str(m.get('read', '3'))), esc(m['title']), esc(m.get('excerpt', '')), esc(m.get('author', 'hanmariyang')))
 
     page = (head(m['title'] + ' · AIP Lab Blog', m.get('excerpt', ''), 'article',
-                 canon=SITE + '/blog/' + m['slug'] + '.html', ogimg=SITE + '/blog/og/' + m['prod'] + '.png') + nav + art + hero +
+                 canon=SITE + '/blog/' + m['slug'], ogimg=SITE + '/blog/og/' + m['prod'] + '.png') + nav + art + hero +
             '<article class="art"><div class="body">' + body + '</div></article>' + endcta + related + FOOT)
     return page.replace('</body>', gc_scripts() + '</body>')
 
@@ -313,7 +313,7 @@ def render_post(m, allposts):
 def render_rss(posts):
     items = []
     for m in posts:
-        link = '%s/blog/%s.html' % (SITE, m['slug'])
+        link = '%s/blog/%s' % (SITE, m['slug'])
         items.append('<item><title>%s</title><link>%s</link><guid>%s</guid>'
                      '<pubDate>%s</pubDate><description>%s</description></item>'
                      % (esc(m['title']), link, link, m.get('date', ''), esc(m.get('excerpt', ''))))
@@ -355,7 +355,7 @@ def og_card_html(prod):
 
 def render_sitemap(posts):
     urls = [SITE + '/', SITE + '/working/', SITE + '/blog/']
-    urls += [SITE + '/blog/%s.html' % m['slug'] for m in posts]
+    urls += [SITE + '/blog/%s' % m['slug'] for m in posts]
     body = ''.join('<url><loc>%s</loc></url>' % u for u in urls)
     return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">%s</urlset>' % body
 
