@@ -39,10 +39,10 @@ PRODUCTS = {
                      repo='https://github.com/hanmariyang/coxpit-oss', specs='npx · docker · MIT',
                      blurb='A self-hosted cockpit for a fleet of AI coding agents on your own machines.'),
     'sliding':  dict(name='Sliding', cls='b', cover_bg='#EAEDFB',
-                     mascot=None, shot='sliding-editor.jpg', version='v0.1.1',
-                     landing='https://hanmariyang.github.io/sliding/', cta='See Sliding ↗', cta_href='https://hanmariyang.github.io/sliding/',
-                     repo='https://github.com/hanmariyang/sliding', specs='local Claude · MIT',
-                     blurb='An AI slide studio that writes layout code, then measures the result with a render scan.'),
+                     mascot=None, shot='sliding-cockpit.jpg', version='v0.4.0',
+                     landing='https://aiplab.kr/sliding/', cta='See Sliding ↗', cta_href='https://aiplab.kr/sliding/',
+                     repo=None, specs='local Claude · macOS',
+                     blurb='A conversational slide studio that plans the delivery, then crafts one slide at a time for your approval.'),
     'lighting': dict(name='Lighting', cls='a', cover_bg='#FBEFD8',
                      mascot=None, shot='lighting-workspace.png', version='building',
                      landing=None, cta='Get notified →', cta_href='https://github.com/hanmariyang',
@@ -274,12 +274,12 @@ def render_post(m, allposts):
     # 엔드 CTA
     endcta = ''
     if m['prod'] != 'studio':
+        star = ('<a class="btn g" style="color:#fff;border-color:#3a3a36" href="%s">&#9733; Star on GitHub</a>' % p['repo']) if p.get('repo') else ''
         endcta = (
             '<div class="endcta"><div class="box"><h3>%s</h3><p>%s</p><div class="row">'
-            '<a class="btn d" href="%s">%s</a>'
-            '<a class="btn g" style="color:#fff;border-color:#3a3a36" href="%s">&#9733; Star on GitHub</a></div>'
+            '<a class="btn d" href="%s">%s</a>%s</div>'
             '<div class="fine">%s</div></div></div>'
-        ) % (esc(m.get('cta_title', 'Try ' + p['name'])), esc(p['blurb']), p['cta_href'], p['cta'], p['repo'], esc(p['specs']).upper())
+        ) % (esc(m.get('cta_title', 'Try ' + p['name'])), esc(p['blurb']), p['cta_href'], p['cta'], star, esc(p['specs']).upper())
 
     # 관련 글(자기 제외 최대 3)
     rel = [x for x in allposts if x['slug'] != m['slug']][:3]
