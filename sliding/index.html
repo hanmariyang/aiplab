@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sliding — 말하면, 장표가 됩니다</title>
+<meta name="description" content="로컬 Claude 구독으로 도는 AI 슬라이드 스튜디오. 질문 네 개로 시작해 전달 방법을 설계하고, 한 장씩 승인하며 수제작 품질의 발표를 만든다. 크레딧 없음, 데이터는 내 머신에만." />
+<link rel="icon" type="image/png" href="img/mikkeuri.png" />
+<link rel="canonical" href="https://aiplab.kr/sliding/" />
+<style>
+  /* 브랜드 확정(라이트) — "밤은 작업대의 것": 화면에서 가장 어두운 것 = 제품 프레임.
+     액센트 #3d5df0 한 색, 그라데이션·글로우 금지. */
+  :root {
+    --ink: #16181d; --sub: #5c6270; --faint: #9ca1ab; --hair: #e3e5ea;
+    --ground: #f6f7f9; --paper: #fff;
+    --acc: #3d5df0; --acc-bg: #eef1fe;
+    --glide: cubic-bezier(.16, 1, .3, 1);
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--acc); text-decoration: none; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  header { padding: 16px 0; border-bottom: 1px solid var(--hair); position: sticky; top: 0; background: rgba(246,247,249,.9); backdrop-filter: blur(8px); z-index: 5; }
+  header .wrap { display: flex; align-items: center; gap: 10px; }
+  .logo { font-weight: 800; font-size: 19px; letter-spacing: -.02em; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+  .logo img { height: 26px; }
+  .logo b { color: var(--acc); font-weight: 800; }
+  header nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+  header nav a { color: var(--sub); }
+  header nav a.gh { color: var(--ink); font-weight: 600; }
+
+  /* 히어로 — 잉크 대형 타이포 + 블루 강조 한 줄 + 라이브 제품 프레임 */
+  .hero { padding: 84px 0 0; text-align: center; overflow: hidden; }
+  .hero .eyebrow { font: 700 11px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); animation: glide-in .9s var(--glide) both; }
+  .hero h1 { margin-top: 16px; font-size: clamp(38px, 6.4vw, 64px); font-weight: 800; letter-spacing: -.04em; line-height: 1.16; text-wrap: balance; animation: glide-in .9s var(--glide) .07s both; }
+  .hero h1 b { color: var(--acc); }
+  .hero p.lede { margin: 20px auto 0; max-width: 600px; color: var(--sub); font-size: 17px; animation: glide-in .9s var(--glide) .14s both; }
+  /* 대화 데모 루프(8s) — 승인 루프의 말들이 한 줄씩 순환 */
+  .talk { margin: 26px auto 0; height: 40px; max-width: 560px; position: relative; animation: glide-in .9s var(--glide) .2s both; }
+  .talk span {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 14px; color: var(--sub); opacity: 0; animation: talk-cycle 8s infinite;
+  }
+  .talk span i { font-style: normal; font: 700 10px/1 var(--mono); color: var(--acc); background: var(--acc-bg); border-radius: 999px; padding: 4px 9px; letter-spacing: .04em; }
+  .talk span:nth-child(1) { animation-delay: 0s; }
+  .talk span:nth-child(2) { animation-delay: 2s; }
+  .talk span:nth-child(3) { animation-delay: 4s; }
+  .talk span:nth-child(4) { animation-delay: 6s; }
+  @keyframes talk-cycle { 0%, 100% { opacity: 0; transform: translateY(6px); } 4%, 21% { opacity: 1; transform: none; } 27% { opacity: 0; transform: translateY(-6px); } }
+  .cta { margin-top: 26px; display: flex; gap: 12px; justify-content: center; animation: glide-in .9s var(--glide) .26s both; }
+  .btn { display: inline-block; padding: 12px 24px; border-radius: 9px; font-size: 15px; font-weight: 700; border: 1px solid var(--hair); background: var(--paper); color: var(--ink); transition: transform .3s var(--glide), border-color .3s; }
+  .btn:hover { transform: translateX(3px); border-color: var(--acc); }
+  .btn.pri { background: var(--acc); border-color: var(--acc); color: #fff; }
+  @keyframes glide-in { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero *, .talk span { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .talk span:not(:first-child) { display: none; }
+  }
+
+  /* 라이브 제품 프레임 — 라이트 대화 | 다크 작업대. 페이지에서 가장 어두운 픽셀이 여기다. */
+  .frame { margin: 48px auto -2px; max-width: 980px; animation: glide-in 1s var(--glide) .32s both; }
+  .frame .bar { background: #1a1c22; border-radius: 12px 12px 0 0; padding: 11px 16px; display: flex; gap: 6px; }
+  .frame .bar i { width: 10px; height: 10px; border-radius: 50%; background: #33363f; }
+  .frame img { width: 100%; display: block; border: 1px solid #1a1c22; border-top: 0; border-radius: 0 0 12px 12px; box-shadow: 0 32px 80px -40px rgba(22, 24, 29, .5); }
+
+  section { padding: 76px 0; }
+  section.alt { background: var(--paper); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  h2 { font-size: 27px; letter-spacing: -.02em; margin-bottom: 8px; text-wrap: balance; }
+  .sec-sub { color: var(--sub); margin-bottom: 34px; max-width: 660px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--hair); border-radius: 10px; padding: 22px; background: var(--paper); }
+  section.alt .card { background: var(--ground); }
+  .card h3 { font-size: 16px; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--sub); }
+  .card .k { display: inline-block; font: 800 11px/1 var(--mono); letter-spacing: .1em; color: var(--acc); margin-bottom: 10px; }
+
+  /* 말이 규칙이 되는 순간 — 대화 스니펫 */
+  .ruleplay { margin-top: 20px; border: 1px solid var(--hair); border-radius: 12px; background: var(--paper); padding: 22px 24px; max-width: 640px; }
+  .ruleplay .r { display: flex; gap: 10px; margin: 10px 0; font-size: 14px; }
+  .ruleplay .r.me { justify-content: flex-end; }
+  .ruleplay .bb { border: 1px solid var(--hair); border-radius: 12px; padding: 9px 14px; background: var(--ground); }
+  .ruleplay .r.me .bb { background: var(--acc); color: #fff; border-color: var(--acc); }
+  .ruleplay .tag { font: 700 10px/1 var(--mono); color: var(--acc); background: var(--acc-bg); border-radius: 999px; padding: 4px 9px; margin-left: 6px; }
+
+  table.scan { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 6px; }
+  table.scan th, table.scan td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--hair); }
+  table.scan th { font-size: 12px; letter-spacing: .06em; color: var(--sub); }
+  table.scan td b { color: var(--acc); }
+  .scan-wrap { overflow-x: auto; }
+
+  .shot2 { margin-top: 26px; }
+  .shot2 img { width: 100%; border: 1px solid var(--hair); border-radius: 10px; box-shadow: 0 22px 60px -36px rgba(22, 24, 29, .4); }
+  .shot2 figcaption { font-size: 13px; color: var(--sub); margin-top: 10px; }
+
+  pre { background: #16181d; color: #e8e9ec; border-radius: 10px; padding: 20px 22px; font-size: 13.5px; overflow-x: auto; line-height: 1.8; font-family: var(--mono); }
+  pre .c { color: #7d838f; }
+
+  footer { padding: 44px 0 64px; color: var(--sub); font-size: 13.5px; text-align: center; }
+  footer img { height: 40px; display: block; margin: 0 auto 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="logo"><img src="img/mikkeuri.png" alt="미끌이" /><span>Slid<b>ing</b></span></span>
+    <nav>
+      <a href="#how">작동 방식</a>
+      <a href="#quality">품질</a>
+      <a href="#download">다운로드</a>
+      <a class="gh" href="https://aiplab.kr">AIP Lab →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI Slide Studio · Local First</div>
+    <h1>말하면,<br /><b>장표가 됩니다</b></h1>
+    <p class="lede">수제작 품질 그대로, 대화로 만드는 발표. 질문 네 개로 시작해 전달 방법을 설계하고, 한 장씩 보면서 승인합니다. 로컬 Claude 구독으로 돌고, 크레딧이 없습니다.</p>
+    <div class="talk" aria-hidden="true">
+      <span>"이 발표, 무엇을 위한 자리인가요?" <i>인터뷰</i></span>
+      <span>"결정을 받는 자리라면 결론부터 갑니다" <i>전달 설계</i></span>
+      <span>"표 글자가 작아요" → 기억할게요 <i>STYLE-01</i></span>
+      <span>"좋아요, 다음 장" <i>승인</i></span>
+    </div>
+    <div class="cta">
+      <a class="btn pri" href="https://github.com/hanmariyang/sliding-releases/releases/latest/download/Sliding-arm64.dmg" download>macOS용 내려받기</a>
+      <a class="btn" href="#how">3분 만에 이해하기</a>
+    </div>
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <img src="img/v2-cockpit.jpg" alt="Sliding 공방 대화 — 좌측 라이트 대화, 우측 다크 작업대에 완성 장표" />
+    </div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <h2>바로 그리지 않습니다</h2>
+    <p class="sec-sub">좋은 발표는 장표가 아니라 전달 설계에서 나옵니다. Sliding 은 자료를 요약해 슬라이드로 바꾸는 도구가 아니라, 발표 컨설턴트처럼 묻고 설계한 뒤에 한 장씩 만들어 보여주는 스튜디오입니다.</p>
+    <div class="grid">
+      <div class="card"><span class="k">01 · 인터뷰</span><h3>질문 네 개</h3><p>무엇을, 누구에게, 몇 분, 어떤 결정. 참고 자료가 있으면 붙여넣으면 됩니다 — 모든 주장·수치는 자료의 §근거로 추적됩니다.</p></div>
+      <div class="card"><span class="k">02 · 전달 설계</span><h3>방법론과 목차부터</h3><p>피라미드 보고 · 강의 · 피치 등 전달 방법론을 근거와 함께 고르고, 장마다 역할이 붙은 목차를 제안합니다. 목차 승인 전에는 장표를 만들지 않습니다.</p></div>
+      <div class="card"><span class="k">03 · 승인 루프</span><h3>한 장씩, 보면서</h3><p>장마다 보고 승인하거나 말로 고칩니다. AI 는 앞 장들의 맥락을 이어받아 다음 장을 만듭니다 — 전체 재생성이 없어 토큰 낭비도 없습니다.</p></div>
+    </div>
+    <div class="ruleplay">
+      <div class="r me"><span class="bb">표 글자가 작아요, 본문 최소 12px</span></div>
+      <div class="r"><span class="bb">기억할게요 <span class="tag">STYLE-01</span> — 이후 모든 장에 적용됩니다</span></div>
+      <div class="r" style="margin-top: 14px; font-size: 13px; color: var(--sub)">반려 코멘트는 그 장의 수정으로 끝나지 않습니다. 덱의 규칙이 되어 남은 장 전부에 전파됩니다.</div>
+    </div>
+  </div>
+</section>
+
+<section id="quality" class="alt">
+  <div class="wrap">
+    <h2>결함 없음은 시작선입니다</h2>
+    <p class="sec-sub">목표는 사람 눈 10점. 장마다 세 겹의 눈이 승인 전에 돌고, 자동 수정은 항상 이전보다 나빠지지 않을 때만 반영됩니다(keep-not-worse). 위반은 리포트가 아니라 재생성 지시로 되돌아갑니다.</p>
+    <div class="scan-wrap">
+    <table class="scan">
+      <tr><th>층</th><th>잡는 것</th><th>방식</th></tr>
+      <tr><td><b>계약 린트</b></td><td>캔버스·토큰·금칙 3계약 위반, 깨진 한글, 조각 줄</td><td>결정적 정적 검사, 즉시</td></tr>
+      <tr><td><b>렌더 실측</b></td><td>잘림 · 요소 겹침 · 낱글자 조판 · 대비 미달</td><td>브라우저 레이아웃 엔진을 계측기로</td></tr>
+      <tr><td><b>비전 채점</b></td><td>기하로 못 잡는 어색함 — 구도 · 밀도 · 위계</td><td>렌더 캡처를 AI 가 10점 룰브릭으로 채점</td></tr>
+    </table>
+    </div>
+    <figure class="shot2">
+      <img src="img/v2-overview.jpg" alt="조망 — 역할과 점수가 얹힌 전장 보드" />
+      <figcaption>조망 — 완성 덱을 역할·점수와 함께 한 화면에서. 승인 과정에서 확정된 규칙(STYLE)도 기록으로 남습니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2>데스크톱 앱으로 받기</h2>
+    <p class="sec-sub">설치하면 바로 열리는 데스크톱 앱. 서버가 내장되어 있고, 자동 업데이트가 포함됩니다. Claude Code 로그인(구독)만 있으면 됩니다 — API 키·크레딧 없음.</p>
+    <div class="grid">
+      <div class="card"><span class="k">MACOS</span><h3>Sliding.dmg</h3><p>Apple Silicon · 자동 업데이트</p><p style="margin-top:10px"><a href="https://github.com/hanmariyang/sliding-releases/releases/latest/download/Sliding-arm64.dmg" download>내려받기 →</a></p></div>
+      <div class="card"><span class="k">DATA</span><h3>내 머신에만</h3><p>데이터는 ~/.sliding 한 파일. 외부 서버 전송이 없습니다.</p></div>
+      <div class="card"><span class="k">ENGINE</span><h3>Claude 구독으로</h3><p>로컬 claude CLI 를 그대로 사용합니다. 별도 과금·크레딧이 없습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="img/mikkeuri.png" alt="미끌이" />
+  <div><b>Sliding</b> — 미끌이와 함께 · <a href="https://aiplab.kr">AIP Lab</a> 의 제품입니다. 기획은 자매 도구 <a href="https://aiplab.kr">Drafting</a> 으로.</div>
+</footer>
+
+</body>
+</html>
