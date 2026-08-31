@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applying — 공고를 넣으면, 검증된 내 경력으로 이력서가 나옵니다</title>
+<meta name="description" content="경력자 이직 지원 AI 스튜디오. 근거 없는 문장엔 잉크가 나오지 않습니다. 100% 로컬, BYO Claude 구독.">
+<link rel="icon" href="quri.png">
+<style>
+  :root{
+    --acc:#4E4699; --acc-deep:#3B3475; --acc-tint:#EFEDF8; --acc-line:#DDD9F0;
+    --ink:#191823; --t2:#4E4C5A; --t3:#8B8996; --line:#E4E2EA;
+    --paper:#FFFFFF; --bg:#F5F4F8;
+    --ok:#2E7D4F; --ok-tint:#EAF4EE; --warn:#B97324; --warn-tint:#FBF3E7; --bad:#C13B3B; --bad-tint:#FBEDED;
+    --sans:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",system-ui,sans-serif;
+    --mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;word-break:keep-all;line-break:strict}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* 헤더 */
+  .top{position:sticky;top:0;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:50}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;letter-spacing:-.02em}
+  .brand img{width:28px;height:28px;border-radius:50%}
+  .brand i{font-style:normal;color:var(--acc)}
+  .top nav{display:flex;gap:22px;font-size:13.5px;font-weight:600;color:var(--t2)}
+  .top nav a:hover{color:var(--acc-deep)}
+
+  /* 히어로 */
+  .hero{min-height:calc(100svh - 60px);display:grid;align-content:center;padding:40px 0;background:
+    radial-gradient(1200px 500px at 80% -10%, var(--acc-tint), transparent 60%), var(--paper)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--acc-deep);background:var(--acc-tint);border:1px solid var(--acc-line);border-radius:16px;padding:5px 12px}
+  h1{font-size:clamp(30px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.22;margin-top:18px;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--acc)}
+  .lede{margin-top:16px;font-size:16px;line-height:1.75;color:var(--t2);max-width:46ch}
+  .lede b{color:var(--ink);font-weight:700}
+  .cta{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:12px 20px;font-size:14.5px;font-weight:700;border:1px solid var(--line);background:var(--paper)}
+  .btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+  .btn.pri:hover{background:var(--acc-deep)}
+  .cta .note{font-size:12px;color:var(--t3);width:100%}
+
+  /* 히어로 비주얼 = 스타일드 컴포넌트 콜라주 */
+  .collage{position:relative;min-height:420px}
+  .cd{position:absolute;background:var(--paper);border:1px solid var(--line);border-radius:13px;box-shadow:0 14px 44px rgba(25,24,35,.12);opacity:0;transform:translateY(14px);animation:in .7s ease forwards}
+  @keyframes in{to{opacity:1;transform:none}}
+  .cd .h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:11px;font-weight:800;letter-spacing:.03em;color:var(--t2)}
+  .cd .b{padding:12px 14px}
+  .ref{font-family:var(--mono);font-size:10.5px;color:var(--acc-deep);background:var(--acc-tint);border-radius:5px;padding:2px 7px;white-space:nowrap}
+  .pill{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;border-radius:11px;padding:2px 8px}
+  .pill.ok{background:var(--ok-tint);color:var(--ok)} .pill.bad{background:var(--bad-tint);color:var(--bad)} .pill.warn{background:var(--warn-tint);color:var(--warn)}
+  .c1{top:0;left:0;width:78%;animation-delay:.05s}
+  .c1 .q{font-size:13px;line-height:1.6}
+  .c1 .gate{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px;display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--t2)}
+  .mk{display:inline-flex;width:15px;height:15px;border-radius:50%;align-items:center;justify-content:center;font-size:9px;font-weight:800;margin-right:6px;flex:none}
+  .mk.y{background:var(--ok-tint);color:var(--ok)} .mk.q{background:var(--warn-tint);color:var(--warn)}
+  .c2{top:36%;right:0;width:72%;animation-delay:.25s}
+  .c2 .old{color:var(--t3);text-decoration:line-through;text-decoration-color:#C9A8A8;font-size:12.5px}
+  .c2 .new{margin-top:6px;font-size:12.5px;line-height:1.6}
+  .c2 .new mark{background:var(--ok-tint);color:#1E5A38;border-radius:3px;padding:0 3px}
+  .c3{bottom:0;left:6%;width:60%;animation-delay:.45s}
+  .c3 .b{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .c3 .lock{font-size:12px;color:var(--t2);line-height:1.5}
+  .c3 .exp{font-size:12px;font-weight:700;color:var(--t3);background:#F0EFF4;border:1px solid var(--line);border-radius:8px;padding:8px 13px;white-space:nowrap}
+  .quri-f{position:absolute;right:-8px;bottom:-6px;width:92px;height:92px;border-radius:50%;background:#fff;border:1px solid var(--line);object-fit:cover;box-shadow:0 8px 22px rgba(25,24,35,.16);animation:in .7s .6s ease forwards;opacity:0}
+
+  /* 섹션 공통 */
+  section{min-height:calc(100svh - 60px);display:grid;align-content:center;padding:64px 0;scroll-margin-top:60px}
+  section.alt{background:var(--bg)}
+  .k{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--acc)}
+  h2{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.03em;margin-top:10px;line-height:1.35;text-wrap:balance}
+  .sub{margin-top:16px;font-size:14.5px;line-height:1.75;color:var(--t2);max-width:62ch}
+
+  /* 문제 */
+  .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:44px}
+  .pain{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:18px}
+  .pain .t{font-size:14.5px;font-weight:800;line-height:1.45}
+  .pain .d{margin-top:8px;font-size:12.5px;color:var(--t2);line-height:1.65}
+
+  /* 루프 3단계 — 컴포넌트 재구성 */
+  .step{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px;align-items:center;margin-top:40px}
+  section.rev .step{direction:rtl}
+  section.rev .step > *{direction:ltr}
+  .sn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--acc)}
+  .step h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-top:8px}
+  .step p{margin-top:10px;font-size:14px;line-height:1.75;color:var(--t2)}
+  .demo{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+  .dcard{background:var(--paper);border:1px solid var(--line);border-radius:11px;font-size:12.5px}
+  .dcard .h{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid var(--line);font-size:10.5px;font-weight:800;letter-spacing:.04em;color:var(--t3)}
+  .dcard .b{padding:11px 13px;line-height:1.6}
+  .req{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 13px;border-bottom:1px solid var(--line)}
+  .req:last-child{border-bottom:0}
+  .chat{display:flex;gap:9px;align-items:flex-start}
+  .chat img{width:26px;height:26px;border-radius:50%;flex:none;margin-top:2px;background:#fff;border:1px solid var(--line)}
+  .bub{background:var(--paper);border:1px solid var(--line);border-radius:11px;border-top-left-radius:4px;padding:10px 13px;font-size:12.5px;line-height:1.65}
+  .bub.me{background:var(--acc-tint);border-color:var(--acc-line);border-top-left-radius:11px;border-top-right-radius:4px;margin-left:35px}
+
+  /* 하드 게이트 인터랙티브 데모 */
+  .gatebox{max-width:660px;margin:44px auto 0;background:var(--paper);border:1.5px solid var(--acc-line);border-radius:18px;overflow:hidden;box-shadow:0 18px 60px rgba(78,70,153,.13)}
+  .gatebox .gh{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;color:var(--t2)}
+  .gatebox .gb{padding:20px}
+  .sent{font-size:14.5px;line-height:1.8}
+  .sent .num{border-bottom:2px solid var(--bad);background:var(--bad-tint);border-radius:3px;padding:1px 4px;cursor:default;transition:all .35s}
+  .gatebox.linked .sent .num{border-bottom-color:var(--acc);background:var(--acc-tint)}
+  .sent .tagslot{display:inline-block;min-width:0;transition:all .3s}
+  .linkrow{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .linkbtn{border:1px solid var(--acc);color:var(--acc-deep);background:var(--paper);border-radius:9px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .linkbtn:hover{background:var(--acc-tint)}
+  .linkbtn:focus-visible,.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+  .gatebox.linked .linkbtn{display:none}
+  .exportb{border-radius:9px;padding:9px 18px;font-size:13px;font-weight:700;border:1px solid var(--line);background:#F0EFF4;color:var(--t3);transition:all .35s;font-family:var(--sans)}
+  .gatebox.linked .exportb{background:var(--acc);border-color:var(--acc);color:#fff}
+  .gstat{font-size:11.5px;color:var(--bad);font-weight:700}
+  .gatebox.linked .gstat{color:var(--ok)}
+  .gnote{padding:12px 20px;background:var(--bg);border-top:1px solid var(--line);font-size:12px;color:var(--t3);line-height:1.6}
+
+  /* 원칙 */
+  .prin{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:44px}
+  .pr{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:20px}
+  .pr .n{font-family:var(--mono);font-size:11px;color:var(--acc);font-weight:700}
+  .pr .t{font-size:15.5px;font-weight:800;margin-top:8px}
+  .pr .d{margin-top:9px;font-size:12.5px;color:var(--t2);line-height:1.7}
+
+  /* 큐리 */
+  .quri{display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:center;margin-top:44px}
+  .quri img{width:100%;max-width:200px;border-radius:50%;background:#fff;border:1px solid var(--line)}
+  .quri .q1{font-size:19px;font-weight:800;letter-spacing:-.02em;line-height:1.5}
+  .quri .q2{margin-top:12px;font-size:14px;color:var(--t2);line-height:1.75;max-width:56ch}
+
+  /* 푸터 CTA */
+  .last{text-align:center;padding:64px 0}
+  .last h2{margin-top:0}
+  .last .cta{justify-content:center}
+  footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;color:var(--t3)}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  /* 페인 카드 미니 비주얼 */
+  .pv{margin-top:14px;border:1px solid var(--line);border-radius:9px;background:var(--bg);padding:10px 12px;font-size:11px;color:var(--t2)}
+  .filestack{display:flex;flex-direction:column;gap:4px}
+  .file{display:flex;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 9px;font-family:var(--mono);font-size:10px;color:var(--t3)}
+  .file em{font-style:normal;color:var(--bad);font-weight:700}
+  .fake{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.55}
+  .hl-y{background:var(--warn-tint);border-bottom:2px solid var(--warn);border-radius:2px;padding:0 2px}
+  .hl-r{background:var(--bad-tint);border-bottom:2px solid var(--bad);border-radius:2px;padding:0 2px}
+  .lockrow{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:11px}
+  /* 스텝 데모 보강 */
+  .urlbar{display:flex;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px 8px 8px 12px;font-size:11.5px;color:var(--t3);align-items:center}
+  .urlbar span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono);font-size:10.5px}
+  .urlbar b{background:var(--acc);color:#fff;border-radius:6px;padding:5px 11px;font-weight:700;font-size:11px;white-space:nowrap}
+  .chiprow{display:flex;gap:6px;flex-wrap:wrap}
+  .chip2{font-size:10.5px;font-weight:700;border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:3px 9px;color:var(--t2)}
+  .chip2.must{border-color:var(--acc-line);background:var(--acc-tint);color:var(--acc-deep)}
+  .pbar{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--t3);font-weight:700}
+  .pbar .tr{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+  .pbar .tr i{display:block;height:100%;width:66%;background:var(--acc)}
+  .gmini{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:11.5px;color:var(--t2);display:flex;flex-direction:column;gap:5px}
+  .gmini .gt2{font-size:10px;font-weight:800;letter-spacing:.04em;color:var(--t3)}
+  .mnote{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--t3);background:var(--paper);border:1px dashed var(--line2);border-radius:9px;padding:8px 12px}
+  /* 원칙 아이콘 */
+  .pr .ic{width:30px;height:30px;border-radius:9px;background:var(--acc-tint);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .pr .ic svg{width:17px;height:17px;stroke:var(--acc-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  /* 룰북 스트립 */
+  .rules-strip{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .rr{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--t2);background:var(--paper)}
+  .rr.hard{border-color:#EAC7C7;color:var(--bad);background:var(--bad-tint)}
+  /* 큐리 포즈 스트립 */
+  .poses{display:flex;gap:22px;margin-top:24px}
+  .pose{text-align:center;font-size:11.5px;color:var(--t3);font-weight:600}
+  .pose img{width:72px;height:72px;border-radius:50%;background:#fff;border:1px solid var(--line);display:block;margin:0 auto 7px}
+  /* CTA */
+  .promise{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+  .pm{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--paper);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--t2)}
+  .pm i{font-style:normal;width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
+  .cta-quri{width:104px;height:104px;border-radius:50%;background:#fff;border:1px solid var(--line);margin:0 auto 20px;display:block;box-shadow:0 10px 30px rgba(25,24,35,.12)}
+  @media (max-width:860px){
+    .hero{min-height:0;padding:72px 0 60px}
+    section{min-height:0;padding:84px 0}
+    .hero .wrap{grid-template-columns:1fr}
+    .collage{min-height:400px;margin-top:8px}
+    .step{grid-template-columns:1fr;gap:18px}
+    section.rev .step{direction:ltr}
+    .quri{grid-template-columns:1fr;text-align:center}
+    .quri img{margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cd,.quri-f{animation:none;opacity:1;transform:none}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="quri.png" alt=""><span>Apply<i>ing</i></span></a>
+    <nav>
+      <a href="#loop">동작 방식</a>
+      <a href="#gate">잉크 게이트</a>
+      <a href="#principles">원칙</a>
+      <a href="#quri">큐리</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero snap">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">경력자 이직 지원 AI 스튜디오 · macOS</span>
+      <h1>공고를 넣으면,<br>검증된 내 경력으로<br><em>그 회사 이력서</em>가 나옵니다</h1>
+      <p class="lede">
+        AI가 이력서를 지어내는 시대에, Applying은 반대로 갑니다.
+        <b>근거·시점·수치 검증을 통과한 경력만</b> 이력서의 재료가 되고,
+        근거 없는 문장엔 <b>잉크가 나오지 않습니다.</b>
+      </p>
+      <div class="cta">
+        <a class="btn pri" href="#loop">동작 방식 보기</a>
+        <a class="btn" href="#gate">잉크 게이트 체험</a>
+        <span class="note">무료 · 내 Claude 구독으로 동작 · 데이터는 100% 내 컴퓨터에</span>
+      </div>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <div class="cd c1">
+        <div class="h"><span>갭 인터뷰 · 검증</span><span class="ref">#48 등록 대기</span></div>
+        <div class="b">
+          <div class="q">이 공고는 <b>대용량 트래픽 처리</b>를 우대합니다. 실제로 다뤄본 규모를, 면접에서 1분 안에 방어할 수 있는 수치로 말해줄 수 있나요?</div>
+          <div class="gate">
+            <span><span class="mk y">✓</span>근거 · 배치 로그</span>
+            <span><span class="mk y">✓</span>수치 · 시간당 12만 건</span>
+            <span><span class="mk q">?</span>시점 · 연월로 좁혀 주세요</span>
+          </div>
+        </div>
+      </div>
+      <div class="cd c2">
+        <div class="h"><span>회사판 파생 · diff</span><span class="ref">#12 · #48</span></div>
+        <div class="b">
+          <div class="old">주문 처리 시스템을 설계하고 운영했습니다.</div>
+          <div class="new"><mark>단일 주문 상태 기준과 자동 검증으로</mark> 주문 처리 시스템을 설계·운영하고, <mark>피크 시간당 12만 건</mark>을 지연 없이 처리했습니다.</div>
+        </div>
+      </div>
+      <div class="cd c3">
+        <div class="h"><span>PDF 내보내기</span><span class="pill bad">무근거 수치 1건</span></div>
+        <div class="b">
+          <div class="lock">근거 없는 수치가 남아 있어<br>내보내기가 잠겨 있습니다</div>
+          <span class="exp">내보내기 (잠김)</span>
+        </div>
+      </div>
+      <img class="quri-f" src="quri-ask.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="alt snap">
+  <div class="wrap">
+    <span class="k">WHY</span>
+    <h2>경력 이직 이력서, 다들 이렇게 고생합니다</h2>
+    <div class="pains">
+      <div class="pain"><div class="t">공고마다 처음부터 다시</div><div class="d">지원할 때마다 이력서를 손으로 고칩니다. 어느 판에 어떤 수치를 썼는지 점점 뒤섞입니다.</div>
+        <div class="pv"><div class="filestack">
+          <div class="file"><span>이력서_A사_final.pdf</span><span>08.12</span></div>
+          <div class="file"><span>이력서_B사_final_v2.pdf</span><span>08.19</span></div>
+          <div class="file"><span>이력서_진짜final<em>(3)</em>.pdf</span><span>08.27</span></div>
+        </div></div></div>
+      <div class="pain"><div class="t">AI가 수치를 지어냅니다</div><div class="d">챗봇에 맡기면 그럴듯한 성과가 생겨납니다. 면접에서 그 수치를 방어하지 못하면 신뢰가 무너집니다.</div>
+        <div class="pv"><div class="fake">매출을 <span class="hl-r">340%</span> 성장시켰습니다 <span class="pill bad" style="margin-left:4px">출처 없음</span></div></div></div>
+      <div class="pain"><div class="t">민감한 데이터의 외부 업로드</div><div class="d">이직 기록·연봉·경력 상세를 외부 서비스 서버에 올려야 합니다. 회사에 알려질까 불안합니다.</div>
+        <div class="pv"><div class="lockrow"><span>경력기술서.docx → ☁ 외부 서버</span><span class="pill warn">누가 볼까?</span></div></div></div>
+      <div class="pain"><div class="t">AI 티 나는 문장</div><div class="d">"적극적으로 활용하여", 어미가 똑같은 불릿들. 검토자는 한눈에 알아봅니다.</div>
+        <div class="pv"><div class="fake">데이터를 <span class="hl-y">적극적으로 활용하여</span> 시너지를 <span class="hl-y">극대화하였습니다</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="loop" class="snap">
+  <div class="wrap">
+    <span class="k">HOW IT WORKS · 1 / 3</span>
+    <h2>공고 하나가 들어오면, 이런 일이 일어납니다</h2>
+    <div class="step">
+        <div>
+          <div class="sn">STEP 1</div>
+          <h3>공고를 읽고, 내 경력과 대조합니다</h3>
+          <p>URL을 붙여넣으면 요건을 필수·우대로 구조화해 추출하고, 검증된 "내 경력" 데이터와 대조해 충족·부분 충족·미충족으로 가릅니다. 어느 요건에 어떤 근거(#번호)가 있는지까지 함께 보여줍니다.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <div class="urlbar"><span>https://careers.maplecart.kr/backend-engineer</span><b>지원 시작</b></div>
+          <div class="chiprow">
+            <span class="chip2 must">필수 · Python 백엔드</span><span class="chip2 must">필수 · 대용량 트랜잭션</span>
+            <span class="chip2">우대 · PG 연동</span><span class="chip2">우대 · Kafka</span>
+          </div>
+          <div class="dcard">
+            <div class="h"><span>요건 대조 결과</span><span>필수 4 · 우대 3</span></div>
+            <div class="req"><span>주문·결제 도메인 설계</span><span><span class="pill ok">충족</span> <span class="ref">#12</span></span></div>
+            <div class="req"><span>대용량 트래픽 처리</span><span><span class="pill warn">부분 충족</span> <span class="ref">#07</span></span></div>
+            <div class="req"><span>결제 PG 연동</span><span class="pill bad">미충족</span></div>
+          </div>
+        </div>
+  </div>
+</section>
+
+<section class="alt rev snap">
+  <div class="wrap">
+    <span class="k">HOW IT WORKS · 2 / 3</span>
+    <div class="step">
+        <div>
+          <div class="sn">STEP 2</div>
+          <h3>부족한 근거는, 물어봐서 채웁니다</h3>
+          <p>없는 경력을 지어내는 대신 큐리가 되묻습니다. 답변은 근거·시점·수치, 그리고 "1분 안에 답할 수 있는 면접 질문"까지 통과해야 내 경력에 등록됩니다. 공고를 넣을수록 경력 데이터가 깊어집니다.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <div class="pbar"><span>갭 인터뷰 2 / 3</span><div class="tr"><i></i></div></div>
+          <div class="chat">
+            <img src="quri-ask.png" alt="">
+            <div class="bub">주문 배치를 직접 운영해 본 경험을 말씀해 주세요. 어떤 규모를 어느 주기로 처리했나요?</div>
+          </div>
+          <div class="bub me">월말 피크 기준 시간당 12만 건을 큐 분리로 지연 없이 처리했습니다.</div>
+          <div class="gmini">
+            <span class="gt2">검증 · 4항목</span>
+            <span><span class="mk y">✓</span>근거 · 배치 로그</span>
+            <span><span class="mk y">✓</span>시점 · 2025.09</span>
+            <span><span class="mk y">✓</span>수치 · 시간당 12만 건</span>
+            <span><span class="mk y">✓</span>1분 면접 질문 · 답변 가능</span>
+          </div>
+          <div class="chat">
+            <img src="quri-stamp.png" alt="">
+            <div class="bub">검증 통과. <span class="ref">#48</span> 로 등록했습니다.</div>
+          </div>
+        </div>
+  </div>
+</section>
+
+<section class="snap">
+  <div class="wrap">
+    <span class="k">HOW IT WORKS · 3 / 3</span>
+    <div class="step">
+        <div>
+          <div class="sn">STEP 3</div>
+          <h3>마스터는 그대로, 회사판만 파생됩니다</h3>
+          <p>변경 제안은 블록 단위 diff로 나오고, 모든 제안에는 근거 번호가 달려 있습니다. 수락한 블록만 회사판에 반영되고, AI 티 린트와 잉크 게이트를 통과해야 A4 PDF로 나갑니다.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <div class="dcard">
+            <div class="h"><span>경력 · 불릿 2</span><span class="ref">#12 · #48</span></div>
+            <div class="b">
+              <div style="color:var(--t3);text-decoration:line-through;text-decoration-color:#C9A8A8">주문 처리 시스템을 운영했습니다.</div>
+              <div style="margin-top:6px">피크 시간당 <mark style="background:var(--ok-tint);border-radius:3px;padding:0 3px">12만 건 배치를 지연 없이</mark> 처리했습니다.</div>
+              <div style="display:flex;gap:6px;margin-top:10px">
+                <span class="pill" style="background:var(--acc);color:#fff">수락</span>
+                <span class="pill" style="border:1px solid var(--line);color:var(--t2)">수정 후 수락</span>
+                <span class="pill" style="border:1px solid var(--line);color:var(--t2)">거부</span>
+              </div>
+            </div>
+          </div>
+          <div class="dcard">
+            <div class="h"><span>소개 · 문단 1</span><span class="pill bad">거부됨</span></div>
+            <div class="b" style="color:var(--t3)">과장된 표현 제안은 거부했습니다. 회사판에 반영되지 않습니다.</div>
+          </div>
+          <div class="mnote">마스터 이력서 원본은 그대로 유지됩니다. 회사판은 수락한 블록만으로 만들어집니다.</div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="alt snap" id="gate">
+  <div class="wrap">
+    <span class="k">SIGNATURE</span>
+    <h2>잉크 게이트, 직접 눌러 보세요</h2>
+    <p class="sub">Applying의 약속은 설정으로 끌 수 없습니다. 근거 없는 수치가 하나라도 남아 있으면 PDF 내보내기 버튼이 열리지 않습니다.</p>
+    <div class="gatebox" id="gatedemo">
+      <div class="gh"><span>회사판 이력서 · 마지막 문장</span><span class="gstat" id="gstat">잉크 게이트 · 무근거 수치 1건</span></div>
+      <div class="gb">
+        <p class="sent">배포 파이프라인을 개선해 배포 시간을 <span class="num">70%</span> 단축했습니다. <span class="tagslot" id="tagslot"></span></p>
+        <div class="linkrow">
+          <button class="linkbtn" id="linkbtn" type="button">내 경력에서 근거 연결 (#31 · 배포 자동화, 2025.02)</button>
+          <button class="exportb" id="exportb" type="button" disabled>PDF 내보내기 (잠김)</button>
+        </div>
+      </div>
+      <div class="gnote" id="gnote">수치 "70%"에 연결된 근거가 없습니다. 근거를 연결하거나, 갭 인터뷰로 검증하거나, 문장을 빼야 내보낼 수 있습니다.</div>
+    </div>
+    <div class="rules-strip" aria-hidden="true">
+      <span class="rr hard">R-01 엠대시</span><span class="rr hard">R-02 무근거 수치</span>
+      <span class="rr">R-03 클리셰 동사</span><span class="rr">R-04 과장 수식어</span>
+      <span class="rr">R-05 의존 프레임</span><span class="rr">R-06 번역투</span><span class="rr">R-07 문형 반복</span>
+    </div>
+  </div>
+</section>
+
+<section id="principles" class="snap">
+  <div class="wrap">
+    <span class="k">PRINCIPLES</span>
+    <h2>구조로 지키는 네 가지 약속</h2>
+    <div class="prin">
+      <div class="pr"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 5 6.5 5 9.5a5 5 0 0 1-10 0C7 9.5 9 7 12 3z"/></svg></div><div class="n">01</div><div class="t">지어내지 않습니다</div><div class="d">모든 문장은 검증 통과한 경력의 근거 번호를 달아야 합니다. 근거 없는 수치는 생성 단계에서 서버가 폐기합니다.</div></div>
+      <div class="pr"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9"/><rect x="10" y="14" width="4" height="5"/></svg></div><div class="n">02</div><div class="t">데이터는 내 컴퓨터에만</div><div class="d">경력·이력서·지원 기록 전부 로컬 파일입니다. 외부로 나가는 통신은 공고 URL을 읽어오는 것 하나뿐입니다.</div></div>
+      <div class="pr"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="4"/><path d="M13 12h7M17 12v3M20 12v2"/></svg></div><div class="n">03</div><div class="t">내 구독으로 동작합니다</div><div class="d">이미 쓰고 있는 Claude 구독을 연결합니다. 크레딧 판매도, AI 사용료 마진도 없습니다.</div></div>
+      <div class="pr"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16v10H9l-5 4z"/><path d="M11 10.5h.01M15 10.5h.01"/></svg></div><div class="n">04</div><div class="t">면접까지가 이력서입니다</div><div class="d">등록의 마지막 관문은 "이 수치를 면접에서 1분 안에 방어할 수 있나요?"입니다. 서류와 면접이 어긋나지 않습니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt snap" id="quri">
+  <div class="wrap">
+    <span class="k">MASCOT</span>
+    <h2>깐깐한 질문 담당, 큐리</h2>
+    <div class="quri">
+      <img src="quri.png" alt="만년필을 든 부엉이 마스코트 큐리">
+      <div>
+        <div class="q1">"큐리의 펜은, 근거 없는 문장엔 잉크가 나오지 않습니다."</div>
+        <div class="q2">만년필을 든 부엉이 큐리는 Applying의 검증 그 자체입니다. 배에 찍힌 잉크 점은 검증을 통과한 경력에 찍히는 도장. 먼저 깐깐하게 물어봐 주는 덕분에, 진짜 면접에서 무너지지 않습니다.</div>
+        <div class="poses" aria-hidden="true">
+          <div class="pose"><img src="quri-hello.png" alt="">온보딩 인사</div>
+          <div class="pose"><img src="quri-ask.png" alt="">갭 질문</div>
+          <div class="pose"><img src="quri-stamp.png" alt="">검증 도장</div>
+          <div class="pose"><img src="quri-done.png" alt="">PDF 완성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="last snap">
+  <div class="wrap">
+    <img class="cta-quri" src="quri-done.png" alt="">
+    <span class="eyebrow">macOS 앱 · 무료</span>
+    <h2 style="margin-top:16px">다음 지원부터, 같이 하시죠</h2>
+    <p class="sub" style="margin:14px auto 0">Apple 서명과 공증을 마친 앱입니다. 받아서 열면 바로 실행됩니다.<br>Claude 구독과 Chrome 만 있으면 됩니다.</p>
+    <div class="promise">
+      <span class="pm"><i></i>데이터 100% 로컬</span>
+      <span class="pm"><i></i>내 Claude 구독 · 크레딧 0</span>
+      <span class="pm"><i></i>무근거 수치 원천 차단</span>
+    </div>
+    <div class="cta" style="margin-top:24px">
+      <a class="btn pri" href="https://github.com/hanmariyang/applying-releases/releases/latest/download/Applying-arm64.dmg">macOS 앱 받기 (Apple Silicon)</a>
+      <a class="btn" href="#loop">동작 방식 다시 보기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Applying · AIP Lab 인디 제품 스튜디오</span>
+    <span>hanmari.code@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+  const box = document.getElementById('gatedemo');
+  document.getElementById('linkbtn').addEventListener('click', () => {
+    box.classList.add('linked');
+    document.getElementById('tagslot').innerHTML = '<span class="ref">#31</span>';
+    document.getElementById('gstat').textContent = '잉크 게이트 · 통과';
+    const eb = document.getElementById('exportb');
+    eb.disabled = false; eb.textContent = 'PDF 내보내기';
+    document.getElementById('gnote').textContent = '근거 #31 이 연결됐습니다. 이제 이 문장은 면접에서도 같은 근거로 답할 수 있습니다.';
+  });
+  document.getElementById('exportb').addEventListener('click', (e) => {
+    if (!box.classList.contains('linked')) return;
+    e.target.textContent = 'A4 렌더 검증 통과 · 저장됨';
+  });
+
+  // 섹션 스냅 (JS): 스크롤이 멈추면 가장 가까운 섹션 시작점으로 정렬.
+  // CSS mandatory 스냅은 앵커 이동과 충돌해 JS 로 구현. 모바일·모션 감소 설정에서는 비활성.
+  (() => {
+    const HEADER = 60;
+    const mq = window.matchMedia('(min-width: 861px)');
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let timer = null, snapping = false;
+    const sections = [...document.querySelectorAll('section')];
+    function snap() {
+      if (!mq.matches || rm.matches || snapping) return;
+      const y = window.scrollY + HEADER;
+      let best = null, bd = Infinity;
+      for (const sec of sections) {
+        const d = Math.abs(sec.offsetTop - y);
+        if (d < bd) { bd = d; best = sec; }
+      }
+      if (!best) return;
+      const target = Math.max(0, best.offsetTop - HEADER);
+      if (Math.abs(target - window.scrollY) < 2 || bd > window.innerHeight * 0.5) return;
+      snapping = true;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+      setTimeout(() => { snapping = false; }, 700);
+    }
+    window.addEventListener('scroll', () => {
+      if (snapping) return;
+      clearTimeout(timer);
+      timer = setTimeout(snap, 160);
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>
