@@ -22,6 +22,7 @@
     --amber:#C77C1A; --amberT:#FAEFD9;
     --coral:#E24A28; --coralT:#FCEAE4;
     --navy:#3A3F55; --navyT:#EBECF2;
+    --cobalt:#3D53E8; --cobaltT:#EDEAFA; /* Planning · 밴드 틴트는 Sliding blueT 와 갈리도록 바이올렛 쪽으로 */
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -32,7 +33,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}.dp{background:var(--cobalt)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -50,7 +51,7 @@
   .cast .m{position:relative}
   .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
-  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}.cast .m.p .tag{color:var(--cobalt)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
   .eyebrow .pr{color:var(--ink)}
@@ -74,6 +75,7 @@
   .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
+  .band.p{background:linear-gradient(180deg,var(--cobaltT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   /* 짝수 밴드(Sliding·Lighting·Grouping) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
   @media(min-width:861px){
@@ -85,17 +87,17 @@
   .pinfo .top{display:flex;align-items:center;gap:14px}
   .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
   .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
-  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}.w .pname{color:var(--coral)}
+  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}.w .pname{color:var(--coral)}.p .pname{color:var(--cobalt)}
   .code{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint)}
   .ptag{font-weight:700;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.01em;margin:16px 0 8px}
   .pinfo p{color:var(--soft);margin:0 0 18px;max-width:42ch}
   .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
   .chip .lv{width:7px;height:7px;border-radius:50%}
-  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}.w .chip .lv{background:var(--coral)}
+  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}.w .chip .lv{background:var(--coral)}.p .chip .lv{background:var(--cobalt)}
   .chip.soon{border-style:dashed}.chip.soon .lv{box-shadow:0 0 0 3px var(--amberT)}
   .plinks{display:flex;gap:16px;margin-top:18px}
   .plinks a{font-family:var(--mono);font-size:12.5px;display:inline-flex;gap:6px;align-items:center}
-  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}.w .plinks a:hover{color:var(--coral)}
+  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}.w .plinks a:hover{color:var(--coral)}.p .plinks a:hover{color:var(--cobalt)}
   .indev{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:16px}
   .bookcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
   .bookcard .hd{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:12px;color:var(--soft)}
@@ -169,7 +171,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dp"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs" data-k="nav_tools">the tools</a>
       <a href="#values" class="hs" data-k="nav_why">why</a>
@@ -208,6 +210,10 @@
       <div class="m g">
         <img src="img/modumi.png" alt="Grouping mascot 모둠이"/>
         <div class="tag">GROUPING</div>
+      </div>
+      <div class="m p">
+        <img src="img/planning-mark.png" alt="Planning mark"/>
+        <div class="tag">PLANNING</div>
       </div>
     </div>
     <div class="eyebrow"><span class="pr">&gt;</span> <span data-k="eyebrow">AIP LAB — a one-person tool studio</span></div>
@@ -343,6 +349,26 @@
   </div>
 </section>
 
+<!-- Planning (macOS app) -->
+<section class="band p">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/planning-mark.png" alt="Planning mark" style="height:56px"/>
+        <div><div class="pname">Planning</div><div class="code">AIP·008 · macOS</div></div>
+      </div>
+      <div class="ptag" data-k="p_tag">The agent plans the day.<br>You approve and adjust.</div>
+      <p data-k="p_desc">A PM app for one person running more than one project. Open it and today's order is already laid out, each block with a one-line reason. It runs on rules alone; add an AI key and it gets sharper. Everything the agent does can be undone, and it all lives in one local file. No server, no account.</p>
+      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · Apple Silicon · 자동 업데이트</span>
+      <div class="plinks"><a href="planning/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/planning-releases/releases/latest/download/Planning-0.1.2-arm64.dmg" data-k="p_dl">Download ↓</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Planning · today, with reasons</div>
+      <img src="img/planning-today.jpg" alt="Planning — the morning briefing and today's plan, each block with a one-line reason"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -391,7 +417,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dp"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
@@ -433,6 +459,9 @@ drafting.sqlite <span class="ok">✓</span>
     g_tag:"내 제품이,<br>내 팀처럼 일합니다.",
     g_desc:"AIP Lab 도구들이 팀원이 되는 허브. 채널에서 @멤버를 부르면 그 제품이 자기 공방에서 일하고, 결과는 제안 카드로 옵니다. 수락한 결과물은 다음 멤버에게 이어지고, 모든 기록은 해시 체인 하나에 남습니다.",
     g_dl:"내려받기 ↓",
+    p_tag:"에이전트가 하루를 먼저 짜고,<br>나는 승인하고 조정합니다.",
+    p_desc:"프로젝트를 둘 이상 굴리는 한 사람을 위한 PM 앱. 앱을 열면 오늘의 순서가 이미 놓여 있고, 블록마다 왜 그 순서인지가 한 줄로 붙습니다. AI 없이도 규칙만으로 돌고, 키를 붙이면 더 정교해집니다. 에이전트가 한 일은 전부 되돌릴 수 있고, 데이터는 내 컴퓨터의 파일 하나에 남습니다. 서버도 계정도 없습니다.",
+    p_dl:"내려받기 ↓",
     v_head:"&gt; 가족이 함께 지키는 것",
     v1t:"셀프호스트", v1d:"내 컴퓨터에서 실행", v2t:"로컬 우선", v2d:"내 데이터, 파일 하나로",
     v3t:"오픈소스", v3d:"MIT · 오래 남습니다", v4t:"AI 보조", v4d:"초안은 AI, 결정은 나",
