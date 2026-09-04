@@ -22,6 +22,7 @@
     --amber:#C77C1A; --amberT:#FAEFD9;
     --coral:#E24A28; --coralT:#FCEAE4;
     --navy:#3A3F55; --navyT:#EBECF2;
+    --violet:#6B5AE0; --violetT:#F0EEFB;
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -32,7 +33,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}.dv{background:var(--violet)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -74,6 +75,7 @@
   .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
+  .band.gt{background:linear-gradient(180deg,var(--violetT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   /* 짝수 밴드(Sliding·Lighting·Grouping) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
   @media(min-width:861px){
@@ -169,7 +171,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dv"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs" data-k="nav_tools">the tools</a>
       <a href="#values" class="hs" data-k="nav_why">why</a>
@@ -343,6 +345,26 @@
   </div>
 </section>
 
+<!-- Giting (web) -->
+<section class="band gt">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/giti.png" alt="Giting mascot 기티" style="height:56px"/>
+        <div><div class="pname">Giting</div><div class="code">AIP·007 · web</div></div>
+      </div>
+      <div class="ptag" data-k="gt_tag">Stars are the past.<br>Clone it and measure.</div>
+      <p data-k="gt_desc">An open-source curation site that reads repos by measurement, not stars. Every report starts from a real clone — lines of code, commit density, tests, the license text — drafted by AI, checked against the probe numbers, and published only after human review. Agents read it too, over MCP.</p>
+      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · <span data-k="gt_cad">weekly reports</span></span>
+      <div class="plinks"><a href="https://giting.kr" data-k="open">Open ↗</a><a href="https://www.threads.com/@giting.kr">Threads</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Giting · measured reports</div>
+      <img src="img/giting-home.jpg" alt="Giting — open-source reports measured from real clones"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -391,7 +413,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dv"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
@@ -433,6 +455,9 @@ drafting.sqlite <span class="ok">✓</span>
     g_tag:"내 제품이,<br>내 팀처럼 일합니다.",
     g_desc:"AIP Lab 도구들이 팀원이 되는 허브. 채널에서 @멤버를 부르면 그 제품이 자기 공방에서 일하고, 결과는 제안 카드로 옵니다. 수락한 결과물은 다음 멤버에게 이어지고, 모든 기록은 해시 체인 하나에 남습니다.",
     g_dl:"내려받기 ↓",
+    gt_tag:"별점은 과거,<br>클론해서 실측합니다.",
+    gt_desc:"오픈소스를 스타 수가 아니라 실측으로 읽는 큐레이션 사이트. 모든 리포트는 실제 클론에서 잰 수치(코드 줄수·커밋 밀도·테스트·라이선스 원문)로 시작하고, AI 초안을 실측 JSON과 기계 대조한 뒤 사람 검수를 거쳐서만 발행합니다. MCP로 에이전트도 읽어 갑니다.",
+    gt_cad:"매주 리포트",
     v_head:"&gt; 가족이 함께 지키는 것",
     v1t:"셀프호스트", v1d:"내 컴퓨터에서 실행", v2t:"로컬 우선", v2d:"내 데이터, 파일 하나로",
     v3t:"오픈소스", v3d:"MIT · 오래 남습니다", v4t:"AI 보조", v4d:"초안은 AI, 결정은 나",
@@ -456,6 +481,14 @@ drafting.sqlite <span class="ok">✓</span>
     this.textContent=(cur==="ko")?"EN":"KO";
     document.documentElement.lang=cur;
   });
+</script>
+<script>
+/* 방문 집계 — first-party, 쿠키 없음, 실패해도 무해 */
+(function(){try{
+  var u='/hit?p='+encodeURIComponent(location.pathname+location.search)+'&r='+encodeURIComponent(document.referrer||'');
+  if(navigator.sendBeacon){navigator.sendBeacon(u);}
+  else{fetch(u,{method:'POST',keepalive:true}).catch(function(){});}
+}catch(e){}})();
 </script>
 </body>
 </html>
