@@ -23,6 +23,7 @@
     --coral:#E24A28; --coralT:#FCEAE4;
     --navy:#3A3F55; --navyT:#EBECF2;
     --cobalt:#3D53E8; --cobaltT:#EDEAFA; /* Planning · 밴드 틴트는 Sliding blueT 와 갈리도록 바이올렛 쪽으로 */
+    --rose:#E8506E; --roseT:#FBE9F0; /* Giting · 시간대 4색 중 저녁 로즈 (낮 오렌지는 coral 과 hue 1° 차라 제외) */
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -33,7 +34,7 @@
   .k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
   .dots{display:inline-flex;gap:4px;align-items:center}
   .dots i{width:8px;height:8px;border-radius:50%;display:block}
-  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}.dp{background:var(--cobalt)}
+  .dg{background:var(--green)}.db{background:var(--blue)}.dt{background:var(--teal)}.da{background:var(--amber)}.dc{background:var(--coral)}.dn{background:var(--navy)}.dr{background:var(--rose)}.dp{background:var(--cobalt)}
 
   header{position:sticky;top:0;z-index:30;background:rgba(245,244,240,.85);backdrop-filter:blur(9px) saturate(1.3);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -51,7 +52,7 @@
   .cast .m{position:relative}
   .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
-  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}.cast .m.p .tag{color:var(--cobalt)}
+  .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}.cast .m.gt .tag{color:var(--rose)}.cast .m.p .tag{color:var(--cobalt)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);margin-bottom:16px}
   .eyebrow .pr{color:var(--ink)}
@@ -75,29 +76,30 @@
   .band.l{background:linear-gradient(180deg,var(--amberT),transparent 70%)}
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
+  .band.gt{background:linear-gradient(180deg,var(--roseT),transparent 70%)}
   .band.p{background:linear-gradient(180deg,var(--cobaltT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
-  /* 짝수 밴드(Sliding·Lighting·Grouping) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
+  /* 짝수 밴드(Sliding·Lighting·Grouping·Planning) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
   @media(min-width:861px){
-    .band.s .prow,.band.l .prow,.band.g .prow{grid-template-columns:1.15fr .85fr}
-    .band.s .pinfo,.band.l .pinfo,.band.g .pinfo{grid-column:2;grid-row:1}
-    .band.s .frame,.band.l .frame,.band.g .frame{grid-column:1;grid-row:1}
+    .band.s .prow,.band.l .prow,.band.g .prow,.band.p .prow{grid-template-columns:1.15fr .85fr}
+    .band.s .pinfo,.band.l .pinfo,.band.g .pinfo,.band.p .pinfo{grid-column:2;grid-row:1}
+    .band.s .frame,.band.l .frame,.band.g .frame,.band.p .frame{grid-column:1;grid-row:1}
   }
   @media(max-width:860px){.prow{grid-template-columns:1fr;gap:26px}}
   .pinfo .top{display:flex;align-items:center;gap:14px}
   .pinfo .top img,.pinfo .top svg{height:56px;width:auto}
   .pname{font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1}
-  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}.w .pname{color:var(--coral)}.p .pname{color:var(--cobalt)}
+  .d .pname{color:var(--green)}.s .pname{color:var(--blue)}.c .pname{color:var(--teal)}.l .pname{color:var(--amber)}.w .pname{color:var(--coral)}.gt .pname{color:var(--rose)}.p .pname{color:var(--cobalt)}
   .code{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint)}
   .ptag{font-weight:700;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.01em;margin:16px 0 8px}
   .pinfo p{color:var(--soft);margin:0 0 18px;max-width:42ch}
   .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
   .chip .lv{width:7px;height:7px;border-radius:50%}
-  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}.w .chip .lv{background:var(--coral)}.p .chip .lv{background:var(--cobalt)}
+  .d .chip .lv{background:var(--green)}.s .chip .lv{background:var(--blue)}.c .chip .lv{background:var(--teal)}.l .chip .lv{background:var(--amber)}.w .chip .lv{background:var(--coral)}.gt .chip .lv{background:var(--rose)}.p .chip .lv{background:var(--cobalt)}
   .chip.soon{border-style:dashed}.chip.soon .lv{box-shadow:0 0 0 3px var(--amberT)}
   .plinks{display:flex;gap:16px;margin-top:18px}
   .plinks a{font-family:var(--mono);font-size:12.5px;display:inline-flex;gap:6px;align-items:center}
-  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}.w .plinks a:hover{color:var(--coral)}.p .plinks a:hover{color:var(--cobalt)}
+  .d .plinks a:hover{color:var(--green)}.s .plinks a:hover{color:var(--blue)}.c .plinks a:hover{color:var(--teal)}.l .plinks a:hover{color:var(--amber)}.w .plinks a:hover{color:var(--coral)}.gt .plinks a:hover{color:var(--rose)}.p .plinks a:hover{color:var(--cobalt)}
   .indev{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:16px}
   .bookcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -30px rgba(27,28,30,.4);overflow:hidden}
   .bookcard .hd{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:12px;color:var(--soft)}
@@ -171,7 +173,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dp"></i></span> AIP Lab</div>
+    <div class="mark"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dr"></i><i class="dp"></i></span> AIP Lab</div>
     <nav class="n">
       <a href="#family" class="hs" data-k="nav_tools">the tools</a>
       <a href="#values" class="hs" data-k="nav_why">why</a>
@@ -210,6 +212,10 @@
       <div class="m g">
         <img src="img/modumi.png" alt="Grouping mascot 모둠이"/>
         <div class="tag">GROUPING</div>
+      </div>
+      <div class="m gt">
+        <img src="img/giti.png" alt="Giting mascot 기티"/>
+        <div class="tag">GITING</div>
       </div>
       <div class="m p">
         <svg viewBox="0 0 140 100" aria-label="Planning mascot 차리"><path d="M24 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(-9 32 80)"/><path d="M100 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(9 108 80)"/><rect x="14" y="48" width="112" height="34" rx="7" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><ellipse cx="70" cy="67" rx="25" ry="12" fill="#F5EFE3"/><circle cx="57" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="83" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="62" cy="65" r="2.9" fill="#1B1C1E"/><circle cx="78" cy="65" r="2.9" fill="#1B1C1E"/><path d="M65.5 71 q4.5 3.5 9 0" stroke="#1B1C1E" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="6" y="30" width="128" height="22" rx="10" fill="#5C6FF2" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><rect x="16" y="14" width="46" height="26" rx="4" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="23" y1="22" x2="45" y2="22" stroke="#3D53E8" stroke-width="3.2" stroke-linecap="round"/><rect x="56" y="20" width="36" height="20" rx="3.5" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="62" y1="27" x2="79" y2="27" stroke="#3D53E8" stroke-width="2.7" stroke-linecap="round"/><rect x="86" y="26" width="26" height="14" rx="3" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="91" y1="32" x2="103" y2="32" stroke="#3D53E8" stroke-width="2.3" stroke-linecap="round"/></svg>
@@ -349,6 +355,26 @@
   </div>
 </section>
 
+<!-- Giting (web) -->
+<section class="band gt">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/giti.png" alt="Giting mascot 기티" style="height:56px"/>
+        <div><div class="pname">Giting</div><div class="code">AIP·007 · web</div></div>
+      </div>
+      <div class="ptag" data-k="gt_tag">Stars are the past.<br>Clone it and measure.</div>
+      <p data-k="gt_desc">An open-source curation site that reads repos by measurement, not stars. Every report starts from a real clone — lines of code, commit density, tests, the license text — drafted by AI, checked against the probe numbers, and published only after human review. Agents read it too, over MCP.</p>
+      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · <span data-k="gt_cad">weekly reports</span></span>
+      <div class="plinks"><a href="https://giting.kr" data-k="open">Open ↗</a><a href="https://www.threads.com/@giting.kr">Threads</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Giting · measured reports</div>
+      <img src="img/giting-home.jpg" alt="Giting — open-source reports measured from real clones"/>
+    </div>
+  </div>
+</section>
+
 <!-- Planning (macOS app) -->
 <section class="band p">
   <div class="wrap prow">
@@ -417,7 +443,7 @@ drafting.sqlite <span class="ok">✓</span>
 
 <footer>
   <div class="wrap foot">
-    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dp"></i></span> &nbsp;© 2026 AIP LAB</span>
+    <span class="k"><span class="dots"><i class="dg"></i><i class="db"></i><i class="dt"></i><i class="da"></i><i class="dc"></i><i class="dn"></i><i class="dr"></i><i class="dp"></i></span> &nbsp;© 2026 AIP LAB</span>
     <nav class="n">
       <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
       <a href="https://github.com/hanmariyang">github.com/hanmariyang</a>
@@ -459,6 +485,9 @@ drafting.sqlite <span class="ok">✓</span>
     g_tag:"내 제품이,<br>내 팀처럼 일합니다.",
     g_desc:"AIP Lab 도구들이 팀원이 되는 허브. 채널에서 @멤버를 부르면 그 제품이 자기 공방에서 일하고, 결과는 제안 카드로 옵니다. 수락한 결과물은 다음 멤버에게 이어지고, 모든 기록은 해시 체인 하나에 남습니다.",
     g_dl:"내려받기 ↓",
+    gt_tag:"별점은 과거,<br>클론해서 실측합니다.",
+    gt_desc:"오픈소스를 스타 수가 아니라 실측으로 읽는 큐레이션 사이트. 모든 리포트는 실제 클론에서 잰 수치(코드 줄수·커밋 밀도·테스트·라이선스 원문)로 시작하고, AI 초안을 실측 JSON과 기계 대조한 뒤 사람 검수를 거쳐서만 발행합니다. MCP로 에이전트도 읽어 갑니다.",
+    gt_cad:"매주 리포트",
     p_tag:"에이전트가 하루를 먼저 짜고,<br>나는 승인하고 조정합니다.",
     p_desc:"프로젝트를 둘 이상 굴리는 한 사람을 위한 PM 앱. 앱을 열면 오늘의 순서가 이미 놓여 있고, 블록마다 왜 그 순서인지가 한 줄로 붙습니다. AI 없이도 규칙만으로 돌고, 키를 붙이면 더 정교해집니다. 에이전트가 한 일은 전부 되돌릴 수 있고, 데이터는 내 컴퓨터의 파일 하나에 남습니다. 서버도 계정도 없습니다.",
     p_dl:"내려받기 ↓",
