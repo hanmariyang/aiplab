@@ -8,13 +8,25 @@
 :{$PORT:8080} {
 	root * /srv
 	encode gzip zstd
-	# 확장자 없는 깔끔한 URL: /blog/foo → foo.html (기존 .html 링크도 그대로 동작)
-	try_files {path} {path}.html {path}/index.html
-	file_server {
-		index index.html
+	header -Server
+
+	# 방문 분석 서비스로 프록시 (사설망) — 같은 origin 이라 CORS 없음
+	handle /hit {
+		reverse_proxy aiplab-analytics.railway.internal:8080
 	}
-	header {
-		-Server
-		Cache-Control "public, max-age=300"
+	handle /admin* {
+		reverse_proxy aiplab-analytics.railway.internal:8080
+	}
+	handle /api/stats {
+		reverse_proxy aiplab-analytics.railway.internal:8080
+	}
+
+	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
+	handle {
+		try_files {path} {path}.html {path}/index.html
+		file_server {
+			index index.html
+		}
+		header Cache-Control "public, max-age=300"
 	}
 }
