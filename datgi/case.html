@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<title>닿기 제작 노트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#FFFFFF; --sunk:#F4F4F5; --ink:#0B0B0C; --body:#3A3D42;
+    --muted:#8E9096; --line:#E7E8EA; --coral:#F26B4E; --shadow:rgba(11,11,12,.10);
+    --display:"Gowun Batang",'Apple SD Gothic Neo',serif;
+    --sans:"IBM Plex Sans KR",'Apple SD Gothic Neo',system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+      --muted:#8B8E95; --line:#282B30; --coral:#FF8465; --shadow:rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+    --muted:#8B8E95; --line:#282B30; --coral:#FF8465; --shadow:rgba(0,0,0,.5);
+  }
+  /* 한글은 기본이 음절 단위 줄바꿈이라 한 글자만 떨어지는 줄이 생긴다.
+     어절(띄어쓰기) 단위로 끊고, 마지막 줄에 한 단어만 남는 것도 피한다. */
+  body{word-break:keep-all}
+  p,li,figcaption,h1,h2,h3,dt,dd,td,th{text-wrap:pretty}
+  h1,h2{text-wrap:balance}
+  code,kbd,pre,.facts,.meta,.where{word-break:break-all}
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--body);font:400 16px/1.76 var(--sans);
+       -webkit-font-smoothing:antialiased;margin:0;padding:0 clamp(1.2rem,4vw,2.4rem) 5rem}
+  .wrap{max-width:1020px;margin:0 auto}
+  h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0}
+  img{display:block;max-width:100%}
+  code{font:400 .88em/1.6 var(--mono);background:var(--sunk);padding:.12em .38em;border-radius:4px;color:var(--ink)}
+  .shot{border-radius:18px;border:1px solid var(--line);box-shadow:0 14px 34px -20px var(--shadow)}
+
+  header{padding:clamp(3rem,7vw,4.8rem) 0 2.2rem;border-bottom:1px solid var(--line)}
+  .eyebrow{font:600 .78rem/1 var(--sans);letter-spacing:.02em;color:var(--muted)}
+  h1{font:700 clamp(2.2rem,5.4vw,3.3rem)/1.16 var(--display);letter-spacing:-.025em;margin:1rem 0 .9rem}
+  .lede{font-size:1.06rem;font-weight:300;max-width:34em}
+  .lede b{font-weight:600;color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:.35rem 1.7rem;margin:2rem 0 0;
+        font:400 .84rem/1.8 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums}
+  .meta b{color:var(--ink);font-weight:500}
+
+  section{padding:clamp(3.2rem,6.5vw,4.8rem) 0 0}
+  h2{font:700 clamp(1.6rem,3.8vw,2.2rem)/1.24 var(--display);letter-spacing:-.02em}
+  .say{margin:.95rem 0 0;max-width:35em;font-weight:300}
+
+  /* 결정 — 문제·선택·대가를 나란히 */
+  .call{padding:2rem 0;border-bottom:1px solid var(--line)}
+  .call:first-of-type{border-top:1px solid var(--line)}
+  .call h3{font:600 1.16rem/1.45 var(--sans);letter-spacing:-.01em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+        gap:1.1rem 2rem;margin:1.25rem 0 0}
+  .grid>div{display:grid;gap:.35rem;align-content:start}
+  .tag{font:600 .74rem/1 var(--sans);letter-spacing:.01em;color:var(--muted)}
+  .grid p{margin:0;font-size:.93rem;font-weight:300}
+  .cost .tag{color:var(--coral)}
+
+  /* 화면 나열 */
+  .rail{display:flex;gap:1.1rem;overflow-x:auto;padding:0 0 .9rem;margin:2.4rem 0 0;scrollbar-width:thin}
+  .rail figure{flex:0 0 auto;width:200px;margin:0}
+  .rail figcaption{margin:.65rem 0 0;font:400 .78rem/1.5 var(--sans);color:var(--muted)}
+
+  /* 엔지니어링 노트 */
+  .notes{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;margin:2.4rem 0 0}
+  .note{background:var(--paper);padding:1.5rem clamp(1.2rem,2.4vw,1.7rem)}
+  .note h3{font:600 1.02rem/1.5 var(--sans)}
+  .note p{margin:.6rem 0 0;font-size:.93rem;font-weight:300;max-width:40em}
+
+  /* 숫자 */
+  .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+        background:var(--line);border:1px solid var(--line);border-radius:12px;
+        overflow:hidden;margin:2.4rem 0 0}
+  .num{background:var(--paper);padding:1.35rem 1.3rem}
+  .num b{display:block;font:700 1.7rem/1.15 var(--display);color:var(--ink);
+         font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .num span{display:block;margin:.4rem 0 0;font:400 .8rem/1.5 var(--sans);color:var(--muted)}
+
+  .stack{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.6rem 0 0}
+  .pill{font:400 .78rem/1 var(--mono);border:1px solid var(--line);border-radius:999px;
+        padding:.55em .85em;color:var(--body)}
+
+  footer{margin-top:clamp(3.5rem,7vw,5rem);padding-top:1.7rem;border-top:1px solid var(--line);
+         font:400 .82rem/1.9 var(--sans);color:var(--muted)}
+</style>
+<style>html,body{margin:0}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">AIP Lab · iOS · 2026</p>
+    <h1>닿기 제작 노트</h1>
+    <p class="lede">라이브 추적을 하지 않는 러닝 앱. 뛰고 나서 거리만 담으면 지도 위 마커가 여행지로 나아갑니다. <b>기능을 더한 기록이 아니라, 무엇을 하지 않기로 했는지에 대한 기록입니다.</b></p>
+    <p class="meta">
+      <span>기간 <b>3일</b></span>
+      <span>커밋 <b>18</b></span>
+      <span>코드 <b>2,309줄</b></span>
+      <span>화면 <b>12</b></span>
+      <span>상태 <b>TestFlight 직전</b></span>
+    </p>
+  </header>
+
+  <section>
+    <h2>왜 만들었나</h2>
+    <p class="say">러닝 앱은 이미 많습니다. 다만 전부 <em>뛰는 동안</em>의 앱입니다 — GPS를 켜고, 페이스를 재고, 끝나면 지도를 그려줍니다. 러닝머신에서 뛰거나, 다른 앱으로 이미 재고 있거나, 그냥 숫자만 남기고 싶은 사람에게는 줄 것이 없습니다.</p>
+    <p class="say">닿기는 반대쪽에 섭니다. <b>뛰고 난 다음에 여는 앱.</b> 어디서 어떻게 뛰었든 숫자만 담으면, 그만큼 서울에서 부산으로, 파리로 나아갑니다.</p>
+
+    <div class="rail">
+      <figure><img class="shot" src="assets/dd391d6d09.jpg" alt="여정 화면"><figcaption>여정 — 다음 이정표까지</figcaption></figure>
+      <figure><img class="shot" src="assets/a93318c08a.jpg" alt="담기 화면"><figcaption>담기 — 담기 전 미리보기</figcaption></figure>
+      <figure><img class="shot" src="assets/2da8426b52.jpg" alt="지도에서 고르기"><figcaption>고르기 — 애플 지도</figcaption></figure>
+      <figure><img class="shot" src="assets/8600569ad8.jpg" alt="도착 화면"><figcaption>도착</figcaption></figure>
+      <figure><img class="shot" src="assets/29cb52954b.jpg" alt="온보딩"><figcaption>온보딩</figcaption></figure>
+      <figure><img class="shot" src="assets/4648a01171.jpg" alt="기록 탭"><figcaption>기록</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>내린 결정들</h2>
+    <p class="say">전부 대가가 있는 선택이었습니다. 무엇을 얻고 무엇을 포기했는지 같이 적습니다.</p>
+
+    <div class="call">
+      <h3>전체 진행률을 주인공 자리에서 내렸다</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p>서울→파리는 8,966km입니다. "8% 왔어요"는 아무 감정도 주지 않고, 완주까지 3년이 걸립니다. 매일 열 이유가 없었습니다.</p></div>
+        <div><p class="tag">선택</p><p>경로 위 도시들을 <b>이정표</b>로 세우고, 화면의 주인공을 "다음 이정표까지 200km"로 바꿨습니다. 전체 진행률은 아래 보조로 내렸습니다.</p></div>
+        <div class="cost"><p class="tag">대가</p><p>여정마다 이정표 데이터가 필요합니다. 프리셋은 손으로 넣었고, 직접 정한 곳은 만들 때 한 번 역지오코딩합니다.</p></div>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>첫 여정은 가까운 곳만 고르게 했다</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p>첫 실행에 파리를 고를 수 있었습니다. 그러면 3년짜리가 첫 경험이 되고, 이 앱의 결정적 순간인 <b>도착을 영영 못 봅니다.</b></p></div>
+        <div><p class="tag">선택</p><p>첫 완주 전에는 250km 이하만 열어둡니다. 한 번 닿으면 전부 열립니다. <b>잠금은 딱 한 번뿐</b>이라 첫 도착이 보상이 아니라 열쇠가 됩니다.</p></div>
+        <div class="cost"><p class="tag">대가</p><p>가고 싶은 곳이 분명한 사람에게는 한 번의 우회입니다. 그래서 잠긴 카드를 누르면 왜 잠겼는지 말합니다 — 막기만 하면 고장으로 읽힙니다.</p></div>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>지도는 고를 때만 쓴다</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p>프리셋 다섯 개로는 부족한데, 실지도를 쓰면 오프라인·서버 없음이라는 전제가 무너집니다.</p></div>
+        <div><p class="tag">선택</p><p>목적지를 고르는 순간에만 애플 지도를 씁니다(키·요금 없음). 거기서 얻은 좌표는 <b>그 자리에서 거리와 0~1 폴리라인으로 바뀌어</b> 저장되고, 이후 여정 화면은 인터넷 없이 그립니다.</p></div>
+        <div class="cost"><p class="tag">대가</p><p>실제 위경도를 버리므로 나중에 진짜 지도로 보여주려면 다시 받아야 합니다. 프라이버시 쪽에서는 오히려 이득입니다.</p></div>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>경로를 항상 왼쪽에서 오른쪽으로 그린다</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p>실제 좌표로 그리니 서울→파리가 오른쪽에서 왼쪽으로 흘렀습니다. 지리적으로는 맞지만 진행 마커가 왼쪽으로 가니 <b>되돌아가는 것처럼</b> 읽혔습니다.</p></div>
+        <div><p class="tag">선택</p><p>지도가 애초에 스타일라이즈드이므로, 동서 방향의 정확성보다 진행의 읽힘을 택했습니다. 서쪽으로 가는 여정은 좌우를 뒤집습니다. 남북 관계와 경로 모양은 그대로입니다.</p></div>
+        <div class="cost"><p class="tag">대가</p><p>지도가 지리를 정확히 반영하지 않습니다. 이미 프리셋이 장식용 폴리라인이라 일관성은 오히려 좋아졌습니다.</p></div>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>UI는 흑백, 캐릭터만 컬러</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p>처음엔 석양 코랄이 진행·CTA·강조에 두루 쓰였습니다. 색이 여기저기 있으니 정작 "내가 나아갔다"는 사건이 눈에 안 들어왔습니다.</p></div>
+        <div><p class="tag">선택</p><p>UI를 흑백으로 내리고 <b>색은 마스코트에만</b> 남겼습니다. 앱에서 유일한 색이라 시선이 자연스럽게 캐릭터로 갑니다. 목걸이의 코랄이 원래 정체성을 물려받았습니다.</p></div>
+        <div class="cost"><p class="tag">대가</p><p>색이 하던 일(진행 표시)을 채움과 대비로 옮겨야 했습니다. 진행 바가 회색끼리라 안 보이거나, 선택 상태가 흐릿해지는 문제를 하나씩 고쳤습니다.</p></div>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>되돌릴 수 없는 입력은 만들지 않는다</h3>
+      <div class="grid">
+        <div><p class="tag">문제</p><p><code>9</code> 대신 <code>25</code>를 치면 그대로 굳었습니다. 3년짜리 여정에서 잘못 담은 값을 뺄 방법이 없으면 여정 전체가 거짓이 됩니다.</p></div>
+        <div><p class="tag">선택</p><p>기록 수정·삭제를 넣고, 기록이 바뀔 때마다 여정 상태를 다시 계산합니다. <b>도착하게 만든 기록을 지우면 도착도 취소됩니다.</b></p></div>
+        <div class="cost"><p class="tag">대가</p><p>상태 계산이 한 곳(<code>reconcile()</code>)에 모여야 했습니다. 흩어지면 완주 표시만 남고 거리는 모자란 여정이 생깁니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>마스코트</h2>
+    <p class="say">벡터로 직접 그려봤지만 검은 실루엣에 점 하나짜리 눈이라 캐릭터가 아니라 픽토그램이었습니다. 거북이·펭귄·지도 핀·우주비행사까지 열 가지 넘게 시안을 낸 끝에 <b>강아지</b>로 정했습니다 — 러닝의 실제 동반자라 "같이 가는 존재"가 억지가 아닙니다.</p>
+    <p class="say">포즈를 텍스트로 다시 뽑으면 <b>미묘하게 다른 개</b>가 나옵니다. 그래서 첫 컷을 참조 이미지로 함께 보내 얼굴·비율·목걸이를 고정한 채 자세만 바꿨습니다. 그렇게 12포즈.</p>
+    <div class="rail">
+      <figure style="width:150px"><img src="assets/44a1c84e17.png" alt="인사"><figcaption>wave · 첫 만남</figcaption></figure>
+      <figure style="width:150px"><img src="assets/e18bd79935.png" alt="지도 보기"><figcaption>map · 여행지 고르기</figcaption></figure>
+      <figure style="width:150px"><img src="assets/37c239af7a.png" alt="달리기"><figcaption>run · 이정표 통과</figcaption></figure>
+      <figure style="width:150px"><img src="assets/f33d045469.png" alt="만세"><figcaption>cheer · 도착</figcaption></figure>
+      <figure style="width:150px"><img src="assets/277504a514.png" alt="자기"><figcaption>sleep · 오래 비었을 때</figcaption></figure>
+      <figure style="width:150px"><img src="assets/739e75b307.png" alt="시무룩"><figcaption>sad · 놓친 자리</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>만들다 걸린 것들</h2>
+    <div class="notes">
+      <div class="note">
+        <h3>Xcode 26 에서 React Native 0.76 이 컴파일되지 않았다</h3>
+        <p>RN 0.76 이 고정한 <code>fmt 11.0.2</code> 가 새 Clang 에서 <code>consteval</code> 때문에 깨집니다(fmt 11.1 에서 고쳐진 업스트림 버그). <code>base.h</code> 가 스위치를 무조건 정의해 <code>-D</code> 로는 못 끄기에, 헤더에 외부 정의 우선 탈출구를 넣어 우회했습니다. <code>ios/</code> 는 gitignore 라 Podfile 수정은 clone 하면 사라지므로 <b>config plugin</b> 으로 만들어 prebuild 마다 자동 적용되게 했습니다.</p>
+      </div>
+      <div class="note">
+        <h3>스플래시가 안 바뀌던 건 코드 문제가 아니었다</h3>
+        <p>파일도 에셋 카탈로그도 빌드된 <code>Assets.car</code> 까지 새 이미지인데 화면만 예전 것이 나왔습니다. 클린 빌드도 앱 삭제도 소용없었습니다. iOS 가 런치 이미지를 <b>SplashBoard 스냅샷</b>으로 캐시하는데 앱 컨테이너마다 따로 쌓여서, 전부 지우고 시뮬레이터를 재부팅해야 반영됐습니다.</p>
+      </div>
+      <div class="note">
+        <h3>누끼는 기준값 폭이 좁았다</h3>
+        <p>배경을 조금만 느슨하게 잡으면 크림색 머리가 파이고, 조이면 그림자가 흰 얼룩으로 남습니다. 처음엔 그림자를 '검정+투명도'로 살렸는데 바탕색이 바뀌면 얼룩이 보여서 결국 지웠습니다 — 평평한 UI 에 3D 접지 그림자는 필요 없었습니다. 포즈별 기준값과 확인 방법(흰색·회색·마젠타·검정 네 바탕)을 문서에 남겼습니다.</p>
+      </div>
+      <div class="note">
+        <h3>화면 없이 검증하는 방법을 만들었다</h3>
+        <p>원격에서 작업하느라 화면을 볼 수 없는 구간이 있었습니다. 데스크톱 앱은 디버거로 붙어 클릭을 넣어 전체 흐름을 확인했고, iOS 는 시뮬레이터에 터치를 보낼 수단이 없어 <code>simctl</code> 스크린샷과 SQLite 를 직접 읽어 상태를 검증했습니다. 사용자가 남긴 데이터에서 <b>여정이 셋 다 active 로 남는 버그</b>를 찾아낸 것도 이 방식이었습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>숫자와 스택</h2>
+    <div class="nums">
+      <div class="num"><b>2,309</b><span>줄</span></div>
+      <div class="num"><b>12</b><span>화면</span></div>
+      <div class="num"><b>12</b><span>마스코트 포즈</span></div>
+      <div class="num"><b>32</b><span>접근성 라벨</span></div>
+      <div class="num"><b>0</b><span>서버 · 계정</span></div>
+    </div>
+    <div class="stack">
+      <span class="pill">Expo SDK 52</span>
+      <span class="pill">React Native 0.76</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">expo-router</span>
+      <span class="pill">expo-sqlite</span>
+      <span class="pill">react-native-svg</span>
+      <span class="pill">react-native-maps</span>
+      <span class="pill">EAS</span>
+    </div>
+    <p class="say" style="margin-top:1.8rem">서버가 없습니다. 계정도 없습니다. 인프라 비용은 0원이고, 지도는 iOS 에 내장된 애플 지도라 키도 요금도 들지 않습니다.</p>
+  </section>
+
+  <footer>닿기 · kr.aiplab.datgi · 0.1.0 · 로컬-퍼스트</footer>
+</div>
+</body>
+</html>
