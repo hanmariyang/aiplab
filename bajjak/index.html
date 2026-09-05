@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>바짝 — 한 시간 뒤에 결론이 남는다</title>
+<meta name="description" content="사회자가 없어서 결론 없이 흐르는 회의를 막는 데스크톱 앱. 안건마다 끝나는 조건이 붙고, 끝나면 회의록이 그대로 나옵니다. 로컬 전용 · 계정 없음 · 녹음 없음.">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<meta property="og:title" content="바짝 — 한 시간 뒤에 결론이 남는다">
+<meta property="og:description" content="안건마다 끝나는 조건이 붙습니다. 시간이 남아도 조건을 못 채우면 안 끝난 것입니다.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/03-running.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --ink:#1A1B1D; --sub:#6C6E73; --muted:#9A9CA1;
+    --line:#E7E7E7; --bg:#FFFFFF; --sunken:#F7F7F7;
+    --sans:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  /* height:auto 가 없으면 width/height 속성값이 높이로 굳어 이미지가 가로로 찌그러진다. */
+  img{max-width:100%;height:auto;display:block}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* ── 머리 ─────────────────────────────── */
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:17px}
+  .brand img{width:26px;height:26px;border-radius:6px}
+  .top nav{display:flex;gap:22px;font-size:14px;color:var(--sub)}
+  .top nav a{text-decoration:none}
+  .top nav a:hover{color:var(--ink)}
+  @media(max-width:640px){.top nav{display:none}}
+
+  /* ── 히어로 ───────────────────────────── */
+  .hero{padding:84px 0 0}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:clamp(34px,6vw,60px);line-height:1.14;letter-spacing:-.035em;font-weight:700;margin:16px 0 0}
+  h1 .q{color:var(--muted)}
+  .lede{font-size:clamp(16px,2.2vw,19px);color:var(--sub);margin:22px 0 0;max-width:62ch}
+  .lede b{color:var(--ink);font-weight:600}
+
+  .cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:34px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 24px;border-radius:12px;
+    font-size:15px;font-weight:600;text-decoration:none;border:1px solid var(--ink);
+    background:var(--ink);color:#fff}
+  .btn[aria-disabled="true"]{background:var(--sunken);color:var(--muted);border-color:var(--line);cursor:default}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  .cta-note{font-size:13.5px;color:var(--muted)}
+
+  .facts{display:flex;gap:26px;flex-wrap:wrap;margin:26px 0 0;font-size:13.5px;color:var(--sub)}
+  .facts span{display:flex;align-items:center;gap:7px}
+  .facts i{width:5px;height:5px;border-radius:50%;background:var(--ink);display:block;flex:0 0 auto}
+
+  .shot{margin:52px 0 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+  .shot.plain{border-radius:14px}
+  .cap{font-size:13px;color:var(--muted);margin:11px 2px 0}
+  .cap b{color:var(--sub);font-weight:500}
+
+  /* ── 구획 ─────────────────────────────── */
+  section{padding:96px 0}
+  .rule{border-top:1px solid var(--line)}
+  h2{font-size:clamp(25px,3.6vw,36px);line-height:1.25;letter-spacing:-.03em;font-weight:700;margin:14px 0 0}
+  .sub{color:var(--sub);margin:16px 0 0;max-width:64ch;font-size:16.5px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin:54px 0 0}
+  @media(max-width:860px){.steps{grid-template-columns:1fr;gap:44px}}
+  .step .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
+  .step h3{font-size:18px;font-weight:600;letter-spacing:-.02em;margin:8px 0 6px}
+  .step p{font-size:14.5px;color:var(--sub);margin:0}
+  .step .shot{margin:18px 0 0}
+
+  /* 끝 조건 — 이 제품의 요지 */
+  .claim{border:1px solid var(--ink);border-radius:16px;padding:36px 34px;margin:44px 0 0}
+  .claim .q{font-size:clamp(19px,2.6vw,25px);font-weight:600;letter-spacing:-.02em;line-height:1.5;margin:0}
+  .claim .a{color:var(--sub);margin:14px 0 0;font-size:15.5px}
+  .conds{display:flex;flex-direction:column;gap:9px;margin:28px 0 0}
+  .cond{display:flex;gap:12px;align-items:baseline;border:1px solid var(--line);border-radius:11px;padding:12px 15px;font-size:14.5px}
+  .cond .k{font-family:var(--mono);font-size:11.5px;color:var(--muted);flex:0 0 auto;letter-spacing:.06em}
+  .cond.bad{background:var(--sunken);color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+  .cond.bad .k{text-decoration:none}
+
+  /* ── 반전 구획 — 초과 ─────────────────── */
+  .inv{background:var(--ink);color:#fff}
+  .inv .eyebrow{color:#8A8C91}
+  .inv .sub{color:#A8AAAF}
+  .inv .sub b{color:#fff}
+  .inv .shot{border-color:#2E3034}
+  .inv .cap{color:#75777C}
+  .inv .cap b{color:#A8AAAF}
+  .inv .facts{color:#A8AAAF}
+  .inv .facts i{background:#fff}
+
+  /* ── 약속 ─────────────────────────────── */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:48px 0 0}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .cell{background:var(--bg);padding:28px 26px}
+  .cell h3{font-size:16.5px;font-weight:600;letter-spacing:-.02em;margin:0 0 8px}
+  .cell p{font-size:14.5px;color:var(--sub);margin:0}
+
+  /* ── 발 ───────────────────────────────── */
+  footer{border-top:1px solid var(--line);padding:44px 0 60px;font-size:13.5px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--sub)}
+
+  @media(prefers-reduced-motion:no-preference){
+    .shot{transition:border-color .2s ease}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="brand"><img src="assets/icon-256.png" alt=""> 바짝</div>
+    <nav>
+      <a href="#flow">흐름</a>
+      <a href="#condition">끝 조건</a>
+      <a href="#over">초과</a>
+      <a href="#minutes">회의록</a>
+      <a href="#promise">약속</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">macOS · 로컬 전용</div>
+    <h1><span class="q">회의는 시간이 아니라</span><br>결론으로 끝납니다</h1>
+    <p class="lede">
+      사회자가 없는 자리에 사회자를 놓습니다. 바짝은 안건마다 <b>무엇이 나와야 끝나는지</b>를
+      화면에 적어두고, 한 시간이 지나면 <b>붙여넣을 수 있는 회의록</b>을 내놓습니다.
+    </p>
+
+    <div class="cta">
+      <span class="btn" aria-disabled="true">macOS 다운로드 준비 중</span>
+      <a class="btn ghost" href="#flow">어떻게 도는지 보기</a>
+      <span class="cta-note">Apple Silicon · 서명·공증 뒤 공개</span>
+    </div>
+
+    <div class="facts">
+      <span><i></i>계정 없음</span>
+      <span><i></i>서버 없음</span>
+      <span><i></i>녹음·전사 없음</span>
+      <span><i></i>기록은 이 기기 안에만</span>
+    </div>
+
+    <div class="shot"><img src="assets/03-running.png" alt="진행 중 화면 — 왼쪽은 남은 시간과 끝나는 조건, 오른쪽은 쌓이는 결정·보류·할일" width="2200" height="1440"></div>
+    <p class="cap"><b>진행 중</b> · 왼쪽은 압력, 오른쪽은 산출. 오른쪽에 쌓인 것이 그대로 회의록이 됩니다.</p>
+  </div>
+</header>
+
+<section id="flow" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">쓰는 법</div>
+    <h2>목적 한 줄에서 회의록까지</h2>
+    <p class="sub">
+      한 모임 · 한 시간 = 한 세션. 설정할 것도 연결할 것도 없습니다.
+      <b>지난 회의록을 붙여넣으면</b> 그때 못 끝낸 것이 오늘의 첫 안건으로 올라옵니다.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>무엇을 정하러 모였는지</h3>
+        <p>목적 한 줄과 시간을 고릅니다. 지난 회의록은 선택입니다.</p>
+        <div class="shot plain"><img src="assets/01-open.png" alt="세션 열기 화면" width="1520" height="1320" loading="lazy"></div>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>안건으로 쪼갭니다</h3>
+        <p>제안이 오면 고치거나 다시 쪼갭니다. 합은 항상 총 시간과 맞습니다.</p>
+        <div class="shot plain"><img src="assets/02-agenda.png" alt="안건 제안 화면" width="1520" height="1320" loading="lazy"></div>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>한 번에 한 안건</h3>
+        <p>정해진 것을 한 줄씩 담습니다. 결정 · 보류 · 할일로 갈립니다.</p>
+        <div class="shot plain"><img src="assets/03-running.png" alt="진행 화면" width="2200" height="1440" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="condition" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">요지</div>
+    <h2>시간이 남아도<br>조건을 못 채우면 안 끝난 겁니다</h2>
+    <p class="sub">
+      타이머는 시간이 다 되면 끝났다고 말합니다. 회의는 그렇지 않습니다.
+      그래서 안건마다 <b>끝나는 조건</b>이 붙고, 조건이 빈 안건이 하나라도 있으면 <b>시작 버튼이 잠깁니다.</b>
+    </p>
+
+    <div class="claim">
+      <p class="q">“이 안건은 <b>후보 3개 이상 목록화</b>되면 끝납니다”</p>
+      <p class="a">끝났는지 판정할 수 없는 말은 조건이 될 수 없습니다. 눈에 보이는 산출물이어야 합니다.</p>
+
+      <div class="conds">
+        <div class="cond"><span class="k">좋음</span><span>가장 큰 이탈 구간 한 곳에 합의</span></div>
+        <div class="cond"><span class="k">좋음</span><span>이번 스프린트에 넣을 것을 확정</span></div>
+        <div class="cond"><span class="k">좋음</span><span>할일마다 담당자 한 명씩</span></div>
+        <div class="cond bad"><span class="k">거절</span><span>충분히 논의</span></div>
+        <div class="cond bad"><span class="k">거절</span><span>다 같이 이야기해 보기</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="over" class="inv">
+  <div class="wrap">
+    <div class="eyebrow">초과</div>
+    <h2>시간이 넘으면<br>화면이 뒤집힙니다</h2>
+    <p class="sub">
+      바짝에는 색이 없습니다. 빨강도 초록도 쓰지 않습니다.
+      대신 시간을 넘긴 순간 <b>왼쪽 절반이 통째로 반전됩니다.</b>
+      소리치는 것은 시간이지 결정이 아니라서, 오른쪽에 쌓인 것은 그대로 둡니다.
+    </p>
+
+    <div class="shot"><img src="assets/04-over.png" alt="초과 화면 — 왼쪽 절반이 검게 반전되고 조임 프롬프트가 뜬다" width="2200" height="1440" loading="lazy"></div>
+    <p class="cap"><b>+02:41</b> · 지금 정하고 넘어갈지, 5분을 더 쓸지, 보류함으로 넘길지 그 자리에서 고릅니다.</p>
+
+    <div class="facts">
+      <span><i></i>강조는 채움과 굵기로</span>
+      <span><i></i>상태는 색이 아니라 테두리로</span>
+      <span><i></i>초과는 반전으로</span>
+    </div>
+  </div>
+</section>
+
+<section id="share" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">공유 화면</div>
+    <h2>방 전체가 같은 것을 봅니다</h2>
+    <p class="sub">
+      화면 공유에 얹는 별도 창이 있습니다. 남은 시간과 끝나는 조건만 크게 띄우고,
+      <b>조작은 진행자 화면에서만</b> 일어납니다. 진행자는 <span class="mono">⌘⇧→</span> 하나로 다음 안건으로 넘깁니다.
+    </p>
+    <div class="shot"><img src="assets/05-share.png" alt="공유 화면 — 진행 중과 초과 두 상태" width="1920" height="1240" loading="lazy"></div>
+    <p class="cap"><b>공유 화면</b> · 항상 위에 뜨지 않습니다. 공유 대상으로 골라야 하는 창이라 앞을 가리면 방해가 됩니다.</p>
+  </div>
+</section>
+
+<section id="minutes" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">끝나고</div>
+    <h2>회의록을 따로 쓰지 않습니다</h2>
+    <p class="sub">
+      회의 중에 담은 것이 곧 회의록입니다. <b>복사 한 번이면 마크다운</b>이 클립보드로 갑니다 —
+      슬랙이나 노션에 그대로 붙습니다. 못 끝낸 것은 보류함에 남았다가 <b>다음 회의의 첫 안건</b>으로 올라옵니다.
+    </p>
+    <div class="shot"><img src="assets/06-minutes.png" alt="회의록 화면 — 결정 3, 보류 2, 할일 4, 안건별 예상 대비 실제 시간" width="1520" height="1980" loading="lazy"></div>
+    <p class="cap"><b>결정에는 상황이 함께 남습니다</b> · 결론만 적으면 한 달 뒤에 왜 그렇게 정했는지 아무도 기억하지 못합니다.</p>
+  </div>
+</section>
+
+<section id="promise" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">약속</div>
+    <h2>회의는 방 안에서 끝납니다</h2>
+    <p class="sub">회의는 조직에서 가장 민감한 자리 중 하나입니다. 그래서 나가는 길을 아예 만들지 않았습니다.</p>
+
+    <div class="grid2">
+      <div class="cell">
+        <h3>녹음하지 않습니다</h3>
+        <p>마이크를 켜지 않고 전사도 하지 않습니다. 참석자 동의를 받을 일이 없고, 오디오 비용도 생기지 않습니다.</p>
+      </div>
+      <div class="cell">
+        <h3>계정도 서버도 없습니다</h3>
+        <p>회의는 진행자 기기에서 돌고 기록은 그 기기의 파일 한 장에 남습니다. 로그인할 곳이 없습니다.</p>
+      </div>
+      <div class="cell">
+        <h3>AI 는 꺼진 채로 옵니다</h3>
+        <p>안건 쪼개기에 AI 를 쓸 수 있지만 기본값은 <b>끄기</b>입니다. 꺼두면 한 글자도 기기 밖으로 나가지 않고, 균등 배분으로 그대로 돌아갑니다.</p>
+      </div>
+      <div class="cell">
+        <h3>쓴다면 내 것으로</h3>
+        <p>켜더라도 내 기기의 claude CLI 나 내 API 키를 씁니다. 우리 서버를 경유하지 않습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rule" style="padding-bottom:110px">
+  <div class="wrap">
+    <div class="eyebrow">받기</div>
+    <h2>곧 내려받을 수 있습니다</h2>
+    <p class="sub">
+      Apple Silicon 맥용 앱을 서명하고 공증하는 중입니다.
+      준비되면 이 자리에 다운로드가 열립니다.
+    </p>
+    <div class="cta">
+      <span class="btn" aria-disabled="true">macOS 다운로드 준비 중</span>
+      <a class="btn ghost" href="mailto:hanmari.code@gmail.com?subject=%EB%B0%94%EC%A7%9D">알려주세요</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>바짝 · <a href="https://aiplab.kr/">AIP Lab</a></span>
+    <span>macOS · Electron · 로컬-퍼스트</span>
+  </div>
+</footer>
+
+</body>
+</html>
