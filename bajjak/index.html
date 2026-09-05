@@ -30,6 +30,11 @@
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  /* 한글은 기본값이면 음절 단위로 끊긴다("안건/마다"). 어절 경계에서만 끊는다. */
+  body,h1,h2,h3,p,span,div,li,td,th{word-break:keep-all;overflow-wrap:break-word}
+  h1,h2,h3,.lede,.sub{text-wrap:pretty}
+  /* 문장 하나가 한 줄에서 시작한다. 길면 그 안에서만 접힌다. */
+  .s{display:block}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);
     -webkit-font-smoothing:antialiased}
   /* height:auto 가 없으면 width/height 속성값이 높이로 굳어 이미지가 가로로 찌그러진다. */
@@ -224,9 +229,9 @@
     <div class="eyebrow">macOS 데스크톱 앱 · 로컬 전용</div>
     <h1><span class="q">한 시간을 쓰고 나면</span><br>결론이 남아 있습니다</h1>
     <p class="lede">
-      바짝은 <b>회의를 진행하는 동안 띄워 놓는 맥용 앱</b>입니다.
-      목적 한 줄을 안건으로 쪼개고, 안건마다 <b>무엇이 나와야 끝나는지</b>를 걸어둡니다.
-      한 시간이 지나면 <b>슬랙에 그대로 붙는 회의록</b>이 나옵니다.
+      <span class="s">바짝은 <b>회의를 진행하는 동안 띄워 놓는 맥용 앱</b>입니다.</span>
+      <span class="s">목적 한 줄을 안건으로 쪼개고, 안건마다 <b>무엇이 나와야 끝나는지</b>를 걸어둡니다.</span>
+      <span class="s">한 시간이 지나면 <b>슬랙에 그대로 붙는 회의록</b>이 나옵니다.</span>
     </p>
 
     <div class="cta">
@@ -246,7 +251,7 @@
     <div class="shot">
       <img src="assets/03-running.png" alt="진행 중 화면. 왼쪽에 남은 시간과 끝나는 조건, 오른쪽에 쌓인 결정·보류·할일" width="2200" height="1440">
     </div>
-    <p class="cap"><b>진행 중</b> · 왼쪽은 압력, 오른쪽은 산출. 오른쪽에 쌓인 것이 그대로 회의록이 됩니다.</p>
+    <p class="cap"><span class="s"><b>진행 중</b> · 왼쪽은 압력, 오른쪽은 산출.</span><span class="s">오른쪽에 쌓인 것이 그대로 회의록이 됩니다.</span></p>
   </div>
 </header>
 
@@ -255,8 +260,9 @@
     <div class="eyebrow">왜</div>
     <h2>한 시간을 썼는데<br>정해진 것이 없는 회의</h2>
     <p class="sub">
-      사회자가 없으면 회의는 대체로 이렇게 흐릅니다.
-      타이머를 켜도 소용이 없습니다. <b>타이머는 시간이 다 되면 끝났다고 말하지만, 회의는 그렇지 않기 때문입니다.</b>
+      <span class="s">사회자가 없으면 회의는 대체로 이렇게 흐릅니다.</span>
+      <span class="s">타이머를 켜도 소용이 없습니다.</span>
+      <span class="s"><b>타이머는 시간이 다 되면 끝났다고 말하지만, 회의는 그렇지 않기 때문입니다.</b></span>
     </p>
 
     <div class="why">
@@ -284,8 +290,11 @@
     <div class="eyebrow">요지 · 끝나는 조건</div>
     <h2>시간이 남아도<br>조건을 못 채우면 안 끝난 겁니다</h2>
     <p class="sub">
-      목적 한 줄을 넣으면 안건으로 쪼갠 계획이 올라옵니다. 그대로 쓰지 않아도 됩니다. 고치고, 합치고,
-      다시 쪼갭니다. 다만 <b>안건마다 끝나는 조건이 붙고, 조건이 빈 안건이 하나라도 있으면 시작 버튼이 잠깁니다.</b>
+      <span class="s">목적 한 줄을 넣으면 안건으로 쪼갠 계획이 올라옵니다.</span>
+      <span class="s">그대로 쓰지 않아도 됩니다.</span>
+      <span class="s">고치고, 합치고,
+      다시 쪼갭니다.</span>
+      <span class="s">다만 <b>안건마다 끝나는 조건이 붙고, 조건이 빈 안건이 하나라도 있으면 시작 버튼이 잠깁니다.</b></span>
     </p>
 
     <div class="shot" style="margin-top:44px">
@@ -336,7 +345,10 @@
 
     <div class="claim">
       <p class="q">“이 안건은 <b>후보 3개 이상 목록화</b>되면 끝납니다”</p>
-      <p class="a">끝났는지 판정할 수 없는 말은 조건이 될 수 없습니다. 눈에 보이는 산출물이어야 합니다.</p>
+      <p class="a">
+      <span class="s">끝났는지 판정할 수 없는 말은 조건이 될 수 없습니다.</span>
+      <span class="s">눈에 보이는 산출물이어야 합니다.</span>
+    </p>
       <div class="conds">
         <div class="cond"><span class="k">좋음</span><span>가장 큰 이탈 구간 한 곳에 합의</span></div>
         <div class="cond"><span class="k">좋음</span><span>이번 스프린트에 넣을 것을 확정</span></div>
@@ -353,9 +365,9 @@
     <div class="eyebrow">진행 중</div>
     <h2>회의록을 나중에 쓰지 않습니다</h2>
     <p class="sub">
-      진행 화면은 둘로 나뉩니다. 왼쪽은 남은 시간과 끝나는 조건, 오른쪽은 지금까지 나온 것.
-      한 줄 치고 <kbd>Enter</kbd> 면 <b>결정</b>, 버튼으로 <b>보류</b>·<b>할일</b>.
-      <b>“상황 → 결정”으로 쓰면 두 줄로 갈립니다.</b> 결론만 적으면 한 달 뒤에 왜 그렇게 정했는지 아무도 기억하지 못합니다.
+      <span class="s">진행 화면은 둘로 나뉩니다.</span>
+      <span class="s">왼쪽은 남은 시간과 끝나는 조건, 오른쪽은 지금까지 나온 것.</span>
+      <span class="s">한 줄 치고 <kbd>Enter</kbd> 면 <b>결정</b>, 버튼으로 <b>보류</b>·<b>할일</b>.</span><span class="s"><b>“상황 → 결정”으로 쓰면 두 줄로 갈립니다.</b></span><span class="s">결론만 적으면 한 달 뒤에 왜 그렇게 정했는지 아무도 기억하지 못합니다.</span>
     </p>
 
     <div class="cards">
@@ -378,8 +390,9 @@
     </div>
 
     <p class="sub" style="margin-top:34px">
-      다른 창에서 자료를 띄워도 회의는 안 끊깁니다. <b>항상 위에 뜨는 미니 HUD</b>가 남은 시간과 지금 안건을 계속 붙여 보여주고,
-      손은 키보드에서 떨어지지 않습니다.
+      <span class="s">다른 창에서 자료를 띄워도 회의는 안 끊깁니다.</span>
+      <span class="s"><b>항상 위에 뜨는 미니 HUD</b>가 남은 시간과 지금 안건을 계속 붙여 보여주고,
+      손은 키보드에서 떨어지지 않습니다.</span>
     </p>
     <div class="hud" aria-label="항상 위에 뜨는 미니 HUD">
       <div class="r">
@@ -404,10 +417,10 @@
     <div class="eyebrow">초과</div>
     <h2>시간이 넘으면<br>화면이 뒤집힙니다</h2>
     <p class="sub">
-      바짝에는 색이 없습니다. 빨강도 초록도 쓰지 않습니다.
-      대신 시간을 넘긴 순간 <b>왼쪽 절반이 통째로 반전됩니다.</b>
-      소리치는 것은 시간이지 결정이 아니라서, 오른쪽에 쌓인 것은 그대로 둡니다.
-      그리고 그 자리에서 <b>지금 정하고 넘어갈지, 5분을 더 쓸지, 보류함으로 넘길지</b> 고릅니다.
+      <span class="s">바짝에는 색이 없습니다.</span>
+      <span class="s">빨강도 초록도 쓰지 않습니다.</span>
+      <span class="s">대신 시간을 넘긴 순간 <b>왼쪽 절반이 통째로 반전됩니다.</b></span><span class="s">소리치는 것은 시간이지 결정이 아니라서, 오른쪽에 쌓인 것은 그대로 둡니다.</span>
+      <span class="s">그리고 그 자리에서 <b>지금 정하고 넘어갈지, 5분을 더 쓸지, 보류함으로 넘길지</b> 고릅니다.</span>
     </p>
     <div class="shot">
       <img src="assets/04-over.png" alt="초과 화면. 왼쪽 절반이 검게 반전되고 조임 프롬프트가 뜬다" width="2200" height="1440" decoding="async">
@@ -426,13 +439,14 @@
     <div class="eyebrow">공유 화면</div>
     <h2>방 전체가 같은 것을 봅니다</h2>
     <p class="sub">
-      화면 공유에 얹는 별도 창이 있습니다. 남은 시간과 끝나는 조건만 크게 띄우고, <b>조작은 진행자 화면에서만</b> 일어납니다.
-      이 창은 <b>항상 위에 뜨지 않습니다.</b> 공유 대상으로 골라야 하는 창이라 앞을 가리면 방해가 되기 때문입니다.
+      <span class="s">화면 공유에 얹는 별도 창이 있습니다.</span>
+      <span class="s">남은 시간과 끝나는 조건만 크게 띄우고, <b>조작은 진행자 화면에서만</b> 일어납니다.</span>
+      <span class="s">이 창은 <b>항상 위에 뜨지 않습니다.</b></span><span class="s">공유 대상으로 골라야 하는 창이라 앞을 가리면 방해가 되기 때문입니다.</span>
     </p>
     <div class="shot">
       <img src="assets/05-share.png" alt="공유 화면의 진행 중 상태와 초과 상태" width="2040" height="1360" decoding="async">
     </div>
-    <p class="cap"><b>공유 화면</b> · 초과하면 창이 통째로 반전됩니다. 방 어디에서 봐도 동시에 읽힙니다.</p>
+    <p class="cap"><span class="s"><b>공유 화면</b> · 초과하면 창이 통째로 반전됩니다.</span><span class="s">방 어디에서 봐도 동시에 읽힙니다.</span></p>
   </div>
 </section>
 
@@ -441,8 +455,9 @@
     <div class="eyebrow">끝나고</div>
     <h2>복사 한 번이면<br>회의록이 클립보드에 있습니다</h2>
     <p class="sub">
-      회의 중에 담은 것이 곧 회의록입니다. 따로 정리하는 시간이 없습니다.
-      못 끝낸 것은 보류함에 남았다가 <b>다음 회의를 여는 순간 첫 안건으로</b> 올라옵니다.
+      <span class="s">회의 중에 담은 것이 곧 회의록입니다.</span>
+      <span class="s">따로 정리하는 시간이 없습니다.</span>
+      <span class="s">못 끝낸 것은 보류함에 남았다가 <b>다음 회의를 여는 순간 첫 안건으로</b> 올라옵니다.</span>
     </p>
 
     <div class="oc">
@@ -485,7 +500,8 @@
     </p>
 
     <p class="sub" style="margin-top:44px">
-      <b>회의록 복사</b>를 누르면 아래 마크다운이 그대로 클립보드로 갑니다. 슬랙·노션에 붙습니다.
+      <span class="s"><b>회의록 복사</b>를 누르면 아래 마크다운이 그대로 클립보드로 갑니다.</span>
+      <span class="s">슬랙·노션에 붙습니다.</span>
     </p>
     <div class="md">
 <pre># 신규 온보딩 플로우 — 다음 스프린트 범위 확정
@@ -529,13 +545,16 @@
     <div class="eyebrow">혼자 모드</div>
     <h2>회의가 아니어도 한 시간은 흐릅니다</h2>
     <p class="sub">
-      같은 앱이 혼자 일할 때도 돕니다. 업무 하나에 한 시간을 걸고 <b>5~15분짜리 스텝</b>으로 쪼갠 뒤,
-      <b>현재 한 스텝만 크게</b> 띄웁니다. 나머지는 가립니다.
-      회의 모드가 결론으로 끝난다면, 혼자 모드는 시간으로 끝납니다.
+      <span class="s">같은 앱이 혼자 일할 때도 돕니다.</span>
+      <span class="s">업무 하나에 한 시간을 걸고 <b>5~15분짜리 스텝</b>으로 쪼갠 뒤,
+      <b>현재 한 스텝만 크게</b> 띄웁니다.</span>
+      <span class="s">나머지는 가립니다.</span>
+      <span class="s">회의 모드가 결론으로 끝난다면, 혼자 모드는 시간으로 끝납니다.</span>
     </p>
     <p class="sub" style="margin-top:20px">
-      업무 한 줄만으로는 매번 다르게 쪼개져 신뢰가 안 갑니다. 그래서 <b>템플릿은 AI 를 부르지 않고</b>
-      늘 같은 뼈대를 주고 비중만 총 시간에 맞춰 폅니다.
+      <span class="s">업무 한 줄만으로는 매번 다르게 쪼개져 신뢰가 안 갑니다.</span>
+      <span class="s">그래서 <b>템플릿은 AI 를 부르지 않고</b>
+      늘 같은 뼈대를 주고 비중만 총 시간에 맞춰 폅니다.</span>
     </p>
     <div class="tpl">
       <span>글 쓰기</span><span>코드 작업</span><span>자료 조사</span><span>검토·리뷰</span><span>밀린 것 처리</span>
@@ -548,24 +567,27 @@
   <div class="wrap">
     <div class="eyebrow">약속</div>
     <h2>회의는 방 안에서 끝납니다</h2>
-    <p class="sub">회의에서 오가는 말은 밖으로 나가면 곤란한 것이 많습니다. 그래서 나가는 길을 아예 만들지 않았습니다.</p>
+    <p class="sub">
+      <span class="s">회의에서 오가는 말은 밖으로 나가면 곤란한 것이 많습니다.</span>
+      <span class="s">그래서 나가는 길을 아예 만들지 않았습니다.</span>
+    </p>
 
     <div class="grid2">
       <div class="cell">
         <h3>녹음하지 않습니다</h3>
-        <p>마이크를 켜지 않고 전사도 하지 않습니다. <b>참석자 동의를 받을 일이 없고</b>, 오디오 비용도 생기지 않습니다.</p>
+        <p><span class="s">마이크를 켜지 않고 전사도 하지 않습니다.</span><span class="s"><b>참석자 동의를 받을 일이 없고</b>, 오디오 비용도 생기지 않습니다.</span></p>
       </div>
       <div class="cell">
         <h3>계정도 서버도 없습니다</h3>
-        <p>회의는 진행자 기기에서 돌고 기록은 그 기기의 파일 한 장에 남습니다. <b>로그인할 곳이 없습니다.</b></p>
+        <p><span class="s">회의는 진행자 기기에서 돌고 기록은 그 기기의 파일 한 장에 남습니다.</span><span class="s"><b>로그인할 곳이 없습니다.</b></span></p>
       </div>
       <div class="cell">
         <h3>AI 는 꺼진 채로 옵니다</h3>
-        <p>기본값이 <b>끄기</b>입니다. 꺼두면 한 글자도 기기 밖으로 나가지 않고, 균등 배분으로 그대로 돌아갑니다.</p>
+        <p><span class="s">기본값이 <b>끄기</b>입니다.</span><span class="s">꺼두면 한 글자도 기기 밖으로 나가지 않고, 균등 배분으로 그대로 돌아갑니다.</span></p>
       </div>
       <div class="cell">
         <h3>켠다면 내 것으로</h3>
-        <p>내 기기의 <b>claude CLI</b> 나 <b>내 API 키</b>를 씁니다. 우리 서버를 경유하지 않고, 구독료도 우리에게 오지 않습니다.</p>
+        <p><span class="s">내 기기의 <b>claude CLI</b> 나 <b>내 API 키</b>를 씁니다.</span><span class="s">우리 서버를 경유하지 않고, 구독료도 우리에게 오지 않습니다.</span></p>
       </div>
     </div>
   </div>
@@ -575,13 +597,16 @@
   <div class="wrap">
     <div class="eyebrow">안 하는 것</div>
     <h2>넣지 않기로 한 것들</h2>
-    <p class="sub">넣을 수 있었지만 넣지 않았습니다. 넣는 순간 다른 제품이 되기 때문입니다.</p>
+    <p class="sub">
+      <span class="s">넣을 수 있었지만 넣지 않았습니다.</span>
+      <span class="s">넣는 순간 다른 제품이 되기 때문입니다.</span>
+    </p>
 
     <div class="nots">
       <div class="not"><span class="h">음성 녹음 · 전사</span><span class="w">참석자 동의라는 도입 마찰을 만들고, 이미 붐비는 카테고리에 후발로 들어가는 길입니다.</span></div>
-      <div class="not"><span class="h">참가자 각자 기기</span><span class="w">실시간 동기화는 로컬-퍼스트를 깨뜨립니다. 회의는 한 방에서 벌어지고, 진행자 기기 하나면 됩니다.</span></div>
-      <div class="not"><span class="h">캘린더 자동 연동</span><span class="w">회의를 잡는 일은 이미 잘 하는 도구가 많습니다. 바짝은 <b>잡힌 회의 안에서만</b> 일합니다.</span></div>
-      <div class="not"><span class="h">모바일 · 클라우드</span><span class="w">한 시간을 진행하는 자리는 책상 앞입니다. 기기를 늘리는 대신 그 한 시간을 잘 만듭니다.</span></div>
+      <div class="not"><span class="h">참가자 각자 기기</span><span class="w"><span class="s">실시간 동기화는 로컬-퍼스트를 깨뜨립니다.</span><span class="s">회의는 한 방에서 벌어지고, 진행자 기기 하나면 됩니다.</span></span></div>
+      <div class="not"><span class="h">캘린더 자동 연동</span><span class="w"><span class="s">회의를 잡는 일은 이미 잘 하는 도구가 많습니다.</span><span class="s">바짝은 <b>잡힌 회의 안에서만</b> 일합니다.</span></span></div>
+      <div class="not"><span class="h">모바일 · 클라우드</span><span class="w"><span class="s">한 시간을 진행하는 자리는 책상 앞입니다.</span><span class="s">기기를 늘리는 대신 그 한 시간을 잘 만듭니다.</span></span></div>
     </div>
   </div>
 </section>
@@ -591,8 +616,9 @@
     <div class="eyebrow">받기</div>
     <h2>곧 내려받을 수 있습니다</h2>
     <p class="sub">
-      Apple Silicon 맥용 앱을 서명하고 공증하는 중입니다. 준비되면 이 자리에 다운로드가 열립니다.
-      회의 한 번 돌려보면 압니다.
+      <span class="s">Apple Silicon 맥용 앱을 서명하고 공증하는 중입니다.</span>
+      <span class="s">준비되면 이 자리에 다운로드가 열립니다.</span>
+      <span class="s">회의 한 번 돌려보면 압니다.</span>
     </p>
     <div class="cta">
       <span class="btn" aria-disabled="true">macOS 다운로드 준비 중</span>
