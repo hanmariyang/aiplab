@@ -37,7 +37,9 @@
      '브랜 / 드' 로 음절 단위로 쪼개진다. 좁아지면 줄 대신 간격을 줄이고, 더 좁으면 넘겨서 스크롤. */
   header nav a { color: var(--sub); white-space: nowrap; }
   @media (max-width: 560px) {
-    header nav { gap: 12px; font-size: 13px; overflow-x: auto; scrollbar-width: none; }
+    header nav { gap: 12px; font-size: 13px; overflow-x: auto; scrollbar-width: none;
+      /* 마지막 항목이 딱 잘려 멈추면 더 있다는 게 안 보인다. 끝에 여백을 둬 밀리는 걸 보인다. */
+      padding-right: 12px; -webkit-overflow-scrolling: touch; }
     header nav::-webkit-scrollbar { display: none; }
   }
   header nav a.gh { color: var(--ink); font-weight: 600; }
