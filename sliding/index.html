@@ -81,6 +81,9 @@
   section.alt .card { background: var(--ground); }
   .card h3 { font-size: 16px; margin-bottom: 8px; }
   .card p { font-size: 14px; color: var(--sub); }
+  .card.soon { background: var(--ground); }
+  .card.soon h3 { color: var(--sub); }
+  .card.soon .k { color: var(--faint); }
   .card .k { display: inline-block; font: 800 11px/1 var(--mono); letter-spacing: .1em; color: var(--acc); margin-bottom: 10px; }
 
   /* 말이 규칙이 되는 순간 — 대화 스니펫 */
@@ -88,6 +91,29 @@
   .ruleplay .r { display: flex; gap: 10px; margin: 10px 0; font-size: 14px; }
   .ruleplay .r.me { justify-content: flex-end; }
   .ruleplay .bb { border: 1px solid var(--hair); border-radius: 12px; padding: 9px 14px; background: var(--ground); }
+  /* 브랜드 읽기 도해 — .ruleplay 와 같은 어법. 스크린샷이 아니라 무엇이 오가는지 보이는 그림.
+     ⚠️ 실제 회사의 이름·색·로고는 쓰지 않는다. 우리 판매 페이지에 실리면 관계가 있는 것처럼 읽힌다. */
+  .brandplay { border: 1px solid var(--hair); border-radius: 12px; background: var(--paper);
+    padding: 20px 22px; max-width: 720px; display: flex; flex-direction: column; gap: 14px; }
+  .bp-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  /* ⚠️ --faint 는 흰 바탕에서 2.3:1 이다. 10px 대문자 모노에 쓰면 읽히지 않는다. */
+  .bp-lab { font: 800 10px/1 var(--mono); letter-spacing: .1em; color: var(--sub);
+    text-transform: uppercase; width: 138px; flex: none; }
+  .bp-input { border: 1px solid var(--hair); border-radius: 7px; padding: 5px 11px;
+    font: 13px/1.5 var(--mono); color: var(--ink); background: var(--ground); min-width: 150px; }
+  .bp-btn { border: 1px solid var(--hair); border-radius: 7px; padding: 5px 12px; font-size: 12.5px; }
+  .sw { width: 24px; height: 24px; border-radius: 6px; border: 1px solid rgba(0,0,0,.12); }
+  .mk { display: inline-flex; border: 1px solid var(--hair); border-radius: 7px; overflow: hidden; }
+  .mk i { display: block; width: 24px; height: 24px; background: #fff; position: relative; }
+  .mk i.d { background: #14161a; border-left: 1px solid var(--hair); }
+  /* 투명 마크 — 배경이 없어 밝은 바탕·어두운 바탕 양쪽에서 그대로 보인다. */
+  .mk i::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: var(--acc); }
+  /* 타일 마크 — 제 배경 타일을 달고 온다. 흰 지면에선 네모 배지가 되고, 어두운 지면에선 테두리가 녹는다.
+     한쪽만 보여 주면 이 차이를 고르고 나서 알게 된다. 그래서 두 바탕을 나란히 둔다. */
+  .mk i.t::before { inset: 0; border-radius: 0; background: #1c1f26; }
+  .mk i.t::after { content: ""; position: absolute; inset: 7px; border-radius: 2px; background: #fff; }
+  .bp-hint, .bp-note { font-size: 12px; color: var(--sub); }
+  @media (max-width: 640px) { .bp-lab { width: auto; } }
   .ruleplay .r.me .bb { background: var(--acc); color: #fff; border-color: var(--acc); }
   .ruleplay .tag { font: 700 10px/1 var(--mono); color: var(--acc); background: var(--acc-bg); border-radius: 999px; padding: 4px 9px; margin-left: 6px; }
 
@@ -115,6 +141,7 @@
     <span class="logo"><img src="img/mikkeuri.png" alt="미끌이" /><span>Slid<b>ing</b></span></span>
     <nav>
       <a href="#how">작동 방식</a>
+      <a href="#brand">브랜드</a>
       <a href="#quality">품질</a>
       <a href="#download">다운로드</a>
       <a class="gh" href="https://aiplab.kr">AIP Lab →</a>
@@ -161,6 +188,46 @@
   </div>
 </section>
 
+<section id="brand">
+  <div class="wrap">
+    <h2>회사 사이트 주소 하나면 됩니다</h2>
+    <p class="sec-sub">색을 고르고 모서리를 정하는 일은 발표 준비가 아닙니다. 다니는 회사 주소를 넣으면 그 사이트가 쓰는 색·모서리·마크를 읽어 후보로 올립니다. 고르는 건 사람입니다 — 읽어 온 값은 추정이지 사실이 아니니까요.</p>
+
+    <div class="brandplay">
+      <div class="bp-row">
+        <span class="bp-lab">브랜드에서 가져오기</span>
+        <span class="bp-input">우리회사.kr</span>
+        <span class="bp-btn">읽기</span>
+      </div>
+      <div class="bp-row">
+        <span class="bp-lab">찾은 색</span>
+        <span class="sw" style="background:#3d5df0"></span>
+        <span class="sw" style="background:#e0483c"></span>
+        <span class="sw" style="background:#1f9d76"></span>
+        <span class="sw" style="background:#d98a1f"></span>
+        <span class="sw" style="background:#14161a"></span>
+        <span class="bp-hint">눌러서 씁니다</span>
+      </div>
+      <div class="bp-row">
+        <span class="bp-lab">찾은 마크</span>
+        <span class="mk"><i></i><i class="d"></i></span>
+        <span class="mk"><i class="t"></i><i class="t d"></i></span>
+        <span class="bp-hint">밝은 바탕과 어두운 바탕에 나란히 — 앱 아이콘은 제 배경 타일을 달고 오는 게 많습니다</span>
+      </div>
+      <div class="bp-row">
+        <span class="bp-lab">모서리</span>
+        <span class="bp-note">8px 로 보입니다 · 적용</span>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:26px">
+      <div class="card"><span class="k">한 번만</span><h3>다음 덱이 물려받습니다</h3><p>정한 톤을 기본으로 두면 새로 만드는 덱이 그 톤으로 시작합니다. 발표마다 같은 사이트를 다시 읽을 일이 없습니다.</p></div>
+      <div class="card"><span class="k">읽히게</span><h3>색은 지키고 밝기만 옮깁니다</h3><p>흰 종이를 보며 고른 파랑은 검은 종이에서 안 보입니다. 색상은 브랜드의 것이라 그대로 두고, 밝기만 읽히는 데까지 옮깁니다.</p></div>
+      <div class="card"><span class="k">모르면 모른다고</span><h3>못 읽은 건 말합니다</h3><p>자바스크립트로 색을 넣는 사이트는 안 보입니다. 입체감은 CSS 만으로는 정할 수 없어 직접 고르셔야 합니다. 화면이 그렇게 말합니다.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="quality" class="alt">
   <div class="wrap">
     <h2>결함 없음은 시작선입니다</h2>
@@ -186,7 +253,7 @@
     <p class="sec-sub">설치하면 바로 열리는 데스크톱 앱. 서버가 내장되어 있고, 자동 업데이트가 포함됩니다. Claude Code 로그인(구독)만 있으면 됩니다 — API 키·크레딧 없음.</p>
     <div class="grid">
       <div class="card"><span class="k">MACOS</span><h3>Sliding.dmg</h3><p>Apple Silicon · 자동 업데이트</p><p style="margin-top:10px"><a href="https://github.com/hanmariyang/sliding-releases/releases/latest/download/Sliding-arm64.dmg" download>내려받기 →</a></p></div>
-      <div class="card"><span class="k">WINDOWS</span><h3>Sliding Setup.exe</h3><p>NSIS 인스톨러 · 자동 업데이트</p><p style="margin-top:10px"><a href="https://github.com/hanmariyang/sliding-releases/releases/latest/download/Sliding-Setup.exe" download>내려받기 →</a></p></div>
+      <div class="card soon"><span class="k">WINDOWS</span><h3>아직 없습니다</h3><p>실기기에서 확인하지 못해 내놓지 않았습니다. 확인하는 대로 여기에 올립니다.</p></div>
       <div class="card"><span class="k">ENGINE</span><h3>Claude 구독으로</h3><p>로컬 claude CLI 를 그대로 사용합니다. 데이터는 ~/.sliding 한 파일, 외부 전송 없음.</p></div>
     </div>
   </div>
