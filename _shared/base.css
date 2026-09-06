@@ -36,9 +36,9 @@
 
   /* hero */
   .hero{text-align:center;padding:56px 0 54px}
-  .cast{display:flex;justify-content:center;align-items:flex-end;gap:26px;margin-bottom:30px}
+  .cast{display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:18px 20px;margin-bottom:30px}
   .cast .m{position:relative}
-  .cast img,.cast svg{height:104px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
+  .cast img,.cast svg{height:84px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
   .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}.cast .m.gt .tag{color:var(--rose)}.cast .m.p .tag{color:var(--cobalt)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
@@ -188,20 +188,29 @@
   .tile-soon:hover{border-color:var(--line);transform:none}
   @media(prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 
-  /* ── /tools 제품 상세 ─────────────────────────────── */
-  .dets{padding:0 0 80px}
-  .deth{border-top:1px solid var(--line);padding-top:44px;margin-top:10px}
-  .deth .sheye{margin-bottom:10px}
-  .det{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center;
-    padding:34px 0;border-top:1px solid var(--line2)}
-  .det:first-of-type{border-top:0}
-  @media(max-width:860px){.det{grid-template-columns:1fr;gap:20px}}
-  .dh{display:flex;align-items:baseline;gap:10px}
-  .dn{font-size:21px;font-weight:800;letter-spacing:-.02em}
-  .dc{font:500 11px var(--mono);color:var(--soft)}
-  .dt{font-size:16px;font-weight:600;line-height:1.4;margin:10px 0 8px}
-  .det p{color:var(--soft);font-size:14.5px;margin:0 0 14px;max-width:62ch}
-
   .shmore{margin:6px 0 0}
   .shmore a{font-size:14px;font-weight:600;color:var(--ink)}
   .n a.here{color:var(--ink);font-weight:600}
+
+  /* ── /tools 제품 상세 ─────────────────────────────────
+     ⚠️ 클래스에 tl- 를 붙인다. .dt·.dc·.dn 은 이미 히어로 점 색깔이라
+        그대로 쓰면 이름 뒤에 색 블록이 깔린다(실제로 그랬다). */
+  .tl-dets{padding:0 0 80px}
+  .tl-deth{border-top:1px solid var(--line);padding-top:44px;margin-top:10px}
+  .tl-det{display:grid;grid-template-columns:.92fr 1.08fr;gap:40px;align-items:center;
+    padding:38px 0;border-top:1px solid var(--line2)}
+  .tl-det:first-of-type{border-top:0}
+  @media(max-width:860px){.tl-det{grid-template-columns:1fr;gap:22px}}
+  .tl-head{display:flex;align-items:baseline;gap:10px}
+  .tl-name{font-size:21px;font-weight:800;letter-spacing:-.02em}
+  .tl-code{font-family:var(--mono);font-size:11px;color:var(--soft)}
+  .tl-tag{font-size:16.5px;font-weight:600;line-height:1.45;margin:11px 0 9px}
+  .tl-det p{color:var(--soft);font-size:14.5px;line-height:1.65;margin:0 0 15px;max-width:62ch}
+  .tl-det .plinks{margin:0}
+  /* 프레임 없는 제품(Sliding·Coxpit 은 dark 프레임)도 칸이 비지 않게 */
+  .tl-det > .frame{margin:0}
+
+  /* 캐스트 11종 — 닿기·바짝·또봄 추가분 */
+  .cast .m.dg .tag{color:var(--sky)}
+  .cast .m.bj .tag{color:var(--graphite)}
+  .cast .m.tb .tag{color:var(--salmon)}
