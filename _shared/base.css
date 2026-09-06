@@ -258,3 +258,7 @@
   /* 상세 번호도 제품색 */
   .tl-det .tl-code{color:var(--a)}
   @media(prefers-reduced-motion:reduce){.tile,.tgo{transition:none}.tile:hover{transform:none}}
+
+  /* ── 히어로 가족사진 — 개별 캐스트 11개를 사진 한 장으로 ── */
+  .famphoto{display:block;width:min(860px,92%);height:auto;margin:0 auto 34px;
+    border-radius:20px;box-shadow:0 30px 60px -34px rgba(27,28,30,.35)}
