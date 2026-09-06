@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<title>또봄 — 담아둔 걸 다시 꺼내주는 앱</title>
+<meta name="description" content="저장은 하는데 다시 여는 일은 잘 없죠. 또봄은 잊을 때쯤 담아둔 것을 다시 꺼내줍니다. 계정도 서버도 없이 기기 안에서.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#FFFFFF; --ink:#16181C; --body:#3B4046; --sub:#6B7076; --muted:#9AA0A6;
+    --line:#EDEFF1; --faint:#F5F6F8; --warm:#FFF6F1;
+    --accent:#F2555B; --accentSoft:#FFECEC;
+    --serif:'Hahmlet',ui-serif,Georgia,'Apple SD Gothic Neo',serif;
+    --sans:'IBM Plex Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',system-ui,sans-serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0F1113; --ink:#F1F2F4; --body:#C6CACF; --sub:#9BA1A7; --muted:#7C8288;
+    --line:#24272B; --faint:#17191C; --warm:#1B1618;
+    --accent:#FF6B70; --accentSoft:#2A1B1D; color-scheme:dark; } }
+  :root[data-theme="dark"]{
+    --paper:#0F1113; --ink:#F1F2F4; --body:#C6CACF; --sub:#9BA1A7; --muted:#7C8288;
+    --line:#24272B; --faint:#17191C; --warm:#1B1618;
+    --accent:#FF6B70; --accentSoft:#2A1B1D; color-scheme:dark; }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--body);
+       font:400 16px/1.75 var(--sans);-webkit-font-smoothing:antialiased;
+       word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+  .wrap{max-width:46em;margin:0 auto;padding:0 1.5rem}
+  section{padding:5rem 0}
+  h1,h2,h3{font-family:var(--serif);color:var(--ink);letter-spacing:-.02em;text-wrap:balance;margin:0}
+
+  /* ── 헤더 ── */
+  header{padding:1.6rem 0 0}
+  .brand{display:flex;align-items:center;gap:.55rem}
+  .brand img{width:32px;height:32px;border-radius:8px;display:block}
+  .brand b{font:700 1.02rem/1 var(--serif);color:var(--ink);letter-spacing:-.01em}
+
+  /* ── 히어로 ── */
+  .hero{padding:3.5rem 0 4rem;text-align:center}
+  .hero img.ttori{width:180px;height:180px;display:block;margin:0 auto .4rem}
+  .hero h1{font-size:clamp(2rem,6.5vw,2.9rem);line-height:1.32;font-weight:800}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p{margin:1.1rem auto 0;max-width:24em;font-size:1.02rem;color:var(--sub);line-height:1.85}
+  .cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;
+       background:var(--ink);color:var(--paper);border-radius:999px;
+       padding:.75rem 1.4rem;font:600 .93rem/1 var(--sans);text-decoration:none}
+  .cta span{opacity:.55;font-weight:400}
+  .meta{margin-top:.9rem;font-size:.8rem;color:var(--muted)}
+
+  /* ── 문제 ── */
+  .problem{background:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .problem h2{font-size:clamp(1.4rem,4.2vw,1.9rem);line-height:1.45;font-weight:700}
+  .problem h2 em{font-style:normal;color:var(--accent)}
+  .problem p{margin:1.2rem 0 0;color:var(--sub);max-width:30em}
+
+  /* ── 되살림 ── */
+  .steps{display:grid;gap:1.1rem;margin-top:2.4rem}
+  @media(min-width:640px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{border:1px solid var(--line);border-radius:16px;padding:1.3rem 1.25rem;background:var(--paper)}
+  .step b{display:block;font:700 .78rem/1 var(--sans);color:var(--accent);letter-spacing:.08em;margin-bottom:.7rem}
+  .step h3{font-size:1.02rem;font-weight:700;line-height:1.5}
+  .step p{margin:.45rem 0 0;font-size:.9rem;color:var(--sub);line-height:1.7}
+
+  h2.lead{font-size:clamp(1.5rem,4.6vw,2.1rem);line-height:1.4;font-weight:800}
+  .sub{margin:1rem 0 0;color:var(--sub);max-width:32em}
+
+  /* ── 화면 ── */
+  .shots-wrap{max-width:none;padding:0}
+  .shots{display:flex;gap:1.1rem;overflow-x:auto;padding:2.2rem 1.5rem 1rem;
+         scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+         scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  @media(min-width:900px){.shots{justify-content:center}}
+  .shots figure{margin:0;flex:0 0 auto;scroll-snap-align:center;width:210px}
+  .shots img{width:100%;display:block;border:1px solid var(--line);border-radius:20px}
+  .shots figcaption{margin-top:.7rem;font-size:.8rem;color:var(--muted);text-align:center}
+
+  /* ── 프라이버시 ── */
+  .privacy{background:var(--warm)}
+  .facts{list-style:none;padding:0;margin:1.8rem 0 0;display:grid;gap:.7rem}
+  .facts li{display:flex;gap:.65rem;align-items:flex-start;font-size:.98rem}
+  .facts li::before{content:"";flex:none;width:7px;height:7px;border-radius:2px;
+                    background:var(--accent);margin-top:.62rem}
+
+  footer{border-top:1px solid var(--line);padding:2.4rem 0 4rem;margin-top:1rem;
+         font:400 .82rem/1.9 var(--sans);color:var(--muted);
+         display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between}
+  footer a{color:var(--muted);text-underline-offset:.2em}
+  footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><img src="apple-touch-icon.png" alt=""><b>또봄</b></div>
+  </header>
+
+  <div class="hero">
+    <img class="ttori" src="assets/ttori-resurface.png" alt="도토리를 꺼내는 다람쥐 또리">
+    <h1>담아두긴 하는데<br><em>다시 보진 않죠</em></h1>
+    <p>또봄은 잊을 때쯤 담아둔 것을 스스로 다시 꺼내줍니다.<br>도토리를 묻어두고 다시 파내는 다람쥐처럼.</p>
+    <a class="cta" href="#" aria-disabled="true">App Store <span>준비 중</span></a>
+    <p class="meta">iOS 15 이상 · 계정 없음 · 무료</p>
+  </div>
+</div>
+
+<section class="problem">
+  <div class="wrap">
+    <h2>저장은 쌓이는데<br><em>다시 열어본 적은 없습니다.</em></h2>
+    <p>북마크 300개, 나중에 볼 영상 40개, 어딘가 적어둔 문장들.
+       담을 때는 분명 좋았는데, 담는 순간 잊습니다. 폴더를 더 만들어도 같습니다 —
+       문제는 정리가 아니라 <strong>다시 꺼내는 일이 아무도 하지 않는 일</strong>이라는 데 있으니까요.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="lead">그래서 또봄이 대신 꺼냅니다</h2>
+    <p class="sub">담은 지 오래됐고, 한동안 안 봤고, 아직 몇 번 안 떠오른 것.
+       그런 것부터 하루에 몇 개씩 골라 보여줍니다. 전부 기기 안에서 계산합니다.</p>
+    <div class="steps">
+      <div class="step">
+        <b>01 담기</b>
+        <h3>공유 한 번</h3>
+        <p>어느 앱에서든 공유시트로 또봄에. 제목과 미리보기는 알아서 가져옵니다.</p>
+      </div>
+      <div class="step">
+        <b>02 잊기</b>
+        <h3>정리하지 않아도</h3>
+        <p>폴더도 태그도 강요하지 않습니다. 담고 잊어버려도 됩니다.</p>
+      </div>
+      <div class="step">
+        <b>03 또봄</b>
+        <h3>잊을 때쯤 다시</h3>
+        <p>오늘의 몇 개를 꺼내 보여줍니다. 또 볼래 · 간직 · 치우기.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 class="lead">이렇게 생겼습니다</h2>
+    <p class="sub">담아둔 것이 모이고, 잊을 때쯤 다시 올라옵니다.</p>
+  </div>
+  <div class="wrap shots-wrap">
+    <div class="shots">
+      <figure><img src="assets/816a04107a.png" alt="또봄 화면" loading="lazy"><figcaption>또봄</figcaption></figure>
+      <figure><img src="assets/569f2be5ea.png" alt="모아보기 화면" loading="lazy"><figcaption>모아보기</figcaption></figure>
+      <figure><img src="assets/f28938cd5c.png" alt="담기 화면" loading="lazy"><figcaption>담기</figcaption></figure>
+      <figure><img src="assets/2eb54f2ae2.png" alt="설정 화면" loading="lazy"><figcaption>설정</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="wrap">
+    <h2 class="lead">담아둔 건 이 기기 안에만</h2>
+    <p class="sub">무엇을 담는지는 꽤 사적인 기록입니다. 그래서 아예 받지 않기로 했습니다.</p>
+    <ul class="facts">
+      <li>계정을 만들지 않습니다. 로그인 화면이 없습니다.</li>
+      <li>서버를 운영하지 않습니다. 담은 것이 저희에게 오지 않습니다.</li>
+      <li>광고도 분석 도구도 넣지 않았습니다.</li>
+      <li>미리보기 이미지는 담을 때 한 번 받아둡니다. 볼 때마다 밖으로 나가지 않습니다.</li>
+      <li>Face ID로 앱을 잠글 수 있고, 언제든 파일로 내보낼 수 있습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>또봄 · AIP Lab</span>
+    <span><a href="privacy.html">개인정보 처리방침</a></span>
+    <span>iOS · 로컬-퍼스트</span>
+  </footer>
+</div>
+
+</body>
+</html>

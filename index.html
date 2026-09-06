@@ -26,6 +26,7 @@
     --rose:#E8506E; --roseT:#FBE9F0; /* Giting · 시간대 4색 중 저녁 로즈 (낮 오렌지는 coral 과 hue 1° 차라 제외) */
     --sky:#1288B0; --skyT:#E3F1F7; /* Datgi · 앱 자체 액센트는 코랄(#F26B4E)이지만 Working coral 과 hue 가 같아 못 쓴다. 지도의 바다 쪽으로 뺀다 */
     --graphite:#4A4C52; --graphiteT:#EDEDF0; /* Bajjak · 이 제품은 색을 안 쓴다(초과를 반전으로 말한다). 무채색이 곧 정체성 */
+    --salmon:#F2555B; --salmonT:#FFECEC; /* Ttobom · 제품 자기 액센트(hue 358°). ⚠️ 따뜻한 쪽이 붐빈다 — rose 348°·coral 13° 와 가깝다. 바로 위가 무채색 Bajjak 이라 인접 대비는 확보됨 */
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -81,6 +82,7 @@
   .band.gt{background:linear-gradient(180deg,var(--roseT),transparent 70%)}
   .band.dg{background:linear-gradient(180deg,var(--skyT),transparent 70%)}
   .band.bj{background:linear-gradient(180deg,var(--graphiteT),transparent 70%)}
+  .band.tb{background:linear-gradient(180deg,var(--salmonT),transparent 70%)}
   .band.p{background:linear-gradient(180deg,var(--cobaltT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   /* 짝수 밴드(Sliding·Lighting·Grouping·Planning) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
@@ -439,6 +441,26 @@
   </div>
 </section>
 
+<!-- Ttobom (iOS app) -->
+<section class="band tb">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/ttori.png" alt="Ttobom mascot 또리" style="height:56px"/>
+        <div><div class="pname">Ttobom</div><div class="code">AIP·011 · iOS</div></div>
+      </div>
+      <div class="ptag" data-k="tb_tag">You save things.<br>You never open them again.</div>
+      <p data-k="tb_desc">An iOS app that brings back what you saved. Share a link from any app and it lands in Ttobom with its title and preview already fetched. No folders, no tags, nothing to organise — forgetting is allowed. Each day it picks a few things out for you: saved long ago, untouched for a while, and still worth a look. Everything is computed on the phone, with no account and no server.</p>
+      <span class="chip soon"><span class="lv"></span> <span data-k="tb_chip">준비 중 · iOS 15+ · 계정 없음</span></span>
+      <div class="plinks"><a href="ttobom/" data-k="open">Open ↗</a><a href="ttobom/privacy.html">Privacy</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Ttobom · saved, then surfaced</div>
+      <img src="img/ttobom-shelf.jpg" alt="Ttobom — today's resurfaced items and the collected view"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -522,6 +544,9 @@ drafting.sqlite <span class="ok">✓</span>
     bj_tag:"한 시간이 끝나면<br>결론이 남습니다.",
     bj_desc:"회의를 진행하는 동안 띄워 놓는 macOS 앱. 목적 한 줄이 안건으로 쪼개지고, 안건마다 무엇이 나와야 끝나는지가 붙습니다. 시간이 다 된 것과 끝난 것은 다릅니다. 한 시간이 지나면 슬랙에 그대로 붙는 회의록이 이미 쓰여 있습니다. 앱에는 색이 없고, 시간을 넘기면 화면 절반이 반전됩니다. 녹음도 계정도 서버도 없습니다.",
     bj_chip:"준비 중 · Apple Silicon",
+    tb_tag:"담아두긴 하는데<br>다시 보진 않죠.",
+    tb_desc:"담아둔 걸 다시 꺼내주는 iOS 앱. 어느 앱에서든 공유 한 번이면 제목과 미리보기까지 가져와 담깁니다. 폴더도 태그도 없습니다. 잊어버려도 됩니다. 담은 지 오래됐고, 한동안 안 봤고, 아직 몇 번 안 떠오른 것부터 하루에 몇 개씩 골라 보여줍니다. 전부 기기 안에서 계산하고, 계정도 서버도 없습니다.",
+    tb_chip:"준비 중 · iOS 15+ · 계정 없음",
     l_tag:"AI는 챕터를 쓰고,<br>책은 내가 씁니다.",
     l_desc:"AI 전자책 스튜디오. 인터뷰가 챕터 초안이 되고, 다듬어 표지를 붙이면 EPUB3·PDF로 내보냅니다. 검증까지 전부 내 컴퓨터 안에서, 셀프호스트로 끝납니다.",
     l_chip:"개발 중",
