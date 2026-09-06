@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<title>닿기 — 뛴 만큼 가까워지는 앱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#FFFFFF; --sunk:#F4F4F5; --ink:#0B0B0C; --body:#3A3D42;
+    --muted:#8E9096; --line:#E7E8EA; --coral:#F26B4E; --shadow:rgba(11,11,12,.10);
+    --display:"Gowun Batang",'Apple SD Gothic Neo',serif;
+    --sans:"IBM Plex Sans KR",'Apple SD Gothic Neo',system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+      --muted:#8B8E95; --line:#282B30; --coral:#FF8465; --shadow:rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+    --muted:#8B8E95; --line:#282B30; --coral:#FF8465; --shadow:rgba(0,0,0,.5);
+  }
+  /* 한글은 기본이 음절 단위 줄바꿈이라 한 글자만 떨어지는 줄이 생긴다.
+     어절(띄어쓰기) 단위로 끊고, 마지막 줄에 한 단어만 남는 것도 피한다. */
+  body{word-break:keep-all}
+  p,li,figcaption,h1,h2,h3,dt,dd,td,th{text-wrap:pretty}
+  h1,h2{text-wrap:balance}
+  code,kbd,pre,.facts,.meta,.where{word-break:break-all}
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--body);font:400 16px/1.75 var(--sans);
+       -webkit-font-smoothing:antialiased;margin:0}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.4rem)}
+  h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0}
+  img{display:block;max-width:100%}
+  .shot{border-radius:22px;border:1px solid var(--line);box-shadow:0 18px 40px -22px var(--shadow)}
+
+  /* ── 히어로 ── */
+  .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+        gap:clamp(2rem,5vw,4rem);align-items:center;
+        padding:clamp(3rem,7vw,5.5rem) 0 clamp(3rem,6vw,4.5rem)}
+  .brand{display:flex;align-items:center;gap:.7rem;margin-bottom:1.8rem}
+  .brand img{width:38px;height:38px;border-radius:9px}
+  .brand span{font:600 .95rem/1 var(--sans);color:var(--ink);letter-spacing:.02em}
+  h1{font:700 clamp(2.3rem,5.4vw,3.6rem)/1.22 var(--display);letter-spacing:-.025em}
+  .lede{margin:1.4rem 0 0;font-size:1.08rem;font-weight:300;max-width:29em}
+  .lede b{font-weight:600;color:var(--ink)}
+  .cta{display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:center;margin:2.2rem 0 0}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--paper);
+         border-radius:10px;padding:.75rem 1.15rem;font:600 .9rem/1 var(--sans)}
+  .badge small{font:400 .74rem/1 var(--sans);opacity:.66}
+  .cta em{font:400 .85rem/1.6 var(--sans);color:var(--muted);font-style:normal}
+  .heroShot{justify-self:center;max-width:340px;width:100%}
+  @media (max-width:820px){.hero{grid-template-columns:1fr}.heroShot{max-width:290px}}
+
+  /* ── 대비 한 줄 ── */
+  .thesis{background:var(--ink);color:#F3F3F4;padding:clamp(3rem,7vw,4.5rem) 0}
+  .thesis p{max-width:23em;margin:0;font:700 clamp(1.5rem,3.6vw,2.15rem)/1.42 var(--display);
+            letter-spacing:-.015em;color:#FFFFFF}
+  .thesis span{color:var(--coral)}
+  .thesis small{display:block;margin:1.3rem 0 0;font:300 .98rem/1.75 var(--sans);
+                color:#B8BABE;max-width:33em}
+
+  section{padding:clamp(3.5rem,7vw,5.5rem) 0}
+  .kicker{font:600 .78rem/1 var(--sans);letter-spacing:.02em;color:var(--muted)}
+  h2{font:700 clamp(1.7rem,4vw,2.4rem)/1.24 var(--display);letter-spacing:-.02em;margin:.95rem 0 0}
+  .say{margin:1rem 0 0;max-width:34em;font-weight:300}
+
+  /* ── 3단 ── */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+         gap:clamp(1.6rem,3vw,2.4rem);margin:2.8rem 0 0}
+  .step figure{margin:0}
+  .step img{width:100%;max-width:290px}
+  .step h3{margin:1.35rem 0 .45rem;font:600 1.06rem/1.45 var(--sans)}
+  .step p{margin:0;font-size:.93rem;font-weight:300}
+  .step .n{font:500 .72rem/1 var(--mono);color:var(--coral);letter-spacing:.1em}
+
+  /* ── 짝 배치 ── */
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+        gap:clamp(2rem,5vw,4rem);align-items:center}
+  .pair.flip>figure{order:-1}
+  .pair figure{margin:0;justify-self:center;max-width:320px;width:100%}
+  @media (max-width:820px){.pair{grid-template-columns:1fr}.pair.flip>figure{order:0}}
+  .facts{display:flex;flex-wrap:wrap;gap:.35rem 1.5rem;margin:1.6rem 0 0;
+         font:400 .84rem/1.8 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums}
+  .facts b{color:var(--ink);font-weight:500}
+
+  /* ── 마스코트 ── */
+  .dogs{display:flex;flex-wrap:wrap;gap:clamp(.5rem,2vw,1.5rem);align-items:flex-end;
+        justify-content:center;margin:2.4rem 0 0}
+  .dogs img{width:clamp(88px,13vw,132px);height:auto}
+
+  /* ── 원칙 ── */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
+         background:var(--line);border:1px solid var(--line);border-radius:12px;
+         overflow:hidden;margin:2.6rem 0 0}
+  .rule{background:var(--paper);padding:1.5rem 1.4rem}
+  .rule h3{font:600 1rem/1.45 var(--sans)}
+  .rule p{margin:.55rem 0 0;font-size:.9rem;font-weight:300}
+
+  footer{border-top:1px solid var(--line);padding:2.4rem 0 4rem;margin-top:2rem;
+         font:400 .82rem/1.9 var(--sans);color:var(--muted);
+         display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between}
+  footer a{color:var(--muted);text-underline-offset:.2em;text-decoration-thickness:1px}
+  footer a:hover{color:var(--ink)}
+</style>
+<style>html,body{margin:0}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="brand">
+        <img src="assets/21c5717e12.png" alt="닿기 앱 아이콘">
+        <span>닿기</span>
+      </div>
+      <h1>뛰는 동안은<br>켜두지 않아도 됩니다</h1>
+      <p class="lede">닿기는 러닝을 따라다니지 않습니다. 끝나고 나온 숫자만 담으면, <b>그만큼 지도 위에서 목적지에 가까워집니다.</b></p>
+      <div class="cta">
+        <span class="badge">App Store <small>준비 중</small></span>
+        <em>iOS 15 이상 · 계정 없음 · 무료</em>
+      </div>
+    </div>
+    <figure class="heroShot"><img class="shot" src="assets/dd391d6d09.jpg" alt="서울에서 부산으로 가는 여정 화면. 다음 이정표 수원까지 26.6km 남았다고 표시돼 있다."></figure>
+  </div>
+</div>
+
+<div class="thesis">
+  <div class="wrap">
+    <p>파리까지 8,966km는 막막하지만,<br><span>베이징까지 200km</span>는 이번 주에 갈 만합니다.</p>
+    <small>그래서 닿기는 가는 길의 도시들을 이정표로 세워둡니다. 전체 진행률 8%는 아무 감정도 주지 않지만, 다음 도시까지 남은 거리는 내일 뛸 이유가 됩니다.</small>
+  </div>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="kicker">쓰는 법</p>
+    <h2>세 번이면 끝납니다</h2>
+    <p class="say">설정할 것도, 연결할 것도 없습니다. 계정을 만들지 않고 바로 시작합니다.</p>
+
+    <div class="steps">
+      <div class="step">
+        <figure><img class="shot" src="assets/f71125ba41.jpg" alt="여행지 목록. 한강 한 바퀴 36km, 서울에서 강릉 210km, 제주 한 바퀴 234km가 고를 수 있게 열려 있다."></figure>
+        <p class="n">01</p>
+        <h3>어디까지 갈지 정합니다</h3>
+        <p>한강 한 바퀴 36km부터 산티아고 순례길 800km까지. 처음에는 가까운 곳부터 열립니다.</p>
+      </div>
+      <div class="step">
+        <figure><img class="shot" src="assets/a93318c08a.jpg" alt="담기 화면. 27km를 입력하자 대전까지 92.6km 남았다는 미리보기가 뜬다."></figure>
+        <p class="n">02</p>
+        <h3>뛰고 와서 담습니다</h3>
+        <p>러닝머신이든 시계든 상관없습니다. 담기 전에 어디까지 가는지 미리 보여줍니다.</p>
+      </div>
+      <div class="step">
+        <figure><img class="shot" src="assets/a3e9f7ff1f.jpg" alt="27km를 담으면 수원을 지난다는 안내와 함께 달리는 강아지 마스코트가 나타난 화면."></figure>
+        <p class="n">03</p>
+        <h3>이정표를 지나갑니다</h3>
+        <p>수원을 지나고, 대전을 지나고. 도시를 하나씩 통과하며 목적지로 갑니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="pair">
+      <div>
+        <p class="kicker">직접 정하기</p>
+        <h2>가고 싶은 곳이<br>따로 있다면</h2>
+        <p class="say">지도에서 두 곳을 찍으면 거리는 알아서 계산됩니다. 가는 길의 도시들도 이정표로 세워둡니다. <b>지도는 고를 때만 씁니다</b> — 그다음부터 여정 화면은 인터넷 없이 동작합니다.</p>
+        <p class="facts">
+          <span>서울 → 부산 <b>325 km</b></span>
+          <span>서울 → 파리 <b>8,966 km</b></span>
+          <span>서울 → 뉴욕 <b>11,053 km</b></span>
+        </p>
+      </div>
+      <figure><img class="shot" src="assets/2da8426b52.jpg" alt="애플 지도에서 출발지와 도착지를 고르는 화면."></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="pair flip">
+      <div>
+        <p class="kicker">도착</p>
+        <h2>닿으면<br>다음 여정이 열립니다</h2>
+        <p class="say">며칠이 걸렸는지, 몇 번을 달렸는지가 남습니다. 완주한 여정은 컬렉션에 쌓이고, 첫 완주가 나머지 여행지를 여는 열쇠가 됩니다.</p>
+      </div>
+      <figure><img class="shot" src="assets/8600569ad8.jpg" alt="부산에 닿았다는 축하 화면. 418km, 1일, 2번 달림이 표시되고 만세하는 강아지가 있다."></figure>
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker">같이 가는 친구</p>
+    <h2>혼자 뛰지 않게</h2>
+    <p class="say">빈 화면에서, 이정표를 지날 때, 도착했을 때. 필요한 순간에만 나타납니다.</p>
+    <div class="dogs">
+      <img src="assets/44a1c84e17.png" alt="인사하는 강아지 마스코트">
+      <img src="assets/e18bd79935.png" alt="지도를 보는 강아지 마스코트">
+      <img src="assets/37c239af7a.png" alt="달리는 강아지 마스코트">
+      <img src="assets/aa30477217.png" alt="뛰어오르는 강아지 마스코트">
+      <img src="assets/f33d045469.png" alt="만세하는 강아지 마스코트">
+      <img src="assets/277504a514.png" alt="자고 있는 강아지 마스코트">
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker">약속</p>
+    <h2>가져가지 않습니다</h2>
+    <div class="rules">
+      <div class="rule">
+        <h3>계정이 없습니다</h3>
+        <p>가입도 로그인도 없습니다. 기록은 이 기기 안에만 있고, 우리 서버는 아예 존재하지 않습니다.</p>
+      </div>
+      <div class="rule">
+        <h3>위치를 추적하지 않습니다</h3>
+        <p>달리는 동안 GPS를 켜지 않습니다. 여행지를 고를 때만 지도를 쓰고, 좌표는 저장하지 않습니다.</p>
+      </div>
+      <div class="rule">
+        <h3>광고도 통계도 없습니다</h3>
+        <p>분석 도구를 넣지 않았고 광고 식별자를 읽지 않습니다. 팔 것이 없으니 모을 이유도 없습니다.</p>
+      </div>
+      <div class="rule">
+        <h3>언제든 꺼낼 수 있습니다</h3>
+        <p>기록을 파일 한 장으로 내보내 어디든 보관하세요. 기기를 바꿔도 그대로 되돌립니다.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <footer>
+    <span>닿기 · AIP Lab</span>
+    <span><a href="privacy.html">개인정보 처리방침</a></span>
+    <span>iOS · Expo SDK 52 · 로컬-퍼스트</span>
+  </footer>
+</div>
+</body>
+</html>

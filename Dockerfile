@@ -12,6 +12,8 @@ COPY grouping /srv/grouping
 COPY sliding /srv/sliding
 COPY applying /srv/applying
 COPY planning /srv/planning
+COPY datgi /srv/datgi
+COPY bajjak /srv/bajjak
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt
