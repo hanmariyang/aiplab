@@ -38,7 +38,7 @@
   .hero{text-align:center;padding:56px 0 54px}
   .cast{display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:18px 20px;margin-bottom:30px}
   .cast .m{position:relative}
-  .cast img,.cast svg{height:84px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
+  .cast img,.cast svg{height:96px;width:auto;display:block;filter:drop-shadow(0 12px 18px rgba(27,28,30,.12))}
   .cast .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;margin-top:8px;color:var(--faint)}
   .cast .m.d .tag{color:var(--green)}.cast .m.s .tag{color:var(--blue)}.cast .m.c .tag{color:var(--teal)}.cast .m.l .tag{color:var(--amber)}.cast .m.w .tag{color:var(--coral)}.cast .m.g .tag{color:var(--navy)}.cast .m.gt .tag{color:var(--rose)}.cast .m.p .tag{color:var(--cobalt)}
   @media(max-width:560px){.cast{gap:14px 10px;flex-wrap:wrap}.cast img,.cast svg{height:66px}}
@@ -173,20 +173,6 @@
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   @media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .tile{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;
-    padding:15px 16px 13px;background:#fff;transition:border-color .15s ease,transform .15s ease}
-  .tile:hover{border-color:var(--a);transform:translateY(-2px)}
-  .tile:focus-visible{outline:2px solid var(--a);outline-offset:2px}
-  .tm{height:38px;display:flex;align-items:flex-end;margin-bottom:9px}
-  .tn{font-weight:700;font-size:15.5px;letter-spacing:-.01em}
-  .to{color:var(--soft);font-size:12.5px;line-height:1.5;margin-top:2px;flex:1}
-  .tp{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:11px;
-    padding-top:9px;border-top:1px solid var(--line2)}
-  .grp-building .tile{background:transparent;border-style:dashed}
-  /* 갈 곳이 없는 제품은 링크가 아니다 — 눌리는 것처럼 보이지 않게 한다 */
-  .tile-soon{cursor:default}
-  .tile-soon:hover{border-color:var(--line);transform:none}
-  @media(prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 
   .shmore{margin:6px 0 0}
   .shmore a{font-size:14px;font-weight:600;color:var(--ink)}
@@ -242,3 +228,31 @@
   .tl-det:nth-of-type(even) .tl-info{order:2}
   .tl-det:nth-of-type(even) > .frame{order:1}
   .tl-code{font-variant-numeric:tabular-nums}
+
+  /* ── 타일: 제품의 작은 세계 — 자기 틴트를 입는다 ────────
+     흰 카드 그리드는 이 사이트의 정체성(제품 자기색)을 지웠다. 되돌린다. */
+  .tile{--at:#F4F3F0;display:flex;flex-direction:column;border:1px solid rgba(27,28,30,.05);
+    border-radius:16px;padding:17px 16px 12px;background:var(--at);
+    transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease}
+  .tile:hover{border-color:var(--a);transform:translateY(-3px);
+    box-shadow:0 16px 30px -20px rgba(27,28,30,.3)}
+  .tile:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+  .tm{height:54px;display:flex;align-items:flex-end;margin-bottom:10px}
+  .tm img,.tm svg{filter:drop-shadow(0 6px 10px rgba(27,28,30,.14))}
+  .tn{font-weight:800;font-size:16px;letter-spacing:-.015em;display:flex;align-items:baseline;gap:7px}
+  .tno{font:500 10px var(--mono);font-style:normal;color:var(--a);letter-spacing:.06em}
+  .to{color:var(--sub,#5C5F66);font-size:12.5px;line-height:1.5;margin-top:3px;flex:1}
+  .tf{display:flex;align-items:center;justify-content:space-between;margin-top:12px;
+    padding-top:9px;border-top:1px solid rgba(27,28,30,.07);font-size:12px}
+  .tp{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
+  .tgo{color:var(--a);font-weight:700;opacity:0;transform:translateX(-4px);transition:opacity .16s,transform .16s}
+  .tile:hover .tgo{opacity:1;transform:none}
+  .tile-soon{cursor:default;border-style:dashed;border-color:rgba(27,28,30,.14);background:transparent}
+  .tile-soon:hover{border-color:rgba(27,28,30,.14);transform:none;box-shadow:none}
+  .tile-soon:hover .tgo{opacity:0}
+  /* 진입 줄 — 제품 액센트가 호버에 응답한다 */
+  .tl-do:hover{border-color:var(--a)}
+  .tl-do:hover .tl-doa{color:var(--a)}
+  /* 상세 번호도 제품색 */
+  .tl-det .tl-code{color:var(--a)}
+  @media(prefers-reduced-motion:reduce){.tile,.tgo{transition:none}.tile:hover{transform:none}}
