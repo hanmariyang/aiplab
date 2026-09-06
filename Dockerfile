@@ -5,6 +5,9 @@ FROM caddy:2-alpine
 # 빠뜨리면 배포는 성공하는데 그 경로만 404 가 난다 (planning 에서 실제로 겪음).
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY index.html /srv/index.html
+COPY _shared /srv/_shared
+COPY about.html /srv/about.html
+COPY tools.html /srv/tools.html
 COPY README.md /srv/README.md
 COPY img /srv/img
 COPY working /srv/working
