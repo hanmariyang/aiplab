@@ -28,8 +28,8 @@ var KO = {
     tag_soon:"LIGHTING · 개발 중",
     eyebrow:"AIP LAB · 1인 도구 스튜디오",
     h1:"작은 도구. <span class='g'>셀프호스트</span>, <span class='b'>오픈</span>, 그리고 <span class='t'>내 것</span>.",
-    sub:"AIP Lab은 작고 셀프호스트되는 소프트웨어를 만드는 1인 스튜디오입니다. <b>AI가 초안을 써도, 파일은 내 컴퓨터를 벗어나지 않습니다.</b> 모든 도구가 오픈소스이고, 전부 localhost에서 돌아갑니다.",
-    cta1:"제품 보기 ↓",
+    sub:"이 열한 명이 팀의 전부입니다 — 하나하나가 작고 셀프호스트되는 도구입니다. <b>AI가 초안을 써도, 파일은 내 컴퓨터를 벗어나지 않습니다.</b> 서버도 계정도 없습니다.",
+    cta1:"팀 만나러 가기 ↓",
     micro:"MIT · 셀프호스트 · 내 컴퓨터에서 실행 · 계정 없음",
     open:"열기 ↗",
     d_tag:"AI는 제안하고,<br>문서는 내가 씁니다.",
@@ -100,6 +100,7 @@ var KO = {
     dq_grouping:"도구들을 팀처럼 부린다",
     dq_ttobom:"담아둔 걸 다시 본다",
     dq_datgi:"뛴 걸 쌓고 싶다",
+    fam_cap:"가족사진, 2026 — 열한 명 전원 출석.",
   };
   var EN=null, cur="en";
   function apply(d){document.querySelectorAll("[data-k]").forEach(function(el){var k=el.getAttribute("data-k");if(d[k]!=null)el.innerHTML=d[k];});}
