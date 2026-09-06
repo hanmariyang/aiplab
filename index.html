@@ -24,6 +24,8 @@
     --navy:#3A3F55; --navyT:#EBECF2;
     --cobalt:#3D53E8; --cobaltT:#EDEAFA; /* Planning · 밴드 틴트는 Sliding blueT 와 갈리도록 바이올렛 쪽으로 */
     --rose:#E8506E; --roseT:#FBE9F0; /* Giting · 시간대 4색 중 저녁 로즈 (낮 오렌지는 coral 과 hue 1° 차라 제외) */
+    --sky:#1288B0; --skyT:#E3F1F7; /* Datgi · 앱 자체 액센트는 코랄(#F26B4E)이지만 Working coral 과 hue 가 같아 못 쓴다. 지도의 바다 쪽으로 뺀다 */
+    --graphite:#4A4C52; --graphiteT:#EDEDF0; /* Bajjak · 이 제품은 색을 안 쓴다(초과를 반전으로 말한다). 무채색이 곧 정체성 */
     --disp:"Hanken Grotesk",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
   }
@@ -77,6 +79,8 @@
   .band.w{background:linear-gradient(180deg,var(--coralT),transparent 70%)}
   .band.g{background:linear-gradient(180deg,var(--navyT),transparent 70%)}
   .band.gt{background:linear-gradient(180deg,var(--roseT),transparent 70%)}
+  .band.dg{background:linear-gradient(180deg,var(--skyT),transparent 70%)}
+  .band.bj{background:linear-gradient(180deg,var(--graphiteT),transparent 70%)}
   .band.p{background:linear-gradient(180deg,var(--cobaltT),transparent 70%)}
   .prow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   /* 짝수 밴드(Sliding·Lighting·Grouping·Planning) 좌우 반전 — info 우측·visual 좌측(데스크톱만). 홀수(Drafting·Coxpit·Working)는 기본 info 좌측 → 번갈아 */
@@ -395,6 +399,46 @@
   </div>
 </section>
 
+<!-- Datgi (iOS app) -->
+<section class="band dg">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/datgi-mascot.png" alt="Datgi mascot" style="height:56px"/>
+        <div><div class="pname">Datgi</div><div class="code">AIP·009 · iOS</div></div>
+      </div>
+      <div class="ptag" data-k="dg_tag">Run today.<br>Get closer to somewhere.</div>
+      <p data-k="dg_desc">An iOS app that turns runs into a journey across a map. It does not follow you while you run: no GPS, no live tracking. You enter the distance afterwards and the marker moves, and the cities along the way stand as milestones. Seoul to Busan is 418 km, reached one run at a time. Everything stays on the phone, with no account and no server.</p>
+      <span class="chip soon"><span class="lv"></span> <span data-k="dg_chip">준비 중 · iOS 15+ · 계정 없음</span></span>
+      <div class="plinks"><a href="datgi/" data-k="open">Open ↗</a><a href="datgi/privacy.html">Privacy</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Datgi · a run becomes distance</div>
+      <img src="img/datgi-journey.jpg" alt="Datgi — a journey from Seoul to Busan on a map, and the screen for logging a run"/>
+    </div>
+  </div>
+</section>
+
+<!-- Bajjak (macOS app) -->
+<section class="band bj">
+  <div class="wrap prow">
+    <div class="pinfo">
+      <div class="top">
+        <img src="img/bajjak-mark.png" alt="Bajjak app mark" style="height:56px;border-radius:12px"/>
+        <div><div class="pname">Bajjak</div><div class="code">AIP·010 · macOS</div></div>
+      </div>
+      <div class="ptag" data-k="bj_tag">An hour ends<br>with a decision.</div>
+      <p data-k="bj_desc">A macOS app you keep open while a meeting runs. A one-line purpose becomes agenda items, and each one carries the condition that ends it: running out of time is not the same as being done. When the hour is up the minutes are already written, ready to paste into Slack. The app has no colour, so going over time inverts half the screen instead. No recording, no account, no server.</p>
+      <span class="chip soon"><span class="lv"></span> <span data-k="bj_chip">준비 중 · Apple Silicon</span></span>
+      <div class="plinks"><a href="bajjak/" data-k="open">Open ↗</a></div>
+    </div>
+    <div class="frame">
+      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Bajjak · pressure left, outcome right</div>
+      <img src="img/bajjak-running.jpg" alt="Bajjak — an agenda in progress, with the countdown and end condition on the left and decisions on the right"/>
+    </div>
+  </div>
+</section>
+
 <section id="values" class="values">
   <div class="wrap">
     <div class="k" data-k="v_head">&gt; what the family shares</div>
@@ -472,6 +516,12 @@ drafting.sqlite <span class="ok">✓</span>
     c_tag:"에이전트 플릿, 통째로 내 것으로.",
     c_desc:"내 여러 컴퓨터를 아우르는 AI 코딩 에이전트 플릿의 셀프호스트 코크핏. 병렬 worktree 실행, 라이브 보드, 비교·머지, 웹 터미널. 코드는 내 네트워크를 벗어나지 않습니다.",
     l_code:"AIP·004 · 개발 중",
+    dg_tag:"오늘 뛴 만큼<br>목적지에 가까워집니다.",
+    dg_desc:"러닝 기록을 지도 위 여정으로 바꾸는 iOS 앱. 달리는 동안 따라다니지 않습니다. GPS 도 라이브 추적도 없습니다. 끝나고 나온 거리만 담으면 마커가 그만큼 움직이고, 가는 길의 도시들이 이정표로 섭니다. 서울에서 부산까지 418km 를 한 번에 한 번씩 갑니다. 기록은 이 폰 안에만 있고 계정도 서버도 없습니다.",
+    dg_chip:"준비 중 · iOS 15+ · 계정 없음",
+    bj_tag:"한 시간이 끝나면<br>결론이 남습니다.",
+    bj_desc:"회의를 진행하는 동안 띄워 놓는 macOS 앱. 목적 한 줄이 안건으로 쪼개지고, 안건마다 무엇이 나와야 끝나는지가 붙습니다. 시간이 다 된 것과 끝난 것은 다릅니다. 한 시간이 지나면 슬랙에 그대로 붙는 회의록이 이미 쓰여 있습니다. 앱에는 색이 없고, 시간을 넘기면 화면 절반이 반전됩니다. 녹음도 계정도 서버도 없습니다.",
+    bj_chip:"준비 중 · Apple Silicon",
     l_tag:"AI는 챕터를 쓰고,<br>책은 내가 씁니다.",
     l_desc:"AI 전자책 스튜디오. 인터뷰가 챕터 초안이 되고, 다듬어 표지를 붙이면 EPUB3·PDF로 내보냅니다. 검증까지 전부 내 컴퓨터 안에서, 셀프호스트로 끝납니다.",
     l_chip:"개발 중",
