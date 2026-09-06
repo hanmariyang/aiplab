@@ -174,6 +174,34 @@
   .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
   .foot a{font-family:var(--mono);font-size:12.5px;color:var(--soft)}.foot a:hover{color:var(--ink)}
   @media(max-width:560px){.foot{flex-direction:column;align-items:flex-start;gap:14px}footer nav.n{gap:8px 16px}}
+
+  /* ── 제품 선반 (밴드 11개를 대체) ───────────────── */
+  .shelf{padding:66px 0 72px;border-top:1px solid var(--line)}
+  .sheye{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--soft)}
+  .shh{font-size:clamp(24px,3.2vw,32px);font-weight:800;letter-spacing:-.02em;margin:12px 0 8px}
+  .shp{color:var(--soft);max-width:64ch;margin:0 0 34px}
+  .grp{margin-bottom:34px}
+  .gh{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:0 0 12px}
+  .gt{font-size:14px;font-weight:700}
+  .gn{font:500 11px var(--mono);color:var(--soft);background:var(--line2);border-radius:20px;padding:2px 8px}
+  .gd{font-size:12.5px;color:var(--soft)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .tile{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;
+    padding:15px 16px 13px;background:#fff;transition:border-color .15s ease,transform .15s ease}
+  .tile:hover{border-color:var(--a);transform:translateY(-2px)}
+  .tile:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+  .tm{height:38px;display:flex;align-items:flex-end;margin-bottom:9px}
+  .tn{font-weight:700;font-size:15.5px;letter-spacing:-.01em}
+  .to{color:var(--soft);font-size:12.5px;line-height:1.5;margin-top:2px;flex:1}
+  .tp{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:11px;
+    padding-top:9px;border-top:1px solid var(--line2)}
+  .grp-building .tile{background:transparent;border-style:dashed}
+  /* 갈 곳이 없는 제품은 링크가 아니다 — 눌리는 것처럼 보이지 않게 한다 */
+  .tile-soon{cursor:default}
+  .tile-soon:hover{border-color:var(--line);transform:none}
+  @media(prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -241,222 +269,92 @@
 
 <div id="family"></div>
 
-<!-- Drafting -->
-<section class="band d">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <svg viewBox="0 0 120 120" aria-label="Drafting"><g transform="rotate(-5 60 60)"><path d="M46 16 h27 l16 16 v57 a15 15 0 0 1 -15 15 h-28 a15 15 0 0 1 -15 -15 v-58 a15 15 0 0 1 15 -15 z" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><path d="M73 16 v16 h16 z" fill="#E9F5F1" stroke="#1B1C1E" stroke-width="2.9" stroke-linejoin="round"/><circle cx="50" cy="45" r="3.6" fill="#1B1C1E"/><circle cx="70" cy="45" r="3.6" fill="#1B1C1E"/><path d="M53 55 q7 6.5 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/><circle cx="47" cy="76" r="5.4" fill="#0E7B62"/><line x1="57" y1="76" x2="75" y2="76" stroke="#1B1C1E" stroke-width="2.7" stroke-linecap="round"/></g></svg>
-        <div><div class="pname">Drafting</div><div class="code">AIP·001 · npm</div></div>
+<!-- 제품 선반 — 상태로 묶고, 각 묶음은 균일 타일 (밴드 11개를 대체) -->
+<section class="shelf" id="tools">
+  <div class="wrap">
+    <div class="sheye" data-k="sh_eye">THE TOOLS</div>
+    <h2 class="shh" data-k="sh_h">Eleven small tools.</h2>
+    <p class="shp" data-k="sh_p">All of them run on your own machine. Pick a name to read its story.</p>
+    <div class="grp grp-live">
+      <div class="gh"><span class="gt" data-k="g_live">쓸 수 있음</span><span class="gn">8</span><span class="gd" data-k="g_live_d">지금 내려받아 쓸 수 있는 것</span></div>
+      <div class="grid">
+        <a class="tile" href="https://hanmariyang.github.io/drafting/" style="--a:#0E7B62">
+          <span class="tm"><svg style="height:38px" viewBox="0 0 120 120" aria-label="Drafting"><g transform="rotate(-5 60 60)"><path d="M46 16 h27 l16 16 v57 a15 15 0 0 1 -15 15 h-28 a15 15 0 0 1 -15 -15 v-58 a15 15 0 0 1 15 -15 z" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><path d="M73 16 v16 h16 z" fill="#E9F5F1" stroke="#1B1C1E" stroke-width="2.9" stroke-linejoin="round"/><circle cx="50" cy="45" r="3.6" fill="#1B1C1E"/><circle cx="70" cy="45" r="3.6" fill="#1B1C1E"/><path d="M53 55 q7 6.5 14 0" stroke="#1B1C1E" stroke-width="2.1" fill="none" stroke-linecap="round"/><circle cx="47" cy="76" r="5.4" fill="#0E7B62"/><line x1="57" y1="76" x2="75" y2="76" stroke="#1B1C1E" stroke-width="2.7" stroke-linecap="round"/></g></svg></span>
+          <span class="tn">Drafting</span>
+          <span class="to">인터뷰가 PRD·기능명세가 된다</span>
+          <span class="tp">npm</span>
+        </a>
+        <a class="tile" href="sliding/" style="--a:#3B5BDB">
+          <span class="tm"><img src="img/mikkeuri.png" alt="미끌이" style="height:38px;width:auto"></span>
+          <span class="tn">Sliding</span>
+          <span class="to">말하면 장표가 된다</span>
+          <span class="tp">macOS</span>
+        </a>
+        <a class="tile" href="https://hanmariyang.github.io/coxpit-oss/" style="--a:#12B39A">
+          <span class="tm"><img src="img/coxpit-mark.png" alt="Coxpit pilot" style="height:38px;width:auto"></span>
+          <span class="tn">Coxpit</span>
+          <span class="to">AI 에이전트 플릿을 내 컴퓨터에서</span>
+          <span class="tp">npm</span>
+        </a>
+        <a class="tile" href="working/" style="--a:#E24A28">
+          <span class="tm"><img src="img/worky.png" alt="Working mascot 워키" style="height:38px;width:auto"></span>
+          <span class="tn">Working</span>
+          <span class="to">빈 페이지 대신 질문 하나</span>
+          <span class="tp">macOS</span>
+        </a>
+        <a class="tile" href="grouping/" style="--a:#3A3F55">
+          <span class="tm"><img src="img/modumi.png" alt="Grouping mascot 모둠이" style="height:38px;width:auto"></span>
+          <span class="tn">Grouping</span>
+          <span class="to">나의 제품이 나의 팀이 된다</span>
+          <span class="tp">macOS</span>
+        </a>
+        <a class="tile" href="https://giting.kr" style="--a:#E8506E">
+          <span class="tm"><img src="img/giti.png" alt="Giting mascot 기티" style="height:38px;width:auto"></span>
+          <span class="tn">Giting</span>
+          <span class="to">오픈소스를 실측으로 읽는다</span>
+          <span class="tp">web</span>
+        </a>
+        <a class="tile" href="planning/" style="--a:#3D53E8">
+          <span class="tm"><svg viewBox="0 0 140 100" style="height:38px" aria-label="Planning mascot 차리"><path d="M24 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(-9 32 80)"/><path d="M100 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(9 108 80)"/><rect x="14" y="48" width="112" height="34" rx="7" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><ellipse cx="70" cy="67" rx="25" ry="12" fill="#F5EFE3"/><circle cx="57" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="83" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="62" cy="65" r="2.9" fill="#1B1C1E"/><circle cx="78" cy="65" r="2.9" fill="#1B1C1E"/><path d="M65.5 71 q4.5 3.5 9 0" stroke="#1B1C1E" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="6" y="30" width="128" height="22" rx="10" fill="#5C6FF2" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><rect x="16" y="14" width="46" height="26" rx="4" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="23" y1="22" x2="45" y2="22" stroke="#3D53E8" stroke-width="3.2" stroke-linecap="round"/><rect x="56" y="20" width="36" height="20" rx="3.5" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="62" y1="27" x2="79" y2="27" stroke="#3D53E8" stroke-width="2.7" stroke-linecap="round"/><rect x="86" y="26" width="26" height="14" rx="3" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="91" y1="32" x2="103" y2="32" stroke="#3D53E8" stroke-width="2.3" stroke-linecap="round"/></svg></span>
+          <span class="tn">Planning</span>
+          <span class="to">에이전트가 하루를 먼저 계획한다</span>
+          <span class="tp">macOS</span>
+        </a>
+        <a class="tile" href="bajjak/" style="--a:#4A4C52">
+          <span class="tm"><img src="img/bajjak-mark.png" alt="Bajjak app mark" style="height:38px;width:auto"></span>
+          <span class="tn">Bajjak</span>
+          <span class="to">한 시간이 끝나면 결론이 남는다</span>
+          <span class="tp">macOS</span>
+        </a>
       </div>
-      <div class="ptag" data-k="d_tag">AI writes proposals.<br>You write the document.</div>
-      <p data-k="d_desc">An idea interview turns into a PRD, feature spec and IA. Every AI sentence arrives as a suggestion — only what you accept becomes the document.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · v1.6.2</span>
-      <div class="plinks"><a href="https://hanmariyang.github.io/drafting/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/drafting">Code</a></div>
     </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Drafting · document + suggestions</div>
-      <img src="img/drafting-doc.png" alt="Drafting — a PRD with AI suggestions to accept or reject"/>
-    </div>
-  </div>
-</section>
-
-<!-- Sliding -->
-<section class="band s">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/mikkeuri.png" alt="미끌이"/>
-        <div><div class="pname">Sliding</div><div class="code">AIP·002 · macOS</div></div>
+    <div class="grp grp-review">
+      <div class="gh"><span class="gt" data-k="g_review">심사 중</span><span class="gn">2</span><span class="gd" data-k="g_review_d">App Store 심사를 기다리는 것</span></div>
+      <div class="grid">
+        <a class="tile" href="datgi/" style="--a:#1288B0">
+          <span class="tm"><img src="img/datgi-mascot.png" alt="Datgi mascot" style="height:38px;width:auto"></span>
+          <span class="tn">Datgi</span>
+          <span class="to">뛴 만큼 지도 위에서 가까워진다</span>
+          <span class="tp">iOS</span>
+        </a>
+        <a class="tile" href="ttobom/" style="--a:#F2555B">
+          <span class="tm"><img src="img/ttori.png" alt="Ttobom mascot 또리" style="height:38px;width:auto"></span>
+          <span class="tn">Ttobom</span>
+          <span class="to">담아둔 걸 다시 꺼내준다</span>
+          <span class="tp">iOS</span>
+        </a>
       </div>
-      <div class="ptag" data-k="s_tag">Say it.<br>It becomes a deck.</div>
-      <p data-k="s_desc">A conversational slide studio on your local Claude subscription. Four questions, a delivery plan, then one slide at a time for your approval — your words become deck-wide rules. No credits, the deck stays on your machine.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · macOS · Windows · 자동 업데이트</span>
-      <div class="plinks"><a href="sliding/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/sliding-releases/releases/latest/download/Sliding-arm64.dmg" data-k="s_dl">Download ↓</a></div>
     </div>
-    <div class="frame blue">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Sliding · cockpit</div>
-      <img src="img/sliding-cockpit.jpg" alt="Sliding cockpit"/>
-    </div>
-  </div>
-</section>
-
-<!-- Coxpit -->
-<section class="band c">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/coxpit-mark.png" alt="Coxpit pilot"/>
-        <div><div class="pname">Coxpit</div><div class="code">AIP·003 · npm</div></div>
+    <div class="grp grp-building">
+      <div class="gh"><span class="gt" data-k="g_building">만드는 중</span><span class="gn">1</span><span class="gd" data-k="g_building_d">아직 손에 있는 것</span></div>
+      <div class="grid">
+        <div class="tile tile-soon" style="--a:#C77C1A">
+          <span class="tm"><svg viewBox="0 0 100 100" style="display:block;overflow:visible;color:#1B1C1E;height:38px" aria-label="Lighting mascot Bandi"><defs><linearGradient id="bw-band" x1="15%" y1="10%" x2="85%" y2="90%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs><path d="M 40 78 Q 33 86 28 92" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="28" cy="92" r="2.6" fill="currentColor"/><path d="M 60 78 Q 66 87 70 91" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="70" cy="91" r="2.6" fill="currentColor"/><path d="M 72.2 48.3 Q 74.9 56.0 73.5 64.7 Q 72.1 73.4 63.3 76.8 Q 54.5 80.2 45.8 78.6 Q 37.1 77.0 31.4 70.7 Q 25.7 64.3 25.9 56.1 Q 26.1 47.8 31.2 40.8 Q 36.3 33.8 45.7 31.5 Q 55.0 29.2 62.3 34.9 Q 69.5 40.6 72.2 48.3 Z" fill="url(#bw-band)" opacity="0.3"/><path d="M 74.8 47.6 Q 78.3 56.0 74.9 64.5 Q 71.5 72.9 63.0 76.7 Q 54.6 80.6 45.2 79.9 Q 35.8 79.2 29.4 72.2 Q 23.1 65.2 23.4 56.1 Q 23.7 47.0 30.4 41.1 Q 37.2 35.2 45.9 33.4 Q 54.6 31.6 63.0 35.4 Q 71.3 39.2 74.8 47.6 Z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round" opacity="0.5"/><path d="M 73.6 47.9 Q 76.7 56.0 73.0 63.6 Q 69.3 71.2 62.1 76.5 Q 54.9 81.9 45.3 80.6 Q 35.7 79.3 30.1 72.0 Q 24.6 64.7 24.3 55.9 Q 24.0 47.1 29.8 39.9 Q 35.7 32.7 45.1 32.3 Q 54.5 31.8 62.5 35.8 Q 70.5 39.8 73.6 47.9 Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M 34 42 L 43 41.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M 57 41.5 L 66 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M 33 49 Q 38 43 43 49" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 55 48 Q 60 42 65 48" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 43 66 Q 50 68 57 65.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M 16 40 L 26 40" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 14 48 L 24 48" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 12 56 L 22 56" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <span class="tn">Lighting</span>
+          <span class="to">인터뷰가 챕터 초안이 된다</span>
+          <span class="tp" data-k="l_soon">아직 소개할 것이 없습니다</span>
+        </div>
       </div>
-      <div class="ptag" data-k="c_tag">Own your agent fleet.</div>
-      <p data-k="c_desc">A self-hosted cockpit for a fleet of AI coding agents across your own machines. Parallel worktree runs, a live board, compare &amp; merge, and a web terminal. Your code never leaves your network.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · v5.3.1</span>
-      <div class="plinks"><a href="https://hanmariyang.github.io/coxpit-oss/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/coxpit-oss">Code</a></div>
-    </div>
-    <div class="frame dark">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> coxpit · fleet console <span class="lv"><i></i> live</span></div>
-      <img src="img/coxpit-board.png" alt="Coxpit fleet console"/>
-    </div>
-  </div>
-</section>
-
-<!-- Lighting (building) -->
-<section class="band l">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <svg viewBox="0 0 100 100" style="display:block;overflow:visible;color:#1B1C1E;height:56px" aria-label="Lighting mascot Bandi"><defs><linearGradient id="bw-band" x1="15%" y1="10%" x2="85%" y2="90%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs><path d="M 40 78 Q 33 86 28 92" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="28" cy="92" r="2.6" fill="currentColor"/><path d="M 60 78 Q 66 87 70 91" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="70" cy="91" r="2.6" fill="currentColor"/><path d="M 72.2 48.3 Q 74.9 56.0 73.5 64.7 Q 72.1 73.4 63.3 76.8 Q 54.5 80.2 45.8 78.6 Q 37.1 77.0 31.4 70.7 Q 25.7 64.3 25.9 56.1 Q 26.1 47.8 31.2 40.8 Q 36.3 33.8 45.7 31.5 Q 55.0 29.2 62.3 34.9 Q 69.5 40.6 72.2 48.3 Z" fill="url(#bw-band)" opacity="0.3"/><path d="M 74.8 47.6 Q 78.3 56.0 74.9 64.5 Q 71.5 72.9 63.0 76.7 Q 54.6 80.6 45.2 79.9 Q 35.8 79.2 29.4 72.2 Q 23.1 65.2 23.4 56.1 Q 23.7 47.0 30.4 41.1 Q 37.2 35.2 45.9 33.4 Q 54.6 31.6 63.0 35.4 Q 71.3 39.2 74.8 47.6 Z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round" opacity="0.5"/><path d="M 73.6 47.9 Q 76.7 56.0 73.0 63.6 Q 69.3 71.2 62.1 76.5 Q 54.9 81.9 45.3 80.6 Q 35.7 79.3 30.1 72.0 Q 24.6 64.7 24.3 55.9 Q 24.0 47.1 29.8 39.9 Q 35.7 32.7 45.1 32.3 Q 54.5 31.8 62.5 35.8 Q 70.5 39.8 73.6 47.9 Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M 34 42 L 43 41.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M 57 41.5 L 66 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M 33 49 Q 38 43 43 49" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 55 48 Q 60 42 65 48" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M 43 66 Q 50 68 57 65.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M 16 40 L 26 40" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 14 48 L 24 48" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 12 56 L 22 56" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <div><div class="pname">Lighting</div><div class="code" data-k="l_code">AIP·004 · building</div></div>
-      </div>
-      <div class="ptag" data-k="l_tag">AI writes your chapters.<br>You write the book.</div>
-      <p data-k="l_desc">An AI e-book studio. An interview becomes chapter drafts; you edit, add a cover, and export to EPUB3 and PDF — validated and self-hosted, on your machine.</p>
-      <span class="chip soon"><span class="lv"></span> <span data-k="l_chip">building · in development</span></span>
-      <div class="indev" data-k="l_indev">Joining the family soon — same interview → draft → yours flow.</div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Lighting · manuscript + suggestions <span style="margin-left:auto;color:var(--amber)">● building</span></div>
-      <img src="img/lighting-workspace.png" alt="Lighting — AI e-book workspace with chapter suggestions"/>
-    </div>
-  </div>
-</section>
-
-<!-- Working (macOS app) -->
-<section class="band w">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/worky.png" alt="Working mascot 워키" style="height:56px"/>
-        <div><div class="pname">Working</div><div class="code">AIP·005 · macOS</div></div>
-      </div>
-      <div class="ptag" data-k="w_tag">Start with one question,<br>not a blank page.</div>
-      <p data-k="w_desc">A macOS app for planning a program end to end — understand, plan, run, wrap up. The AI proposes; nothing is created until you accept. Every document lands as a real .md file in your own folder. No account, no server.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · Apple Silicon · 자동 업데이트</span>
-      <div class="plinks"><a href="working/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/aiplab/releases/download/working-v0.1.0/Working-0.1.0-arm64.dmg" data-k="w_dl">Download ↓</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Working · propose + accept</div>
-      <img src="img/working-accept.jpg" alt="Working — AI proposes a plan structure; you accept to create the files"/>
-    </div>
-  </div>
-</section>
-
-<!-- Grouping (macOS app) -->
-<section class="band g">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/modumi.png" alt="Grouping mascot 모둠이" style="height:56px"/>
-        <div><div class="pname">Grouping</div><div class="code">AIP·006 · macOS</div></div>
-      </div>
-      <div class="ptag" data-k="g_tag">Your products,<br>working as your team.</div>
-      <p data-k="g_desc">The hub where AIP Lab tools become team members. Mention a member in a channel and its product does the work in its own workshop. Results arrive as proposal cards, you accept, and accepted work relays to the next member on one hash-chained log.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · Apple Silicon · 자동 업데이트</span>
-      <div class="plinks"><a href="grouping/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/grouping-releases/releases/latest/download/Grouping-arm64.dmg" data-k="g_dl">Download ↓</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Grouping · request, proposal, relay</div>
-      <img src="img/grouping-channel.jpg" alt="Grouping — a channel where product members deliver proposal cards and relay accepted work"/>
-    </div>
-  </div>
-</section>
-
-<!-- Giting (web) -->
-<section class="band gt">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/giti.png" alt="Giting mascot 기티" style="height:56px"/>
-        <div><div class="pname">Giting</div><div class="code">AIP·007 · web</div></div>
-      </div>
-      <div class="ptag" data-k="gt_tag">Stars are the past.<br>Clone it and measure.</div>
-      <p data-k="gt_desc">An open-source curation site that reads repos by measurement, not stars. Every report starts from a real clone — lines of code, commit density, tests, the license text — drafted by AI, checked against the probe numbers, and published only after human review. Agents read it too, over MCP.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · <span data-k="gt_cad">weekly reports</span></span>
-      <div class="plinks"><a href="https://giting.kr" data-k="open">Open ↗</a><a href="https://www.threads.com/@giting.kr">Threads</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Giting · measured reports</div>
-      <img src="img/giting-home.jpg" alt="Giting — open-source reports measured from real clones"/>
-    </div>
-  </div>
-</section>
-
-<!-- Planning (macOS app) -->
-<section class="band p">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <svg viewBox="0 0 140 100" style="height:56px" aria-label="Planning mascot 차리"><path d="M24 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(-9 32 80)"/><path d="M100 78 h16 v15 a5 5 0 0 1 -5 5 h-10 a5 5 0 0 1 -5 -5 z" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round" transform="rotate(9 108 80)"/><rect x="14" y="48" width="112" height="34" rx="7" fill="#3D53E8" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><ellipse cx="70" cy="67" rx="25" ry="12" fill="#F5EFE3"/><circle cx="57" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="83" cy="70" r="3" fill="#F4A28C" opacity=".85"/><circle cx="62" cy="65" r="2.9" fill="#1B1C1E"/><circle cx="78" cy="65" r="2.9" fill="#1B1C1E"/><path d="M65.5 71 q4.5 3.5 9 0" stroke="#1B1C1E" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="6" y="30" width="128" height="22" rx="10" fill="#5C6FF2" stroke="#1B1C1E" stroke-width="3.2" stroke-linejoin="round"/><rect x="16" y="14" width="46" height="26" rx="4" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="23" y1="22" x2="45" y2="22" stroke="#3D53E8" stroke-width="3.2" stroke-linecap="round"/><rect x="56" y="20" width="36" height="20" rx="3.5" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="62" y1="27" x2="79" y2="27" stroke="#3D53E8" stroke-width="2.7" stroke-linecap="round"/><rect x="86" y="26" width="26" height="14" rx="3" fill="#FFFFFF" stroke="#1B1C1E" stroke-width="2.8" stroke-linejoin="round"/><line x1="91" y1="32" x2="103" y2="32" stroke="#3D53E8" stroke-width="2.3" stroke-linecap="round"/></svg>
-        <div><div class="pname">Planning</div><div class="code">AIP·008 · macOS</div></div>
-      </div>
-      <div class="ptag" data-k="p_tag">The agent plans the day.<br>You approve and adjust.</div>
-      <p data-k="p_desc">A PM app for one person running more than one project. Open it and today's order is already laid out, each block with a one-line reason. It runs on rules alone; add an AI key and it gets sharper. Everything the agent does can be undone, and it all lives in one local file. No server, no account.</p>
-      <span class="chip"><span class="lv"></span> <span data-k="live">live</span> · Apple Silicon · 자동 업데이트</span>
-      <div class="plinks"><a href="planning/" data-k="open">Open ↗</a><a href="https://github.com/hanmariyang/planning-releases/releases/latest/download/Planning-0.1.2-arm64.dmg" data-k="p_dl">Download ↓</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Planning · today, with reasons</div>
-      <img src="img/planning-today.jpg" alt="Planning — the morning briefing and today's plan, each block with a one-line reason"/>
-    </div>
-  </div>
-</section>
-
-<!-- Datgi (iOS app) -->
-<section class="band dg">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/datgi-mascot.png" alt="Datgi mascot" style="height:56px"/>
-        <div><div class="pname">Datgi</div><div class="code">AIP·009 · iOS</div></div>
-      </div>
-      <div class="ptag" data-k="dg_tag">Run today.<br>Get closer to somewhere.</div>
-      <p data-k="dg_desc">An iOS app that turns runs into a journey across a map. It does not follow you while you run: no GPS, no live tracking. You enter the distance afterwards and the marker moves, and the cities along the way stand as milestones. Seoul to Busan is 418 km, reached one run at a time. Everything stays on the phone, with no account and no server.</p>
-      <span class="chip soon"><span class="lv"></span> <span data-k="dg_chip">준비 중 · iOS 15+ · 계정 없음</span></span>
-      <div class="plinks"><a href="datgi/" data-k="open">Open ↗</a><a href="datgi/privacy.html">Privacy</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Datgi · a run becomes distance</div>
-      <img src="img/datgi-journey.jpg" alt="Datgi — a journey from Seoul to Busan on a map, and the screen for logging a run"/>
-    </div>
-  </div>
-</section>
-
-<!-- Bajjak (macOS app) -->
-<section class="band bj">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/bajjak-mark.png" alt="Bajjak app mark" style="height:56px;border-radius:12px"/>
-        <div><div class="pname">Bajjak</div><div class="code">AIP·010 · macOS</div></div>
-      </div>
-      <div class="ptag" data-k="bj_tag">An hour ends<br>with a decision.</div>
-      <p data-k="bj_desc">A macOS app you keep open while a meeting runs. A one-line purpose becomes agenda items, and each one carries the condition that ends it: running out of time is not the same as being done. When the hour is up the minutes are already written, ready to paste into Slack. The app has no colour, so going over time inverts half the screen instead. No recording, no account, no server.</p>
-      <span class="chip soon"><span class="lv"></span> <span data-k="bj_chip">준비 중 · Apple Silicon</span></span>
-      <div class="plinks"><a href="bajjak/" data-k="open">Open ↗</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Bajjak · pressure left, outcome right</div>
-      <img src="img/bajjak-running.jpg" alt="Bajjak — an agenda in progress, with the countdown and end condition on the left and decisions on the right"/>
-    </div>
-  </div>
-</section>
-
-<!-- Ttobom (iOS app) -->
-<section class="band tb">
-  <div class="wrap prow">
-    <div class="pinfo">
-      <div class="top">
-        <img src="img/ttori.png" alt="Ttobom mascot 또리" style="height:56px"/>
-        <div><div class="pname">Ttobom</div><div class="code">AIP·011 · iOS</div></div>
-      </div>
-      <div class="ptag" data-k="tb_tag">You save things.<br>You never open them again.</div>
-      <p data-k="tb_desc">An iOS app that brings back what you saved. Share a link from any app and it lands in Ttobom with its title and preview already fetched. No folders, no tags, nothing to organise — forgetting is allowed. Each day it picks a few things out for you: saved long ago, untouched for a while, and still worth a look. Everything is computed on the phone, with no account and no server.</p>
-      <span class="chip soon"><span class="lv"></span> <span data-k="tb_chip">준비 중 · iOS 15+ · 계정 없음</span></span>
-      <div class="plinks"><a href="ttobom/" data-k="open">Open ↗</a><a href="ttobom/privacy.html">Privacy</a></div>
-    </div>
-    <div class="frame">
-      <div class="fb"><span class="tl"><i></i><i></i><i></i></span> Ttobom · saved, then surfaced</div>
-      <img src="img/ttobom-shelf.jpg" alt="Ttobom — today's resurfaced items and the collected view"/>
     </div>
   </div>
 </section>
@@ -520,6 +418,12 @@ drafting.sqlite <span class="ok">✓</span>
 
 <script>
   var KO = {
+    sh_eye:"제품", sh_h:"열한 개를 만들었습니다",
+    sh_p:"전부 작고, 전부 내 컴퓨터에서 돕니다. 이름을 누르면 그 제품 이야기로 갑니다.",
+    g_live:"쓸 수 있음", g_live_d:"지금 내려받아 쓸 수 있는 것",
+    g_review:"심사 중", g_review_d:"App Store 심사를 기다리는 것",
+    g_building:"만드는 중", g_building_d:"아직 손에 있는 것",
+    l_soon:"아직 소개할 것이 없습니다",
     nav_tools:"제품", nav_why:"왜?", nav_about:"소개", nav_blog:"블로그", nav_contact:"연락",
     tag_soon:"LIGHTING · 개발 중",
     eyebrow:"AIP LAB · 1인 도구 스튜디오",
