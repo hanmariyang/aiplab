@@ -172,6 +172,27 @@
     padding:20px 22px;margin:26px 0 0;overflow-x:auto}
   .md pre{margin:0;font:400 13px/1.75 var(--mono);color:var(--sub);white-space:pre}
   .md pre b{color:var(--ink);font-weight:600}
+  /* 0.2.0 녹음·전사 섹션 — 앱 실물(theme.css)의 초안 카드·녹음 표시를 그대로 옮김 */
+  .caprow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:26px 0 0;flex-wrap:wrap}
+  .caprow .box{width:17px;height:17px;border:1.5px solid var(--ink);border-radius:4px;position:relative;flex-shrink:0}
+  .caprow .box.on::after{content:"";position:absolute;inset:3px;background:var(--ink);border-radius:2px}
+  .caprow .lb{font-size:14.5px;font-weight:600}
+  .caprow .hint{font-size:12.5px;color:var(--sub)}
+  .recbadge{display:inline-flex;align-items:center;font-size:12.5px;letter-spacing:.08em;color:var(--sub);border:1px solid var(--line);border-radius:100px;padding:6px 13px;margin-left:auto}
+  .recbadge i{display:inline-block;width:8px;height:8px;border-radius:4px;background:currentColor;margin-right:7px}
+  .pcap{border:1.5px dashed var(--line2,#B9B9BD);border-radius:10px;padding:12px 14px;margin-top:12px;position:relative}
+  .pcap .kind{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;border:1px solid var(--sub);border-radius:5px;padding:1px 6px;margin-right:7px;color:var(--sub);vertical-align:1px}
+  .pcap .pt{font-size:14px;font-weight:600}
+  .pcap .pwhy{font-size:12.5px;color:var(--sub);margin-top:3px}
+  .pcap .prow{display:flex;align-items:center;gap:14px;margin-top:9px;font-size:12px}
+  .pcap .pat{font:500 11.5px var(--mono);color:var(--sub)}
+  .pcap .pat.none{opacity:.55}
+  .pcap .take{font-size:11.5px;font-weight:600;color:#fff;background:var(--ink);border-radius:7px;padding:4px 10px;margin-left:auto}
+  .pcap .drop{font-size:12px;color:var(--sub)}
+  .pquote2{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}
+  .pquote2 .oseg{display:flex;gap:10px;font-size:12.5px;line-height:1.6;color:var(--sub);padding:2px 0}
+  .pquote2 .oseg .t{flex:0 0 auto;font:400 11px var(--mono);color:#9a9a9e;padding-top:2px}
+  .pquote2 .oseg.hit span:last-child{color:var(--ink)}
 
   /* 반전 구획 — 초과 */
   .inv{background:var(--ink);color:#fff}
@@ -232,6 +253,7 @@
       <span class="s">바짝은 <b>회의를 진행하는 동안 띄워 놓는 맥용 앱</b>입니다.</span>
       <span class="s">목적 한 줄을 안건으로 쪼개고, 안건마다 <b>무엇이 나와야 끝나는지</b>를 걸어둡니다.</span>
       <span class="s">한 시간이 지나면 <b>슬랙에 그대로 붙는 회의록</b>이 나옵니다.</span>
+      <span class="s">0.2.0 부터는 녹음을 켜두면 <b>치지 않은 말도</b> 기기 안에서 글이 되어 회의록 초안으로 돌아옵니다.</span>
     </p>
 
     <div class="cta">
@@ -537,6 +559,65 @@
     </div>
     <p class="cap">
       <b>안건별 시간이 표로 남습니다</b> · 15분으로 잡은 안건이 17:41 걸렸다는 사실이 다음 회의의 계획을 고칩니다.
+    </p>
+  </div>
+</section>
+
+<section id="capture" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">0.2.0 · 녹음과 전사</div>
+    <h2>치지 않은 말도<br>회의록이 됩니다</h2>
+    <p class="sub">
+      <span class="s">회의를 열 때 <b>녹음</b>을 켜두면, 마감하는 순간 녹음이 <b>이 기기 안에서</b> 글로 바뀝니다.</span>
+      <span class="s">"요약해줘"를 누르지 않습니다. <b>마감이 마지막 조작</b>입니다.</span>
+      <span class="s">일시정지하면 녹음도 함께 멈추기 때문에, 발화는 <b>말이 나온 그 안건 아래</b>에 붙습니다.</span>
+    </p>
+
+    <div class="caprow">
+      <span class="box on"></span>
+      <span class="lb">이 회의를 녹음</span>
+      <span class="hint">기본은 꺼짐 · 참석자에게 알리고 켜세요</span>
+      <span class="recbadge"><i></i>녹음 중</span>
+    </div>
+    <p class="cap"><span class="s"><b>세팅에서 체크 하나</b>로 그 회의만 켭니다.</span><span class="s">켜면 방 전체가 보는 공유 화면에 <b>녹음 중</b> 이 떠서, 표시가 곧 참석자 고지가 됩니다.</span></p>
+
+    <p class="sub" style="margin-top:44px">
+      <span class="s">전사가 끝나면 AI 가 결정·보류·할일 <b>초안을 제안</b>합니다.</span>
+      <span class="s">점선 카드로 와서, <b>담아야</b> 회의록에 들어갑니다. 사람이 친 것과 섞이지 않습니다.</span>
+      <span class="s">항목마다 <b>근거 시각</b>이 붙어 있고, 누르면 그 자리의 발화가 펼쳐집니다.</span>
+      <span class="s">근거를 못 짚은 항목은 근거 없음으로 옵니다. 시각을 지어내지 않습니다.</span>
+    </p>
+
+    <div class="oc">
+      <p class="ui-label">마감 후 · AI 가 전사에서 뽑은 초안</p>
+      <div class="pcap">
+        <div><span class="kind">결정</span><span class="pt">인증을 가입 뒤로 미루고 첫 화면은 이메일만 받는다</span></div>
+        <div class="pwhy">3단계 이메일 인증에서 이탈 62% 라는 데이터가 근거로 언급됨</div>
+        <div class="prow"><span class="pat">▾ 07:12</span><span class="take">담기</span><span class="drop">버리기</span></div>
+        <div class="pquote2">
+          <div class="oseg"><span class="t">06:58</span><span>숫자를 보면 인증 페이지에서 제일 많이 빠져요.</span></div>
+          <div class="oseg hit"><span class="t">07:12</span><span>그러면 인증을 가입 뒤로 미루고, 첫 화면은 이메일만 받죠.</span></div>
+          <div class="oseg"><span class="t">07:31</span><span>좋아요, 그렇게 가는 걸로 하고 다음 안건이요.</span></div>
+        </div>
+      </div>
+      <div class="pcap">
+        <div><span class="kind">할일</span><span class="pt">A안 · C안 공수 산정해 오기 — 현우</span></div>
+        <div class="prow"><span class="pat">▸ 21:48</span><span class="take">담기</span><span class="drop">버리기</span></div>
+      </div>
+      <div class="pcap">
+        <div><span class="kind">보류</span><span class="pt">소셜 로그인을 넣을지</span></div>
+        <div class="prow"><span class="pat none">근거 없음</span><span class="take">담기</span><span class="drop">버리기</span></div>
+      </div>
+    </div>
+    <p class="cap">
+      <span class="s"><b>담당자는 참석자 목록에 있는 이름만</b> 붙습니다.</span><span class="s">AI 가 지어낸 이름은 버려집니다.</span>
+    </p>
+
+    <p class="sub" style="margin-top:44px">
+      <span class="s">셋 다 선을 지킵니다.</span>
+      <span class="s"><b>소리는 이 기기에만</b> 남고, <b>전사는 macOS 내장 음성 인식</b>이 기기 안에서 합니다. 오디오는 어디로도 나가지 않습니다.</span>
+      <span class="s">AI 초안만이 전사 <b>글</b>을 내 AI(claude CLI 나 내 키)로 보내는 유일한 경로이고, 따로 끌 수 있으며, 나갔다면 마감 화면이 그 사실을 밝힙니다.</span>
+      <span class="s">진행 중 <b>실시간 전사</b>는 진행자 화면의 접이식 상자에만 뜹니다. 틀린 전사를 방 전체에 보여주지 않습니다.</span>
     </p>
   </div>
 </section>
