@@ -23,6 +23,18 @@
 
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
 	handle {
+		# ⛔ 디렉토리를 슬래시 없이 열면 상대경로가 한 단계 위로 풀려 이미지가 전부 깨진다.
+		#    try_files 가 /toegeun 을 리다이렉트 없이 200 으로 내주기 때문이다 —
+		#    브라우저 기준이 / 로 남아 assets/x.jpg 가 /assets/x.jpg 가 된다.
+		#    (실측 2026-09-08: /toegeun·/datgi 둘 다 엑박. 전 제품이 그랬다)
+		#    ⚠️ {path}.html 이 있으면 넘기지 않는다 — /blog/foo 같은 깔끔한 URL 을 지킨다.
+		@needSlash {
+			not path */
+			not file {path}.html
+			file {path}/index.html
+		}
+		redir @needSlash {path}/ 308
+
 		try_files {path} {path}.html {path}/index.html
 		file_server {
 			index index.html
