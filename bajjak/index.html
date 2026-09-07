@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>바짝 · 한 시간 뒤에 결론이 남습니다</title>
-<meta name="description" content="회의를 진행하는 동안 띄워 놓는 macOS 앱. 목적 한 줄을 안건으로 쪼개고, 안건마다 무엇이 나와야 끝나는지를 걸어둡니다. 한 시간 뒤에 붙여넣을 수 있는 회의록이 나옵니다. 계정 없음 · 서버 없음 · 녹음 없음.">
+<meta name="description" content="회의를 진행하는 동안 띄워 놓는 macOS 앱. 목적 한 줄을 안건으로 쪼개고, 안건마다 무엇이 나와야 끝나는지를 걸어둡니다. 한 시간 뒤에 붙여넣을 수 있는 회의록이 나옵니다. 계정 없음 · 서버 없음 · 녹음은 회의마다 켜고, 전사는 기기 안에서.">
 <link rel="icon" href="favicon.png?v=1" sizes="32x32">
 <link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
@@ -220,7 +220,7 @@
       <a href="#minutes">회의록</a>
       <a href="#solo">혼자</a>
     </nav>
-    <a class="get" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.1.0/bajjak-0.1.0-arm64.dmg">다운로드</a>
+    <a class="get" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.2.0/bajjak-0.2.0-arm64.dmg">다운로드</a>
   </div>
 </div>
 
@@ -235,15 +235,16 @@
     </p>
 
     <div class="cta">
-      <a class="btn" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.1.0/bajjak-0.1.0-arm64.dmg">macOS 다운로드</a>
+      <a class="btn" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.2.0/bajjak-0.2.0-arm64.dmg">macOS 다운로드</a>
       <a class="btn ghost" href="#why">무엇이 다른지 보기</a>
-      <span class="cta-note">Apple Silicon · 서명·공증 완료 · 0.1.0</span>
+      <span class="cta-note">Apple Silicon · 서명·공증 완료 · 0.2.0</span>
     </div>
 
     <div class="chips">
       <span class="chip">계정 없음</span>
       <span class="chip">서버 없음</span>
-      <span class="chip">녹음·전사 없음</span>
+      <span class="chip">녹음은 회의마다 선택</span>
+      <span class="chip">전사는 기기 안에서</span>
       <span class="chip">기록은 이 기기 안에만</span>
       <span class="chip">AI 는 꺼진 채로 옵니다</span>
     </div>
@@ -574,8 +575,12 @@
 
     <div class="grid2">
       <div class="cell">
-        <h3>녹음하지 않습니다</h3>
-        <p><span class="s">마이크를 켜지 않고 전사도 하지 않습니다.</span><span class="s"><b>참석자 동의를 받을 일이 없고</b>, 오디오 비용도 생기지 않습니다.</span></p>
+        <h3>녹음은 회의마다 켭니다</h3>
+        <p><span class="s">기본은 꺼짐이고, 세션을 열 때 그 회의만 켭니다.</span><span class="s">켜면 공유 화면에 <b>녹음 중</b> 이 떠서 방 전체가 알고, 소리는 <b>이 기기에만</b> 남습니다.</span></p>
+      </div>
+      <div class="cell">
+        <h3>전사는 기기 안에서 합니다</h3>
+        <p><span class="s">마감하면 macOS 내장 음성 인식이 <b>기기 안에서</b> 글로 바꿉니다.</span><span class="s">오디오 서버도, 오디오 비용도 없습니다. 화자는 나누지 않습니다.</span></p>
       </div>
       <div class="cell">
         <h3>계정도 서버도 없습니다</h3>
@@ -603,7 +608,7 @@
     </p>
 
     <div class="nots">
-      <div class="not"><span class="h">음성 녹음 · 전사</span><span class="w">참석자 동의라는 도입 마찰을 만들고, 이미 붐비는 카테고리에 후발로 들어가는 길입니다.</span></div>
+      <div class="not"><span class="h">클라우드 전사 · 화자 분리</span><span class="w"><span class="s">한 사람이 켠 녹음이 다섯 사람의 목소리를 밖으로 보내는 길입니다.</span><span class="s">전사는 기기 안에서만 하고, 누가 말했는지는 진행자가 답니다.</span></span></div>
       <div class="not"><span class="h">참가자 각자 기기</span><span class="w"><span class="s">실시간 동기화는 로컬-퍼스트를 깨뜨립니다.</span><span class="s">회의는 한 방에서 벌어지고, 진행자 기기 하나면 됩니다.</span></span></div>
       <div class="not"><span class="h">캘린더 자동 연동</span><span class="w"><span class="s">회의를 잡는 일은 이미 잘 하는 도구가 많습니다.</span><span class="s">바짝은 <b>잡힌 회의 안에서만</b> 일합니다.</span></span></div>
       <div class="not"><span class="h">모바일 · 클라우드</span><span class="w"><span class="s">한 시간을 진행하는 자리는 책상 앞입니다.</span><span class="s">기기를 늘리는 대신 그 한 시간을 잘 만듭니다.</span></span></div>
@@ -621,7 +626,7 @@
       <span class="s">계정을 만들 것도, 연결할 것도 없습니다.</span>
     </p>
     <div class="cta">
-      <a class="btn" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.1.0/bajjak-0.1.0-arm64.dmg">macOS 다운로드 · 0.1.0</a>
+      <a class="btn" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.2.0/bajjak-0.2.0-arm64.dmg">macOS 다운로드 · 0.2.0</a>
       <a class="btn ghost" href="mailto:hanmari.code@gmail.com?subject=%EB%B0%94%EC%A7%9D">보낸 뒤 이야기 듣기</a>
       <span class="cta-note">95MB · macOS 12 이상</span>
     </div>
