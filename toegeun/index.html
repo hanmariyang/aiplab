@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<title>퇴근미터 — 초과근무를 금액으로 봅니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#FFFFFF; --sunk:#F4F4F5; --ink:#0B0B0C; --body:#3A3D42;
+    --muted:#8E9096; --line:#E7E8EA; --coral:#F04A23; --shadow:rgba(11,11,12,.10);
+    --display:"Gowun Batang",'Apple SD Gothic Neo',serif;
+    --sans:"IBM Plex Sans KR",'Apple SD Gothic Neo',system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+      --muted:#8B8E95; --line:#282B30; --coral:#FF6240; --shadow:rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E0F11; --sunk:#17191C; --ink:#ECEDEF; --body:#C4C7CC;
+    --muted:#8B8E95; --line:#282B30; --coral:#FF6240; --shadow:rgba(0,0,0,.5);
+  }
+  /* 한글은 기본이 음절 단위 줄바꿈이라 한 글자만 떨어지는 줄이 생긴다.
+     어절(띄어쓰기) 단위로 끊고, 마지막 줄에 한 단어만 남는 것도 피한다. */
+  body{word-break:keep-all}
+  p,li,figcaption,h1,h2,h3,dt,dd,td,th{text-wrap:pretty}
+  h1,h2{text-wrap:balance}
+  code,kbd,pre,.facts,.meta,.where{word-break:break-all}
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--body);font:400 16px/1.75 var(--sans);
+       -webkit-font-smoothing:antialiased;margin:0}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.4rem)}
+  h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0}
+  img{display:block;max-width:100%}
+  .shot{border-radius:22px;border:1px solid var(--line);box-shadow:0 18px 40px -22px var(--shadow)}
+
+  /* ── 히어로 ── */
+  .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+        gap:clamp(2rem,5vw,4rem);align-items:center;
+        padding:clamp(3rem,7vw,5.5rem) 0 clamp(3rem,6vw,4.5rem)}
+  .brand{display:flex;align-items:center;gap:.7rem;margin-bottom:1.8rem}
+  .brand img{width:38px;height:38px;border-radius:9px}
+  .brand span{font:600 .95rem/1 var(--sans);color:var(--ink);letter-spacing:.02em}
+  h1{font:700 clamp(2.3rem,5.4vw,3.6rem)/1.22 var(--display);letter-spacing:-.025em}
+  .lede{margin:1.4rem 0 0;font-size:1.08rem;font-weight:300;max-width:29em}
+  .lede b{font-weight:600;color:var(--ink)}
+  .cta{display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:center;margin:2.2rem 0 0}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--paper);
+         border-radius:10px;padding:.75rem 1.15rem;font:600 .9rem/1 var(--sans)}
+  .badge small{font:400 .74rem/1 var(--sans);opacity:.66}
+  .cta em{font:400 .85rem/1.6 var(--sans);color:var(--muted);font-style:normal}
+  .heroShot{justify-self:center;max-width:340px;width:100%}
+  @media (max-width:820px){.hero{grid-template-columns:1fr}.heroShot{max-width:290px}}
+
+  /* ── 대비 한 줄 ── */
+  .thesis{background:var(--ink);color:#F3F3F4;padding:clamp(3rem,7vw,4.5rem) 0}
+  .thesis p{max-width:23em;margin:0;font:700 clamp(1.5rem,3.6vw,2.15rem)/1.42 var(--display);
+            letter-spacing:-.015em;color:#FFFFFF}
+  .thesis span{color:var(--coral)}
+  .thesis small{display:block;margin:1.3rem 0 0;font:300 .98rem/1.75 var(--sans);
+                color:#B8BABE;max-width:33em}
+
+  section{padding:clamp(3.5rem,7vw,5.5rem) 0}
+  .kicker{font:600 .78rem/1 var(--sans);letter-spacing:.02em;color:var(--muted)}
+  h2{font:700 clamp(1.7rem,4vw,2.4rem)/1.24 var(--display);letter-spacing:-.02em;margin:.95rem 0 0}
+  .say{margin:1rem 0 0;max-width:34em;font-weight:300}
+
+  /* ── 3단 ── */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+         gap:clamp(1.6rem,3vw,2.4rem);margin:2.8rem 0 0}
+  .step figure{margin:0}
+  .step img{width:100%;max-width:290px}
+  .step h3{margin:1.35rem 0 .45rem;font:600 1.06rem/1.45 var(--sans)}
+  .step p{margin:0;font-size:.93rem;font-weight:300}
+  .step .n{font:500 .72rem/1 var(--mono);color:var(--coral);letter-spacing:.1em}
+
+  /* ── 짝 배치 ── */
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+        gap:clamp(2rem,5vw,4rem);align-items:center}
+  .pair.flip>figure{order:-1}
+  .pair figure{margin:0;justify-self:center;max-width:320px;width:100%}
+  @media (max-width:820px){.pair{grid-template-columns:1fr}.pair.flip>figure{order:0}}
+  .facts{display:flex;flex-wrap:wrap;gap:.35rem 1.5rem;margin:1.6rem 0 0;
+         font:400 .84rem/1.8 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums}
+  .facts b{color:var(--ink);font-weight:500}
+
+  /* ── 마스코트 ── */
+  .dogs{display:flex;flex-wrap:wrap;gap:clamp(.5rem,2vw,1.5rem);align-items:flex-end;
+        justify-content:center;margin:2.4rem 0 0}
+  .dogs img{width:clamp(88px,13vw,132px);height:auto}
+
+  /* ── 원칙 ── */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
+         background:var(--line);border:1px solid var(--line);border-radius:12px;
+         overflow:hidden;margin:2.6rem 0 0}
+  .rule{background:var(--paper);padding:1.5rem 1.4rem}
+  .rule h3{font:600 1rem/1.45 var(--sans)}
+  .rule p{margin:.55rem 0 0;font-size:.9rem;font-weight:300}
+
+  footer{border-top:1px solid var(--line);padding:2.4rem 0 4rem;margin-top:2rem;
+         font:400 .82rem/1.9 var(--sans);color:var(--muted);
+         display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between}
+  footer a{color:var(--muted);text-underline-offset:.2em;text-decoration-thickness:1px}
+  footer a:hover{color:var(--ink)}
+</style>
+<style>html,body{margin:0}</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="brand"><img src="favicon-64.png" alt=""><span>AIP Lab</span></div>
+      <h1>퇴근 예정을 넘긴 시간이<br>얼마인지 봅니다</h1>
+      <p class="lede">택시 미터기처럼, 켜져 있는 동안 계속 올라갑니다.
+      근로기준법 가산율을 분 단위로 적용해 <b>2026년 최저임금</b>으로 환산합니다.
+      <b>연봉은 묻지 않습니다.</b></p>
+      <div class="cta">
+        <span class="badge">macOS <small>준비 중</small></span>
+        <span class="badge">App Store <small>준비 중</small></span>
+      </div>
+      <p class="cta"><em>계정 없음 · 기록은 이 기기에만 · 무료</em></p>
+    </div>
+    <figure class="heroShot"><img class="shot" src="assets/lock.jpg"
+      alt="아이폰 잠금화면에 퇴근미터가 무료봉사 1.5배, 56,502원, 경과 2:50:19 를 보여준다"></figure>
+  </div>
+</div>
+
+<div class="thesis"><div class="wrap">
+  <p>일한 시간은 이미 지나갔습니다.<br><span>얼마였는지</span>는 볼 수 있습니다.</p>
+  <small>퇴근미터는 근무를 감시하지 않습니다. 화면을 기록하지도, 무엇을 하는지 들여다보지도 않습니다.
+  퇴근 예정 시각 하나만 알면 나머지는 시계가 합니다.</small>
+</div></div>
+
+<section><div class="wrap">
+  <p class="kicker">어떻게 세는가</p>
+  <h2>1분마다 배수가 달라집니다</h2>
+  <p class="say">근로기준법 제56조는 연장·야간·휴일에 각각 50%를 더하라고 합니다.
+  겹치면 함께 붙습니다. 22시 경계를 통째로 처리하면 21시부터 23시까지 일한 두 시간이 틀리므로,
+  1분씩 끊어 그 분이 어디에 속하는지 보고 더합니다.</p>
+  <div class="rules">
+    <div class="rule"><h3>평일 연장 · 1.5배</h3><p>퇴근 예정을 넘긴 시각부터.</p></div>
+    <div class="rule"><h3>야간 22~06시 · 2.0배</h3><p>연장에 야간이 겹칩니다. 자정을 넘겨도 이어집니다.</p></div>
+    <div class="rule"><h3>휴일 8시간 초과 · 2.5배</h3><p>셋이 모두 겹치는 자리입니다.</p></div>
+  </div>
+  <p class="facts"><b>2026년 최저임금 10,320원</b> 기준 · 분당 258원 / 344원 / 430원 ·
+  근무일 경계는 자정이 아니라 <b>05:00</b> 이라 새벽 2시는 26:00 으로 적힙니다</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="pair">
+    <div>
+      <p class="kicker">낮에도</p>
+      <h2>야근한 이유는<br>그때만 기억납니다</h2>
+      <p class="say">한 줄 남기면 그 시각에 핀이 박힙니다. 나중에 채워도 됩니다.
+      네 시간을 한 가지 이유로 적을 수는 없으니, 하는 일이 바뀔 때마다 남기면
+      구간이 저절로 나뉩니다.</p>
+      <p class="say">캘린더를 붙이면 낮에 회의가 얼마나 있었는지도 같이 셉니다.
+      비공개 iCal 주소를 읽기만 하고 쓰지 않습니다.</p>
+    </div>
+    <figure><img class="shot" src="assets/meter.jpg"
+      alt="퇴근미터 미터 화면 — 56,244원, 타임라인 위의 핀 세 개와 각 시각에 남긴 한 줄"></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="pair flip">
+    <div>
+      <p class="kicker">잠금화면</p>
+      <h2>폰을 켜지 않아도<br>미터는 돌고 있습니다</h2>
+      <p class="say">잠금화면과 다이내믹 아일랜드에 금액이 올라갑니다.
+      경과 시간과 진행 막대는 기기가 스스로 세므로 앱이 꺼져 있어도 초 단위로 맞습니다.</p>
+      <p class="say">금액은 앱이 <b>미리 계산해 둔</b> 봉투를 서버가 시각에 맞춰 부칩니다.
+      서버는 계산하지 않고, 시급도 모릅니다.</p>
+    </div>
+    <figure><img class="shot" src="assets/island.jpg"
+      alt="다이내믹 아일랜드에 퇴근미터가 무료봉사 1.5배와 56,502원을 보여준다"></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="pair">
+    <div>
+      <p class="kicker">분석</p>
+      <h2>숫자는 코드가,<br>문장만 AI가</h2>
+      <p class="say">시간과 금액은 AI가 만지지 않습니다. 비슷한 사유를 묶고 두세 문장으로
+      정리하는 데까지가 AI의 일입니다. 묶음의 이름도 <b>본인이 쓴 말</b>에서만 나옵니다.
+      없던 말이 붙으면 자기 기록으로 읽히지 않기 때문입니다.</p>
+      <p class="say">AI를 켜지 않아도 숫자는 전부 보입니다.</p>
+    </div>
+    <figure><img class="shot" src="assets/analyze.jpg"
+      alt="분석 화면 — 이번 달 116,100원, 초과 7시간 30분, 사유별 시간 막대"></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="kicker">원칙</p>
+  <h2>연봉을 모르는 것이 설계입니다</h2>
+  <p class="say">시급을 알면 <code>시급 × 12 × 209</code> 로 연봉이 나옵니다.
+  시급을 화면에서 지워도 금액과 시간이 나란히 있으면 나눗셈 한 번이면 됩니다.
+  기준을 누구나 아는 공개 상수로 두어 그 경로를 막았습니다.</p>
+  <div class="rules">
+    <div class="rule"><h3>계정이 없습니다</h3><p>로그인도 회원가입도 없습니다.</p></div>
+    <div class="rule"><h3>기록은 이 기기에만</h3><p>남긴 말과 지난 기록은 기기를 떠나지 않습니다.</p></div>
+    <div class="rule"><h3>권한을 요구하지 않습니다</h3><p>화면 기록도, 위치도, 접근성도 쓰지 않습니다.</p></div>
+  </div>
+  <p class="facts">서버가 하는 일은 셋뿐입니다 — 웹에서 캘린더를 대신 받아 오기 ·
+  AI 호출 넘기기 · 잠금화면 알림 부치기. 자세한 것은 <a href="privacy.html">개인정보 처리방침</a>에 적었습니다.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="pair flip">
+    <div>
+      <p class="kicker">맥에서도</p>
+      <h2>메뉴 막대에 금액이 있습니다</h2>
+      <p class="say">누르면 떠 있는 미터가 나옵니다. 창을 닫아도 시계는 돕니다.
+      웹에서도 같은 화면을 같은 계산으로 볼 수 있습니다.</p>
+      <div class="cta">
+        <span class="badge">macOS <small>준비 중</small></span>
+        <span class="badge">App Store <small>준비 중</small></span>
+      </div>
+    </div>
+    <figure><img class="shot" src="assets/desktop.jpg"
+      alt="퇴근미터 데스크톱 창 — 무료봉사 2배, 138,976원, 타임라인과 핀 입력칸"></figure>
+  </div>
+</div></section>
+
+<footer><div class="wrap" style="display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;width:100%">
+  <span>퇴근미터 · <a href="/">AIP Lab</a> · <a href="/about.html">소개</a></span>
+  <span><a href="privacy.html">개인정보 처리방침</a> · <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></span>
+  <span>2026년 최저임금 10,320원 · 근로기준법 제56조 · 실제 수당은 계약과 취업규칙에 따라 다릅니다</span>
+</div></footer>
+</body>
+</html>

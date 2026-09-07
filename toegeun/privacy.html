@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="icon" href="favicon-64.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<title>퇴근미터 개인정보 처리방침</title>
+<meta name="description" content="닿기는 개인정보를 수집하지 않습니다. 계정도 서버도 없는 앱의 개인정보 처리방침.">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#0B0B0C; --body:#3A3D42; --sub:#8E9096;
+    --line:#E7E8EA; --line2:#F1F2F4; --soft:#FAFAFB;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E0F11; --ink:#ECEDEF; --body:#C4C7CC; --sub:#8B8E95;
+      --line:#25272B; --line2:#1B1D20; --soft:#141618;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E0F11; --ink:#ECEDEF; --body:#C4C7CC; --sub:#8B8E95;
+    --line:#25272B; --line2:#1B1D20; --soft:#141618;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:4rem 1.4rem 7rem;background:var(--bg);color:var(--body);
+       font:400 16px/1.8 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;
+       word-break:keep-all; overflow-wrap:break-word; text-wrap:pretty}
+  main{max-width:34em;margin:0 auto}
+
+  h1{font-size:1.75rem;line-height:1.3;color:var(--ink);margin:0 0 .5rem;
+     letter-spacing:-.022em;font-weight:700;text-wrap:balance}
+  .meta{color:var(--sub);font-size:.82rem;letter-spacing:.01em;margin:0 0 3rem}
+
+  h2{font-size:1.02rem;line-height:1.5;color:var(--ink);margin:3rem 0 .7rem;
+     letter-spacing:-.012em;font-weight:700;text-wrap:balance}
+  h2:first-of-type{margin-top:0}
+  p{margin:0 0 1.05rem}
+  strong{color:var(--ink);font-weight:600}
+  a{color:var(--ink);text-underline-offset:.2em;text-decoration-thickness:1px}
+
+  ul{margin:0 0 1.05rem;padding-left:1.1rem}
+  li{margin:.35rem 0;padding-left:.15rem}
+  li::marker{color:var(--sub)}
+
+  .lead{border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.4rem;
+        background:var(--soft);margin:0 0 3.2rem}
+  .lead p:last-child{margin-bottom:0}
+
+  .wrap{overflow-x:auto;margin:0 0 1.05rem;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;min-width:19em;font-size:.94rem}
+  th,td{text-align:left;padding:.62rem .9rem .62rem 0;border-bottom:1px solid var(--line2);
+        vertical-align:top}
+  th{color:var(--ink);font-weight:600;white-space:nowrap;padding-right:1.6rem}
+  thead th{border-bottom:1px solid var(--line);font-size:.78rem;letter-spacing:.06em;
+           text-transform:uppercase;color:var(--sub);font-weight:600;padding-bottom:.5rem}
+  tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+
+  footer{margin-top:4rem;padding-top:1.6rem;border-top:1px solid var(--line);
+         color:var(--sub);font-size:.85rem}
+  footer a{color:var(--sub)}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<h1>퇴근미터 개인정보 처리방침</h1>
+<p class="meta">시행일 2026년 9월 8일 · 버전 1.0</p>
+
+<p>퇴근미터는 계정을 만들지 않고, 이용자를 식별하는 정보를 수집하지 않습니다.
+다만 <b>서버가 하나 있습니다.</b> 잠금화면 알림을 시각에 맞춰 부치고, 웹에서 캘린더를
+대신 받아 오는 일을 합니다. 무엇이 그 서버로 가고 무엇이 가지 않는지 아래에 적었습니다.
+사실이 바뀌면 이 문서도 함께 바뀝니다.</p>
+
+<h2>1. 수집하는 개인정보</h2>
+<p>없습니다. 회원가입을 받지 않고 이름·이메일·전화번호·생년월일·성별을 비롯한 어떤 식별 정보도
+요구하거나 저장하지 않습니다. 광고 식별자(IDFA)를 읽지 않으며 분석·통계 도구를 넣지 않았습니다.</p>
+<p><b>연봉과 시급도 묻지 않습니다.</b> 금액은 공개된 최저임금(2026년 10,320원)과
+근로기준법 가산율로만 계산하므로, 앱은 이용자의 실제 임금을 알지 못합니다.</p>
+
+<h2>2. 기기 안에 저장되는 것</h2>
+<p>개인정보는 아니지만 무엇이 남는지 밝힙니다. 아래는 전부 기기 안에만 있습니다.</p>
+<ul>
+  <li>근무 시각 — 출근·퇴근 예정 시각, 근무를 시작하고 끝낸 시각</li>
+  <li>핀 — 그 시각에 무엇을 했는지 직접 남긴 한 줄</li>
+  <li>기록 — 날짜별 초과 시간, 야간 시간, 환산 금액</li>
+  <li>설정 — 알림 사용 여부, 캘린더 주소, AI 사용 여부와 API 키</li>
+</ul>
+<p>앱을 삭제하면 함께 사라집니다. 저희가 가진 사본이 없으므로 복구해 드릴 수 없습니다.
+설정에서 파일로 내보내 두실 수 있습니다.</p>
+
+<h2>3. 서버로 가는 것</h2>
+<p>서버 주소는 <span class="mono">toegeun-web-production.up.railway.app</span> 입니다.
+플랫폼마다 서버를 쓰는 정도가 다릅니다.</p>
+
+<h3>iOS 앱 — 잠금화면 알림에만</h3>
+<p>잠금화면과 다이내믹 아일랜드의 금액을 올리려면 애플의 푸시(APNs)를 거쳐야 합니다.
+앱이 <b>미리 계산해 둔</b> 시각별 금액 목록과 그 활동에 발급된 푸시 토큰을 서버에 맡기고,
+서버는 시각이 되면 그대로 부칩니다.</p>
+<ul>
+  <li>보내는 것 — 푸시 토큰(기기가 아니라 그 활동 한 건에 발급된 것), 시각과 금액 목록, 시간대</li>
+  <li>⚠️ 그래서 서버는 <b>그날의 퇴근 예정 시각</b>을 알게 됩니다. 알림을 부치려면 피할 수 없습니다</li>
+  <li>보내지 않는 것 — 핀에 쓴 말, 지난 기록, 회의 제목, 시급</li>
+  <li>데이터베이스를 두지 않습니다. 그날 예약을 메모리에 들고 있다가 다 부치면 버립니다</li>
+  <li>근무를 끝내거나 알림을 끄면 맡긴 예약을 지웁니다</li>
+</ul>
+<p>iOS 앱에서 캘린더와 AI는 <b>서버를 거치지 않고</b> 폰이 직접 부릅니다.</p>
+
+<h3>macOS 앱 — 서버를 쓰지 않습니다</h3>
+<p>캘린더와 AI를 앱이 직접 부릅니다.</p>
+
+<h3>웹 — 캘린더와 AI만 중계</h3>
+<p>브라우저는 보안 정책 때문에 캘린더 주소를 직접 부를 수 없어 서버가 대신 받아 옵니다.
+AI도 같은 이유로 넘겨 줍니다. <b>주소도 응답도 저장하지 않고</b> 요청 내용을 기록에 남기지 않습니다.</p>
+
+<h2>4. 캘린더</h2>
+<p>캘린더는 <b>읽기만</b> 합니다. 이용자가 설정에 넣은 비공개 iCal 주소로 일정을 받아
+회의에 묶인 시간을 셀 뿐이며, 일정을 만들거나 고치지 않습니다.
+계정 연동(OAuth)을 쓰지 않으므로 캘린더 계정에 접근할 수 없습니다.
+주소는 기기에 저장되고, 평문(http) 주소는 받지 않습니다.</p>
+
+<h2>5. AI</h2>
+<p>AI는 기본으로 꺼져 있습니다. 켜면 이용자가 넣은 API 키로 해당 사업자(기본값 OpenRouter)에게
+직접 요청합니다. 이때 <b>핀에 쓴 말</b>이 전달됩니다.
+<b>회의 제목은 별도로 켰을 때만</b> 나갑니다 — 기본은 꺼짐입니다.
+전달된 내용은 그 사업자의 처리방침을 따릅니다. 저희 서버는 웹에서 중계만 하고 저장하지 않습니다.</p>
+
+<h2>6. 알림</h2>
+<p>맥과 웹의 알림은 기기 안에서만 예약되는 로컬 알림입니다.
+iOS에서는 잠금화면 금액을 올리기 위해 위 3항의 푸시를 씁니다. 설정에서 끌 수 있고,
+끄면 서버로 아무것도 보내지 않습니다.</p>
+
+<h2>7. 제3자 제공과 처리위탁</h2>
+<p>개인정보를 수집하지 않으므로 제3자에게 제공하거나 판매하는 일이 없습니다.
+서비스 운영에 쓰는 곳은 아래뿐입니다.</p>
+<ul>
+  <li>Railway — 서버 호스팅</li>
+  <li>Apple(APNs) — 잠금화면 알림 전달</li>
+  <li>이용자가 고른 AI 사업자 — AI를 켰을 때만</li>
+  <li>이용자가 고른 캘린더 서비스 — 캘린더를 붙였을 때만</li>
+</ul>
+
+<h2>8. 보유 및 이용 기간</h2>
+<p>기기에 저장된 정보는 앱을 삭제할 때까지 기기 안에 남고 삭제와 동시에 사라집니다.
+서버에 맡긴 알림 예약은 그날치뿐이며 다 부치면 버립니다. 늦어도 20시간이 지나면 사라지고,
+서버가 재시작되면 그 즉시 사라집니다.</p>
+
+<h2>9. 이용자의 권리</h2>
+<p>정보가 전부 기기 안에 있으므로 앱 안에서 직접 행사할 수 있습니다.</p>
+<table>
+  <tr><th>권리</th><th>방법</th></tr>
+  <tr><td>열람</td><td>기록 탭, 분석 탭</td></tr>
+  <tr><td>수정</td><td>기록에서 해당 날짜를 눌러 고치기</td></tr>
+  <tr><td>삭제</td><td>하루 상세에서 삭제, 또는 앱 삭제</td></tr>
+  <tr><td>사본 받기</td><td>설정 → 내보내기</td></tr>
+  <tr><td>서버 예약 지우기</td><td>근무 종료, 또는 설정에서 잠금화면 알림 끄기</td></tr>
+</table>
+
+<h2>10. 아동의 개인정보</h2>
+<p>퇴근미터는 특정 연령을 겨냥하지 않으며, 나이를 포함해 어떤 개인정보도 수집하지 않습니다.</p>
+
+<h2>11. 안전성 확보 조치</h2>
+<p>수집하는 정보가 없어 유출될 정보 자체가 없습니다. 기기 안의 데이터는 OS의 앱 샌드박스와
+기기 암호화로 보호됩니다. 서버로 가는 통신은 전부 HTTPS이며, 서버는 사설망 주소로는
+연결하지 않도록 막아 두었습니다.</p>
+
+<h2>12. 방침의 변경</h2>
+<p>이 방침이 바뀌면 앱 업데이트와 함께 이 페이지를 고치고 상단의 시행일과 버전을 갱신합니다.
+서버로 보내는 항목이 늘어나는 등 중요한 변경이 있으면 앱 안에서 미리 알립니다.</p>
+
+<h2>13. 문의</h2>
+<p>개인정보 보호책임자: 양기철 (AIP Lab)<br>
+연락처: <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+<p>문의를 받으면 영업일 기준 7일 이내에 답변드립니다.</p>
+
+<footer><span>퇴근미터 · <a href="/">AIP Lab</a> · <a href="index.html">소개</a></span></footer>
+</div>
+</body>
+</html>
