@@ -193,6 +193,16 @@
   .pquote2 .oseg{display:flex;gap:10px;font-size:12.5px;line-height:1.6;color:var(--sub);padding:2px 0}
   .pquote2 .oseg .t{flex:0 0 auto;font:400 11px var(--mono);color:#9a9a9e;padding-top:2px}
   .pquote2 .oseg.hit span:last-child{color:var(--ink)}
+  /* iPhone 판 — 폰 화면은 원본이 좁아 전폭으로 못 싣는다. 가로로 늘어놓고 넘치면 스크롤한다 */
+  .phones{display:flex;gap:16px;margin:40px 0 0;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+  .phones figure{margin:0;flex:0 0 auto;width:212px}
+  .phones img{width:100%;border:1px solid var(--line);border-radius:20px}
+  .phones figcaption{font-size:12.5px;line-height:1.5;color:var(--muted);margin-top:10px;text-align:center}
+  .soonrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--line);
+           border-radius:12px;padding:14px 18px;margin:32px 0 0}
+  .soonrow .ic{width:38px;height:38px;border-radius:9px;flex-shrink:0}
+  .soonrow .t1{font-size:14.5px;font-weight:600}
+  .soonrow .t2{font-size:12.5px;color:var(--sub)}
 
   /* 반전 구획 — 초과 */
   .inv{background:var(--ink);color:#fff}
@@ -240,6 +250,7 @@
       <a href="#over">초과</a>
       <a href="#minutes">회의록</a>
       <a href="#solo">혼자</a>
+      <a href="#ios">iPhone</a>
     </nav>
     <a class="get" href="https://github.com/hanmariyang/aiplab/releases/download/bajjak-v0.2.0/bajjak-0.2.0-arm64.dmg">다운로드</a>
   </div>
@@ -269,6 +280,7 @@
       <span class="chip">전사는 기기 안에서</span>
       <span class="chip">기록은 이 기기 안에만</span>
       <span class="chip">AI 는 꺼진 채로 옵니다</span>
+      <span class="chip">iPhone 판 준비 중</span>
     </div>
 
     <div class="shot">
@@ -645,6 +657,58 @@
   </div>
 </section>
 
+<section id="ios" class="rule">
+  <div class="wrap">
+    <div class="eyebrow">iPhone · 준비 중</div>
+    <h2>책상 앞이 아닌<br>회의도 있습니다</h2>
+    <p class="sub">
+      <span class="s">서서 하는 15분, 둘이 마주 앉은 자리, 노트북을 안 연 자리.</span>
+      <span class="s">iPhone 판은 축소판이 아니라 <b>같은 규칙의 다른 몸</b>입니다.</span>
+      <span class="s">안건마다 끝나는 조건을 걸고, 조건이 비면 시작이 잠기고, 시간을 넘기면 화면이 뒤집힙니다.</span>
+      <span class="s">끝나면 정한 것이 목록으로 나오고, 복사해서 붙이면 회의록입니다.</span>
+    </p>
+
+    <div class="phones">
+      <figure>
+        <img src="assets/ios/02-agenda.png" alt="안건 5개와 각각의 끝나는 조건이 체크된 계획 화면" width="660" height="1434" loading="lazy">
+        <figcaption>안건마다 끝나는 조건</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ios/03-focus.png" alt="진행 화면. 08:52 카운트다운과 정한 것 한 줄 입력칸" width="660" height="1434" loading="lazy">
+        <figcaption>남은 시간과 담을 한 줄</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ios/04-over.png" alt="초과 화면. 화면이 반전되고 +03:56, 지금 정하고 다음과 5분 연장 두 버튼만 남았다" width="660" height="1434" loading="lazy">
+        <figcaption>넘기면 반전 · 남는 선택은 둘</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ios/05-debrief.png" alt="회의를 마친 뒤 정한 것과 보류한 것이 목록으로 나온 화면" width="660" height="1434" loading="lazy">
+        <figcaption>끝나면 그대로 회의록</figcaption>
+      </figure>
+    </div>
+    <p class="cap"><span class="s"><b>초과 화면이 맥과 같습니다</b> · 시간을 넘긴 순간 화면이 뒤집히고 남는 선택은 「지금 정하고 다음」과 「5분 연장」 둘뿐입니다.</span></p>
+
+    <div class="grid2">
+      <div class="cell">
+        <h3>잠금화면이 이어받습니다</h3>
+        <p><span class="s">회의 중에 폰을 내려놓아도 됩니다.</span><span class="s">남은 시간이 <b>잠금화면과 다이내믹 아일랜드</b>로 넘어가, 화면을 켜지 않고도 보입니다.</span></p>
+      </div>
+      <div class="cell">
+        <h3>인터넷을 쓰지 않습니다</h3>
+        <p><span class="s">비행기 모드에서 그대로 동작합니다.</span><span class="s">계정도 서버도 없고, <b>권한을 하나도 요청하지 않습니다.</b></span></p>
+      </div>
+    </div>
+
+    <div class="soonrow">
+      <img class="ic" src="assets/ios/app-icon-1024.png" alt="" width="1024" height="1024" loading="lazy">
+      <span>
+        <span class="t1">아직 받으실 수 없습니다</span><br>
+        <span class="t2">1.0 이 마지막 점검 중입니다. App Store 에 올라가면 이 자리에 링크가 붙습니다.</span>
+      </span>
+    </div>
+  </div>
+</section>
+
 <section id="promise" class="rule">
   <div class="wrap">
     <div class="eyebrow">약속</div>
@@ -692,7 +756,7 @@
       <div class="not"><span class="h">클라우드 전사 · 화자 분리</span><span class="w"><span class="s">한 사람이 켠 녹음이 다섯 사람의 목소리를 밖으로 보내는 길입니다.</span><span class="s">전사는 기기 안에서만 하고, 누가 말했는지는 진행자가 답니다.</span></span></div>
       <div class="not"><span class="h">참가자 각자 기기</span><span class="w"><span class="s">실시간 동기화는 로컬-퍼스트를 깨뜨립니다.</span><span class="s">회의는 한 방에서 벌어지고, 진행자 기기 하나면 됩니다.</span></span></div>
       <div class="not"><span class="h">캘린더 자동 연동</span><span class="w"><span class="s">회의를 잡는 일은 이미 잘 하는 도구가 많습니다.</span><span class="s">바짝은 <b>잡힌 회의 안에서만</b> 일합니다.</span></span></div>
-      <div class="not"><span class="h">모바일 · 클라우드</span><span class="w"><span class="s">한 시간을 진행하는 자리는 책상 앞입니다.</span><span class="s">기기를 늘리는 대신 그 한 시간을 잘 만듭니다.</span></span></div>
+      <div class="not"><span class="h">기기 간 자동 동기화</span><span class="w"><span class="s">맥과 아이폰은 각자의 기기에 각자 기록합니다.</span><span class="s">동기화하려면 서버가 필요하고, 그 순간 회의록이 우리를 거쳐 갑니다. 같은 형식의 파일이라 옮기고 싶으면 옮길 수 있습니다.</span></span></div>
     </div>
   </div>
 </section>
@@ -717,7 +781,8 @@
 <footer>
   <div class="wrap">
     <span>바짝 · <a href="https://aiplab.kr/">AIP Lab</a></span>
-    <span>macOS · Electron · 로컬-퍼스트 · 서버 없음</span>
+    <span><a href="privacy.html">개인정보 처리방침</a></span>
+    <span>macOS · iPhone · 로컬-퍼스트 · 서버 없음</span>
   </div>
 </footer>
 
