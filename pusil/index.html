@@ -3,193 +3,371 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>푸실 — 읽는 동안 혼자가 아니게</title>
-<meta name="description" content="책의 쪽마다 스레드가 쌓이는 독서 커뮤니티. 다 읽고 나서가 아니라 읽는 동안.">
-<meta property="og:title" content="푸실 — 읽는 동안 혼자가 아니게">
-<meta property="og:description" content="책의 쪽마다 스레드가 쌓입니다. 다 읽고 나서가 아니라 읽는 동안.">
+<title>푸실 — 읽는 동안</title>
+<meta name="description" content="책의 쪽마다 이야기가 쌓입니다. 다 읽고 나서가 아니라 읽는 동안.">
+<meta property="og:title" content="푸실 — 읽는 동안">
+<meta property="og:description" content="책의 쪽마다 이야기가 쌓입니다. 다 읽고 나서가 아니라 읽는 동안.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.png?v=1" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@200;300;400;500&display=swap">
 <link rel="stylesheet" href="_style.css">
 <style>
-  .hero{padding:clamp(2.4rem,6vw,4rem) 0 clamp(2rem,5vw,3rem)}
-  h1{font:700 clamp(2rem,5.2vw,3.1rem)/1.24 var(--display);letter-spacing:-.02em}
-  .lede{margin:1.3rem 0 0;font-size:1.06rem;font-weight:300;max-width:30em}
-  .lede b{font-weight:600;color:var(--ink)}
-  /* ── 바코드가 곧 히어로다. 이 제품의 시각 장치는 하나뿐이라 그것을 그대로 보여준다. ── */
-  .bar{margin:clamp(2rem,5vw,3rem) 0 0}
-  .bar canvas{display:block;width:100%;height:76px;border-radius:3px}
-  .ends{display:flex;justify-content:space-between;margin-top:.5rem}
-  .ends span{font:400 .74rem/1 var(--mono);color:var(--ink3)}
-  .caption{margin:.9rem 0 0;font:400 .86rem/1.7 var(--sans);color:var(--ink3);max-width:34em}
-  .caption b{color:var(--ink2);font-weight:500}
-  /* ── 절 ── */
-  section{padding:clamp(2.2rem,5vw,3.2rem) 0;border-top:1px solid var(--hair)}
-  h2{font:600 1.06rem/1.5 var(--sans);letter-spacing:-.01em}
-  section p{margin:.7rem 0 0;max-width:32em}
-  section p b{color:var(--ink);font-weight:500}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.6rem 2rem;margin-top:1.6rem}
-  .grid h3{font:600 .92rem/1.5 var(--sans)}
-  .grid p{margin:.35rem 0 0;font-size:.9rem}
-  /* 온도 눈금 */
-  .ramp{display:flex;gap:2px;margin-top:1rem}
-  .ramp i{flex:1;height:26px;border-radius:2px}
-  .rampkey{display:flex;justify-content:space-between;margin-top:.4rem}
-  .rampkey span{font:400 .72rem/1 var(--sans);color:var(--ink3)}
-  /* 안 만드는 것 */
-  .nots{list-style:none;padding:0;margin:1.2rem 0 0}
-  .nots li{padding:.75rem 0;border-top:1px solid var(--hair);font-size:.95rem}
-  .nots li:first-child{border-top:0}
-  .nots b{color:var(--ink);font-weight:500}
-  .status{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line);
-          border-radius:999px;padding:.5rem .95rem;font:500 .84rem/1 var(--sans);color:var(--ink2)}
-  .status i{width:6px;height:6px;border-radius:50%;background:var(--beacon);display:block}
-  .sili{width:96px;height:96px;border-radius:20px;margin:0 0 1.4rem}
+/* ─────────────────────────────────────────────────────────────
+   이 페이지는 **책 한 권**이다.
+   왼쪽 레일이 페이지 바코드고, 스크롤이 곧 내 진도다.
+   지나간 쪽은 색을 얻고, 아직 안 간 아래쪽은 미지의 땅으로 남는다.
+   ⛔ 설명하기 전에 겪게 한다 — 이 제품의 장치는 하나뿐이라 그것으로 말한다.
+   ───────────────────────────────────────────────────────────── */
+
+  body{font-weight:300}
+
+  /* ── 레일 ──
+     ⚠️ 화면 끝에 붙이면 **고아가 된다.** 책의 판면 옆에 그은 여백 괘선처럼,
+        글 기둥 바로 왼쪽에 붙여 하나의 판면으로 읽히게 한다. */
+  :root{ --col:600px; --gut:52px; --railx:calc(50% - (var(--col) / 2) - var(--gut));
+         /* ⚠️ 앱의 --unknown(#EBEBE4)은 **다크 지면 기준**이라 이 흰 종이 위에서는 사라진다.
+            레일은 여기서 화면이 아니라 **도판**이므로, 뜻은 지키되 보이게 한 단 낮춘다. */
+         --track:#E2E2DA; }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --track:#20241F } }
+  :root[data-theme="dark"]{ --track:#20241F }
+  #rail{position:fixed;left:var(--railx);top:0;bottom:0;width:9px;z-index:5;pointer-events:none}
+  #rail canvas{width:100%;height:100%;display:block}
+  /* 쪽 번호는 **바깥 여백**에 둔다 — 글 쪽으로 뻗으면 본문과 부딪친다 */
+  #mark{position:fixed;left:calc(var(--railx) - 118px);width:104px;z-index:6;pointer-events:none;
+        display:flex;align-items:center;justify-content:flex-end;gap:7px;
+        transform:translateY(-50%);transition:opacity .35s}
+  #mark .no{font:500 .66rem/1 var(--mono);color:var(--ink2);white-space:nowrap;
+            font-variant-numeric:tabular-nums}
+  #mark .tick{width:16px;height:1px;background:var(--ink2);flex:none}
+
+  main{max-width:var(--col);margin:0 auto;padding:0 clamp(1.2rem,5vw,1.6rem)}
+  /* ⚠️ 레일이 화면 폭에 따라 **왼쪽/위**로 자리를 옮긴다. 글도 같이 옮겨야 거짓말이 안 된다. */
+  .mb{display:none}
+  @media (max-width:919px){ .dk{display:none} .mb{display:inline} }
+
+  /* ── 모바일: 레일이 위로 눕는다 ── */
+  #topbar{display:none}
+  @media (max-width:919px){
+    #rail,#mark{display:none}
+    #topbar{display:block;position:sticky;top:0;z-index:5;background:var(--paper);
+            padding-bottom:6px}
+    #topbar canvas{width:100%;height:5px;display:block}
+    #topbar .row{display:flex;justify-content:space-between;padding:5px 0 0}
+    #topbar .row span{font:400 .64rem/1 var(--mono);color:var(--ink3)}
+  }
+
+  /* ── 표제 ── */
+  .lead{padding:clamp(3.4rem,10vw,6rem) 0 clamp(2rem,6vw,3.2rem)}
+  .eyebrow{font:400 .74rem/1 var(--sans);color:var(--ink3);letter-spacing:.18em;
+           text-transform:uppercase;margin:0 0 1.6rem}
+  h1{font:400 clamp(1.95rem,5.6vw,2.9rem)/1.42 var(--display);letter-spacing:-.015em;
+     color:var(--ink)}
+  /* ⛔ 제목에 형광 띠를 두지 않는다. 이 페이지에서 **색을 갖는 것은 레일 하나**다 —
+     둘이 되면 서로 깎아먹고, 띠는 강조가 아니라 먹칠처럼 보였다. */
+  h1 em{font-style:normal;color:var(--ink)}
+  .sub{margin:1.6rem 0 0;font-size:1.02rem;line-height:1.9;max-width:27em;color:var(--ink2)}
+  .sub b{font-weight:500;color:var(--ink)}
+
+  /* ── 남의 글. 앱과 같은 법: 사람이 쓴 것만 세리프. ── */
+  .note{padding:clamp(1.6rem,4vw,2.1rem) 0;border-top:1px solid var(--hair)}
+  .note .h{display:flex;align-items:baseline;gap:.6rem;margin:0 0 .55rem}
+  .note .pg{font:500 .72rem/1 var(--mono);color:var(--t1);font-variant-numeric:tabular-nums}
+  .note .who{font:400 .72rem/1 var(--sans);color:var(--ink3)}
+  .note q{display:block;quotes:none;font:400 1.06rem/1.85 var(--display);color:var(--ink)}
+  .note .too{margin:.7rem 0 0;font:400 .72rem/1 var(--sans);color:var(--ink3)}
+  .note .too b{color:var(--ink2);font-weight:400}
+
+  /* ── 사이 글. 장치가 아니라 옆에서 하는 말. ── */
+  .aside{padding:clamp(1.8rem,5vw,2.6rem) 0;border-top:1px solid var(--hair)}
+  .aside h2{font:400 .76rem/1 var(--sans);color:var(--ink3);letter-spacing:.16em;
+            text-transform:uppercase;margin:0 0 .9rem}
+  .aside p{margin:0 0 .8rem;font-size:.98rem;line-height:1.9;max-width:30em}
+  .aside p:last-child{margin-bottom:0}
+  .aside b{font-weight:500;color:var(--ink)}
+  .aside i{font-style:italic;font-family:var(--display)}
+
+  /* ── 온도 눈금 ──
+     ⛔ 색 견본 다섯 덩이로 그리면 **설명이 도구보다 커진다.** 페이지에서 제일 시끄러운 것이
+        범례가 되는 건 순서가 뒤집힌 것이다.
+     → 설명하려는 그 물건의 모습으로 그린다 — **레일 한 토막**. */
+  .ramp{margin:1.3rem 0 .5rem;max-width:28em}
+  .ramp canvas{display:block;width:100%;height:22px}
+  .rk{display:flex;justify-content:space-between;max-width:28em}
+  .rk span{font:400 .68rem/1 var(--sans);color:var(--ink3)}
+
+  /* ── 미지의 땅 — 잠긴 글을 **실제로 가려서** 보여준다 ── */
+  .veil{padding:clamp(1.6rem,4vw,2.1rem) 0;border-top:1px solid var(--hair)}
+  .veil .h{display:flex;align-items:baseline;gap:.6rem;margin:0 0 .55rem}
+  .veil .pg{font:500 .72rem/1 var(--mono);color:var(--ink3)}
+  .veil .bars{display:flex;flex-direction:column;gap:9px;max-width:26em}
+  .veil .bars i{height:11px;background:var(--unknown);display:block}
+  .veil .bars i:nth-child(2){width:88%}
+  .veil .bars i:nth-child(3){width:57%}
+  .veil .cap{margin:.9rem 0 0;font:400 .82rem/1.7 var(--sans);color:var(--ink3);max-width:28em}
+
+  /* ── 안 만든 것 ── */
+  .no{padding:clamp(1.8rem,5vw,2.6rem) 0;border-top:1px solid var(--hair)}
+  .no dl{margin:0}
+  .no dt{font:400 1.02rem/1.6 var(--display);color:var(--ink);margin-top:1.5rem}
+  .no dt:first-child{margin-top:0}
+  .no dd{margin:.35rem 0 0;font-size:.92rem;line-height:1.85;color:var(--ink2);max-width:29em}
+
+  /* ── 끝 ── */
+  .end{padding:clamp(2.4rem,6vw,3.4rem) 0 0;border-top:1px solid var(--hair)}
+  .end .sili{width:72px;height:72px;margin:0 0 1.3rem;border-radius:16px}
+  .end p{margin:0 0 1.4rem;font-size:.98rem;line-height:1.9;color:var(--ink2);max-width:29em}
+  .status{display:inline-flex;align-items:center;gap:.55rem;
+          border-bottom:1px solid var(--line);padding:0 0 .4rem;
+          font:400 .9rem/1 var(--sans);color:var(--ink2)}
+  .status i{width:5px;height:5px;border-radius:50%;background:var(--t0);display:block}
+  @media (prefers-reduced-motion:no-preference){
+    .status i{animation:pulse 2.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="brand"><img src="favicon.png?v=1" alt=""><span>푸실</span></div>
+<div id="rail" aria-hidden="true"><canvas id="rc"></canvas></div>
+<div id="mark" aria-hidden="true" style="opacity:0"><span class="no">1</span><span class="tick"></span></div>
 
-  <header class="hero">
-    <img class="sili" src="sili.png" alt="푸실의 마스코트 실이 — 오트밀색 고양이">
-    <h1>다 읽고 나서가 아니라,<br>읽는 동안.</h1>
-    <p class="lede">
-      굿리즈도 왓챠피디아도 <b>완독 후</b>를 다룹니다. 감상을 올리고, 별점을 매기고, 서로 읽은 책을 셉니다.
-      그런데 <b>읽는 중이 통째로 비어 있습니다.</b> 302쪽에서 문득 멈춘 그 순간에는 아무도 없습니다.
+<div id="topbar" aria-hidden="true">
+  <canvas id="tc"></canvas>
+  <div class="row"><span>1</span><span>487</span></div>
+</div>
+
+<main>
+
+  <header class="lead">
+    <p class="eyebrow">푸실</p>
+    <h1>혼자 읽다가 문득 멈춘 그 쪽에,<br><em>이미 누군가 있었습니다.</em></h1>
+    <p class="sub">
+      굿리즈도 왓챠피디아도 <b>다 읽은 뒤</b>를 다룹니다. 별점을 매기고, 감상을 올리고, 읽은 권수를 셉니다.
+      그런데 <b>읽는 중이 통째로 비어 있습니다.</b>
     </p>
-    <p class="lede">푸실은 <b>책의 쪽마다</b> 이야기가 쌓이는 곳입니다.</p>
-
-    <div class="bar">
-      <canvas id="bc" aria-label="책 한 권을 한 쪽당 한 줄로 그린 페이지 바코드"></canvas>
-      <div class="ends"><span>1</span><span id="last">487</span></div>
-      <p class="caption">
-        책 한 권이 <b>한 쪽당 한 줄</b>입니다. 색은 <b>마지막으로 누가 다녀간 때</b> —
-        방금은 따뜻하고 오래되면 식습니다. 짙기는 <b>거기 얼마나 멈췄나</b>.
-        읽은 데까지만 칠해지고, 그 앞은 <b>불빛만</b> 보입니다.
-      </p>
-    </div>
+    <p class="sub">
+      푸실은 책 한 권을 <b>한 쪽당 한 줄</b>로 펼칩니다.
+      <span class="dk">왼쪽에</span><span class="mb">화면 위에</span> 있는 그 줄이 책 한 권이고,
+      <b>지금 이 글을 읽어 내려가는 만큼이 당신의 진도입니다.</b>
+      내려갈수록 지나온 쪽에 색이 오르고, 아직 안 간 아래쪽은 회색으로 남습니다.
+    </p>
   </header>
 
-  <section>
-    <h2>색은 양이 아니라 시간에 걸려 있습니다</h2>
+  <article class="note" data-page="31">
+    <div class="h"><span class="pg">31쪽</span><span class="who">밤에읽는사람 · 3일 전</span></div>
+    <q>고향이 어디냐고 묻는 장면에서 왜 이렇게 오래 멈췄는지 모르겠다.</q>
+    <p class="too"><b>나도</b>  ·  4명도</p>
+  </article>
+
+  <section class="aside">
+    <h2>색은 양이 아니라 시간</h2>
     <p>
-      스레드가 많은 쪽을 진하게가 아니라 <b>높게</b> 그리면 그건 막대그래프입니다. 처음에 그렇게 그렸다가 버렸습니다.
-      높이를 고르게 두고 <b>색을 시간에</b> 걸자 바가 살아났습니다 — 지금 누가 어디쯤인지가 보입니다.
+      스레드가 많은 쪽을 <b>높게</b> 그리면 그건 막대그래프입니다. 처음에 그렇게 그렸다가 버렸습니다.
+      높이를 고르게 두고 <b>색을 시간에</b> 걸자 바가 살아났습니다.
+      방금 누가 다녀간 쪽은 따뜻하고, 아무도 안 온 지 오래된 쪽은 식어 있습니다.
     </p>
-    <div class="ramp">
-      <i style="background:var(--t0)"></i><i style="background:var(--t1)"></i>
-      <i style="background:var(--t2)"></i><i style="background:var(--t3)"></i>
-      <i style="background:var(--t4)"></i>
-    </div>
-    <div class="rampkey"><span>방금</span><span>오늘</span><span>이번 주</span><span>지난달</span><span>오래전</span></div>
+    <div class="ramp"><canvas id="ramp" aria-label="방금부터 오래전까지의 온도 눈금"></canvas></div>
+    <div class="rk"><span>방금</span><span>오늘</span><span>이번 주</span><span>지난달</span><span>오래전</span></div>
   </section>
 
-  <section>
-    <h2>앞쪽은 미지의 땅입니다</h2>
+  <article class="note" data-page="118">
+    <div class="h"><span class="pg">118쪽</span><span class="who">수요일 · 어제</span></div>
+    <q>여기서 한 번 덮었다. 선자가 너무 어리다.</q>
+    <p class="too"><b>나도</b>  ·  11명도</p>
+  </article>
+
+  <section class="aside">
+    <h2>잘 쓴 감상이 아니라 혼잣말</h2>
     <p>
-      아직 안 간 쪽은 내용이 하나도 안 보입니다. 대신 <b>불빛</b>은 보입니다 — 저 앞 어딘가에 몇 명이 멈춰 있다는 것만.
-      이건 스포일러를 막는 장치가 아니라 <b>끌어당기는 장치</b>입니다.
-      막는 것은 사람을 움직이지 못하지만, 빈 땅은 움직입니다.
+      <b>인기순 정렬이 없습니다.</b> 정렬은 쪽 순서 하나뿐입니다.
+      좋아요로 줄을 세우는 순간 <i>혼자 읽다가 문득</i>이 <i>잘 쓴 감상</i>으로 변합니다.
+      그래서 「나도」는 있지만 <b>그 수로 아무것도 정렬하지 않습니다.</b>
     </p>
-    <div class="grid">
-      <div>
-        <h3>아무도 안 연 책은 빈 땅입니다</h3>
-        <p>처음 여는 사람이 판본과 마지막 쪽을 등록하고, <b>이 책을 연 사람</b>으로 남습니다.
-           글을 잘 써서가 아니라 먼저 왔기 때문입니다.</p>
-      </div>
-      <div>
-        <h3>판본이 갈라져도 마을은 하나</h3>
-        <p>좌표를 쪽이 아니라 진도로 저장합니다. 487쪽 판에 남긴 50쪽 글이,
-           520쪽 판을 든 사람에게는 <b>53쪽</b>으로 보입니다.</p>
-      </div>
-      <div>
-        <h3>다 읽으면 영수증이 나옵니다</h3>
-        <p>읽은 날수, 멈춘 곳, <b>1쪽부터 내가 남긴 글</b>. 밖으로 내보낼 수 있는 유일한 물건입니다.</p>
-      </div>
-    </div>
   </section>
 
-  <section>
-    <h2>만들지 않기로 한 것들</h2>
-    <p>없는 기능이 아니라 <b>정한 것</b>입니다. 이게 이 앱의 성격을 만듭니다.</p>
-    <ul class="nots">
-      <li><b>인기순 정렬이 없습니다.</b> 정렬은 쪽 순서 하나뿐입니다.
-          좋아요로 줄을 세우는 순간 <i>혼자 읽다가 문득</i>이 <i>잘 쓴 감상</i>으로 변합니다.</li>
-      <li><b>알림이 없습니다.</b> 설정에도 스위치가 아니라 「없음」이라고 적혀 있습니다.
-          켤 수 있게 두면 언젠가 켜지고, 독서를 깨는 순간 앱이 적이 됩니다.</li>
-      <li><b>무한 피드가 없습니다.</b> 다른 책 이야기가 흘러가면 책 밖으로 끌려 나갑니다.</li>
-    </ul>
+  <article class="note" data-page="203">
+    <div class="h"><span class="pg">203쪽</span><span class="who">이월 · 방금</span></div>
+    <q>지하철에서 읽다가 울 뻔했다. 아무한테도 말 못 하고 내렸다.</q>
+    <p class="too"><b>나도</b>  ·  2명도</p>
+  </article>
+
+  <section class="aside">
+    <h2>판본이 갈라져도 마을은 하나</h2>
+    <p>
+      좌표를 쪽이 아니라 <b>진도</b>로 저장합니다. 그래서 487쪽 판에 남긴 50쪽 글이,
+      520쪽 판을 든 사람에게는 <b>53쪽</b>으로 보입니다.
+      번역도 출판사도 달라도 사람은 흩어지지 않습니다.
+    </p>
   </section>
 
-  <section>
-    <h2>지금</h2>
-    <p style="margin-bottom:1.1rem">
-      만드는 중입니다. App Store 에 올라가면 여기에 받는 곳이 생깁니다.
+  <article class="note" data-page="294">
+    <div class="h"><span class="pg">294쪽</span><span class="who">한나 · 2주 전</span></div>
+    <q>이 문장 때문에 페이지를 접었다.</q>
+    <p class="too"><b>나도</b>  ·  7명도</p>
+  </article>
+
+  <section class="veil">
+    <div class="h"><span class="pg">401쪽</span></div>
+    <div class="bars"><i></i><i></i><i></i></div>
+    <p class="cap">
+      아직 안 간 쪽은 내용이 하나도 안 보입니다. 대신 <b>불빛</b>은 보입니다 —
+      저 앞 어딘가에 몇 명이 멈춰 있다는 것만.
+      막는 장치가 아니라 <b>끌어당기는 장치</b>입니다. 빈 땅이 사람을 움직입니다.
     </p>
+  </section>
+
+  <section class="aside">
+    <h2>아무도 안 연 책은 빈 땅입니다</h2>
+    <p>
+      검색은 전부 되지만 커뮤니티는 <b>개척된 책만</b> 열립니다.
+      처음 여는 사람이 판본과 마지막 쪽을 등록하고 <b>이 책을 연 사람</b>으로 남습니다.
+      글을 잘 써서가 아니라 <b>먼저 왔기 때문</b>입니다.
+    </p>
+    <p>
+      다 읽으면 <b>영수증</b>이 나옵니다. 읽은 날수, 멈춘 곳, 1쪽부터 내가 남긴 글.
+      이 앱에서 <b>밖으로 나가는 유일한 물건</b>입니다.
+    </p>
+  </section>
+
+  <section class="no">
+    <dl>
+      <dt>알림이 없습니다</dt>
+      <dd>설정에도 스위치가 아니라 「없음」이라고 적혀 있습니다.
+          켤 수 있게 두면 언젠가 켜지고, 독서를 깨는 순간 앱이 방해가 됩니다.</dd>
+      <dt>무한 피드가 없습니다</dt>
+      <dd>다른 책 이야기가 흘러가면 책 밖으로 끌려 나갑니다.
+          여기서 흐르는 것은 당신이 읽고 있는 그 책 하나뿐입니다.</dd>
+      <dt>광고도 추적도 없습니다</dt>
+      <dd>인기순도 피드도 없으니 광고를 둘 지면이 없습니다.
+          한계가 아니라 <b>결과</b>입니다.</dd>
+    </dl>
+  </section>
+
+  <section class="end">
+    <img class="sili" src="sili.png" alt="푸실의 마스코트 실이">
+    <p>
+      <b>푸실</b>은 풀(우거진 풀)과 실(마을)이 붙은 옛 지명입니다.
+      아무도 열지 않은 책이 곧 풀만 우거진 땅이고, 처음 온 사람이 길을 냅니다.
+      실이는 그 풀밭에 원래 앉아 있던 고양이입니다.
+    </p>
+    <p style="margin-bottom:1.8rem">만드는 중입니다. App Store 에 올라가면 여기에 받는 곳이 생깁니다.</p>
     <span class="status"><i></i> 준비 중</span>
   </section>
 
   <footer>
-    <div class="wrap" style="padding:0">
-      푸실 — <span class="small">풀(우거진 풀) + 실(마을). 아무도 열지 않은 책이 곧 풀만 우거진 땅입니다.</span><br>
-      <a href="privacy.html">개인정보 처리방침</a> · <a href="https://aiplab.kr">AIP Lab</a> ·
-      <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
-    </div>
+    <a href="privacy.html">개인정보 처리방침</a> ·
+    <a href="https://aiplab.kr">AIP Lab</a> ·
+    <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
   </footer>
-</div>
+</main>
 
 <script>
-// 히어로 바코드. ⚠️ 앱과 **같은 규칙**으로 그린다 — 높이는 균일하고 색이 시간, 짙기가 스레드 수.
-// ⛔ 스레드 수를 높이에 걸지 않는다(그러면 막대그래프다).
 (function () {
-  const TOTAL = 487, READ = 302;          // 이 사람은 302쪽까지 읽었다
-  const c = document.getElementById('bc');
+  'use strict';
+  const TOTAL = 487;
   const cs = getComputedStyle(document.documentElement);
   const v = (n) => cs.getPropertyValue(n).trim();
 
-  // 씨앗 고정 난수 — 새로고침해도 같은 그림이어야 한다(무늬가 매번 달라지면 장식처럼 보인다)
+  // 씨앗 고정 난수 — 새로고침해도 같은 책이어야 한다. 매번 달라지면 무늬가 장식으로 읽힌다.
   let s = 20260914;
   const rnd = () => (s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
 
+  // ⛔ 성긴 것이 기본이다. 빈 쪽이 많은 게 결함이 아니라 이 제품의 상태다.
   const bins = Array.from({ length: TOTAL }, (_, i) => {
-    // 성긴 것이 기본이다. 빈 쪽이 많은 게 결함이 아니라 이 제품의 상태다.
-    const near = Math.exp(-Math.abs(i - 150) / 60) + Math.exp(-Math.abs(i - 290) / 40);
-    const n = rnd() < 0.06 + near * 0.22 ? 1 + Math.floor(rnd() * 4) : 0;
-    return { n, t: Math.floor(rnd() * 5) };
+    let near = 0;
+    for (const p of [31, 118, 203, 294, 401]) near += Math.exp(-Math.abs(i - p) / 18);
+    // ⛔ 성긴 것이 기본이다. 촘촘하면 무늬가 아니라 노이즈로 읽힌다.
+    const n = rnd() < 0.03 + near * 0.34 ? 1 + Math.floor(rnd() * 4) : 0;
+    return { n: n, t: Math.floor(rnd() * 5) };
   });
 
-  function draw() {
-    const w = c.clientWidth, h = c.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
-    c.width = w * dpr; c.height = h * dpr;
-    const g = c.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
-    const pw = w / TOTAL, ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+  let page = 1;
+
+  function paint(cv, vertical) {
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr;
+    const g = cv.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const span = vertical ? h : w, thick = vertical ? w : h;
+    const step = span / TOTAL;
+    const ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+    const unknown = v('--track'), empty = v('--empty'), beacon = v('--beacon');
     for (let i = 0; i < TOTAL; i++) {
-      const x = i * pw, b = bins[i];
-      if (i >= READ) {
-        // 미지의 땅 — 내용은 0, 불빛만
-        g.globalAlpha = 1; g.fillStyle = v('--unknown');
-        g.fillRect(x, 0, Math.max(pw, .6), h);
-        if (b.n > 2) { g.globalAlpha = .32; g.fillStyle = v('--beacon');
-                       g.fillRect(x, h * .34, Math.max(pw, .9), h * .32); }
+      const at = i * step, len = Math.max(step, 0.7), b = bins[i];
+      const read = i < page;
+      if (!read) {
+        // 미지의 땅 — 내용 0, 불빛만
+        g.globalAlpha = 1; g.fillStyle = unknown;
+        vertical ? g.fillRect(0, at, thick, len) : g.fillRect(at, 0, len, thick);
+        if (b.n > 3) {          // 불빛은 **드물어야** 멀리서 보인다
+
+          g.globalAlpha = 0.34; g.fillStyle = beacon;
+          vertical ? g.fillRect(thick * 0.3, at, thick * 0.4, Math.max(step, 1.1))
+                   : g.fillRect(at, thick * 0.3, Math.max(step, 1.1), thick * 0.4);
+        }
         continue;
       }
-      g.globalAlpha = b.n ? Math.min(1, .34 + Math.log2(1 + b.n) * .28) : 1;
-      g.fillStyle = b.n ? ramp[b.t] : v('--empty');
-      g.fillRect(x, 0, Math.max(pw, .6), h);
+      g.globalAlpha = b.n ? Math.min(1, 0.34 + Math.log2(1 + b.n) * 0.28) : 1;
+      g.fillStyle = b.n ? ramp[b.t] : empty;
+      vertical ? g.fillRect(0, at, thick, len) : g.fillRect(at, 0, len, thick);
     }
-    // 내가 멈춘 자리
+    // 내가 선 자리
     g.globalAlpha = 1; g.fillStyle = v('--ink');
-    g.fillRect(READ * pw - .6, 0, 1.2, h);
+    const at = (page / TOTAL) * span;
+    vertical ? g.fillRect(0, at - 0.6, thick, 1.2) : g.fillRect(at - 0.6, 0, 1.2, thick);
   }
-  draw();
-  addEventListener('resize', draw);
+
+  // 온도 눈금 — 레일과 **같은 손**으로 그린다. 짙기까지 흉내 내야 "이게 그 물건"으로 읽힌다.
+  function paintRamp() {
+    const cv = document.getElementById('ramp');
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr;
+    const g = cv.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+    const N = 90, step = w / N;
+    let q = 7;
+    const r2 = () => (q = (q * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    for (let i = 0; i < N; i++) {
+      g.fillStyle = ramp[Math.min(4, Math.floor((i / N) * 5))];
+      g.globalAlpha = 0.42 + r2() * 0.58;
+      g.fillRect(i * step, 0, Math.max(step - 0.9, 0.8), h);
+    }
+  }
+
+  const rc = document.getElementById('rc'), tc = document.getElementById('tc');
+  const mark = document.getElementById('mark'), no = mark.querySelector('.no');
+
+  function draw() { paint(rc, true); paint(tc, false); paintRamp(); }
+
+  function onScroll() {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - innerHeight;
+    // ⚠️ 스크롤이 곧 진도다. 끝까지 내리면 마지막 쪽에 닿아야 한다.
+    const p = Math.max(1, Math.min(TOTAL, Math.round((max > 0 ? scrollY / max : 0) * (TOTAL - 1)) + 1));
+    if (p === page) return;
+    page = p;
+    no.textContent = p;
+    if (rc.clientHeight) {
+      mark.style.top = ((p / TOTAL) * rc.clientHeight) + 'px';
+      mark.style.opacity = scrollY > 40 ? '1' : '0';
+    }
+    draw();
+  }
+
+  let tick = false;
+  addEventListener('scroll', function () {
+    if (tick) return; tick = true;
+    requestAnimationFrame(function () { tick = false; onScroll(); });
+  }, { passive: true });
+  addEventListener('resize', function () { draw(); onScroll(); });
   matchMedia('(prefers-color-scheme:dark)').addEventListener('change', draw);
-  document.getElementById('last').textContent = TOTAL;
+  draw(); onScroll();
 })();
 </script>
 </body>
