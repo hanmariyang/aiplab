@@ -90,13 +90,16 @@ function render(d) {
   ].map(([k, v]) => `<div class="row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 
   const es = d.entries || [];
+  // ⚠️ **`viewer` 는 서버의 Reader 다 — 'owner' | 'finished' | 'stranger'.**
+  //    core 의 Viewer('reading' | 'finished' | 'none')와 **이름이 다르다.**
+  //    처음에 'none' 을 봤다가 안 읽은 사람에게 엉뚱한 말이 나갔다(헤드리스로 잡았다).
   // ⚠️ 안 읽은 사람에게는 **무늬와 숫자만** 보이고 글은 하나도 안 보인다.
   //    막는 장치가 아니라 끌어당기는 장치다 — 그래서 잠겼다고 쓰지 않고 권한다.
   const notes = es.length
     ? es.map((e) => `<div class="note"><div class="pg">${esc(e.page)}쪽</div>
         <div class="body">${esc(e.body)}</div></div>`).join('')
     : `<div class="veil">
-         <p>${d.viewer === 'none'
+         <p>${d.viewer === 'stranger'
               ? '이 책을 읽기 시작하면 남긴 글이 쪽마다 열립니다.'
               : '지나온 쪽까지만 보입니다. 더 읽으면 더 열립니다.'}</p>
          <p class="small">앞쪽은 아직 미지의 땅입니다.</p>
