@@ -119,9 +119,14 @@
      ⚠️ 글 기둥은 600 으로 **둔다** — 한 줄 40자는 읽기 좋은 길이고 글에는 그게 맞다.
      ⛔ 다만 **보여줄 것까지 기둥에 가두지 않는다.** 좁아 보이던 진짜 이유는
         넓게 놓을 물건이 없었기 때문이다. */
-  .wide{margin-left:calc((var(--col) - min(var(--wide), 92vw)) / 2);
-        width:min(var(--wide), 92vw);max-width:none}
-  @media (max-width:919px){ .wide{margin-left:0;width:100%} }
+  /* ⛔ **왼쪽으로 터뜨리지 않는다.** 레일은 판면의 왼쪽 끝이고, 글이든 그림이든
+     그 선을 넘으면 안 된다 — 처음엔 가운데 기준으로 넓혔더니 영수증이 레일을 타고 넘었다.
+     넓히는 방향은 **오른쪽 하나**다(어차피 비어 있던 쪽이다). */
+  .wide{margin-left:0;max-width:none;
+        /* ⚠️ main 의 좌우 패딩(최대 1.6rem)이 이미 오른쪽을 밀어 놓는다.
+           그걸 안 빼면 1280 에서 화면 끝에 2px 까지 붙는다(실측). */
+        width:min(var(--wide), calc(50vw + (var(--col) / 2) - 56px))}
+  @media (max-width:919px){ .wide{width:100%} }
 
   /* ── 직접 훑어 보는 바코드 ── */
   .try{padding:clamp(2rem,5vw,3rem) 0;border-top:1px solid var(--hair)}
