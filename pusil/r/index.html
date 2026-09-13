@@ -28,7 +28,14 @@
   .note:first-child{border-top:0}
   .pg{font:400 .74rem/1 var(--mono);color:var(--ink3)}
   .body{font:400 1rem/1.75 var(--display);color:var(--ink);margin-top:.35rem;white-space:pre-wrap}
-  .veil{text-align:center;padding:1.4rem 0 .4rem}
+  /* ⚠️ 「남긴 글 4」라고 해 놓고 아래가 비면 사람은 **고장으로 읽는다.**
+     결핍이 의도로 읽히도록 **잠긴 줄을 실제로 그린다** — 글자 자리에 가림막을 둔다. */
+  .veil{text-align:center;padding:.2rem 0 .4rem}
+  .veil .locked{font:500 .95rem/1.5 var(--sans);color:var(--ink);margin:0 0 .2rem}
+  .bars{display:flex;flex-direction:column;gap:7px;margin:0 0 1.1rem;padding:.2rem 0}
+  .bars i{height:9px;border-radius:2px;background:var(--unknown);display:block}
+  .bars i:nth-child(2){width:82%;margin:0 auto}
+  .bars i:nth-child(3){width:64%;margin:0 auto}
   .veil p{margin:0 0 .5rem;font-size:.92rem;color:var(--ink2)}
   .veil .small{color:var(--ink3)}
   .cta{display:inline-block;margin-top:1.2rem;border:1px solid var(--line);border-radius:9px;
@@ -99,8 +106,10 @@ function render(d) {
     ? es.map((e) => `<div class="note"><div class="pg">${esc(e.page)}쪽</div>
         <div class="body">${esc(e.body)}</div></div>`).join('')
     : `<div class="veil">
+         <div class="bars"><i></i><i></i><i></i></div>
+         <p class="locked">${c.notes ? `${c.notes}개의 글이 쪽마다 잠겨 있습니다` : '남긴 글이 없습니다'}</p>
          <p>${d.viewer === 'stranger'
-              ? '이 책을 읽기 시작하면 남긴 글이 쪽마다 열립니다.'
+              ? '이 책을 읽기 시작하면 하나씩 열립니다.'
               : '지나온 쪽까지만 보입니다. 더 읽으면 더 열립니다.'}</p>
          <p class="small">앞쪽은 아직 미지의 땅입니다.</p>
          <a class="cta" href="../index.html">나도 읽기 시작</a>
