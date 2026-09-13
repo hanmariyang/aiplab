@@ -21,6 +21,16 @@
 		reverse_proxy aiplab-analytics.railway.internal:8080
 	}
 
+	# 푸실 공유 영수증 — /pusil/r/<토큰> 을 한 페이지가 받는다.
+	# ⚠️ 토큰이 경로에 있어 정적 파일로는 못 찾는다. try_files 에 맡기면 404 다
+	#    (실측 2026-09-14: 공유 링크가 통째로 죽어 있었다).
+	# ⛔ 이 handle 은 /pusil/r/ 하나만 잡는다 — 다른 제품 경로에 닿지 않는다.
+	handle /pusil/r/* {
+		rewrite * /pusil/r/index.html
+		file_server
+		header Cache-Control "public, max-age=60"
+	}
+
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
 	handle {
 		# ⛔ 디렉토리를 슬래시 없이 열면 상대경로가 한 단계 위로 풀려 이미지가 전부 깨진다.

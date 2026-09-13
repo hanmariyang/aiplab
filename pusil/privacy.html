@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>푸실 개인정보 처리방침</title>
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="_style.css">
+<style>
+  h1{font:700 clamp(1.7rem,4.2vw,2.3rem)/1.3 var(--display);margin:clamp(2rem,5vw,3rem) 0 .4rem}
+  h2{font:600 1rem/1.5 var(--sans);margin:2.2rem 0 .5rem}
+  p,li{max-width:34em}
+  p{margin:.6rem 0 0}
+  ul{margin:.6rem 0 0;padding-left:1.1rem}
+  li{margin:.3rem 0}
+  b{color:var(--ink);font-weight:500}
+  table{border-collapse:collapse;margin-top:.9rem;width:100%;max-width:36em}
+  th,td{text-align:left;padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--hair);
+        font-size:.92rem;vertical-align:top}
+  th{color:var(--ink);font-weight:500;white-space:nowrap}
+  .updated{font:400 .82rem/1 var(--mono);color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><img src="favicon.png?v=1" alt=""><span>푸실</span></div>
+
+  <h1>개인정보 처리방침</h1>
+  <p class="updated">2026-09-14</p>
+
+  <p>
+    푸실은 <b>AIP Lab(양기철)</b>이 만드는 1인 제품입니다. 이 문서는 푸실 앱이 무엇을 받고,
+    어디에 두고, 언제 지우는지를 적은 것입니다.
+  </p>
+
+  <h2>받는 것</h2>
+  <p>푸실은 <b>커뮤니티 앱이라 서버가 필요합니다.</b> 아래가 서버에 저장되는 전부입니다.</p>
+  <table>
+    <tr><th>이름</th><td>직접 적은 표시 이름입니다. <b>본명일 필요가 없고</b> 언제든 바꿀 수 있습니다.</td></tr>
+    <tr><th>기기 키</th><td>계정을 대신하는 임의의 문자열입니다. 앱을 처음 켤 때 서버가 만들어 기기에 저장합니다.</td></tr>
+    <tr><th>애플 로그인<br>(선택)</th>
+        <td>연결하면 애플이 준 <b>고유 식별자</b>를 저장합니다. 폰을 바꾸거나 앱을 지워도 기록을 되찾기 위해서입니다.
+            <b>애플의 「내 이메일 가리기」를 쓰면 실제 주소를 받지 않습니다.</b> 연결은 선택이고, 안 해도 앱은 전부 동작합니다.</td></tr>
+    <tr><th>읽는 책과<br>진도</th><td>담은 책, 어디까지 읽었는지, 마지막으로 연 시각입니다.</td></tr>
+    <tr><th>남긴 글</th><td>쪽마다 남긴 글과 「나도」 표시입니다. <b>「나만 보기」로 남긴 글은 다른 사람에게 보이지 않고, 공유 링크에도 들어가지 않습니다.</b></td></tr>
+  </table>
+
+  <h2>받지 않는 것</h2>
+  <ul>
+    <li><b>위치를 받지 않습니다.</b></li>
+    <li><b>연락처·사진·캘린더에 접근하지 않습니다.</b></li>
+    <li><b>광고 식별자를 쓰지 않고, 광고가 없습니다.</b></li>
+    <li><b>제3자 분석·추적 도구를 넣지 않았습니다.</b></li>
+    <li><b>알림을 보내지 않습니다.</b> 독서를 깨는 순간 앱이 방해가 되기 때문입니다.</li>
+  </ul>
+
+  <h2>어디에 두나</h2>
+  <p>
+    서버는 <b>Railway</b>(미국)에서 돌고 데이터베이스도 같은 곳에 있습니다.
+    즉 위 정보는 <b>해외에 저장됩니다.</b> 책 검색은 <b>카카오 책 검색 API</b>를 부르는데,
+    이때 <b>검색어만</b> 전달되고 누가 검색했는지는 보내지 않습니다.
+  </p>
+
+  <h2>다른 사람에게 보이는 것</h2>
+  <p>
+    같은 책을 읽는 사람에게는 <b>표시 이름</b>과 <b>공개로 남긴 글</b>, 그리고 그 글이 몇 쪽인지가 보입니다.
+    <b>「나만 보기」로 남긴 글은 보이지 않습니다.</b>
+  </p>
+  <p>
+    완독 후 <b>공유 링크</b>를 직접 만들면, 링크를 받은 사람이 그 영수증을 볼 수 있습니다.
+    이 링크는 <b>직접 만들 때만</b> 생기고 <b>언제든 회수</b>할 수 있으며, 만료를 정할 수 있습니다.
+    회수·만료된 링크는 열리지 않습니다.
+  </p>
+
+  <h2>얼마나 두나 · 지우기</h2>
+  <p>
+    쓰는 동안 보관하고, <b>지워 달라고 하면 지웁니다.</b>
+    <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a> 으로 표시 이름과 함께 알려 주시면
+    계정과 남긴 글을 전부 삭제합니다.
+  </p>
+  <p>
+    앱만 지우면 <b>기기에 있던 키가 사라져</b> 그 기기에서는 더 이상 접근할 수 없습니다.
+    다만 <b>서버의 기록은 남습니다</b> — 애플 로그인을 연결해 뒀다면 새 기기에서 되찾기 위해서입니다.
+    완전히 지우려면 위 주소로 알려 주세요.
+  </p>
+
+  <h2>어린이</h2>
+  <p>만 14세 미만을 대상으로 하지 않으며, 나이를 따로 받지 않습니다.</p>
+
+  <h2>바뀌면</h2>
+  <p>이 문서가 바뀌면 위의 날짜를 고치고, 중요한 변경은 앱 안에서 알려 드립니다.</p>
+
+  <h2>문의</h2>
+  <p>AIP Lab · <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+
+  <footer>
+    <a href="index.html">푸실</a> · <a href="https://aiplab.kr">AIP Lab</a>
+  </footer>
+</div>
+</body>
+</html>

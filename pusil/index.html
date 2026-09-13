@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>푸실 — 읽는 동안 혼자가 아니게</title>
+<meta name="description" content="책의 쪽마다 스레드가 쌓이는 독서 커뮤니티. 다 읽고 나서가 아니라 읽는 동안.">
+<meta property="og:title" content="푸실 — 읽는 동안 혼자가 아니게">
+<meta property="og:description" content="책의 쪽마다 스레드가 쌓입니다. 다 읽고 나서가 아니라 읽는 동안.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png?v=1" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="_style.css">
+<style>
+  .hero{padding:clamp(2.4rem,6vw,4rem) 0 clamp(2rem,5vw,3rem)}
+  h1{font:700 clamp(2rem,5.2vw,3.1rem)/1.24 var(--display);letter-spacing:-.02em}
+  .lede{margin:1.3rem 0 0;font-size:1.06rem;font-weight:300;max-width:30em}
+  .lede b{font-weight:600;color:var(--ink)}
+  /* ── 바코드가 곧 히어로다. 이 제품의 시각 장치는 하나뿐이라 그것을 그대로 보여준다. ── */
+  .bar{margin:clamp(2rem,5vw,3rem) 0 0}
+  .bar canvas{display:block;width:100%;height:76px;border-radius:3px}
+  .ends{display:flex;justify-content:space-between;margin-top:.5rem}
+  .ends span{font:400 .74rem/1 var(--mono);color:var(--ink3)}
+  .caption{margin:.9rem 0 0;font:400 .86rem/1.7 var(--sans);color:var(--ink3);max-width:34em}
+  .caption b{color:var(--ink2);font-weight:500}
+  /* ── 절 ── */
+  section{padding:clamp(2.2rem,5vw,3.2rem) 0;border-top:1px solid var(--hair)}
+  h2{font:600 1.06rem/1.5 var(--sans);letter-spacing:-.01em}
+  section p{margin:.7rem 0 0;max-width:32em}
+  section p b{color:var(--ink);font-weight:500}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.6rem 2rem;margin-top:1.6rem}
+  .grid h3{font:600 .92rem/1.5 var(--sans)}
+  .grid p{margin:.35rem 0 0;font-size:.9rem}
+  /* 온도 눈금 */
+  .ramp{display:flex;gap:2px;margin-top:1rem}
+  .ramp i{flex:1;height:26px;border-radius:2px}
+  .rampkey{display:flex;justify-content:space-between;margin-top:.4rem}
+  .rampkey span{font:400 .72rem/1 var(--sans);color:var(--ink3)}
+  /* 안 만드는 것 */
+  .nots{list-style:none;padding:0;margin:1.2rem 0 0}
+  .nots li{padding:.75rem 0;border-top:1px solid var(--hair);font-size:.95rem}
+  .nots li:first-child{border-top:0}
+  .nots b{color:var(--ink);font-weight:500}
+  .status{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line);
+          border-radius:999px;padding:.5rem .95rem;font:500 .84rem/1 var(--sans);color:var(--ink2)}
+  .status i{width:6px;height:6px;border-radius:50%;background:var(--beacon);display:block}
+  .sili{width:96px;height:96px;border-radius:20px;margin:0 0 1.4rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand"><img src="favicon.png?v=1" alt=""><span>푸실</span></div>
+
+  <header class="hero">
+    <img class="sili" src="sili.png" alt="푸실의 마스코트 실이 — 오트밀색 고양이">
+    <h1>다 읽고 나서가 아니라,<br>읽는 동안.</h1>
+    <p class="lede">
+      굿리즈도 왓챠피디아도 <b>완독 후</b>를 다룹니다. 감상을 올리고, 별점을 매기고, 서로 읽은 책을 셉니다.
+      그런데 <b>읽는 중이 통째로 비어 있습니다.</b> 302쪽에서 문득 멈춘 그 순간에는 아무도 없습니다.
+    </p>
+    <p class="lede">푸실은 <b>책의 쪽마다</b> 이야기가 쌓이는 곳입니다.</p>
+
+    <div class="bar">
+      <canvas id="bc" aria-label="책 한 권을 한 쪽당 한 줄로 그린 페이지 바코드"></canvas>
+      <div class="ends"><span>1</span><span id="last">487</span></div>
+      <p class="caption">
+        책 한 권이 <b>한 쪽당 한 줄</b>입니다. 색은 <b>마지막으로 누가 다녀간 때</b> —
+        방금은 따뜻하고 오래되면 식습니다. 짙기는 <b>거기 얼마나 멈췄나</b>.
+        읽은 데까지만 칠해지고, 그 앞은 <b>불빛만</b> 보입니다.
+      </p>
+    </div>
+  </header>
+
+  <section>
+    <h2>색은 양이 아니라 시간에 걸려 있습니다</h2>
+    <p>
+      스레드가 많은 쪽을 진하게가 아니라 <b>높게</b> 그리면 그건 막대그래프입니다. 처음에 그렇게 그렸다가 버렸습니다.
+      높이를 고르게 두고 <b>색을 시간에</b> 걸자 바가 살아났습니다 — 지금 누가 어디쯤인지가 보입니다.
+    </p>
+    <div class="ramp">
+      <i style="background:var(--t0)"></i><i style="background:var(--t1)"></i>
+      <i style="background:var(--t2)"></i><i style="background:var(--t3)"></i>
+      <i style="background:var(--t4)"></i>
+    </div>
+    <div class="rampkey"><span>방금</span><span>오늘</span><span>이번 주</span><span>지난달</span><span>오래전</span></div>
+  </section>
+
+  <section>
+    <h2>앞쪽은 미지의 땅입니다</h2>
+    <p>
+      아직 안 간 쪽은 내용이 하나도 안 보입니다. 대신 <b>불빛</b>은 보입니다 — 저 앞 어딘가에 몇 명이 멈춰 있다는 것만.
+      이건 스포일러를 막는 장치가 아니라 <b>끌어당기는 장치</b>입니다.
+      막는 것은 사람을 움직이지 못하지만, 빈 땅은 움직입니다.
+    </p>
+    <div class="grid">
+      <div>
+        <h3>아무도 안 연 책은 빈 땅입니다</h3>
+        <p>처음 여는 사람이 판본과 마지막 쪽을 등록하고, <b>이 책을 연 사람</b>으로 남습니다.
+           글을 잘 써서가 아니라 먼저 왔기 때문입니다.</p>
+      </div>
+      <div>
+        <h3>판본이 갈라져도 마을은 하나</h3>
+        <p>좌표를 쪽이 아니라 진도로 저장합니다. 487쪽 판에 남긴 50쪽 글이,
+           520쪽 판을 든 사람에게는 <b>53쪽</b>으로 보입니다.</p>
+      </div>
+      <div>
+        <h3>다 읽으면 영수증이 나옵니다</h3>
+        <p>읽은 날수, 멈춘 곳, <b>1쪽부터 내가 남긴 글</b>. 밖으로 내보낼 수 있는 유일한 물건입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>만들지 않기로 한 것들</h2>
+    <p>없는 기능이 아니라 <b>정한 것</b>입니다. 이게 이 앱의 성격을 만듭니다.</p>
+    <ul class="nots">
+      <li><b>인기순 정렬이 없습니다.</b> 정렬은 쪽 순서 하나뿐입니다.
+          좋아요로 줄을 세우는 순간 <i>혼자 읽다가 문득</i>이 <i>잘 쓴 감상</i>으로 변합니다.</li>
+      <li><b>알림이 없습니다.</b> 설정에도 스위치가 아니라 「없음」이라고 적혀 있습니다.
+          켤 수 있게 두면 언젠가 켜지고, 독서를 깨는 순간 앱이 적이 됩니다.</li>
+      <li><b>무한 피드가 없습니다.</b> 다른 책 이야기가 흘러가면 책 밖으로 끌려 나갑니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>지금</h2>
+    <p style="margin-bottom:1.1rem">
+      만드는 중입니다. App Store 에 올라가면 여기에 받는 곳이 생깁니다.
+    </p>
+    <span class="status"><i></i> 준비 중</span>
+  </section>
+
+  <footer>
+    <div class="wrap" style="padding:0">
+      푸실 — <span class="small">풀(우거진 풀) + 실(마을). 아무도 열지 않은 책이 곧 풀만 우거진 땅입니다.</span><br>
+      <a href="privacy.html">개인정보 처리방침</a> · <a href="https://aiplab.kr">AIP Lab</a> ·
+      <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+// 히어로 바코드. ⚠️ 앱과 **같은 규칙**으로 그린다 — 높이는 균일하고 색이 시간, 짙기가 스레드 수.
+// ⛔ 스레드 수를 높이에 걸지 않는다(그러면 막대그래프다).
+(function () {
+  const TOTAL = 487, READ = 302;          // 이 사람은 302쪽까지 읽었다
+  const c = document.getElementById('bc');
+  const cs = getComputedStyle(document.documentElement);
+  const v = (n) => cs.getPropertyValue(n).trim();
+
+  // 씨앗 고정 난수 — 새로고침해도 같은 그림이어야 한다(무늬가 매번 달라지면 장식처럼 보인다)
+  let s = 20260914;
+  const rnd = () => (s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+
+  const bins = Array.from({ length: TOTAL }, (_, i) => {
+    // 성긴 것이 기본이다. 빈 쪽이 많은 게 결함이 아니라 이 제품의 상태다.
+    const near = Math.exp(-Math.abs(i - 150) / 60) + Math.exp(-Math.abs(i - 290) / 40);
+    const n = rnd() < 0.06 + near * 0.22 ? 1 + Math.floor(rnd() * 4) : 0;
+    return { n, t: Math.floor(rnd() * 5) };
+  });
+
+  function draw() {
+    const w = c.clientWidth, h = c.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+    c.width = w * dpr; c.height = h * dpr;
+    const g = c.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const pw = w / TOTAL, ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+    for (let i = 0; i < TOTAL; i++) {
+      const x = i * pw, b = bins[i];
+      if (i >= READ) {
+        // 미지의 땅 — 내용은 0, 불빛만
+        g.globalAlpha = 1; g.fillStyle = v('--unknown');
+        g.fillRect(x, 0, Math.max(pw, .6), h);
+        if (b.n > 2) { g.globalAlpha = .32; g.fillStyle = v('--beacon');
+                       g.fillRect(x, h * .34, Math.max(pw, .9), h * .32); }
+        continue;
+      }
+      g.globalAlpha = b.n ? Math.min(1, .34 + Math.log2(1 + b.n) * .28) : 1;
+      g.fillStyle = b.n ? ramp[b.t] : v('--empty');
+      g.fillRect(x, 0, Math.max(pw, .6), h);
+    }
+    // 내가 멈춘 자리
+    g.globalAlpha = 1; g.fillStyle = v('--ink');
+    g.fillRect(READ * pw - .6, 0, 1.2, h);
+  }
+  draw();
+  addEventListener('resize', draw);
+  matchMedia('(prefers-color-scheme:dark)').addEventListener('change', draw);
+  document.getElementById('last').textContent = TOTAL;
+})();
+</script>
+</body>
+</html>

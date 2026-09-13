@@ -19,6 +19,7 @@ COPY datgi /srv/datgi
 COPY bajjak /srv/bajjak
 COPY ttobom /srv/ttobom
 COPY toegeun /srv/toegeun
+COPY pusil /srv/pusil
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt

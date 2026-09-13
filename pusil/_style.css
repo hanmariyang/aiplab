@@ -1,0 +1,43 @@
+/* 푸실 랜딩 — 앱과 같은 색을 쓴다(app/theme.ts). 바코드만 색을 갖는다. */
+:root{
+  --paper:#FAFAF8; --surface:#FFFFFF; --line:#E6E6E1; --hair:#EFEFEB;
+  --ink:#151816; --ink2:#6E756F; --ink3:#9AA09B;
+  --t0:#AB3F08; --t1:#C05F1C; --t2:#9C7B5C; --t3:#868D96; --t4:#AEB4B9;
+  --empty:#DCDCD5; --unknown:#EBEBE4; --beacon:#C05F1C;
+  --display:"Gowun Batang",'Apple SD Gothic Neo',serif;
+  --sans:"IBM Plex Sans KR",'Apple SD Gothic Neo',system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E100F; --surface:#161A17; --line:#232824; --hair:#1B201C;
+    --ink:#E7EAE5; --ink2:#98A09A; --ink3:#666D68;
+    --t0:#FFB061; --t1:#E08A5C; --t2:#A2897D; --t3:#6D757F; --t4:#454C56;
+    --empty:#1E231F; --unknown:#141816; --beacon:#FFB061;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E100F; --surface:#161A17; --line:#232824; --hair:#1B201C;
+  --ink:#E7EAE5; --ink2:#98A09A; --ink3:#666D68;
+  --t0:#FFB061; --t1:#E08A5C; --t2:#A2897D; --t3:#6D757F; --t4:#454C56;
+  --empty:#1E231F; --unknown:#141816; --beacon:#FFB061;
+}
+/* 한글은 기본이 음절 단위 줄바꿈이라 한 글자만 떨어지는 줄이 생긴다 */
+body{word-break:keep-all}
+p,li,figcaption,h1,h2,h3,dt,dd,td,th{text-wrap:pretty}
+h1,h2{text-wrap:balance}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink2);font:400 16px/1.75 var(--sans);
+     -webkit-font-smoothing:antialiased;margin:0}
+.wrap{max-width:840px;margin:0 auto;padding:0 clamp(1.2rem,5vw,2rem)}
+h1,h2,h3{color:var(--ink);margin:0}
+a{color:var(--ink)}
+img{display:block;max-width:100%}
+.brand{display:flex;align-items:center;gap:.6rem;padding:clamp(1.6rem,4vw,2.4rem) 0 0}
+.brand img{width:34px;height:34px;border-radius:8px}
+.brand span{font:600 .95rem/1 var(--sans);color:var(--ink);letter-spacing:.01em}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.small{font:400 .8rem/1.6 var(--sans);color:var(--ink3)}
+footer{border-top:1px solid var(--hair);margin-top:clamp(3rem,7vw,5rem);
+       padding:1.6rem 0 3rem;font:400 .82rem/1.8 var(--sans);color:var(--ink3)}
+footer a{color:var(--ink2)}
