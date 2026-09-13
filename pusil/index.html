@@ -27,7 +27,7 @@
   /* ── 레일 ──
      ⚠️ 화면 끝에 붙이면 **고아가 된다.** 책의 판면 옆에 그은 여백 괘선처럼,
         글 기둥 바로 왼쪽에 붙여 하나의 판면으로 읽히게 한다. */
-  :root{ --col:600px; --gut:52px; --railx:calc(50% - (var(--col) / 2) - var(--gut));
+  :root{ --col:600px; --wide:940px; --gut:52px; --railx:calc(50% - (var(--col) / 2) - var(--gut));
          /* ⚠️ 앱의 --unknown(#EBEBE4)은 **다크 지면 기준**이라 이 흰 종이 위에서는 사라진다.
             레일은 여기서 화면이 아니라 **도판**이므로, 뜻은 지키되 보이게 한 단 낮춘다. */
          --track:#E2E2DA; }
@@ -115,6 +115,70 @@
   .no dt:first-child{margin-top:0}
   .no dd{margin:.35rem 0 0;font-size:.92rem;line-height:1.85;color:var(--ink2);max-width:29em}
 
+  /* ── 넓게 터뜨리는 자리 ──
+     ⚠️ 글 기둥은 600 으로 **둔다** — 한 줄 40자는 읽기 좋은 길이고 글에는 그게 맞다.
+     ⛔ 다만 **보여줄 것까지 기둥에 가두지 않는다.** 좁아 보이던 진짜 이유는
+        넓게 놓을 물건이 없었기 때문이다. */
+  .wide{margin-left:calc((var(--col) - min(var(--wide), 92vw)) / 2);
+        width:min(var(--wide), 92vw);max-width:none}
+  @media (max-width:919px){ .wide{margin-left:0;width:100%} }
+
+  /* ── 직접 훑어 보는 바코드 ── */
+  .try{padding:clamp(2rem,5vw,3rem) 0;border-top:1px solid var(--hair)}
+  .try h2{font:400 .76rem/1 var(--sans);color:var(--ink3);letter-spacing:.16em;
+          text-transform:uppercase;margin:0 0 1.1rem}
+  .scrub{touch-action:none;cursor:ew-resize;user-select:none;-webkit-user-select:none;
+         position:relative;padding:10px 0}
+  .scrub canvas{display:block;width:100%;height:64px}
+  .scrub .cur{position:absolute;top:10px;width:1.4px;height:64px;background:var(--ink);
+              opacity:0;pointer-events:none}
+  .sread{display:flex;justify-content:space-between;align-items:baseline;
+         margin-top:.6rem;min-height:1.3em;gap:1rem}
+  .sread .p{font:500 .96rem/1 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+  .sread .w{font:400 .82rem/1 var(--sans);color:var(--ink3);text-align:right}
+  .hint{margin:.9rem 0 0;font:400 .82rem/1.7 var(--sans);color:var(--ink3);max-width:32em}
+
+  /* ── 앱 화면 ── */
+  /* ⚠️ align-items:start 면 두 카드 높이가 갈려 오른쪽이 떠 보인다. 판면을 맞춘다. */
+  .screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+           gap:clamp(1.4rem,3vw,2.4rem);align-items:stretch;margin-top:1.4rem}
+  .screens > div{display:flex;flex-direction:column}
+  .screens .phone{flex:1}
+  .phone{background:var(--paper);border:1px solid var(--line);padding:18px 16px 16px;
+         font:300 13px/1.6 var(--sans)}
+  .phone .back{font:400 11px/1 var(--sans);color:var(--ink3);margin:0 0 12px}
+  .phone .bt{font:400 15px/1.4 var(--sans);color:var(--ink);margin:0}
+  .phone .ba{font:400 11px/1.4 var(--sans);color:var(--ink3);margin:1px 0 12px}
+  .phone canvas{display:block;width:100%;height:38px}
+  .phone .ends{display:flex;justify-content:space-between;margin-top:4px}
+  .phone .ends span{font:400 10px/1 var(--mono);color:var(--ink3)}
+  .phone .pg{display:flex;align-items:baseline;gap:5px;margin:16px 0 0}
+  .phone .pg b{font:200 34px/1 var(--sans);color:var(--ink);font-variant-numeric:tabular-nums}
+  .phone .pg span{font:400 11px/1 var(--sans);color:var(--ink3)}
+  .phone .pg .fix{margin-left:auto;border:1px solid var(--line);padding:3px 7px;
+                  font:400 10px/1.3 var(--sans);color:var(--ink3)}
+  .phone .near{display:flex;align-items:center;gap:6px;margin-top:11px;padding-top:10px;
+               border-top:1px solid var(--hair);font:400 11px/1.4 var(--sans);color:var(--ink2)}
+  .phone .near i{width:4px;height:4px;border-radius:50%;background:var(--beacon);flex:none}
+  .phone .n{padding:9px 0;border-top:1px solid var(--hair)}
+  .phone .n .m{font:400 10px/1 var(--sans);color:var(--ink3)}
+  .phone .n .q{font:400 13px/1.7 var(--display);color:var(--ink);margin-top:3px}
+  .phone .n .t{font:400 10px/1 var(--sans);color:var(--ink3);margin-top:6px}
+  .phone .btn{margin-top:12px;background:var(--ink);color:var(--paper);text-align:center;
+              padding:11px;font:400 12px/1 var(--sans)}
+  .cap{margin:.7rem 0 0;font:400 .78rem/1.6 var(--sans);color:var(--ink3)}
+
+  /* ── 판본 변환 ── */
+  .ed{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(.8rem,2vw,1.6rem);
+      align-items:center;margin-top:1.3rem;max-width:34em}
+  .ed .b{border-top:1px solid var(--line);padding-top:.7rem}
+  .ed .b .t{font:400 .76rem/1.4 var(--sans);color:var(--ink3)}
+  .ed .b .v{font:500 1.05rem/1.3 var(--mono);color:var(--ink);margin-top:.15rem;
+            font-variant-numeric:tabular-nums}
+  .ed .arrow{font:400 .9rem/1 var(--sans);color:var(--ink3);padding-top:.7rem}
+  @media (max-width:520px){ .ed{grid-template-columns:1fr;max-width:none}
+                            .ed .arrow{display:none} }
+
   /* ── 끝 ── */
   .end{padding:clamp(2.4rem,6vw,3.4rem) 0 0;border-top:1px solid var(--hair)}
   .end .sili{width:72px;height:72px;margin:0 0 1.3rem;border-radius:16px}
@@ -194,6 +258,85 @@
     <p class="too"><b>나도</b>  ·  2명도</p>
   </article>
 
+
+  <!-- ⭐ 이 제품의 서명 같은 동작. 말로 설명하는 대신 **손에 쥐여 준다.** -->
+  <section class="try wide">
+    <h2>직접 훑어 보세요</h2>
+    <div class="scrub" id="scrub">
+      <canvas id="sc" aria-label="끌어서 쪽을 고르는 바코드"></canvas>
+      <div class="cur" id="scur"></div>
+    </div>
+    <div class="sread">
+      <span class="p" id="sp">눌러서 끌어 보세요</span>
+      <span class="w" id="sw"></span>
+    </div>
+    <p class="hint">
+      탭으로는 못 고릅니다 — 손가락 하나에 <b>48쪽</b>이 잡히니까요.
+      그런데 <b>누르고 끌면</b> 확정이 손을 뗄 때로 미뤄지고, 그 사이 쪽 번호가 계속 보입니다.
+      48쪽 오차가 <b>고칠 수 있는 오차</b>가 됩니다.
+      앱에서는 손가락을 <b>아래로 내릴수록 배율이 줄어</b> 1200쪽 책에서도 한 쪽을 집습니다.
+    </p>
+  </section>
+
+  <section class="try wide">
+    <h2>이 화면이 하는 말은 둘뿐</h2>
+    <div class="screens">
+      <div>
+        <div class="phone">
+          <p class="back">←  서재</p>
+          <p class="bt">파친코 1</p>
+          <p class="ba">이민진</p>
+          <canvas id="pc"></canvas>
+          <div class="ends"><span>1</span><span>487</span></div>
+          <div class="pg"><b>302</b><span>쪽</span><span class="fix">고치기</span></div>
+          <div class="near"><i></i>지금 이 근처를 3명이 지나고 있다</div>
+          <div class="n">
+            <div class="m">이월 · 294쪽 · 2시간 전</div>
+            <div class="q">이 문장 때문에 페이지를 접었다.</div>
+            <div class="t">나도 ✓  ·  7명도</div>
+          </div>
+          <div class="n">
+            <div class="m">나 · 301쪽 · 방금</div>
+            <div class="q">여기서 숨을 골랐다.</div>
+          </div>
+          <div class="btn">여기 남기기</div>
+        </div>
+        <p class="cap"><b>혼자가 아니라는 것</b>과 <b>내가 어디쯤인지</b>.
+           여기에 다른 걸 더하지 않습니다 — 읽다 말고 드는 화면이라 읽을 거리가 많으면 안 됩니다.</p>
+      </div>
+      <div>
+        <div class="phone" style="display:flex;flex-direction:column;justify-content:center">
+          <div style="text-align:center;font:400 10px/1 var(--sans);color:var(--ink3);
+                      letter-spacing:.42em;padding-left:.42em">PUSIL</div>
+          <div style="border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;text-align:center">
+            <div style="font:400 15px/1.4 var(--display);color:var(--ink)">파친코 1</div>
+            <div style="font:400 11px/1.4 var(--sans);color:var(--ink3)">이민진</div>
+          </div>
+          <div style="border-top:1px dashed var(--line);margin-top:10px;padding-top:10px">
+            <div class="near" style="border:0;padding:0;margin:0;justify-content:space-between;font-family:var(--sans)">
+              <span>읽은 날수</span><b style="font:400 11px/1 var(--mono);color:var(--ink)">23일</b></div>
+            <div class="near" style="border:0;padding:0;margin:2px 0 0;justify-content:space-between">
+              <span>멈춘 곳</span><b style="font:400 11px/1 var(--mono);color:var(--ink)">14</b></div>
+            <div class="near" style="border:0;padding:0;margin:2px 0 0;justify-content:space-between">
+              <span>같은 곳을 지난 사람</span><b style="font:400 11px/1 var(--mono);color:var(--ink)">6</b></div>
+          </div>
+          <div style="border-top:1px dashed var(--line);margin-top:10px;padding-top:10px">
+            <div class="n" style="border:0;padding:4px 0">
+              <div class="m">31쪽</div>
+              <div class="q" style="font-size:12px">고향이 어디냐고 묻는 장면에서 오래 멈췄다.</div>
+            </div>
+            <div class="n" style="padding:4px 0">
+              <div class="m">118쪽</div>
+              <div class="q" style="font-size:12px">여기서 한 번 덮었다.</div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">다 읽으면 나오는 <b>영수증</b>. 1쪽부터 내가 남긴 글이 쪽 순으로 섭니다.
+           <a href="r/98-ZP2GR1GAAo1An3OMlDQ">실제로 만들어진 것 보기 →</a></p>
+      </div>
+    </div>
+  </section>
+
   <section class="aside">
     <h2>판본이 갈라져도 마을은 하나</h2>
     <p>
@@ -201,6 +344,11 @@
       520쪽 판을 든 사람에게는 <b>53쪽</b>으로 보입니다.
       번역도 출판사도 달라도 사람은 흩어지지 않습니다.
     </p>
+    <div class="ed">
+      <div class="b"><div class="t">인플루엔셜 판 · 487쪽</div><div class="v">50쪽에 남긴 글</div></div>
+      <div class="arrow">→</div>
+      <div class="b"><div class="t">다른 판 · 520쪽</div><div class="v">53쪽으로 보인다</div></div>
+    </div>
   </section>
 
   <article class="note" data-page="294">
@@ -343,7 +491,114 @@
   const rc = document.getElementById('rc'), tc = document.getElementById('tc');
   const mark = document.getElementById('mark'), no = mark.querySelector('.no');
 
-  function draw() { paint(rc, true); paint(tc, false); paintRamp(); }
+  // ── 직접 훑어 보는 바코드 ─────────────────────────────────────────
+  //
+  // ⚠️ 앱의 규칙을 그대로 따른다 — 손을 댄 자리를 절대 좌표로 읽고, 이후는 상대 이동.
+  // ⛔ 탭으로 확정하지 않는다. 확정이 **뗄 때로 미뤄지는 것**이 이 동작의 전부다.
+  const SEEN = 302;                       // 이 사람이 읽은 데까지
+  const sc = document.getElementById('sc'), scur = document.getElementById('scur');
+  const sp = document.getElementById('sp'), sw = document.getElementById('sw');
+  const box = document.getElementById('scrub');
+
+  function paintScrub() {
+    const w = sc.clientWidth, h = sc.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    sc.width = w * dpr; sc.height = h * dpr;
+    const g = sc.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const step = w / TOTAL;
+    const ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+    for (let i = 0; i < TOTAL; i++) {
+      const b = bins[i], x = i * step, len = Math.max(step, 0.7);
+      if (i >= SEEN) {
+        g.globalAlpha = 1; g.fillStyle = v('--track'); g.fillRect(x, 0, len, h);
+        if (b.n > 3) { g.globalAlpha = .34; g.fillStyle = v('--beacon');
+                       g.fillRect(x, h * .34, Math.max(step, 1.1), h * .32); }
+        continue;
+      }
+      g.globalAlpha = b.n ? Math.min(1, .34 + Math.log2(1 + b.n) * .28) : 1;
+      g.fillStyle = b.n ? ramp[b.t] : v('--empty');
+      g.fillRect(x, 0, len, h);
+    }
+    g.globalAlpha = 1; g.fillStyle = v('--ink');
+    g.fillRect((SEEN / TOTAL) * w - .6, 0, 1.2, h);      // 내가 멈춘 자리
+  }
+
+  (function scrub() {
+    let on = false, pos = 0, lastX = 0, x0 = 0, px0 = 0, py0 = 0;
+    const at = (p) => Math.max(0, Math.min(1, p));
+    // 손가락을 아래로 내릴수록 배율이 준다(앱과 같은 규약)
+    const scaleFor = (dy) => (Math.abs(dy) < 24 ? 1 : Math.max(0.08, 24 / Math.abs(dy)));
+
+    function show() {
+      const w = sc.clientWidth;
+      const page = Math.max(1, Math.min(TOTAL, Math.ceil(pos * TOTAL)));
+      scur.style.left = (pos * w) + 'px';
+      scur.style.opacity = '1';
+      sp.textContent = page + '쪽';
+      const b = bins[page - 1];
+      const n = b ? b.n : 0;
+      // ⚠️ 미지의 땅에서도 **불빛(몇 명 멈췄나)** 은 보인다 — 내용만 안 보인다
+      sw.textContent = page > SEEN
+        ? (n ? n + '명이 멈췄다 · 아직 안 간 곳' : '아직 안 간 곳')
+        : (n ? n + '명이 멈췄다' : '아직 조용하다');
+    }
+    function down(e) {
+      const t = e.touches ? e.touches[0] : e;
+      const r = sc.getBoundingClientRect();
+      on = true; x0 = t.clientX - r.left; px0 = t.clientX; py0 = t.clientY; lastX = x0;
+      pos = at(x0 / r.width); show();
+      if (e.cancelable) e.preventDefault();
+    }
+    function move(e) {
+      if (!on) return;
+      const t = e.touches ? e.touches[0] : e;
+      const r = sc.getBoundingClientRect();
+      const x = x0 + (t.clientX - px0);
+      pos = at(pos + ((x - lastX) / r.width) * scaleFor(t.clientY - py0));
+      lastX = x; show();
+      if (e.cancelable) e.preventDefault();
+    }
+    function up() {
+      if (!on) return;
+      on = false; scur.style.opacity = '0';
+      // ⛔ 뗀다고 아무것도 확정되지 않는다. 훑어본 것뿐이다(앱의 동반 화면과 같다).
+      sp.textContent = '눌러서 끌어 보세요'; sw.textContent = '';
+    }
+    box.addEventListener('mousedown', down);
+    addEventListener('mousemove', move);
+    addEventListener('mouseup', up);
+    box.addEventListener('touchstart', down, { passive: false });
+    box.addEventListener('touchmove', move, { passive: false });
+    addEventListener('touchend', up);
+  })();
+
+  // 앱 화면 안의 작은 바코드
+  function paintPhone() {
+    const cv = document.getElementById('pc');
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr;
+    const g = cv.getContext('2d'); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const step = w / TOTAL, ramp = [v('--t0'), v('--t1'), v('--t2'), v('--t3'), v('--t4')];
+    for (let i = 0; i < TOTAL; i++) {
+      const b = bins[i], x = i * step, len = Math.max(step, 0.6);
+      if (i >= SEEN) {
+        g.globalAlpha = 1; g.fillStyle = v('--track'); g.fillRect(x, 0, len, h);
+        if (b.n > 3) { g.globalAlpha = .34; g.fillStyle = v('--beacon');
+                       g.fillRect(x, h * .34, Math.max(step, 1), h * .32); }
+        continue;
+      }
+      g.globalAlpha = b.n ? Math.min(1, .34 + Math.log2(1 + b.n) * .28) : 1;
+      g.fillStyle = b.n ? ramp[b.t] : v('--empty');
+      g.fillRect(x, 0, len, h);
+    }
+    g.globalAlpha = 1; g.fillStyle = v('--ink');
+    g.fillRect((SEEN / TOTAL) * w - .5, 0, 1, h);
+  }
+
+  function draw() { paint(rc, true); paint(tc, false); paintRamp(); paintScrub(); paintPhone(); }
 
   function onScroll() {
     const doc = document.documentElement;
