@@ -143,6 +143,16 @@
   .sread .w{font:400 .82rem/1 var(--sans);color:var(--ink3);text-align:right}
   .hint{margin:.9rem 0 0;font:400 .82rem/1.7 var(--sans);color:var(--ink3);max-width:32em}
 
+  /* ── 실제 화면 ──
+     ⚠️ 아래 「이 화면이 하는 말은 둘뿐」의 동반 화면은 **그린 것**이다(바코드를 보여야 해서).
+        여기 넷은 **실제로 앱을 띄워 찍은 것**이다. 섞어 놓지 않고 절을 나눈 이유다. */
+  .real{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));
+        gap:clamp(1rem,2.5vw,1.8rem);margin-top:1.5rem}
+  .real figure{margin:0}
+  .real img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+  .real figcaption{margin:.6rem 0 0;font:400 .8rem/1.6 var(--sans);color:var(--ink3)}
+  .real figcaption b{display:block;color:var(--ink2);font-weight:500}
+
   /* ── 앱 화면 ── */
   /* ⚠️ align-items:start 면 두 카드 높이가 갈려 오른쪽이 떠 보인다. 판면을 맞춘다. */
   .screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -283,8 +293,26 @@
     </p>
   </section>
 
+
+  <section class="try wide">
+    <h2>실제 화면</h2>
+    <div class="real">
+      <figure><img src="shots/01-시작.jpg" alt="푸실 시작 화면">
+        <figcaption><b>처음 열면</b>한 문장으로 말하고 끝낸다. 넘길 튜토리얼이 없다.</figcaption></figure>
+      <figure><img src="shots/06-서재.jpg" alt="서재">
+        <figcaption><b>서재</b>담은 책과 진도. 「아직 나만 읽고 있다」도 그대로 적는다.</figcaption></figure>
+      <figure><img src="shots/10-1-들여다보기.jpg" alt="지나온 쪽">
+        <figcaption><b>지나온 쪽</b>바코드를 훑어 그 쪽을 열면 거기 멈춘 사람들의 글이 나온다.</figcaption></figure>
+      <figure><img src="shots/09-남기기.jpg" alt="남기기">
+        <figcaption><b>남기기</b>어느 쪽에 붙는지 눌리기 전에 보인다. 「나만 보기」도 여기서.</figcaption></figure>
+    </div>
+  </section>
+
   <section class="try wide">
     <h2>이 화면이 하는 말은 둘뿐</h2>
+    <p class="hint" style="margin:0 0 .2rem">
+      아래 둘은 <b>그린 것</b>입니다 — 바코드의 온도를 보여주려면 그래야 합니다. 위 넷은 실제 화면입니다.
+    </p>
     <div class="screens">
       <div>
         <div class="phone">
