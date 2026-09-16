@@ -60,6 +60,8 @@ var KO = {
     p_dl:"내려받기 ↓",
     tb_as:"App Store ↓",
     dg_as:"App Store ↓",
+    bj_as:"App Store ↓",
+    bj_dl:"내려받기 ↓",
     v_head:"&gt; 가족이 함께 지키는 것",
     v1t:"셀프호스트",
     v1d:"내 컴퓨터에서 실행",
