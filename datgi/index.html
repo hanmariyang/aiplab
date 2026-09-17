@@ -109,6 +109,41 @@
   .rule h3{font:600 1rem/1.45 var(--sans)}
   .rule p{margin:.55rem 0 0;font-size:.9rem;font-weight:300}
 
+  /* ── 모임 (1.1) ── */
+  .modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;
+         background:var(--line);border:1px solid var(--line);border-radius:12px;
+         overflow:hidden;margin:2.6rem 0 0}
+  .mode{background:var(--paper);padding:1.6rem 1.5rem}
+  .mode h3{font:600 1.05rem/1.45 var(--sans)}
+  .mode .md{margin:.5rem 0 0;font-size:.92rem;font-weight:300}
+  /* 진행 막대 — 실제 화면의 스크린샷이 아니라 구조를 옮긴 그림이다 */
+  .tk{margin:1.4rem 0 0;font-variant-numeric:tabular-nums}
+  .tk-hd{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+         font:500 .78rem/1.5 var(--mono);color:var(--muted)}
+  .tk-hd b{color:var(--ink);font-weight:600}
+  .tk-line{position:relative;height:26px;margin:.5rem 0 0}
+  .tk-base{position:absolute;left:0;right:0;top:11px;height:3px;border-radius:2px;background:var(--line)}
+  .tk-run{position:absolute;left:0;top:11px;height:3px;border-radius:2px;background:var(--coral)}
+  .tk-ms{position:absolute;top:8px;width:9px;height:9px;border-radius:50%;
+         background:var(--paper);border:2px solid var(--line);transform:translateX(-50%)}
+  .tk-ms.on{border-color:var(--coral)}
+  .tk-you{position:absolute;top:2px;transform:translateX(-50%);
+          width:21px;height:21px;border-radius:50%;background:var(--coral);
+          border:3px solid var(--paper);box-shadow:0 2px 6px var(--shadow)}
+  .tk-who{position:absolute;top:2px;transform:translateX(-50%);
+          width:21px;height:21px;border-radius:50%;background:var(--ink);
+          border:3px solid var(--paper);color:var(--paper);
+          font:600 9px/15px var(--sans);text-align:center}
+  .tk-who.me{background:var(--coral)}
+  .tk-names{display:flex;justify-content:space-between;margin:.35rem 0 0;
+            font:400 .72rem/1.5 var(--sans);color:var(--muted)}
+  .tk-sum{margin:.7rem 0 0;font:400 .82rem/1.6 var(--sans);color:var(--body)}
+  .tk-sum b{color:var(--ink);font-weight:600}
+  .soon{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+        border:1px solid var(--line);border-radius:12px;padding:1rem 1.3rem;margin:2rem 0 0}
+  .soon .s1{font:600 .95rem/1.5 var(--sans);color:var(--ink)}
+  .soon .s2{font:400 .82rem/1.6 var(--sans);color:var(--muted)}
+
   footer{border-top:1px solid var(--line);padding:2.4rem 0 4rem;margin-top:2rem;
          font:400 .82rem/1.9 var(--sans);color:var(--muted);
          display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between}
@@ -209,6 +244,62 @@
       <img src="assets/aa30477217.png" alt="뛰어오르는 강아지 마스코트">
       <img src="assets/f33d045469.png" alt="만세하는 강아지 마스코트">
       <img src="assets/277504a514.png" alt="자고 있는 강아지 마스코트">
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker">모임 · 1.1 준비 중</p>
+    <h2>혼자 깎던 길을<br>몇이서 갑니다</h2>
+    <p class="say">아는 사람 몇을 불러 같은 길을 같이 갑니다. 초대코드를 받은 사람만 들어오고, 공개된 목록은 없습니다.</p>
+
+    <div class="modes">
+      <div class="mode">
+        <h3>같이 닿기</h3>
+        <p class="md">모두의 거리를 하나로 더해 함께 도착합니다. 넷이 가면 넉 달이 한 달이 됩니다.</p>
+        <div class="tk">
+          <div class="tk-hd"><b>서울 → 부산</b><span>268 / 418 km</span></div>
+          <div class="tk-line">
+            <span class="tk-base"></span>
+            <span class="tk-run" style="width:64%"></span>
+            <span class="tk-ms on" style="left:9%"></span>
+            <span class="tk-ms on" style="left:36%"></span>
+            <span class="tk-ms" style="left:78%"></span>
+            <span class="tk-ms" style="left:100%"></span>
+            <span class="tk-you" style="left:64%"></span>
+          </div>
+          <div class="tk-names"><span>수원</span><span>대전</span><span>대구</span><span>부산</span></div>
+          <p class="tk-sum">이번 주 <b>민 42</b> · <b>지혜 31</b> · <b>나 18</b></p>
+        </div>
+      </div>
+
+      <div class="mode">
+        <h3>나란히</h3>
+        <p class="md">각자 같은 길을 달리고, 서로 어디쯤인지 보입니다. 등수 대신 소식으로 보여줍니다.</p>
+        <div class="tk">
+          <div class="tk-hd"><b>서울 → 부산</b><span>각자 418 km</span></div>
+          <div class="tk-line">
+            <span class="tk-base"></span>
+            <span class="tk-ms" style="left:9%"></span>
+            <span class="tk-ms" style="left:36%"></span>
+            <span class="tk-ms" style="left:78%"></span>
+            <span class="tk-ms" style="left:100%"></span>
+            <span class="tk-who" style="left:20%">혜</span>
+            <span class="tk-who me" style="left:45%">나</span>
+            <span class="tk-who" style="left:70%">민</span>
+          </div>
+          <div class="tk-names"><span>수원</span><span>대전</span><span>대구</span><span>부산</span></div>
+          <p class="tk-sum">민이 <b>대전</b>을 지났어요</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="say" style="margin-top:2rem">담기는 예전 그대로입니다. 연결이 없어도 늘 성공하고, 모임에 든 경우에만 사본이 뒤따라 올라갑니다. 올라가는 것은 거리·시간·야외/실내·담은 시각뿐이고 <b>경로도 위치도 보내지 않습니다.</b> 모임을 쓰지 않으면 계정조차 만들지 않습니다.</p>
+
+    <div class="soon">
+      <span>
+        <span class="s1">아직 준비 중입니다</span><br>
+        <span class="s2">1.1 이 심사를 기다리고 있습니다. 나오면 지금 쓰시는 앱이 그대로 업데이트됩니다.</span>
+      </span>
     </div>
   </section>
 
