@@ -67,7 +67,7 @@
 </head><body><main>
 
 <h1>닿기 개인정보 처리방침</h1>
-<p class="meta">시행일 2026년 9월 16일 · 버전 1.1 (이전 버전 1.0 — 2026년 9월 5일)</p>
+<p class="meta">시행일 2026년 9월 18일 · 버전 1.2 (이전 버전 1.1 — 2026년 9월 16일)</p>
 
 <div class="lead">
 <p>닿기는 <strong>혼자 쓰는 동안 아무것도 수집하지 않습니다.</strong> 계정도 만들지 않고 서버도 부르지 않습니다.</p>
@@ -83,6 +83,7 @@
     <tr><th scope="row">모임에서 보일 이름(닉네임)</th><td>모임을 만들거나 들어갈 때 이용자가 직접 적음</td><td>멤버 목록에 누구인지 보이려고</td></tr>
     <tr><th scope="row">러닝 기록(거리·시간·야외/실내·담은 시각)</th><td>모임에 든 뒤 담은 기록만</td><td>모임의 진행을 합치고 보여주려고</td></tr>
     <tr><th scope="row">모임 정보(이름·방식·여정 종류·초대코드)</th><td>모임을 만들 때</td><td>모임을 유지하려고</td></tr>
+    <tr><th scope="row">푸시 알림 토큰(기기 식별자)</th><td><strong>모임 소식 알림을 켰을 때만</strong></td><td>모임원이 이정표를 지나거나 도착했을 때 알리려고</td></tr>
   </tbody>
 </table></div>
 <p><strong>요구하지 않는 것:</strong> 실명 · 이메일 · 전화번호 · 생년월일 · 성별 · 주소록 · 사진 · 위치 · 광고 식별자(IDFA). 분석·추적 도구를 넣지 않았고, 앱 추적 권한(ATT)을 요청하지 않습니다.</p>
@@ -107,11 +108,16 @@
 
 <h2>4. 위치 정보</h2>
 <p>닿기는 <strong>위치를 추적하지 않습니다.</strong> 달리는 동안 GPS를 켜지 않으며, 거리와 시간은 이용자가 직접 입력합니다. 모임에도 위치를 보내지 않습니다.</p>
-<p>위치와 관련해 일어나는 일은 하나뿐입니다. <strong>여행지를 지도에서 고를 때</strong>, 지도를 보여주고 고른 지점의 지명을 찾기 위해 검색어와 좌표가 <strong>애플의 지도·지오코딩 서비스로 전달</strong>됩니다. 이는 iOS에 내장된 기능이며, 이때는 <a href="https://www.apple.com/legal/privacy/kr/">애플의 개인정보 처리방침</a>이 적용됩니다.</p>
+<p>1.2부터 여정과 모임 화면은 <strong>애플 지도</strong> 위에 경로를 그립니다. 지도를 그리려고 애플의 지도 서비스에서 <strong>화면에 보이는 지역의 타일</strong>을 받아 오지만, 이때도 이용자의 위치는 쓰지도 보내지도 않습니다 — 그리는 경로는 앱 안에 들어 있는 여행 코스의 좌표입니다. 지도가 부담스러우면 설정에서 <strong>그림 지도</strong>로 바꿀 수 있습니다.</p>
+<p>그 밖에 위치와 관련해 일어나는 일은 하나뿐입니다. <strong>여행지를 지도에서 고를 때</strong>, 지도를 보여주고 고른 지점의 지명을 찾기 위해 검색어와 좌표가 <strong>애플의 지도·지오코딩 서비스로 전달</strong>됩니다. 이는 iOS에 내장된 기능이며, 이때는 <a href="https://www.apple.com/legal/privacy/kr/">애플의 개인정보 처리방침</a>이 적용됩니다.</p>
 <p>고르고 난 뒤 앱이 저장하는 것은 <strong>총거리와 화면에 그릴 정규화 좌표, 이정표 이름</strong>뿐입니다. 실제 위경도는 저장하지 않습니다.</p>
 
 <h2>5. 알림</h2>
-<p>알림은 <strong>기기 안에서만 예약되는 로컬 알림</strong>입니다. 푸시 알림을 쓰지 않으므로 기기 토큰을 발급받거나 서버로 보내지 않습니다. 설정에서 언제든 끌 수 있습니다.</p>
+<p>알림은 <strong>두 가지</strong>입니다. 둘 다 설정에서 언제든 끌 수 있습니다.</p>
+<ul>
+  <li><strong>달리기 알림</strong> — 정해 둔 시각에 <strong>기기 안에서만</strong> 예약되는 로컬 알림입니다. 서버를 부르지 않습니다.</li>
+  <li><strong>모임 소식 알림</strong>(1.2부터) — 모임원이 <strong>이정표를 지나거나 도착했을 때만</strong> 울립니다. 이 알림을 켜면 iOS가 발급한 <strong>푸시 토큰</strong>이 모임 서버에 저장되고, 알림을 보낼 때 <a href="https://expo.dev/privacy">Expo(Expo Push Service)</a>를 거쳐 애플의 푸시 서버로 전달됩니다. 알림에는 <strong>누가 어디를 지났는지만</strong> 담기며 위치·경로·기록 내용은 담기지 않습니다. 끄면 저장해 둔 토큰을 지웁니다. 하루에 모임당 <strong>두 번</strong>을 넘지 않습니다.</li>
+</ul>
 
 <h2>6. 제3자 제공과 처리위탁</h2>
 <p>개인정보를 <strong>판매하거나 광고 목적으로 제공하지 않습니다.</strong> 서비스를 돌리기 위한 위탁만 있습니다.</p>
@@ -119,7 +125,8 @@
   <thead><tr><th scope="col">수탁자</th><th scope="col">무엇을</th><th scope="col">어디서</th></tr></thead>
   <tbody>
     <tr><th scope="row">Cloudflare, Inc.</th><td>모임 서버(Workers)와 데이터베이스(D1) 운영</td><td>미국을 포함한 Cloudflare 글로벌 인프라</td></tr>
-    <tr><th scope="row">Apple Inc.</th><td>여행지를 고를 때의 지도·지오코딩(OS 기능)</td><td>애플의 처리방침에 따름</td></tr>
+    <tr><th scope="row">Apple Inc.</th><td>지도 표시와, 여행지를 고를 때의 지오코딩(OS 기능)</td><td>애플의 처리방침에 따름</td></tr>
+    <tr><th scope="row">650 Industries, Inc.(Expo)</th><td><strong>모임 소식 알림을 켰을 때만</strong> — 푸시 알림 전달</td><td>미국</td></tr>
   </tbody>
 </table></div>
 
