@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.png">
+<title>오프더데이 개인정보 처리방침</title>
+<meta name="description" content="오프더데이는 개인정보를 수집하지 않습니다. 계정도 서버도 네트워크도 없는 사진 일기 앱의 개인정보 처리방침.">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#1A1B1D; --body:#3B4046; --sub:#8A9096;
+    --line:#E7E7E7; --line2:#F7F7F7;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#1A1B1D; --ink:#FFFFFF; --body:#C3C7CC; --sub:#878C92;
+    --line:#3A3B3F; --line2:#26272A; color-scheme:dark; } }
+  :root[data-theme="dark"]{
+    --bg:#1A1B1D; --ink:#FFFFFF; --body:#C3C7CC; --sub:#878C92;
+    --line:#3A3B3F; --line2:#26272A; color-scheme:dark; }
+  *{box-sizing:border-box}
+  body{margin:0;padding:4rem 1.4rem 7rem;background:var(--bg);color:var(--body);
+       font:400 16px/1.8 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+  main{max-width:34em;margin:0 auto}
+  h1{font-size:1.75rem;line-height:1.3;color:var(--ink);margin:0 0 .5rem;
+     letter-spacing:-.022em;font-weight:800;text-wrap:balance}
+  .meta{color:var(--sub);font-size:.82rem;margin:0 0 3rem}
+  h2{font-size:1.02rem;line-height:1.5;color:var(--ink);margin:3rem 0 .7rem;
+     letter-spacing:-.012em;font-weight:700;text-wrap:balance}
+  h2:first-of-type{margin-top:0}
+  p{margin:0 0 1.05rem}
+  strong{color:var(--ink);font-weight:600}
+  code{font:600 .88em/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+       background:var(--line2);padding:.15em .4em;border-radius:5px}
+  a{color:var(--ink);text-underline-offset:.2em;text-decoration-thickness:1px}
+  ul{margin:0 0 1.05rem;padding-left:1.1rem}
+  li{margin:.35rem 0;padding-left:.15rem}
+  li::marker{color:var(--sub)}
+  .wrap{overflow-x:auto;margin:0 0 1.05rem;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;min-width:19em;font-size:.94rem}
+  th,td{text-align:left;padding:.62rem .9rem .62rem 0;border-bottom:1px solid var(--line2);vertical-align:top}
+  th{color:var(--ink);font-weight:600;white-space:nowrap;padding-right:1.6rem}
+  thead th{border-bottom:1px solid var(--line);font-size:.78rem;letter-spacing:.06em;
+           text-transform:uppercase;color:var(--sub);font-weight:600}
+  .lede{font-size:1.06rem;color:var(--ink);border-left:2px solid var(--ink);
+        padding-left:1rem;margin:0 0 2.6rem}
+  footer{margin-top:4rem;padding-top:1.6rem;border-top:1px solid var(--line);
+         font-size:.86rem;color:var(--sub)}
+</style>
+</head><body>
+<main>
+  <h1>오프더데이 개인정보 처리방침</h1>
+  <p class="meta">최종 수정 2026년 9월 18일</p>
+
+  <p class="lede">오프더데이는 개인정보를 <strong>수집하지 않습니다</strong>.
+  계정이 없고, 서버가 없고, 네트워크를 쓰지 않습니다.</p>
+
+  <h2>수집하는 정보</h2>
+  <p><strong>없습니다.</strong> 이름·이메일·전화번호·위치·기기 식별자 어느 것도 받지 않습니다.
+  회원가입이 없고 로그인이 없습니다.</p>
+
+  <h2>내가 쓴 일기와 사진은 어디에 있나</h2>
+  <p>일기 글과 넣은 사진은 전부 <strong>이 기기 안</strong>, 앱의 문서 폴더에만 저장됩니다.
+  글은 데이터베이스 파일 한 개(<code>diary.db</code>)에, 사진은 앱 안으로 복사한 사본으로 들어갑니다.
+  어디로도 전송되지 않습니다.</p>
+  <p>기기를 iCloud 로 백업하면 이 파일들도 함께 백업됩니다. 그것은 Apple 과 이용자 사이의 일이고,
+  오프더데이는 그 백업에 접근할 수 없습니다.</p>
+
+  <h2>네트워크</h2>
+  <p>오프더데이는 <strong>인터넷에 연결하지 않습니다.</strong> 분석 도구, 광고 SDK, 크래시 리포터,
+  원격 설정, 앱 안 업데이트 어느 것도 넣지 않았습니다. 비행기 모드에서 모든 기능이 똑같이 동작합니다.</p>
+
+  <h2>권한</h2>
+  <div class="wrap"><table>
+    <thead><tr><th>무엇</th><th>언제</th><th>무엇을 받나</th></tr></thead>
+    <tbody>
+      <tr><td>사진</td><td>요청하지 않음</td><td>시스템 사진 선택기를 씁니다. 이용자가 고른 사진만 앱에 전달되고,
+        사진 보관함 전체에 접근하지 않습니다</td></tr>
+      <tr><td>Face ID</td><td>설정에서 잠금을 켤 때만</td><td>확인 성공 여부만 받습니다.
+        얼굴 정보는 iOS 가 기기 안에서 처리하며 앱에 전달되지 않습니다</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>공유와 내보내기</h2>
+  <p>공유 카드와 내보내기 파일은 <strong>이용자가 직접 고른 곳으로만</strong> 나갑니다.
+  iOS 공유 시트를 거치며, 오프더데이가 따로 보내는 곳은 없습니다.
+  공유 카드 이미지는 앱이 새로 그린 그림이라 사진의 위치 정보(EXIF)가 들어가지 않습니다.</p>
+
+  <h2>제3자 제공</h2>
+  <p><strong>없습니다.</strong> 전달할 데이터 자체가 없습니다.</p>
+
+  <h2>보관과 삭제</h2>
+  <div class="wrap"><table>
+    <thead><tr><th>무엇</th><th>어디</th><th>어떻게 지우나</th></tr></thead>
+    <tbody>
+      <tr><td>하루의 일기와 사진</td><td>이 기기</td><td>그날 화면에서 「지우기」. 30일 동안 「지운 일기」에 있다가 사진까지 함께 지워집니다</td></tr>
+      <tr><td>지운 일기</td><td>이 기기</td><td>30일이 지나면 저절로 지워집니다</td></tr>
+      <tr><td>전부</td><td>이 기기</td><td>앱을 삭제하면 함께 지워집니다</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>아동</h2>
+  <p>오프더데이는 아동을 대상으로 하지 않으며, 누구에게서도 개인정보를 수집하지 않습니다.</p>
+
+  <h2>변경</h2>
+  <p>이 방침이 바뀌면 이 페이지의 최종 수정일이 바뀝니다.
+  수집하는 정보가 생기는 변경은 앱 업데이트 안내에도 함께 적습니다.</p>
+
+  <h2>문의</h2>
+  <p>문의는 <a href="mailto:gc.yang@teamsparta.co">gc.yang@teamsparta.co</a> 로 보내주세요.</p>
+
+  <footer>AIP Lab · 오프더데이</footer>
+</main>
+</body></html>
