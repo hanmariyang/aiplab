@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>닿기 모임 초대</title>
+<meta name="description" content="초대코드를 받아 닿기 모임에 들어가세요.">
+<style>
+  :root{ --paper:#fff; --ink:#0B0B0C; --body:#3A3D42; --muted:#8E9096; --line:#E7E8EA; }
+  @media (prefers-color-scheme:dark){ :root{ --paper:#0E0F11; --ink:#ECEDEF; --body:#C4C7CC; --muted:#8B8E95; --line:#282B30; } }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.7;
+    font-family:'Apple SD Gothic Neo',system-ui,-apple-system,sans-serif;word-break:keep-all;
+    display:flex;align-items:center;justify-content:center;min-height:100svh;padding:24px}
+  main{width:100%;max-width:420px;text-align:center}
+  h1{font-size:1.5rem;margin:0 0 .3rem;letter-spacing:-.02em}
+  p{color:var(--body);margin:0 0 1.6rem}
+  .code{font-family:ui-monospace,Menlo,monospace;font-size:2.4rem;font-weight:700;letter-spacing:.22em;
+    padding:1rem 0;border:1px solid var(--line);border-radius:14px;margin-bottom:1.2rem;
+    user-select:all;-webkit-user-select:all}
+  .code.none{font-size:1rem;letter-spacing:0;color:var(--muted);font-family:inherit;font-weight:400}
+  .btn{display:block;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:700;
+    padding:.95rem 1rem;border-radius:12px;margin-bottom:.7rem}
+  ol{text-align:left;color:var(--body);font-size:.92rem;margin:1.4rem 0 0;padding-left:1.2rem}
+  li{margin-bottom:.35rem}
+  footer{margin-top:2rem;font-size:.8rem;color:var(--muted)}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>같이 달려요</h1>
+  <p>닿기 모임에 초대받았어요.</p>
+  <div class="code none" id="code">초대코드는 초대한 사람에게 받은 글에 있어요</div>
+  <a class="btn" href="https://apps.apple.com/kr/app/id6808771476">App Store 에서 닿기 받기</a>
+  <ol>
+    <li>앱을 받아 열어요.</li>
+    <li>아래쪽 <b>모임</b> 탭 → <b>초대코드로 들어가기</b>.</li>
+    <li>위 코드를 넣고 이름을 적으면 끝이에요.</li>
+  </ol>
+  <footer>
+    닿기 · <a href="https://aiplab.kr/datgi/">앱 소개</a> · <a href="https://aiplab.kr/datgi/privacy.html">개인정보 처리방침</a>
+  </footer>
+</main>
+<script>
+  // 초대 글의 ?code=XXXXXX 를 크게 보여준다. 없으면 안내만 남는다.
+  var m = (location.search.match(/[?&]code=([A-Za-z0-9]{4,10})/) || [])[1];
+  if (m) {
+    var el = document.getElementById('code');
+    el.textContent = m.toUpperCase();
+    el.className = 'code';
+  }
+</script>
+</body>
+</html>
