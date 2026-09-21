@@ -21,6 +21,7 @@ COPY ttobom /srv/ttobom
 COPY toegeun /srv/toegeun
 COPY pusil /srv/pusil
 COPY offtheday /srv/offtheday
+COPY offthereel /srv/offthereel
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt

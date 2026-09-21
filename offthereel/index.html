@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오프더릴 — 박자에 찍는 1초 브이로그 카메라</title>
+<meta name="description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 나와 있습니다. 편집 없이, 전부 폰 안에서.">
+<meta property="og:title" content="오프더릴 — 박자에 찍는 1초 브이로그 카메라">
+<meta property="og:description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 나와 있습니다. 편집 없이, 전부 폰 안에서.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiplab.kr/offthereel/">
+<meta property="og:site_name" content="오프더릴">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://aiplab.kr/offthereel/og.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF9F6">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"오프더릴","alternateName":"Off the Reel",
+ "operatingSystem":"iOS","applicationCategory":"PhotoApplication",
+ "description":"박자에 맞춰 1~2초씩 찍으면, 다 찍었을 때 영상이 나와 있습니다.",
+ "url":"https://aiplab.kr/offthereel/","installUrl":"https://apps.apple.com/kr/app/id6814367003",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+ "author":{"@type":"Organization","name":"AIP Lab","url":"https://aiplab.kr"}}
+</script>
+<link rel="icon" href="favicon.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Nanum+Pen+Script&display=swap">
+<style>
+/* 앱과 같은 규칙: 종이색 바탕 · 먹색 · 여백. 손글씨(나눔 펜)는 제목과 큰 숫자에만. 색은 박자(주황) 한 군데. 릴이는 한 자리. */
+:root{
+  --paper:#FAF9F6; --paper2:#F1EEE8; --ink:#1B1A18; --ink2:#6E6A63; --ink3:#ABA69E; --line:#E6E2DA;
+  --accent:#FF4A2E;
+  --sans:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --hand:"Nanum Pen Script","Apple SD Gothic Neo",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.25;font-weight:600}
+h2{font-size:clamp(24px,3.4vw,34px)}
+h2 small{display:block;font-size:14px;font-weight:400;color:var(--ink3);margin-top:8px;letter-spacing:0}
+p{margin:0}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--ink2);max-width:36em}
+b{font-weight:600;color:var(--ink)}
+.hand{font-family:var(--hand);font-weight:400;letter-spacing:0}
+header{position:sticky;top:0;z-index:30;background:rgba(250,249,246,.88);backdrop-filter:blur(10px) saturate(1.2);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;white-space:nowrap}
+.logo img{width:26px;height:26px;border-radius:7px}
+nav.n{display:flex;gap:20px;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+nav.n a:hover{color:var(--ink)}
+@media(max-width:640px){nav.n{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;white-space:nowrap;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{padding:8px 14px;font-size:12px}
+.hero{padding:72px 0 48px;text-align:center}
+.hero .k{margin-bottom:18px}
+.hero h1{font-size:clamp(44px,8vw,88px);line-height:1.02;font-family:var(--hand);font-weight:400;letter-spacing:0}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{margin:22px auto 0}
+.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:30px}
+.micro{font-family:var(--mono);font-size:12px;color:var(--ink3);margin-top:18px;letter-spacing:.02em}
+/* 박자 줄: 컷 경계가 전부 박자 위에 */
+.beats{max-width:560px;margin:52px auto 0;text-align:left}
+.beats .row{display:flex;gap:3px;height:10px}
+.beats .row i{flex:1;border-radius:2px;background:var(--ink);opacity:.9}
+.beats .row i:nth-child(odd){opacity:.55}
+.beats .dots{display:flex;justify-content:space-between;margin-top:8px}
+.beats .dots i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.beats .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:8px}
+section{padding:88px 0;border-top:1px solid var(--line)}
+section.tint{background:var(--paper2)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.two.rev .txt{order:2}
+@media(max-width:800px){.two{grid-template-columns:1fr;gap:36px}.two.rev .txt{order:0}}
+.txt h2{margin-bottom:18px}
+.txt p+p{margin-top:14px}
+.txt p{color:var(--ink2)}
+.phone{width:min(300px,80vw);margin:0 auto;border-radius:38px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(27,26,24,.35),0 0 0 1px var(--line)}
+.phone img{width:100%}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--paper)}
+.step .num{font-family:var(--hand);font-size:52px;line-height:1;color:var(--accent);margin-bottom:12px}
+.step h3{font-size:20px;margin-bottom:8px}
+.step p{color:var(--ink2);font-size:15.5px}
+.vows{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:40px;background:var(--paper)}
+@media(max-width:720px){.vows{grid-template-columns:1fr}}
+.vow{padding:28px 28px 26px;border-bottom:1px solid var(--line)}
+.vow:nth-child(odd){border-right:1px solid var(--line)}
+.vow:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:720px){.vow{border-right:0!important}.vow:nth-last-child(2){border-bottom:1px solid var(--line)}}
+.vow .k{color:var(--accent);margin-bottom:10px}
+.vow h3{font-size:21px;margin-bottom:8px}
+.vow p{color:var(--ink2);font-size:15.5px}
+.shots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin-top:40px}
+@media(max-width:900px){.shots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.shot img{border-radius:18px;box-shadow:0 0 0 1px var(--line)}
+.shot .cap{margin-top:12px;font-size:14px;color:var(--ink2)}
+.shot .cap b{display:block;font-size:14.5px}
+.reeli{display:flex;align-items:center;gap:40px;justify-content:center;text-align:left}
+.reeli img{width:170px;flex-shrink:0}
+@media(max-width:560px){.reeli{flex-direction:column;text-align:center;gap:20px}.reeli img{width:130px}}
+.reeli p{color:var(--ink2);max-width:30em}
+.faq{margin-top:36px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:500;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--ink3);flex-shrink:0}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:40em}
+.contact{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;font-size:15px;color:var(--ink2)}
+.contact a{color:var(--ink);border-bottom:1px solid currentColor}
+footer{border-top:1px solid var(--line);padding:36px 0 56px;font-family:var(--mono);font-size:12px;color:var(--ink3)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.last{text-align:center;padding:96px 0}
+.last h2{font-family:var(--hand);font-weight:400;font-size:clamp(36px,5.4vw,60px);letter-spacing:0}
+.last h2 em{font-style:normal;color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="./"><img src="apple-touch-icon.png" alt="" width="26" height="26">오프더릴</a>
+    <nav class="n">
+      <a href="#how">하는 일</a>
+      <a href="#vows">약속</a>
+      <a href="#shots">화면</a>
+      <a href="#support">지원</a>
+    </nav>
+    <a class="btn sm" href="https://apps.apple.com/kr/app/id6814367003">App Store</a>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <div class="k">1초 브이로그 카메라 · iOS</div>
+  <h1>박자에 찍으면,<br>다 찍었을 때 <em>영상이 나와 있다</em></h1>
+  <p class="lead">노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 되어 있습니다. 찍고 나서 편집하는 시간이 없습니다.</p>
+  <div class="cta">
+    <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Store 에서 받기</a>
+    <a class="btn g" href="#how">어떻게 되는 건데</a>
+  </div>
+  <p class="micro">무료 · 계정 없음 · 서버 없음 · 워터마크 없음</p>
+  <div class="beats" aria-label="컷 열두 개가 박자 위에 놓인 타임라인">
+    <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="cap"><span>0초</span><span>컷 경계 12곳이 전부 박자 위에</span><span>14.4초</span></div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="two">
+      <div class="txt">
+        <h2>1초 브이로그, 찍는 건 쉬운데<br>이어 붙이다 포기합니다</h2>
+        <p>하루 몇 컷씩 찍어 두고, 주말에 편집 앱을 열어 자르고 박자에 맞추고… 세 번째 주에 그만둡니다.</p>
+        <p>오프더릴은 <b>찍는 순간에 편집을 끝냅니다.</b> 컷 길이가 박자로 정해져 있어서, 이어 붙이면 그대로 음악에 맞습니다.</p>
+      </div>
+      <div class="phone"><img src="shots/capture.png" alt="찍기 화면 — 박자 링과 셔터" width="1290" height="2796" loading="lazy"></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>노래를 고른다</h3><p>Apple Music 에서 검색하고 30초를 들어 봅니다. 앱이 박자를 듣습니다. 노래 없이 찍어도 됩니다.</p></div>
+      <div class="step"><div class="num">2</div><h3>박자에 찍는다</h3><p>셔터를 누르면 딱 그 박자만큼만 찍힙니다. 12·24·36컷 롤이 찰 때까지, 며칠에 걸쳐도 됩니다.</p></div>
+      <div class="step"><div class="num">3</div><h3>현상해서 올린다</h3><p>롤이 닫히면 타이틀·날짜 자막·엔딩 카드가 붙은 영상이 폰 안에서 나옵니다. 릴스 규격 그대로.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="two rev">
+      <div class="txt">
+        <h2>현상은 폰 안에서<small>서버로 올라가지 않습니다</small></h2>
+        <p>색감 넷(원본·필름·따뜻·흑백), 가로 느낌 화면, 컷마다 손글씨 한 마디.</p>
+        <p><b>부분 색감</b> — 창·사람만·배경만 골라 그 자리에만 색감을 입힙니다. 배경만 흑백이면 사람만 컬러로 남습니다. 창에는 손으로 그은 테두리.</p>
+        <p>고른 노래는 릴스에서 얹으세요. 박자가 맞아 있어 그대로 붙습니다.</p>
+      </div>
+      <div class="phone"><img src="shots/develop-region.png" alt="현상 화면 — 부분 색감과 창 테두리 고르기" width="1290" height="2796" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section id="vows">
+  <div class="wrap">
+    <h2>깨지 않는 약속 넷<small>이 넷을 깨는 기능은 넣지 않습니다</small></h2>
+    <div class="vows">
+      <div class="vow"><div class="k">01</div><h3>편집기가 없다</h3><p>타임라인을 끌어 자르는 화면이 없습니다. 컷 길이는 박자가 정하고, 사람은 찍기만 합니다.</p></div>
+      <div class="vow"><div class="k">02</div><h3>롤에는 끝이 있다</h3><p>12·24·36컷. 차면 닫히고, 닫히면 현상됩니다. 끝없이 쌓이는 클립 서랍이 아닙니다.</p></div>
+      <div class="vow"><div class="k">03</div><h3>폰 밖으로 나가지 않는다</h3><p>계정도 서버도 없습니다. 인터넷은 노래 검색에만 씁니다. 영상은 이용자가 저장할 때만 사진 앱으로 갑니다.</p></div>
+      <div class="vow"><div class="k">04</div><h3>워터마크가 없다</h3><p>무료이고, 내보낸 영상에 아무것도 찍히지 않습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="shots">
+  <div class="wrap">
+    <h2>실제 화면<small>종이색 바탕과 먹색. 색은 영상이 냅니다</small></h2>
+    <div class="shots">
+      <div class="shot"><img src="shots/roll.png" alt="롤 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>롤</b>이번 주 컷이 쌓입니다</p></div>
+      <div class="shot"><img src="shots/tempo.png" alt="노래 고르기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>노래 고르기</b>앱이 박자를 듣습니다</p></div>
+      <div class="shot"><img src="shots/capture.png" alt="찍기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>찍기</b>박자만큼만 찍힙니다</p></div>
+      <div class="shot"><img src="shots/develop-cuts.png" alt="현상 화면 컷 탭" width="1290" height="2796" loading="lazy"><p class="cap"><b>현상</b>컷마다 한 마디</p></div>
+      <div class="shot"><img src="shots/export.png" alt="내보내기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>내보내기</b>릴스 규격, 바로 넘어갑니다</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="reeli">
+      <img src="reeli.png" alt="릴이 — 어깨에 캠코더를 멘 너구리" width="170" height="170" loading="lazy">
+      <div>
+        <h2 style="margin-bottom:12px">릴이가 현상을 기다립니다</h2>
+        <p>어깨에 캠코더를 멘 너구리. 롤이 비었을 때, 현상 중일 때, 다 됐을 때 나옵니다. 그 밖의 화면에는 나오지 않습니다 — 찍는 데 방해되니까.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="support">
+  <div class="wrap">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq">
+      <details><summary>노래가 영상에 들어가나요?</summary><p>아니요. Apple Music 미리듣기는 박자를 재고 확인하는 데만 씁니다. 영상은 무음 또는 현장 소리로 나오고, 노래는 릴스·쇼츠에서 얹습니다. 박자가 맞아 있어 그대로 붙습니다.</p></details>
+      <details><summary>Apple Music 구독이 필요한가요?</summary><p>아니요. 검색과 30초 미리듣기는 구독 없이 됩니다.</p></details>
+      <details><summary>컷 길이는 얼마인가요?</summary><p>박자로 정합니다. 「보통」은 2박 — 100 BPM 곡이면 1.2초. 빠르게(1박)·여유(4박)도 있습니다. 노래 없이 찍으면 1.2초.</p></details>
+      <details><summary>다시 찍을 수 있나요?</summary><p>컷마다 한 번. 컷을 눌러 「다시 찍기」. 순서는 길게 눌러 끌면 바뀝니다.</p></details>
+      <details><summary>지난 라이브 포토도 쓸 수 있나요?</summary><p>네. 「사진첩에서 시작」에서 라이브 포토를 고르면 가장 잔잔한 순간을 골라 컷으로 가져옵니다.</p></details>
+      <details><summary>내 영상은 어디로 가나요?</summary><p>어디로도 가지 않습니다. 컷과 현상한 영상은 이 폰 안에만 있고, 내보내기를 눌러야 사진 앱에 저장됩니다. <a href="privacy.html">개인정보 처리방침</a></p></details>
+    </div>
+    <div class="contact">
+      <span>문의 <a href="mailto:gc.yang@teamsparta.co">gc.yang@teamsparta.co</a></span>
+      <span><a href="privacy.html">개인정보 처리방침</a></span>
+    </div>
+  </div>
+</section>
+
+<section class="last">
+  <div class="wrap">
+    <h2>찍기만 하세요.<br><em>영상은 나와 있을 테니.</em></h2>
+    <div class="cta"><a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Store 에서 받기</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 AIP Lab · 오프더릴</span>
+    <span><a href="https://aiplab.kr/">aiplab.kr</a> · <a href="privacy.html">privacy</a></span>
+  </div>
+</footer>
+</body></html>
