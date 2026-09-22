@@ -41,7 +41,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
 a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+img{display:block;max-width:100%;height:auto}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.25;font-weight:600}
@@ -126,70 +126,146 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .last{text-align:center;padding:96px 0}
 .last h2{font-family:var(--hand);font-weight:400;font-size:clamp(36px,5.4vw,60px);letter-spacing:0}
 .last h2 em{font-style:normal;color:var(--accent)}
+
+/* v2 — 시안(캔버스 「오프더릴 랜딩」)대로: 왜 비교 카드 · 하는 일 다섯 · 현상 결과 세 장 */
+.hero2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center;text-align:left;padding:88px 0 40px}
+.hero2 h1{font-size:clamp(46px,6.4vw,96px);text-align:left}
+.hero2 .lead{margin:22px 0 0}
+.hero2 .cta{justify-content:flex-start}
+.hero2 .micro{text-align:left}
+.hero2 .ph{position:relative;display:flex;justify-content:center}
+.hero2 .ph img{width:min(330px,72vw);border-radius:44px;outline:3px solid var(--ink);transform:rotate(-2deg);box-shadow:0 40px 80px -40px rgba(27,26,24,.45)}
+.tag{position:absolute;right:6%;top:26%;font-family:var(--hand);font-size:34px;color:var(--accent);background:var(--paper);border:2.5px solid var(--accent);border-radius:16px;padding:2px 16px 0;transform:rotate(-4deg)}
+@media(max-width:800px){.hero2{grid-template-columns:1fr;text-align:center;padding:56px 0 24px}.hero2 h1{text-align:center}.hero2 .lead{margin:18px auto 0}.hero2 .cta{justify-content:center}.hero2 .micro{text-align:center}.tag{right:10px}}
+.beats{max-width:none;margin:0 0 20px}
+.beats .row{height:12px;gap:4px}
+.beats .dots i{width:9px;height:9px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+@media(max-width:720px){.cmp{grid-template-columns:1fr}}
+.cmp .c{border:1px solid var(--line);border-radius:16px;padding:28px 30px;background:var(--paper);display:flex;flex-direction:column;gap:10px;font-size:16px;color:var(--ink2)}
+.cmp .c.dk{background:var(--ink);color:#C9C4BA;border-color:var(--ink)}
+.cmp .c .k{margin-bottom:4px}
+.cmp .c .hand{font-family:var(--hand);font-size:30px;color:var(--ink);margin-top:6px;line-height:1.1}
+.cmp .c.dk .hand{color:var(--paper)}
+.cmp .c .hand em{font-style:normal;color:var(--accent)}
+.cmp .c .foot{font-size:14px;color:var(--ink3);margin-top:auto;padding-top:10px}
+.five{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:40px}
+@media(max-width:1000px){.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.five{grid-template-columns:1fr;gap:26px}}
+.five .st{display:flex;flex-direction:column;gap:12px;border-top:1.5px solid var(--line);padding-top:16px}
+.five .st.on{border-top-color:var(--ink)}
+.five .num{font-family:var(--hand);font-size:44px;line-height:1;color:var(--ink3)}
+.five .st.on .num{color:var(--accent)}
+.five img{width:100%;border-radius:22px;outline:2px solid var(--ink)}
+.five h3{font-size:17px}
+.five p{font-size:14px;line-height:1.6;color:var(--ink2)}
+@media(max-width:640px){.five .st{display:grid;grid-template-columns:110px 1fr;gap:6px 16px}.five .st .num{grid-column:2}.five img{grid-row:1/4;border-radius:16px;align-self:start}}
+.dev{display:grid;grid-template-columns:400px minmax(0,1fr);gap:60px;align-items:center}
+@media(max-width:900px){.dev{grid-template-columns:1fr;gap:28px}}
+.dev .txt p{color:var(--ink2)}
+.frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:560px){.frames{gap:10px}}
+.frames img{width:100%;border-radius:14px;box-shadow:0 0 0 1px var(--line)}
+.frames .cap{margin-top:8px;font-size:14px;color:var(--ink2)}
+.frames .cap b{font-size:14px}
+.hero2 .beatwrap{grid-column:1/-1}
 </style>
 </head>
 <body>
+
 <header>
   <div class="wrap bar">
     <a class="logo" href="./"><img src="apple-touch-icon.png" alt="" width="26" height="26">오프더릴</a>
     <nav class="n">
       <a href="#how">하는 일</a>
+      <a href="#develop">현상</a>
       <a href="#vows">약속</a>
-      <a href="#shots">화면</a>
-      <a href="#support">지원</a>
+      <a href="#support">FAQ</a>
     </nav>
     <a class="btn sm" href="https://apps.apple.com/kr/app/id6814367003">App Store</a>
   </div>
 </header>
 
-<div class="hero wrap">
-  <div class="k">1초 브이로그 카메라 · iOS</div>
-  <h1>박자에 찍으면,<br>다 찍었을 때 <em>영상이 나와 있다</em></h1>
-  <p class="lead">노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 되어 있습니다. 찍고 나서 편집하는 시간이 없습니다.</p>
-  <div class="cta">
-    <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Store 에서 받기</a>
-    <a class="btn g" href="#how">어떻게 되는 건데</a>
+<!-- ── 히어로: 약속 ─────────────────────────────────── -->
+<div class="hero hero2 wrap">
+  <div>
+    <div class="k">1초 브이로그 카메라 · iOS</div>
+    <h1>박자에 찍으면,<br>다 찍었을 때<br><em>영상이 나와 있다</em></h1>
+    <p class="lead">노래를 고르고 셔터를 누르면 <b>딱 그 박자만큼만</b> 찍힙니다. 롤이 차면 영상이 되어 있어요. 찍고 나서 편집하는 시간이 없습니다.</p>
+    <div class="cta">
+      <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Store 에서 받기</a>
+      <a class="btn g" href="#how">어떻게 되는 건데</a>
+    </div>
+    <p class="micro">무료 · 계정 없음 · 서버 없음 · 워터마크 없음</p>
   </div>
-  <p class="micro">무료 · 계정 없음 · 서버 없음 · 워터마크 없음</p>
-  <div class="beats" aria-label="컷 열두 개가 박자 위에 놓인 타임라인">
+  <div class="ph">
+    <img src="shots/capture.png" alt="찍기 화면 — 박자 링과 셔터" width="1290" height="2796">
+    <div class="tag" aria-hidden="true">딱 1.2초</div>
+  </div>
+  <div class="beats beatwrap" aria-label="컷 열두 개가 박자 위에 놓인 타임라인">
     <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="cap"><span>0초</span><span>컷 경계 12곳이 전부 박자 위에</span><span>14.4초</span></div>
+    <div class="cap"><span>0초</span><span>컷 경계 12곳이 전부 박자 위에 · 100 BPM · 2박 = 1.2초</span><span>14.4초</span></div>
   </div>
 </div>
 
-<section id="how">
+<!-- ── 왜: 편집 앱 vs 오프더릴 ───────────────────────── -->
+<section class="tint" id="how">
   <div class="wrap">
-    <div class="two">
-      <div class="txt">
-        <h2>1초 브이로그, 찍는 건 쉬운데<br>이어 붙이다 포기합니다</h2>
-        <p>하루 몇 컷씩 찍어 두고, 주말에 편집 앱을 열어 자르고 박자에 맞추고… 세 번째 주에 그만둡니다.</p>
-        <p>오프더릴은 <b>찍는 순간에 편집을 끝냅니다.</b> 컷 길이가 박자로 정해져 있어서, 이어 붙이면 그대로 음악에 맞습니다.</p>
+    <h2>1초 브이로그, 찍는 건 쉬운데 이어 붙이다 포기합니다<small>주말에 편집 앱을 열어 자르고 박자에 맞추고… 세 번째 주에 그만둡니다</small></h2>
+    <div class="cmp">
+      <div class="c">
+        <div class="k">편집 앱으로</div>
+        <div>1. 하루 몇 컷씩 찍어 둔다</div>
+        <div>2. 주말에 편집 앱을 연다</div>
+        <div>3. 컷마다 1초로 자른다</div>
+        <div>4. 음악을 깔고 박자에 맞춘다</div>
+        <div>5. 자막을 얹는다</div>
+        <div class="hand">→ 세 번째 주에 포기</div>
       </div>
-      <div class="phone"><img src="shots/capture.png" alt="찍기 화면 — 박자 링과 셔터" width="1290" height="2796" loading="lazy"></div>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h3>노래를 고른다</h3><p>Apple Music 에서 검색하고 30초를 들어 봅니다. 앱이 박자를 듣습니다. 노래 없이 찍어도 됩니다.</p></div>
-      <div class="step"><div class="num">2</div><h3>박자에 찍는다</h3><p>셔터를 누르면 딱 그 박자만큼만 찍힙니다. 12·24·36컷 롤이 찰 때까지, 며칠에 걸쳐도 됩니다.</p></div>
-      <div class="step"><div class="num">3</div><h3>현상해서 올린다</h3><p>롤이 닫히면 타이틀·날짜 자막·엔딩 카드가 붙은 영상이 폰 안에서 나옵니다. 릴스 규격 그대로.</p></div>
+      <div class="c dk">
+        <div class="k">오프더릴로</div>
+        <div>1. 노래를 고른다 — 앱이 박자를 듣는다</div>
+        <div>2. 셔터를 누른다 — 딱 그 박자만큼만 찍힌다</div>
+        <div class="hand">→ 롤이 차면 <em>영상이 나와 있다</em></div>
+        <div class="foot">편집기가 없습니다. 컷 길이는 박자가 정하고, 사람은 찍기만 합니다.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="tint">
+<!-- ── 하는 일 다섯 ──────────────────────────────────── -->
+<section>
   <div class="wrap">
-    <div class="two rev">
-      <div class="txt">
-        <h2>현상은 폰 안에서<small>서버로 올라가지 않습니다</small></h2>
-        <p>색감 넷(원본·필름·따뜻·흑백), 가로 느낌 화면, 컷마다 손글씨 한 마디.</p>
-        <p><b>부분 색감</b> — 창·사람만·배경만 골라 그 자리에만 색감을 입힙니다. 배경만 흑백이면 사람만 컬러로 남습니다. 창에는 손으로 그은 테두리.</p>
-        <p>고른 노래는 릴스에서 얹으세요. 박자가 맞아 있어 그대로 붙습니다.</p>
-      </div>
-      <div class="phone"><img src="shots/develop-region.png" alt="현상 화면 — 부분 색감과 창 테두리 고르기" width="1290" height="2796" loading="lazy"></div>
+    <h2>하는 일은 다섯, <span class="hand" style="font-family:var(--hand);font-weight:400;color:var(--accent)">사람이 하는 건 둘</span><small>노래 고르기와 찍기. 나머지는 앱이 합니다</small></h2>
+    <div class="five">
+      <div class="st on"><div class="num">1</div><img src="shots/tempo.png" alt="노래 고르기 화면" width="1290" height="2796" loading="lazy"><h3>노래를 고른다</h3><p>Apple Music 검색, 30초 미리듣기. 앱이 박자를 재서 한 컷 길이를 정합니다. 구독 없이.</p></div>
+      <div class="st on"><div class="num">2</div><img src="shots/capture.png" alt="찍기 화면" width="1290" height="2796" loading="lazy"><h3>박자에 찍는다</h3><p>손에 박이 울리고 링이 한 바퀴 돌면 끝. 며칠에 걸쳐 찍어도 됩니다.</p></div>
+      <div class="st"><div class="num">3</div><img src="shots/roll.png" alt="롤 화면" width="1290" height="2796" loading="lazy"><h3>롤이 찬다</h3><p>12·24·36컷. 필름처럼 다 차야 현상됩니다. 한 주가 한 편.</p></div>
+      <div class="st"><div class="num">4</div><img src="shots/develop-region.png" alt="현상 화면" width="1290" height="2796" loading="lazy"><h3>폰 안에서 현상</h3><p>타이틀·날짜 자막·엔딩 카드, 색감, 부분 색감. 서버로 올라가지 않습니다.</p></div>
+      <div class="st"><div class="num">5</div><img src="shots/export.png" alt="내보내기 화면" width="1290" height="2796" loading="lazy"><h3>릴스 규격으로</h3><p>1080×1920, 안전 구역 밖에 자막. 저장하고 릴스로 바로. 노래는 릴스에서 얹으세요.</p></div>
     </div>
   </div>
 </section>
 
+<!-- ── 현상 결과 세 장 ──────────────────────────────── -->
+<section class="tint" id="develop">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>부분만 흑백,<br>창에는 손으로 그은 테두리</h2>
+      <p>창·사람만·배경만 골라 <b>그 자리에만</b> 색감을 입힙니다. 배경만 흑백이면 사람만 컬러로 남아요.</p>
+      <p>창 테두리는 손그림·종이·필름 중에서. 손그림은 러프함을 덜·보통·더로. 컷마다 손글씨 한 마디.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">실제 현상 결과 세 장 →</p>
+    </div>
+    <div class="frames">
+      <div><img src="shots/frame-hand.jpg" alt="손그림 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>손그림</b> · 기본</p></div>
+      <div><img src="shots/frame-paper.jpg" alt="종이 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>종이</b> · 붙인 사진처럼</p></div>
+      <div><img src="shots/frame-film.jpg" alt="필름 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>필름</b> · 띠와 구멍</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 약속 넷 ───────────────────────────────────────── -->
 <section id="vows">
   <div class="wrap">
     <h2>깨지 않는 약속 넷<small>이 넷을 깨는 기능은 넣지 않습니다</small></h2>
@@ -202,32 +278,21 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="tint" id="shots">
-  <div class="wrap">
-    <h2>실제 화면<small>종이색 바탕과 먹색. 색은 영상이 냅니다</small></h2>
-    <div class="shots">
-      <div class="shot"><img src="shots/roll.png" alt="롤 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>롤</b>이번 주 컷이 쌓입니다</p></div>
-      <div class="shot"><img src="shots/tempo.png" alt="노래 고르기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>노래 고르기</b>앱이 박자를 듣습니다</p></div>
-      <div class="shot"><img src="shots/capture.png" alt="찍기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>찍기</b>박자만큼만 찍힙니다</p></div>
-      <div class="shot"><img src="shots/develop-cuts.png" alt="현상 화면 컷 탭" width="1290" height="2796" loading="lazy"><p class="cap"><b>현상</b>컷마다 한 마디</p></div>
-      <div class="shot"><img src="shots/export.png" alt="내보내기 화면" width="1290" height="2796" loading="lazy"><p class="cap"><b>내보내기</b>릴스 규격, 바로 넘어갑니다</p></div>
-    </div>
-  </div>
-</section>
-
-<section>
+<!-- ── 릴이 ──────────────────────────────────────────── -->
+<section class="tint">
   <div class="wrap">
     <div class="reeli">
       <img src="reeli.png" alt="릴이 — 어깨에 캠코더를 멘 너구리" width="170" height="170" loading="lazy">
       <div>
-        <h2 style="margin-bottom:12px">릴이가 현상을 기다립니다</h2>
-        <p>어깨에 캠코더를 멘 너구리. 롤이 비었을 때, 현상 중일 때, 다 됐을 때 나옵니다. 그 밖의 화면에는 나오지 않습니다 — 찍는 데 방해되니까.</p>
+        <h2 style="margin-bottom:12px;font-family:var(--hand);font-weight:400;font-size:40px">릴이가 현상을 기다립니다</h2>
+        <p>어깨에 캠코더를 멘 너구리. 롤이 비었을 때, 현상 중일 때, 다 됐을 때만 나옵니다. 찍는 화면에는 안 나와요 — 방해되니까.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="tint" id="support">
+<!-- ── FAQ ───────────────────────────────────────────── -->
+<section id="support">
   <div class="wrap">
     <h2>자주 묻는 질문</h2>
     <div class="faq">
