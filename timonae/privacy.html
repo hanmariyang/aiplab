@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>티끌모아내꺼 개인정보 처리방침</title>
+<meta name="description" content="티끌모아내꺼(티모내)는 어떤 정보도 수집하지 않습니다. 모든 데이터는 기기 안에만 있습니다.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --ink: #111214;
+    --ink2: #5A5C5E;
+    --ink3: #8E9092;
+    --line: #E8E8E8;
+    --sink: #F3F3F3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0D0D0E;
+      --ink: #F2F2F3;
+      --ink2: #A9ABAD;
+      --ink3: #747678;
+      --line: #242426;
+      --sink: #1E1E1F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 20px 96px;
+  }
+  header { margin-bottom: 40px; }
+  .app { font-size: 13px; color: var(--ink3); margin: 0 0 8px; }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .meta { font-size: 15px; color: var(--ink2); margin: 0; font-variant-numeric: tabular-nums; }
+  .lead {
+    margin: 0 0 8px;
+    padding: 18px 20px;
+    background: var(--sink);
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  section { padding: 24px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 10px; color: var(--ink); }
+  p:last-child { margin-bottom: 0; }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px;
+    background: var(--sink);
+    padding: 1px 6px;
+    border-radius: 6px;
+  }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink3);
+  }
+  footer a { color: var(--ink2); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="app">티끌모아내꺼 (티모내) · iOS</p>
+    <h1>개인정보 처리방침</h1>
+    <p class="meta">최종 수정 2026년 9월 25일 · 개발자 AIP Lab</p>
+  </header>
+
+  <p class="lead">티끌모아내꺼는 어떤 개인정보도 수집하지 않습니다. 적은 것은 전부 사용자의 기기 안에만 있고, 개발자를 포함해 누구에게도 전송되지 않습니다.</p>
+
+  <section>
+    <h2>1. 수집하는 정보</h2>
+    <p>없습니다. 앱은 계정을 만들지 않고, 이름·이메일·전화번호·위치·광고 식별자·기기 식별자·사용 통계 어느 것도 모으지 않습니다. 분석 도구나 광고 SDK 도 들어 있지 않습니다.</p>
+    <p>App Store 의 앱 개인정보 항목은 「데이터를 수집하지 않음」입니다.</p>
+  </section>
+
+  <section>
+    <h2>2. 기기 안에 저장되는 것</h2>
+    <p>사용자가 앱에 직접 적은 내용만 기기 안에 저장됩니다.</p>
+    <ul>
+      <li>목표의 이름과 값, 참은 기록(이름·값·날짜), 옮긴 돈 기록, 자주 참는 것 목록, 설정 값. 앱 안의 데이터베이스 파일 <code>timonae.db</code> 하나에 들어 있습니다.</li>
+      <li>목표로 고른 사진 한 장. 사진을 고르는 순간 앱 안 폴더로 사본이 만들어지며, 원본 사진첩의 사진은 읽지도 바꾸지도 않습니다. 사진을 바꾸면 이전 사본은 지워집니다.</li>
+    </ul>
+    <p>이 파일들은 iOS 의 앱 샌드박스 안에 있어 다른 앱이 읽을 수 없습니다. iCloud 백업이나 기기 전체 백업에 포함될지는 iOS 설정을 따르며, 앱이 따로 어디에도 올리지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>3. 네트워크</h2>
+    <p>앱은 네트워크에 접속하지 않습니다. 서버가 없고, 로그인이 없고, 동기화가 없습니다. 은행이나 카드사와 연동하지 않으며 어떤 금융 정보도 다루지 않습니다. 비행기 모드에서도 모든 기능이 똑같이 동작합니다.</p>
+  </section>
+
+  <section>
+    <h2>4. 권한</h2>
+    <ul>
+      <li><strong>사진.</strong> 목표 사진을 고를 때 iOS 의 사진 선택기(PHPicker)를 씁니다. 이 방식은 사진첩 전체 접근 권한을 요청하지 않으며, 사용자가 화면에서 고른 한 장만 앱에 전달됩니다.</li>
+      <li><strong>Face ID / Touch ID.</strong> 설정에서 「잠금」을 켠 경우에만 앱을 열 때 기기의 생체 인증을 요청합니다. 인증은 iOS 가 처리하고, 앱은 성공 여부만 받습니다. 생체 정보는 앱에 저장되지 않습니다.</li>
+    </ul>
+    <p>그 밖의 권한(카메라·마이크·위치·연락처·알림)은 요청하지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>5. 내보내기</h2>
+    <p>설정의 「내보내기」는 장부 전체를 csv 파일 하나로 만들어 iOS 공유 시트로 넘깁니다. 어디에 보낼지는 사용자가 공유 시트에서 고르며, 앱은 파일을 어디에도 먼저 보내지 않습니다. 사진은 내보내기에 포함되지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>6. 삭제</h2>
+    <ul>
+      <li>참은 기록과 옮긴 돈 기록은 장부에서 항목을 길게 눌러 즉시 지울 수 있습니다. 지운 것은 복구되지 않습니다.</li>
+      <li>앱을 삭제하면 <code>timonae.db</code> 와 사진 사본을 포함해 앱이 만든 모든 데이터가 기기에서 함께 지워집니다. 서버에 남는 것은 없습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7. 아동</h2>
+    <p>앱은 모든 연령이 쓸 수 있습니다(4+). 아동을 포함해 누구의 개인정보도 수집하지 않으므로, 아동 개인정보와 관련한 별도 처리는 발생하지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>8. 변경</h2>
+    <p>이 방침이 바뀌면 이 페이지의 「최종 수정」 날짜를 갱신하고 App Store 의 앱 설명에 반영합니다. 「어떤 정보도 수집하지 않는다」는 원칙을 바꾸는 변경은 앱 업데이트 안내에 명시합니다.</p>
+  </section>
+
+  <section>
+    <h2>9. 문의</h2>
+    <p>개인정보에 관한 질문은 아래로 보내 주십시오.</p>
+    <p><a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+  </section>
+
+  <footer>
+    AIP Lab · <a href="./">티끌모아내꺼 지원 페이지</a>
+  </footer>
+</main>
+</body>
+</html>
