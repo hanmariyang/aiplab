@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>티끌모아내꺼 - 티모내</title>
+<meta name="description" content="사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다. 커피 한 잔 참으면 사진이 4,500원만큼 드러난다. 가입 없음, 기기 안, 재촉 없음.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="티끌모아내꺼 - 티모내">
+<meta property="og:description" content="사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --ink: #111214;
+    --ink2: #5A5C5E;
+    --ink3: #8E9092;
+    --sink: #F3F3F3;
+    --line: #E8E8E8;
+    --edge: #D8D8D8;
+    --mark: #B87333;
+    --dust: #D9DADC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0D0D0E;
+      --ink: #F2F2F3;
+      --ink2: #A9ABAD;
+      --ink3: #747678;
+      --sink: #1E1E1F;
+      --line: #242426;
+      --edge: #323234;
+      --mark: #D48C4A;
+      --dust: #3A3B3E;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: 64px 20px 80px; }
+
+  /* 위 */
+  .brand { font-size: 13px; color: var(--ink3); margin: 0 0 14px; letter-spacing: 0.02em; }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .one { margin: 0; font-size: 17px; color: var(--ink2); }
+
+  /* 티끌 격자. 이미지 없이 CSS 로만 그린다 */
+  .pic {
+    position: relative;
+    height: 238px;
+    margin: 36px 0 12px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--sink);
+    overflow: hidden;
+  }
+  .pic .name {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink3);
+    letter-spacing: -0.01em;
+  }
+  /* 덮개: 6px 격자에 3.5px 점. 아낀 비율(38%)만큼 아래에서 걷혔다 */
+  .dust {
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 62%;
+    background-color: var(--paper);
+    background-image: radial-gradient(circle, var(--dust) 1.75px, transparent 1.9px);
+    background-size: 6px 6px;
+    background-position: 1.25px 1.25px;
+  }
+  /* 경계 띠 13px: 점이 드문드문 빠진 느낌 */
+  .dust::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -13px;
+    height: 13px;
+    background-image: radial-gradient(circle, var(--dust) 1.75px, transparent 1.9px);
+    background-size: 6px 6px;
+    background-position: 1.25px 1.25px;
+    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 24px, transparent 24px 29px);
+    mask-image: repeating-linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 24px, transparent 24px 29px);
+    opacity: 0.6;
+  }
+  /* 옮긴 돈 선. 구리색이 서는 자리 */
+  .move {
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 4px;
+    height: 20%;
+    background: var(--mark);
+    border-radius: 0 2px 0 0;
+  }
+  .tag {
+    position: absolute;
+    font-size: 11px;
+    color: var(--ink2);
+    background: var(--paper);
+    padding: 2px 6px;
+    border-radius: 6px;
+    bottom: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tag.l { left: 12px; }
+  .tag.r { right: 12px; }
+  .cap { margin: 0 0 40px; font-size: 13px; color: var(--ink3); line-height: 1.55; }
+
+  /* 세 문단 */
+  section { padding: 22px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 17px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* 약속 넷 */
+  ol.promise { margin: 0; padding: 0; list-style: none; counter-reset: p; }
+  ol.promise li {
+    display: flex;
+    gap: 14px;
+    min-height: 58px;
+    align-items: center;
+    border-top: 1px solid var(--line);
+    padding: 12px 0;
+  }
+  ol.promise li:first-child { border-top: 0; padding-top: 4px; }
+  ol.promise li::before {
+    counter-increment: p;
+    content: counter(p);
+    flex: 0 0 28px;
+    height: 28px;
+    border: 1px solid var(--edge);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--ink2);
+    font-variant-numeric: tabular-nums;
+  }
+  ol.promise b { display: block; font-weight: 700; }
+  ol.promise span { display: block; font-size: 15px; color: var(--ink2); }
+
+  /* 받기 */
+  .get {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    margin-top: 32px;
+    border-radius: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .get:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  .sub { margin-top: 10px; font-size: 13px; color: var(--ink3); text-align: center; }
+
+  .links { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink2); }
+  .links p { margin: 0 0 6px; }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--ink3); }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">티끌모아내꺼 · 티모내 · iOS</p>
+  <h1>사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다.</h1>
+  <p class="one">커피 한 잔 참으면 맥북이 4,500원만큼 드러난다.</p>
+
+  <div class="pic" aria-label="목표 사진 위 티끌 덮개. 아낀 만큼 아래에서 걷힌다" role="img">
+    <div class="name">맥북 프로 14</div>
+    <div class="dust"></div>
+    <div class="move"></div>
+    <span class="tag l num">옮긴 돈 600,000</span>
+    <span class="tag r num">38%</span>
+  </div>
+  <p class="cap">사진은 아낀 만큼만 아래에서 드러나고 나머지는 티끌이다. 왼쪽 가는 선이 진짜 옮긴 돈. 두 높이가 어긋나면 눈에 보인다.</p>
+
+  <section>
+    <h2>물건이 목표다</h2>
+    <p>「300만 원 모으기」는 안 된다. 「맥북」은 된다. 사고 싶은 것 하나를 사진과 값으로 정하면, 참을 때마다 그 사진이 그만큼 드러난다. 목표는 한 번에 하나다.</p>
+  </section>
+
+  <section>
+    <h2>「대신」도 티끌이다</h2>
+    <p>국밥 대신 컵라면을 먹었으면 차액이 티끌이 된다. 안 산 것만 세지 않는다. 자주 참는 것은 버튼으로 굳어서, 커피를 참았을 때 누르는 건 두 번이다.</p>
+  </section>
+
+  <section>
+    <h2>진짜 옮긴 돈을 따로 센다</h2>
+    <p>참았다고 적은 돈과 실제로 통장에 옮긴 돈은 다르다. 이 앱은 둘을 따로 센다. 「아꼈다고 한 돈 <span class="num">184,500</span> · 진짜 옮긴 돈 <span class="num">60,000</span>」. 이 차이가 이 앱이 정직한 이유다. 말투는 거지방이다. 재촉은 안 한다.</p>
+  </section>
+
+  <section>
+    <h2>약속 넷</h2>
+    <ol class="promise">
+      <li><div><b>가입이 없다</b><span>계정·서버·네트워크 0. 은행 연동 없음.</span></div></li>
+      <li><div><b>기기 안에서 끝난다</b><span>어떤 정보도 수집하지 않는다. 데이터는 iPhone 안에만.</span></div></li>
+      <li><div><b>두 번에 저장된다</b><span>버튼 누르고 저장. 그 사이에 고를 것이 없다.</span></div></li>
+      <li><div><b>재촉하지 않는다</b><span>알림·연속 기록·배지 없음. 문장은 열었을 때만 말한다.</span></div></li>
+    </ol>
+  </section>
+
+  <!-- 앱스토어 링크 자리. 게시되면 href 를 https://apps.apple.com/kr/app/id<앱ID> 로 바꾼다 -->
+  <a class="get" href="#">App Store 에서 받기</a>
+  <p class="sub">iPhone · 무료 · 4+</p>
+
+  <div class="links">
+    <p><a href="privacy.html">개인정보 처리방침</a></p>
+    <p>문의 <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+  </div>
+
+  <footer>AIP Lab</footer>
+</main>
+</body>
+</html>
