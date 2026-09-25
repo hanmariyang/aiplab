@@ -21,14 +21,25 @@
 		reverse_proxy aiplab-analytics.railway.internal:8080
 	}
 
-	# 푸실 공유 영수증 — /pusil/r/<토큰> 을 한 페이지가 받는다.
-	# ⚠️ 토큰이 경로에 있어 정적 파일로는 못 찾는다. try_files 에 맡기면 404 다
-	#    (실측 2026-09-14: 공유 링크가 통째로 죽어 있었다).
-	# ⛔ 이 handle 은 /pusil/r/ 하나만 잡는다 — 다른 제품 경로에 닿지 않는다.
+	# 푸실 — 마을 한 곳(/pusil/b/<id>)과 받은 영수증(/pusil/r/<토큰>)은 **서버가 그린다.**
+	#
+	# ⭐ 왜 프록시인가 — 카톡·트위터 카드는 **OG 태그를 서버가 내야** 책마다 달라진다.
+	#    정적 껍데기로는 못 한다. 2026-09-25 까지 영수증이 그랬고, 어떤 영수증을 보내도
+	#    카드가 「독서 영수증 — 푸실」로 똑같았다(누구의 무슨 책인지 안 보였다).
+	# ⚠️ 주소는 그대로다 — 이미 밖에 나가 있는 /pusil/r/<토큰> 링크가 계속 산다.
+	# ⚠️ pusil 은 **다른 Railway 프로젝트**라 사설망(*.railway.internal)을 못 쓴다.
+	#    공개 주소로 나갔다 온다. ⛔ 그래서 푸실 쪽은 요청 제한을 IP 가 아니라
+	#    **자원(책 id·토큰) 단위**로 센다 — 안 그러면 여기로 온 모두가 한 IP 다.
+	# ⛔ /pusil 접두사는 여기서 뗀다. 서버는 /b/<id> · /r/<토큰> 으로 듣는다.
+	# ⚠️ `header_up Host` 를 쓰지 않는다 — https 로 프록시하면 Caddy 가 알아서 넣는다
+	#    (caddy validate 가 «Unnecessary header_up Host» 로 경고한다).
+	handle /pusil/b/* {
+		uri strip_prefix /pusil
+		reverse_proxy https://pusil-api-production.up.railway.app
+	}
 	handle /pusil/r/* {
-		rewrite * /pusil/r/index.html
-		file_server
-		header Cache-Control "public, max-age=60"
+		uri strip_prefix /pusil
+		reverse_proxy https://pusil-api-production.up.railway.app
 	}
 
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
