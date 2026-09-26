@@ -2,10 +2,10 @@
 <html lang="ko"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>오프더릴 — 박자에 찍는 1초 브이로그 카메라</title>
-<meta name="description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 나와 있습니다. 편집 없이, 전부 폰 안에서.">
-<meta property="og:title" content="오프더릴 — 박자에 찍는 1초 브이로그 카메라">
-<meta property="og:description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 롤이 차면 영상이 나와 있습니다. 편집 없이, 전부 폰 안에서.">
+<title>오프더릴 · 박자에 찍는 1초 브이로그 카메라</title>
+<meta name="description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 다 찍고 한 번 누르면 영상 한 편. 편집 없이, 전부 폰 안에서.">
+<meta property="og:title" content="오프더릴 · 박자에 찍는 1초 브이로그 카메라">
+<meta property="og:description" content="노래를 고르고 셔터를 누르면 딱 그 박자만큼만 찍힙니다. 다 찍고 한 번 누르면 영상 한 편. 편집 없이, 전부 폰 안에서.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://aiplab.kr/offthereel/">
 <meta property="og:site_name" content="오프더릴">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Nanum+Pen+Script&display=swap">
 <style>
-/* 앱과 같은 규칙: 종이색 바탕 · 먹색 · 여백. 손글씨(나눔 펜)는 제목과 큰 숫자에만. 색은 박자(주황) 한 군데. 릴이는 한 자리. */
+/* 앱과 같은 규칙: 종이색 바탕 · 먹색 · 여백. 손글씨(나눔 펜)는 제목과 큰 숫자에만. 색은 박자(주황) 한 군데. 한컷이는 한 자리. */
 :root{
   --paper:#FAF9F6; --paper2:#F1EEE8; --ink:#1B1A18; --ink2:#6E6A63; --ink3:#ABA69E; --line:#E6E2DA;
   --accent:#FF4A2E;
@@ -136,7 +136,7 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hero2 .ph{position:relative;display:flex;justify-content:center}
 .hero2 .ph img{width:min(330px,72vw);border-radius:44px;outline:3px solid var(--ink);transform:rotate(-2deg);box-shadow:0 40px 80px -40px rgba(27,26,24,.45)}
 .tag{position:absolute;right:6%;top:26%;font-family:var(--hand);font-size:34px;color:var(--accent);background:var(--paper);border:2.5px solid var(--accent);border-radius:16px;padding:2px 16px 0;transform:rotate(-4deg)}
-@media(max-width:800px){.hero2{grid-template-columns:1fr;text-align:center;padding:56px 0 24px}.hero2 h1{text-align:center}.hero2 .lead{margin:18px auto 0}.hero2 .cta{justify-content:center}.hero2 .micro{text-align:center}.tag{right:10px}}
+@media(max-width:800px){.hero2{grid-template-columns:1fr;text-align:center;padding:56px 0 24px}.hero2 h1{text-align:center}.hero2 .lead{margin:18px auto 0}.hero2 .cta{justify-content:center}.hero2 .micro{text-align:center}.tag{right:0}}
 .beats{max-width:none;margin:0 0 20px}
 .beats .row{height:12px;gap:4px}
 .beats .dots i{width:9px;height:9px}
@@ -178,7 +178,7 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <a class="logo" href="./"><img src="apple-touch-icon.png" alt="" width="26" height="26">오프더릴</a>
     <nav class="n">
       <a href="#how">하는 일</a>
-      <a href="#develop">현상</a>
+      <a href="#develop">영상 만들기</a>
       <a href="#vows">약속</a>
       <a href="#support">FAQ</a>
     </nav>
@@ -190,8 +190,8 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <div class="hero hero2 wrap">
   <div>
     <div class="k">1초 브이로그 카메라 · iOS</div>
-    <h1>박자에 찍으면,<br>다 찍었을 때<br><em>영상이 나와 있다</em></h1>
-    <p class="lead">노래를 고르고 셔터를 누르면 <b>딱 그 박자만큼만</b> 찍힙니다. 롤이 차면 영상이 되어 있어요. 찍고 나서 편집하는 시간이 없습니다.</p>
+    <h1>박자에 찍으면,<br>다 찍었을 때<br><em>영상 한 편</em></h1>
+    <p class="lead">노래를 고르고 셔터를 누르면 <b>딱 그 박자만큼만</b> 찍힙니다. 다 찍고 「영상 만들기」를 한 번 누르면 끝. 찍고 나서 편집하는 시간이 없습니다.</p>
     <div class="cta">
       <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Store 에서 받기</a>
       <a class="btn g" href="#how">어떻게 되는 건데</a>
@@ -199,13 +199,13 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <p class="micro">무료 · 계정 없음 · 서버 없음 · 워터마크 없음</p>
   </div>
   <div class="ph">
-    <img src="shots/capture.png" alt="찍기 화면 — 박자 링과 셔터" width="1290" height="2796">
+    <img src="shots/capture.png" alt="찍기 화면, 박자 링과 셔터" width="1290" height="2796">
     <div class="tag" aria-hidden="true">딱 1.2초</div>
   </div>
   <div class="beats beatwrap" aria-label="컷 열두 개가 박자 위에 놓인 타임라인">
     <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="cap"><span>0초</span><span>컷 경계 12곳이 전부 박자 위에 · 100 BPM · 2박 = 1.2초</span><span>14.4초</span></div>
+    <div class="cap"><span>0초</span><span>컷이 전부 노래 박자에 맞춰 넘어가요 · 한 컷 1.2초</span><span>14.4초</span></div>
   </div>
 </div>
 
@@ -225,9 +225,9 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="c dk">
         <div class="k">오프더릴로</div>
-        <div>1. 노래를 고른다 — 앱이 박자를 듣는다</div>
-        <div>2. 셔터를 누른다 — 딱 그 박자만큼만 찍힌다</div>
-        <div class="hand">→ 롤이 차면 <em>영상이 나와 있다</em></div>
+        <div>1. 노래를 고른다. 앱이 박자를 듣는다</div>
+        <div>2. 셔터를 누른다. 딱 그 박자만큼만 찍힌다</div>
+        <div class="hand">→ 다 찍고 누르면 <em>영상 한 편</em></div>
         <div class="foot">편집기가 없습니다. 컷 길이는 박자가 정하고, 사람은 찍기만 합니다.</div>
       </div>
     </div>
@@ -240,27 +240,27 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <h2>하는 일은 다섯, <span class="hand" style="font-family:var(--hand);font-weight:400;color:var(--accent)">사람이 하는 건 둘</span><small>노래 고르기와 찍기. 나머지는 앱이 합니다</small></h2>
     <div class="five">
       <div class="st on"><div class="num">1</div><img src="shots/tempo.png" alt="노래 고르기 화면" width="1290" height="2796" loading="lazy"><h3>노래를 고른다</h3><p>Apple Music 검색, 30초 미리듣기. 앱이 박자를 재서 한 컷 길이를 정합니다. 구독 없이.</p></div>
-      <div class="st on"><div class="num">2</div><img src="shots/capture.png" alt="찍기 화면" width="1290" height="2796" loading="lazy"><h3>박자에 찍는다</h3><p>손에 박이 울리고 링이 한 바퀴 돌면 끝. 며칠에 걸쳐 찍어도 됩니다.</p></div>
-      <div class="st"><div class="num">3</div><img src="shots/roll.png" alt="롤 화면" width="1290" height="2796" loading="lazy"><h3>롤이 찬다</h3><p>12·24·36컷. 필름처럼 다 차야 현상됩니다. 한 주가 한 편.</p></div>
-      <div class="st"><div class="num">4</div><img src="shots/develop-region.png" alt="현상 화면" width="1290" height="2796" loading="lazy"><h3>폰 안에서 현상</h3><p>타이틀·날짜 자막·엔딩 카드, 색감, 부분 색감. 서버로 올라가지 않습니다.</p></div>
-      <div class="st"><div class="num">5</div><img src="shots/export.png" alt="내보내기 화면" width="1290" height="2796" loading="lazy"><h3>릴스 규격으로</h3><p>1080×1920, 안전 구역 밖에 자막. 저장하고 릴스로 바로. 노래는 릴스에서 얹으세요.</p></div>
+      <div class="st on"><div class="num">2</div><img src="shots/capture.png" alt="찍기 화면" width="1290" height="2796" loading="lazy"><h3>박자에 찍는다</h3><p>손에 박자가 울리고 링이 한 바퀴 돌면 끝. 렌즈는 .5 부터 3배, 눕히면 가로 브이로그.</p></div>
+      <div class="st"><div class="num">3</div><img src="shots/roll.png" alt="컷 목록 화면" width="1290" height="2796" loading="lazy"><h3>컷을 채운다</h3><p>12·24·36컷이 한 편. 여러 편을 동시에 찍고, 다 찍은 건 모아 보기에 모여요.</p></div>
+      <div class="st"><div class="num">4</div><img src="shots/develop-text.png" alt="영상 만들기 화면" width="1290" height="2796" loading="lazy"><h3>폰 안에서 영상 만들기</h3><p>제목, 컷마다 시간·찍은 동네·한 마디, 색감과 효과. 서버로 올라가지 않습니다.</p></div>
+      <div class="st"><div class="num">5</div><img src="shots/export.png" alt="내보내기 화면" width="1290" height="2796" loading="lazy"><h3>릴스 규격으로</h3><p>릴스·쇼츠·틱톡 버튼이 가리는 자리를 피해 글자를 앉혀요. 저장하고 릴스로 바로. 노래는 올릴 때 넣으세요.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── 현상 결과 세 장 ──────────────────────────────── -->
+<!-- ── 만든 영상 세 장 ──────────────────────────────── -->
 <section class="tint" id="develop">
   <div class="wrap dev">
     <div class="txt">
       <h2>부분만 흑백,<br>창에는 손으로 그은 테두리</h2>
-      <p>창·사람만·배경만 골라 <b>그 자리에만</b> 색감을 입힙니다. 배경만 흑백이면 사람만 컬러로 남아요.</p>
-      <p>창 테두리는 손그림·종이·필름 중에서. 손그림은 러프함을 덜·보통·더로. 컷마다 손글씨 한 마디.</p>
-      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">실제 현상 결과 세 장 →</p>
+      <p>손으로 그린 네모 안·사람·배경 중에 골라 <b>그 자리에만</b> 색감을 입힙니다. 배경만 흑백이면 사람만 컬러로 남아요.</p>
+      <p>테두리는 손그림·종이·필름 중에서. 시간 표시는 요일·날짜·캠코더·며칠째 중에서 고르고, 찍은 동네와 손글씨 한 마디도 붙어요.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">실제로 만든 영상 세 장 →</p>
     </div>
     <div class="frames">
-      <div><img src="shots/frame-hand.jpg" alt="손그림 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>손그림</b> · 기본</p></div>
-      <div><img src="shots/frame-paper.jpg" alt="종이 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>종이</b> · 붙인 사진처럼</p></div>
-      <div><img src="shots/frame-film.jpg" alt="필름 테두리 현상 결과" width="506" height="900" loading="lazy"><p class="cap"><b>필름</b> · 띠와 구멍</p></div>
+      <div><img src="shots/frame-hand.jpg" alt="손그림 테두리로 만든 영상" width="506" height="900" loading="lazy"><p class="cap"><b>손그림</b> · 기본</p></div>
+      <div><img src="shots/frame-paper.jpg" alt="종이 테두리로 만든 영상" width="506" height="900" loading="lazy"><p class="cap"><b>종이</b> · 붙인 사진처럼</p></div>
+      <div><img src="shots/frame-film.jpg" alt="필름 테두리로 만든 영상" width="506" height="900" loading="lazy"><p class="cap"><b>필름</b> · 띠와 구멍</p></div>
     </div>
   </div>
 </section>
@@ -271,21 +271,21 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <h2>깨지 않는 약속 넷<small>이 넷을 깨는 기능은 넣지 않습니다</small></h2>
     <div class="vows">
       <div class="vow"><div class="k">01</div><h3>편집기가 없다</h3><p>타임라인을 끌어 자르는 화면이 없습니다. 컷 길이는 박자가 정하고, 사람은 찍기만 합니다.</p></div>
-      <div class="vow"><div class="k">02</div><h3>롤에는 끝이 있다</h3><p>12·24·36컷. 차면 닫히고, 닫히면 현상됩니다. 끝없이 쌓이는 클립 서랍이 아닙니다.</p></div>
-      <div class="vow"><div class="k">03</div><h3>폰 밖으로 나가지 않는다</h3><p>계정도 서버도 없습니다. 인터넷은 노래 검색에만 씁니다. 영상은 이용자가 저장할 때만 사진 앱으로 갑니다.</p></div>
+      <div class="vow"><div class="k">02</div><h3>한 편에는 끝이 있다</h3><p>12·24·36컷을 채우면 한 편. 끝없이 쌓이는 클립 서랍이 아닙니다.</p></div>
+      <div class="vow"><div class="k">03</div><h3>폰 밖으로 나가지 않는다</h3><p>계정도 서버도 없습니다. 인터넷은 노래 검색에만 씁니다. 컷과 영상은 이 폰과 사진 앱에만 있어요.</p></div>
       <div class="vow"><div class="k">04</div><h3>워터마크가 없다</h3><p>무료이고, 내보낸 영상에 아무것도 찍히지 않습니다.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── 릴이 ──────────────────────────────────────────── -->
+<!-- ── 한컷이 ──────────────────────────────────────────── -->
 <section class="tint">
   <div class="wrap">
     <div class="reeli">
-      <img src="reeli.png" alt="릴이 — 어깨에 캠코더를 멘 너구리" width="170" height="170" loading="lazy">
+      <img src="hancut.png" alt="한컷이, 필름 한 칸이 몸인 캐릭터" width="170" height="170" loading="lazy">
       <div>
-        <h2 style="margin-bottom:12px;font-family:var(--hand);font-weight:400;font-size:40px">릴이가 현상을 기다립니다</h2>
-        <p>어깨에 캠코더를 멘 너구리. 롤이 비었을 때, 현상 중일 때, 다 됐을 때만 나옵니다. 찍는 화면에는 안 나와요 — 방해되니까.</p>
+        <h2 style="margin-bottom:12px;font-family:var(--hand);font-weight:400;font-size:40px">한컷이가 기다립니다</h2>
+        <p>필름 한 칸이 몸이에요. 찍고 있는 게 없을 때, 영상을 만드는 중일 때, 다 됐을 때만 나옵니다. 찍는 화면에는 안 나와요. 방해되니까.</p>
       </div>
     </div>
   </div>
@@ -296,12 +296,15 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <h2>자주 묻는 질문</h2>
     <div class="faq">
-      <details><summary>노래가 영상에 들어가나요?</summary><p>아니요. Apple Music 미리듣기는 박자를 재고 확인하는 데만 씁니다. 영상은 무음 또는 현장 소리로 나오고, 노래는 릴스·쇼츠에서 얹습니다. 박자가 맞아 있어 그대로 붙습니다.</p></details>
+      <details><summary>노래가 영상에 들어가나요?</summary><p>아니요. Apple Music 미리듣기는 박자를 재고 확인하는 데만 씁니다. 영상은 소리 없이 또는 찍을 때 소리로 나오고, 노래는 릴스·쇼츠에 올릴 때 넣습니다. 박자가 맞아 있어 그대로 붙습니다.</p></details>
       <details><summary>Apple Music 구독이 필요한가요?</summary><p>아니요. 검색과 30초 미리듣기는 구독 없이 됩니다.</p></details>
-      <details><summary>컷 길이는 얼마인가요?</summary><p>박자로 정합니다. 「보통」은 2박 — 100 BPM 곡이면 1.2초. 빠르게(1박)·여유(4박)도 있습니다. 노래 없이 찍으면 1.2초.</p></details>
-      <details><summary>다시 찍을 수 있나요?</summary><p>컷마다 한 번. 컷을 눌러 「다시 찍기」. 순서는 길게 눌러 끌면 바뀝니다.</p></details>
-      <details><summary>지난 라이브 포토도 쓸 수 있나요?</summary><p>네. 「사진첩에서 시작」에서 라이브 포토를 고르면 가장 잔잔한 순간을 골라 컷으로 가져옵니다.</p></details>
-      <details><summary>내 영상은 어디로 가나요?</summary><p>어디로도 가지 않습니다. 컷과 현상한 영상은 이 폰 안에만 있고, 내보내기를 눌러야 사진 앱에 저장됩니다. <a href="privacy.html">개인정보 처리방침</a></p></details>
+      <details><summary>컷 길이는 얼마인가요?</summary><p>고른 노래의 박자로 정해요. 「보통」이면 보통 빠르기 노래에서 1.2초쯤. 빠르게·여유도 있어요. 노래 없이 찍으면 1.2초.</p></details>
+      <details><summary>다시 찍을 수 있나요?</summary><p>컷마다 한 번. 컷을 눌러 「다시 찍기」. 마음에 안 들면 이전 컷으로 되돌릴 수 있고, 비운 컷은 30일 동안 되살릴 수 있어요. 순서는 길게 눌러 끌면 바뀝니다.</p></details>
+      <details><summary>가로로도 찍을 수 있나요?</summary><p>네. 새 브이로그를 만들 때 「가로」를 고르면 폰을 눕혀 찍고, 가로 영상 또는 세로 안에 가로로 만들어요.</p></details>
+      <details><summary>찍은 곳이 들어가나요?</summary><p>켜면요. 처음엔 꺼져 있고, 켜면 셔터를 누를 때만 위치를 봐서 「성수동」처럼 동네 이름을 붙여요. 좌표는 폰 밖으로 나가지 않아요.</p></details>
+      <details><summary>잊어버리면 어떡하죠?</summary><p>매일 정한 시각에 알려 드리거나, 「오늘 담기」를 켜면 매 정시에 알려 드려요. 홈 화면·잠금 화면 위젯도 있어요.</p></details>
+      <details><summary>지난 라이브 포토도 쓸 수 있나요?</summary><p>네. 「사진첩에서 채우기」에서 라이브 포토나 찍어 둔 영상을 고르면 가장 덜 흔들린 순간을 컷으로 가져옵니다.</p></details>
+      <details><summary>내 영상은 어디로 가나요?</summary><p>어디로도 가지 않습니다. 찍은 컷은 앱 안과 사진 앱 「오프더릴」 앨범(끌 수 있어요)에만 있고, 만든 영상은 내보내기를 눌러야 사진 앱에 저장됩니다. <a href="privacy.html">개인정보 처리방침</a></p></details>
     </div>
     <div class="contact">
       <span>문의 <a href="mailto:gc.yang@teamsparta.co">gc.yang@teamsparta.co</a></span>
