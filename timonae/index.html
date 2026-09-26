@@ -2,240 +2,367 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>티끌모아내꺼 - 티모내</title>
-<meta name="description" content="사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다. 커피 한 잔 참으면 사진이 4,500원만큼 드러난다. 가입 없음, 기기 안, 재촉 없음.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>티끌모아내꺼</title>
+<meta name="description" content="사고 싶은 것을 정하고, 참은 돈으로 그 사진을 채운다. 커피 한 잔 참으면 맥북이 4,500원만큼 드러난다. 가입 없음, 기기 안, 재촉 없음.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="티끌모아내꺼 - 티모내">
-<meta property="og:description" content="사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다.">
+<meta property="og:title" content="티끌모아내꺼">
+<meta property="og:description" content="사고 싶은 것을 정하고, 참은 돈으로 그 사진을 채운다.">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="128x128" href="img/icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0D0E" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://aiplab.kr/timonae/">
+<meta property="og:url" content="https://aiplab.kr/timonae/">
+<meta property="og:site_name" content="티끌모아내꺼">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://aiplab.kr/timonae/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="흰 햄스터 모아가 손을 흔든다. 사고 싶은 것을 정하고, 참은 돈으로 그 사진을 채운다.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="티끌모아내꺼">
+<meta name="twitter:description" content="사고 싶은 것을 정하고, 참은 돈으로 그 사진을 채운다.">
+<meta name="twitter:image" content="https://aiplab.kr/timonae/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
-  :root {
-    --paper: #FFFFFF;
-    --ink: #111214;
-    --ink2: #5A5C5E;
-    --ink3: #8E9092;
-    --sink: #F3F3F3;
-    --line: #E8E8E8;
-    --edge: #D8D8D8;
-    --mark: #B87333;
-    --dust: #D9DADC;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #0D0D0E;
-      --ink: #F2F2F3;
-      --ink2: #A9ABAD;
-      --ink3: #747678;
-      --sink: #1E1E1F;
-      --line: #242426;
-      --edge: #323234;
-      --mark: #D48C4A;
-      --dust: #3A3B3E;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-    font-size: 17px;
-    line-height: 1.65;
-    word-break: keep-all;
-    -webkit-font-smoothing: antialiased;
-  }
-  main { max-width: 560px; margin: 0 auto; padding: 64px 20px 80px; }
-
-  /* 위 */
-  .brand { font-size: 13px; color: var(--ink3); margin: 0 0 14px; letter-spacing: 0.02em; }
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    margin: 0 0 12px;
-  }
-  .one { margin: 0; font-size: 17px; color: var(--ink2); }
-
-  /* 티끌 격자. 이미지 없이 CSS 로만 그린다 */
-  .pic {
-    position: relative;
-    height: 238px;
-    margin: 36px 0 12px;
-    border-radius: 16px;
-    border: 1px solid var(--line);
-    background: var(--sink);
-    overflow: hidden;
-  }
-  .pic .name {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--ink3);
-    letter-spacing: -0.01em;
-  }
-  /* 덮개: 6px 격자에 3.5px 점. 아낀 비율(38%)만큼 아래에서 걷혔다 */
-  .dust {
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 62%;
-    background-color: var(--paper);
-    background-image: radial-gradient(circle, var(--dust) 1.75px, transparent 1.9px);
-    background-size: 6px 6px;
-    background-position: 1.25px 1.25px;
-  }
-  /* 경계 띠 13px: 점이 드문드문 빠진 느낌 */
-  .dust::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: -13px;
-    height: 13px;
-    background-image: radial-gradient(circle, var(--dust) 1.75px, transparent 1.9px);
-    background-size: 6px 6px;
-    background-position: 1.25px 1.25px;
-    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 24px, transparent 24px 29px);
-    mask-image: repeating-linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 24px, transparent 24px 29px);
-    opacity: 0.6;
-  }
-  /* 옮긴 돈 선. 구리색이 서는 자리 */
-  .move {
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 4px;
-    height: 20%;
-    background: var(--mark);
-    border-radius: 0 2px 0 0;
-  }
-  .tag {
-    position: absolute;
-    font-size: 11px;
-    color: var(--ink2);
-    background: var(--paper);
-    padding: 2px 6px;
-    border-radius: 6px;
-    bottom: 10px;
-    font-variant-numeric: tabular-nums;
-  }
-  .tag.l { left: 12px; }
-  .tag.r { right: 12px; }
-  .cap { margin: 0 0 40px; font-size: 13px; color: var(--ink3); line-height: 1.55; }
-
-  /* 세 문단 */
-  section { padding: 22px 0; border-top: 1px solid var(--line); }
-  h2 { font-size: 17px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
-  p { margin: 0; }
-  .num { font-variant-numeric: tabular-nums; }
-
-  /* 약속 넷 */
-  ol.promise { margin: 0; padding: 0; list-style: none; counter-reset: p; }
-  ol.promise li {
-    display: flex;
-    gap: 14px;
-    min-height: 58px;
-    align-items: center;
-    border-top: 1px solid var(--line);
-    padding: 12px 0;
-  }
-  ol.promise li:first-child { border-top: 0; padding-top: 4px; }
-  ol.promise li::before {
-    counter-increment: p;
-    content: counter(p);
-    flex: 0 0 28px;
-    height: 28px;
-    border: 1px solid var(--edge);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    color: var(--ink2);
-    font-variant-numeric: tabular-nums;
-  }
-  ol.promise b { display: block; font-weight: 700; }
-  ol.promise span { display: block; font-size: 15px; color: var(--ink2); }
-
-  /* 받기 */
-  .get {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    margin-top: 32px;
-    border-radius: 14px;
-    background: var(--ink);
-    color: var(--paper);
-    text-decoration: none;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  .get:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
-  .sub { margin-top: 10px; font-size: 13px; color: var(--ink3); text-align: center; }
-
-  .links { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink2); }
-  .links p { margin: 0 0 6px; }
-  a { color: var(--ink); text-underline-offset: 3px; }
-  footer { margin-top: 28px; font-size: 13px; color: var(--ink3); }
+:root{--paper:#FFFFFF;--sink:#F3F3F3;--sink2:#E9E9E9;--ink:#111214;--ink2:#5A5C5E;--ink3:#8E9092;--line:#E8E8E8;--edge:#D8D8D8;--mark:#B87333;--dust:#D9DADC}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#0D0D0E;--sink:#1E1E1F;--sink2:#262627;--ink:#F2F2F3;--ink2:#A9ABAD;--ink3:#747678;--line:#242426;--edge:#323234;--mark:#D48C4A;--dust:#3A3B3E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0D0D0E;--sink:#1E1E1F;--sink2:#262627;--ink:#F2F2F3;--ink2:#A9ABAD;--ink3:#747678;--line:#242426;--edge:#323234;--mark:#D48C4A;--dust:#3A3B3E;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px}
+/* 위 바 */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;min-height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;font-size:16px}
+.logo img{width:28px;height:28px;border-radius:7px}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav ul a{text-decoration:none;font-size:14px;color:var(--ink2)}
+.nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:12px;background:var(--ink);color:var(--paper);font-weight:500;text-decoration:none;font-size:15px;white-space:nowrap}
+.btn.big{min-height:56px;padding:0 26px;font-size:17px;border-radius:14px}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge)}
+.btn.ghost:hover{opacity:1;background:var(--sink)}
+.nav ul a[aria-current="true"]{color:var(--ink);font-weight:500}
+.hb{display:none;margin-left:auto;font:inherit;background:none;border:1px solid var(--edge);border-radius:10px;color:var(--ink);min-width:44px;min-height:44px;cursor:pointer;font-size:20px;line-height:1}
+dialog.drawer{border:0;padding:0;margin:0;position:fixed;inset:0 0 0 auto;width:min(78vw,300px);height:100dvh;max-height:100dvh;background:var(--paper);color:var(--ink);box-shadow:-10px 0 30px rgba(0,0,0,.14);animation:sl .18s ease-out}
+dialog.drawer::backdrop{background:rgba(17,18,20,.42)}
+dialog.drawer nav{display:flex;flex-direction:column;padding:calc(20px + env(safe-area-inset-top,0px)) 20px 20px;gap:4px}
+dialog.drawer .x{align-self:flex-end;font:inherit;background:none;border:0;color:var(--ink2);min-width:44px;min-height:44px;font-size:22px;cursor:pointer}
+dialog.drawer a{text-decoration:none;font-size:17px;padding:12px 4px;border-bottom:1px solid var(--line)}
+dialog.drawer a.btn{margin-top:16px;border:0;justify-content:center}
+@keyframes sl{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){dialog.drawer{animation:none}}
+@media (max-width:760px){.nav ul,.nav>.wrap>.btn{display:none}.hb{display:inline-grid;place-items:center}}
+/* 첫 화면 */
+.hero{padding-block:56px 40px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.eyebrow{font-size:13px;color:var(--ink3);letter-spacing:.04em;margin:0 0 14px}
+h1{font-size:clamp(30px,4.2vw,46px);font-weight:900;line-height:1.22;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--mark)}
+.lead{font-size:19px;color:var(--ink2);margin:18px 0 0;max-width:34ch}
+.cta{display:flex;align-items:center;gap:16px;margin-top:28px;flex-wrap:wrap}
+.cta small{font-size:13px;color:var(--ink3)}
+.moa{display:flex;align-items:flex-end;gap:14px;margin-top:34px}
+.moa img{width:150px;height:auto;flex:none}
+.moa .bubble{position:relative;background:var(--sink);border-radius:16px;padding:12px 16px;font-size:15px;font-weight:500;line-height:1.5;margin-bottom:26px;max-width:26ch}
+.moa .bubble::after{content:"";position:absolute;left:-8px;bottom:14px;width:16px;height:16px;background:var(--sink);border-radius:3px;transform:rotate(45deg)}
+.moa .bubble small{display:block;font-weight:400;color:var(--ink3);font-size:12px;margin-top:4px}
+@media (max-width:860px){.moa{margin-top:26px}}
+/* 데모 */
+.demo{border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;background:var(--paper)}
+.demo .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.demo .name{font-size:14px;color:var(--ink2)}
+.demo .big{display:flex;align-items:baseline;gap:8px;margin-top:2px;font-variant-numeric:tabular-nums}
+.demo .big b{font-size:38px;font-weight:700;letter-spacing:-.03em;color:var(--mark);line-height:1.05}
+.demo .big span{font-size:14px;color:var(--ink3)}
+.demo .say{margin-top:8px;min-height:26px;font-size:16px;font-weight:500}
+.pic{position:relative;margin-top:14px;aspect-ratio:353/238;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--sink)}
+.pic canvas{position:absolute;inset:0;width:100%;height:100%}
+.pic .tag{position:absolute;bottom:10px;background:var(--paper);opacity:.92;border-radius:6px;padding:2px 6px;font-size:11px;font-variant-numeric:tabular-nums}
+.pic .l{left:12px;color:var(--ink2)}.pic .r{right:12px;color:var(--ink);font-weight:700}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.chip{font:inherit;min-height:56px;border:1px solid var(--edge);border-radius:14px;background:transparent;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:13px;cursor:pointer}
+.chip small{color:var(--ink3);font-size:12px;font-variant-numeric:tabular-nums}
+.chip:hover{background:var(--sink)}
+.chip.ghost{border-style:dashed;color:var(--ink3)}
+.slider{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:12px;color:var(--ink3)}
+.slider input{flex:1;accent-color:var(--mark)}
+.demo .hint{margin:10px 0 0;font-size:12px;color:var(--ink3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:28px}.lead{max-width:none}}
+/* 절 */
+section{padding-block:64px;border-top:1px solid var(--line)}
+section .wrap>h2{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.3;margin:0;text-wrap:balance}
+section .wrap>p.sub{color:var(--ink2);margin:10px 0 0;max-width:60ch;font-size:17px}
+.k{font-size:13px;color:var(--mark);font-weight:500;letter-spacing:.04em;margin:0 0 10px}
+/* 폰 */
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+.phone{margin:0}
+.phone .frame{border-radius:36px;border:6px solid var(--ink);overflow:hidden;background:var(--ink);aspect-ratio:402/874}
+.phone .frame img{width:100%;height:100%;object-fit:cover}
+.phone figcaption{margin-top:14px;font-size:15px;color:var(--ink2)}
+.phone figcaption b{display:block;color:var(--ink);font-weight:700;margin-bottom:2px;font-size:16px}
+.phone figcaption .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;margin-right:8px;vertical-align:2px}
+@media (max-width:760px){.phones{grid-template-columns:1fr;max-width:340px}}
+/* 말투 */
+.talk{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:32px;align-items:start}
+.lines{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lines li{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:baseline;padding:12px 16px;border:1px solid var(--line);border-radius:14px}
+.lines .p{font-size:12px;color:var(--ink3);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.lines .s{font-size:17px;font-weight:500}
+.lines li.done .s{color:var(--mark);font-weight:700}
+.talk .note{color:var(--ink2);font-size:16px}
+.talk .note p{margin:0 0 12px}
+@media (max-width:760px){.talk{grid-template-columns:1fr}}
+/* 통장 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:32px;align-items:center}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card .t{font-size:13px;color:var(--ink3)}
+.card .v{font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.card.m .v{color:var(--mark)}
+.gap{margin-top:10px;font-size:14px;color:var(--ink3);text-align:right}
+.two .note{color:var(--ink2);font-size:16px;margin-top:20px}
+.two .note p{margin:0 0 12px}
+.two .phone{max-width:320px;justify-self:center}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+/* 내꺼들 */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px;max-width:720px}
+@media (max-width:760px){.pair{grid-template-columns:1fr;max-width:340px}}
+/* 약속 */
+.promise{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;list-style:none;padding:0}
+.promise li{border:1px solid var(--line);border-radius:16px;padding:20px 18px}
+.promise b{display:block;font-size:17px;margin-bottom:6px}
+.promise span{font-size:14px;color:var(--ink2)}
+@media (max-width:860px){.promise{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.promise{grid-template-columns:1fr}}
+/* 궁금한 것 */
+.faq{margin-top:28px;max-width:720px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:500;font-size:17px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--ink3);font-size:20px}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 18px;color:var(--ink2);font-size:16px}
+/* 끝 */
+.end{text-align:center;padding-block:72px}
+.end h2{font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:-.03em;margin:0}
+.end p{color:var(--ink2);margin:12px 0 0}
+.end .cta{justify-content:center}
+footer{border-top:1px solid var(--line);padding-block:28px 48px;font-size:14px;color:var(--ink3)}
+footer .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--ink2);text-underline-offset:3px}
+footer .r{margin-left:auto}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<main>
-  <p class="brand">티끌모아내꺼 · 티모내 · iOS</p>
-  <h1>사고 싶은 것 하나를 정하고, 참은 돈으로 그걸 채운다.</h1>
-  <p class="one">커피 한 잔 참으면 맥북이 4,500원만큼 드러난다.</p>
 
-  <div class="pic" aria-label="목표 사진 위 티끌 덮개. 아낀 만큼 아래에서 걷힌다" role="img">
-    <div class="name">맥북 프로 14</div>
-    <div class="dust"></div>
-    <div class="move"></div>
-    <span class="tag l num">옮긴 돈 600,000</span>
-    <span class="tag r num">38%</span>
-  </div>
-  <p class="cap">사진은 아낀 만큼만 아래에서 드러나고 나머지는 티끌이다. 왼쪽 가는 선이 진짜 옮긴 돈. 두 높이가 어긋나면 눈에 보인다.</p>
+<nav class="nav" aria-label="위 바"><div class="wrap">
+  <a class="logo" href="#top"><img src="img/icon.png" alt="" width="28" height="28">티끌모아내꺼</a>
+  <ul>
+    <li><a href="#how">어떻게 되나</a></li>
+    <li><a href="#talk">말투</a></li>
+    <li><a href="#bank">통장</a></li>
+    <li><a href="#goals">내꺼들</a></li>
+    <li><a href="#promise">약속</a></li>
+  </ul>
+  <a class="btn ghost" href="#get">App Store</a>
+  <button class="hb" type="button" aria-label="메뉴 열기" aria-haspopup="dialog" aria-controls="menu" id="hb">&#9776;</button>
+</div></nav>
+<dialog class="drawer" id="menu" aria-label="메뉴">
+  <nav>
+    <button class="x" type="button" aria-label="메뉴 닫기" id="menuClose">&times;</button>
+    <a href="#how">어떻게 되나</a>
+    <a href="#talk">말투</a>
+    <a href="#bank">통장</a>
+    <a href="#goals">내꺼들</a>
+    <a href="#promise">약속</a>
+    <a href="#faq">궁금한 것</a>
+    <a class="btn" href="#get">App Store에서 받기</a>
+  </nav>
+</dialog>
 
-  <section>
-    <h2>물건이 목표다</h2>
-    <p>「300만 원 모으기」는 안 된다. 「맥북」은 된다. 사고 싶은 것 하나를 사진과 값으로 정하면, 참을 때마다 그 사진이 그만큼 드러난다. 목표는 한 번에 하나다.</p>
-  </section>
-
-  <section>
-    <h2>「대신」도 티끌이다</h2>
-    <p>국밥 대신 컵라면을 먹었으면 차액이 티끌이 된다. 안 산 것만 세지 않는다. 자주 참는 것은 버튼으로 굳어서, 커피를 참았을 때 누르는 건 두 번이다.</p>
-  </section>
-
-  <section>
-    <h2>진짜 옮긴 돈을 따로 센다</h2>
-    <p>참았다고 적은 돈과 실제로 통장에 옮긴 돈은 다르다. 이 앱은 둘을 따로 센다. 「아꼈다고 한 돈 <span class="num">184,500</span> · 진짜 옮긴 돈 <span class="num">60,000</span>」. 이 차이가 이 앱이 정직한 이유다. 말투는 거지방이다. 재촉은 안 한다.</p>
-  </section>
-
-  <section>
-    <h2>약속 넷</h2>
-    <ol class="promise">
-      <li><div><b>가입이 없다</b><span>계정·서버·네트워크 0. 은행 연동 없음.</span></div></li>
-      <li><div><b>기기 안에서 끝난다</b><span>어떤 정보도 수집하지 않는다. 데이터는 iPhone 안에만.</span></div></li>
-      <li><div><b>두 번에 저장된다</b><span>버튼 누르고 저장. 그 사이에 고를 것이 없다.</span></div></li>
-      <li><div><b>재촉하지 않는다</b><span>알림·연속 기록·배지 없음. 문장은 열었을 때만 말한다.</span></div></li>
-    </ol>
-  </section>
-
-  <!-- 앱스토어 링크 자리. 게시되면 href 를 https://apps.apple.com/kr/app/id<앱ID> 로 바꾼다 -->
-  <a class="get" href="#">App Store 에서 받기</a>
-  <p class="sub">iPhone · 무료 · 4+</p>
-
-  <div class="links">
-    <p><a href="privacy.html">개인정보 처리방침</a></p>
-    <p>문의 <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <p class="eyebrow">티끌모아내꺼 · iPhone</p>
+    <h1>사고 싶은 것을 정하고,<br>참은 돈으로 <em>그 사진</em>을 채운다.</h1>
+    <p class="lead">커피 한 잔 참으면 맥북이 4,500원만큼 드러난다. 참았다는 돈과 통장에 옮긴 돈을 따로 센다. 가입 없음, 기기 안, 재촉 없음.</p>
+    <div class="cta">
+      <a class="btn big" href="#get">App Store에서 받기</a>
+      <small>무료 · 4+ · 계정 없음</small>
+    </div>
+    <div class="moa" aria-label="마스코트 모아">
+      <img src="img/moa-start.png" alt="흰 햄스터 모아가 손을 흔든다. 다른 손에는 구리색 십원 동전" width="150">
+      <div class="bubble">커피 520잔 값이네. 오늘부터 거지.<small>모아. 볼에 모으는 햄스터. 참을수록 볼이 부푼다.</small></div>
+    </div>
   </div>
 
-  <footer>AIP Lab</footer>
-</main>
+  <div class="demo" aria-label="직접 해 보기">
+    <div class="top"><div><div class="name">맥북 프로 14</div><div class="big"><b id="dS">1,050,000</b><span>/ 2,340,000</span></div></div></div>
+    <div class="say" id="dSay">아직 287잔. 그래도 좀 덜 거지.</div>
+    <div class="pic"><canvas id="dCv"></canvas><span class="tag l">옮긴 돈 600,000</span><span class="tag r" id="dPct">44.9%</span></div>
+    <div class="chips">
+      <button class="chip" type="button" data-add="4500">커피<small>4,500</small></button>
+      <button class="chip" type="button" data-add="10000">점심<small>10,000</small></button>
+      <button class="chip" type="button" data-add="15000">택시<small>15,000</small></button>
+      <button class="chip ghost" type="button" data-add="0">직접 입력</button>
+    </div>
+    <div class="slider"><span>0</span><input id="dRange" type="range" min="0" max="2340000" step="500" value="1050000" aria-label="아낀 돈"><span>2,340,000</span></div>
+    <p class="hint">직접 해 보기. 버튼을 누르면 그만큼 열리고, 슬라이더를 밀면 끝까지 볼 수 있다. 앱 화면 그대로다.</p>
+  </div>
+</div></header>
+
+<section id="how"><div class="wrap">
+  <p class="k">어떻게 되나</p>
+  <h2>3분 안에 첫 티끌.</h2>
+  <p class="sub">「300만 원 모으기」는 안 된다. 「맥북」은 된다. 물건을 사진과 가격으로 정하면, 참을 때마다 그 사진이 아래에서부터 그만큼 열린다.</p>
+  <div class="phones">
+    <figure class="phone"><div class="frame"><img src="img/start.jpg" alt="사고 싶은 것 화면. 사진 넣기, 이름, 가격" loading="lazy"></div><figcaption><b><span class="n">1</span>뭘 사고 싶어요?</b>사진 한 장, 이름, 가격. 가격을 치는 순간 커피 몇 잔 값인지 나온다.</figcaption></figure>
+    <figure class="phone"><div class="frame"><img src="img/save.jpg" alt="참기 시트. 커피 4,500원, 안 샀다, 어디에, 미리보기 문장, 저장" loading="lazy"></div><figcaption><b><span class="n">2</span>커피를 누르고 저장.</b>두 번이면 끝. 국밥 대신 컵라면을 먹었으면 차액만 적는다. 저장 전에 무슨 일이 일어날지 문장으로 먼저 보여 준다.</figcaption></figure>
+    <figure class="phone"><div class="frame"><img src="img/home-clean.jpg" alt="홈. 아낀 돈 1,050,000, 맥북 사진이 45% 열림" loading="lazy"></div><figcaption><b><span class="n">3</span>사진이 그만큼 열린다.</b>나머지는 회색 티끌. 경계는 점이 흩어지며 걷힌다. 참음이 셋을 넘으면 이 속도로 언제 살 수 있는지 날짜가 나온다.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="talk"><div class="wrap">
+  <p class="k">말투</p>
+  <h2>거지방 말투. 재촉은 안 한다.</h2>
+  <p class="sub">사실만 짧게. 열었을 때만 말하고, 알림으로 부르지 않는다. 설정에서 끄면 숫자만 남는다.</p>
+  <div class="talk">
+    <ul class="lines">
+      <li><span class="p">정할 때</span><span class="s">커피 520잔 값이네. 오늘부터 거지.</span></li>
+      <li><span class="p">10% 전</span><span class="s">아직 487잔. 갈 길 멀다.</span></li>
+      <li><span class="p">50% 전</span><span class="s">아직 287잔. 그래도 좀 덜 거지.</span></li>
+      <li><span class="p">90% 전</span><span class="s">61잔 남았다. 거의 다 왔다.</span></li>
+      <li><span class="p">90% 뒤</span><span class="s">12잔. 코앞이다.</span></li>
+      <li class="done"><span class="p">100%</span><span class="s">내꺼.</span></li>
+    </ul>
+    <div class="note">
+      <p>「국밥 대신 컵라면. 8,000원 아꼈다.」 「결국 샀네.」 「아꼈다면서 반도 안 옮겼다.」 이런 식이다.</p>
+      <p>칭찬도 없고 배지도 없다. 대신 숫자가 정확하다. 남은 커피 잔 수는 4,500원으로 나눈 것이고, 사는 날은 지금까지 하루 평균으로 나눈 것이다.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="bank"><div class="wrap">
+  <p class="k">통장</p>
+  <h2>아꼈다는 돈과 통장에 옮긴 돈은 다르다.</h2>
+  <p class="sub">참았다고 적는 건 쉽다. 이 앱은 실제로 통장에 옮긴 돈을 따로 센다. 왼쪽 가는 선이 그 돈이다. 사진이 열린 높이와 선의 높이가 어긋나면 눈에 보인다.</p>
+  <div class="two">
+    <div>
+      <div class="cards">
+        <div class="card"><div class="t">아꼈다는 돈</div><div class="v">1,050,000</div></div>
+        <div class="card m"><div class="t">통장에 옮긴 돈</div><div class="v">600,000</div></div>
+      </div>
+      <div class="gap">차이 450,000</div>
+      <div class="note">
+        <p>은행 연동은 없다. 옮긴 돈은 「옮기기」로 직접 적는다. 그래서 정직하다. 앱이 대신 세 주는 게 아니라, 내가 옮긴 만큼만 선이 오른다.</p>
+        <p>기록은 날짜별로 안 산 것, 대신 산 것, 통장으로 옮긴 것이 한 줄씩 쌓인다. 잘못 적은 건 길게 눌러 지운다. 지우면 사진이 그만큼 다시 가려진다.</p>
+      </div>
+    </div>
+    <figure class="phone"><div class="frame"><img src="img/ledger.jpg" alt="기록 화면. 아꼈다는 돈 1,050,000, 통장에 옮긴 돈 600,000, 날짜별 목록" loading="lazy"></div></figure>
+  </div>
+</div></section>
+
+<section id="goals"><div class="wrap">
+  <p class="k">내꺼들</p>
+  <h2>여러 개를 같이. 목록으로도, 사진으로도.</h2>
+  <p class="sub">맥북, 제주 항공권, 캠핑 의자를 같이 둔다. 참기는 지금 보는 것에 붙고, 시트에서 바꿀 수 있다. 사진 격자에서는 칸마다 티끌이 걷힌 만큼 보여서 격자 자체가 진행판이 된다.</p>
+  <div class="pair">
+    <figure class="phone"><div class="frame"><img src="img/goals-grid.jpg" alt="내꺼들 사진 격자. 맥북 프로 14 44%, 제주 항공권 47%, 캠핑 의자 14%, 러닝화 2%" loading="lazy"></div><figcaption><b>사진</b>3열. 인스타 프로필처럼 쭉.</figcaption></figure>
+    <figure class="phone"><div class="frame"><img src="img/goals-list.jpg" alt="내꺼들 목록. 모으는 중 넷, 끝난 것 하나" loading="lazy"></div><figcaption><b>목록</b>아낀 돈, 가격, 통장에 옮긴 돈이 한 줄에.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="promise"><div class="wrap">
+  <p class="k">약속</p>
+  <h2>지키는 것 넷.</h2>
+  <ul class="promise">
+    <li><b>가입이 없다</b><span>계정, 서버, 네트워크 접속이 없다. 은행 연동도 없다.</span></li>
+    <li><b>기기 안에서 끝난다</b><span>어떤 정보도 수집하지 않는다. App Store 개인정보 항목은 「데이터를 수집하지 않음」.</span></li>
+    <li><b>두 번에 저장된다</b><span>버튼 누르고 저장. 그 사이에 고를 것이 없다.</span></li>
+    <li><b>재촉하지 않는다</b><span>알림, 연속 기록, 배지가 없다. 문장은 열었을 때만 말한다.</span></li>
+  </ul>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <p class="k">궁금한 것</p>
+  <h2>자주 묻는 것.</h2>
+  <div class="faq">
+    <details name="faq"><summary>은행이나 카드를 연결하나요?</summary><p>아니요. 금액은 전부 직접 적습니다. 그래서 심사도, 권한도, 유출도 없습니다.</p></details>
+    <details name="faq"><summary>사진첩 권한을 달라고 하나요?</summary><p>아니요. iOS 사진 선택기로 고른 한 장만 앱 안으로 복사합니다. 설정 앱에 사진 항목이 생기지 않습니다.</p></details>
+    <details name="faq"><summary>알림이 오나요?</summary><p>안 옵니다. 넣을 생각도 없습니다. 열었을 때만 말합니다.</p></details>
+    <details name="faq"><summary>기록을 밖으로 꺼낼 수 있나요?</summary><p>설정에서 csv 한 파일로 내보냅니다. 내꺼 전부, 날짜별로.</p></details>
+    <details name="faq"><summary>Face ID 잠금이 있나요?</summary><p>설정에서 켜면 앱을 열 때 확인합니다. 기본은 꺼짐입니다.</p></details>
+    <details name="faq"><summary>안드로이드는요?</summary><p>아직 iPhone만 있습니다.</p></details>
+  </div>
+</div></section>
+
+<section class="end" id="get"><div class="wrap">
+  <h2>커피 한 잔부터.</h2>
+  <p>오늘 참은 4,500원이 사진 위에서 보인다.</p>
+  <div class="cta">
+    <!-- 게시되면 href 를 https://apps.apple.com/kr/app/id<앱ID> 로 바꾼다 -->
+    <a class="btn big" href="#">App Store에서 받기</a>
+    <small>iPhone · 무료 · 4+</small>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <a href="privacy.html">개인정보 처리방침</a>
+  <span>문의 <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></span>
+  <span class="r">&copy; 2026 AIP Lab</span>
+</div></footer>
+
+<script>
+(() => {
+  // 첫 화면 데모. 앱의 티끌 덮개(B 흩어짐)와 문장을 그대로 옮겼다. 사진 틀 353×238 기준.
+  const W=353,H=238,CELL=6,DOT=3.5,F=48,G=2340000,M=600000,COFFEE=4500;
+  const cv=document.getElementById('dCv'),ctx=cv.getContext('2d');
+  const fmt=n=>n.toLocaleString('ko-KR');
+  const hash=(x,y)=>{const h=Math.sin(x*12.9898+y*78.233+3.7)*43758.5453;return h-Math.floor(h);};
+  const rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;};
+  const tok=()=>{const s=getComputedStyle(document.documentElement);const g=k=>s.getPropertyValue(k).trim();return{paper:g('--paper'),dust:g('--dust'),mark:g('--mark')};};
+  const cups=(S)=>Math.max(0,Math.ceil((G-S)/COFFEE));
+  function say(S){if(S>=G)return '내꺼.';const n=fmt(cups(S)),p=S/G;if(S<=0)return `커피 ${fmt(cups(0))}잔 값이네. 오늘부터 거지.`;if(p<.1)return `아직 ${n}잔. 갈 길 멀다.`;if(p<.5)return `아직 ${n}잔. 그래도 좀 덜 거지.`;if(p<.9)return `${n}잔 남았다. 거의 다 왔다.`;return `${n}잔. 코앞이다.`;}
+  const img=new Image();img.src='img/macbook.jpg';
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function draw(S){const T=tok();const dpr=Math.min(2,window.devicePixelRatio||1);cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,H);ctx.save();rr(0,0,W,H,16);ctx.clip();
+    if(img.complete&&img.naturalWidth){const s=Math.max(W/img.width,H/img.height),w=img.width*s,h=img.height*s;ctx.drawImage(img,(W-w)/2,(H-h)/2,w,h);}
+    const p=Math.min(1,S/G);
+    if(p<1){const e=(H+F)-p*(H+2*F);ctx.fillStyle=T.paper;ctx.fillRect(0,0,W,Math.max(0,e-F));
+      const g=ctx.createLinearGradient(0,e-F,0,e+F*.6);g.addColorStop(0,T.paper);g.addColorStop(1,rgba(T.paper,0));ctx.fillStyle=g;ctx.fillRect(0,e-F,W,F*1.6);
+      ctx.fillStyle=T.dust;for(let y=0;y<H;y+=CELL)for(let x=0;x<W;x+=CELL){const t=(y-(e-F))/(2*F);if(t<=0||(t<1&&hash(x,y)>t))ctx.fillRect(x+1.25,y+1.25,DOT,DOT);}}
+    const q=M/G;ctx.fillStyle=T.mark;ctx.fillRect(0,H-Math.max(H*q,16),4,Math.max(H*q,16));ctx.restore();}
+  const range=document.getElementById('dRange'),elS=document.getElementById('dS'),elSay=document.getElementById('dSay'),elPct=document.getElementById('dPct');
+  let S=+range.value;
+  function update(){S=Math.max(0,Math.min(G,S));range.value=S;elS.textContent=fmt(S);elSay.textContent=say(S);elPct.textContent=(Math.min(1,S/G)*100).toFixed(1)+'%';draw(S);}
+  range.addEventListener('input',()=>{S=+range.value;update();});
+  document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{const a=+b.dataset.add||4500;S+=a;update();b.animate([{transform:'scale(.96)'},{transform:'scale(1)'}],{duration:160});}));
+  img.addEventListener('load',update);if(img.complete)update();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',update);
+  new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  // 햄버거 → 드로어(<dialog>). 배경이나 링크를 누르면 닫힌다
+  const menu=document.getElementById('menu'),hb=document.getElementById('hb');
+  hb.addEventListener('click',()=>menu.showModal());
+  document.getElementById('menuClose').addEventListener('click',()=>menu.close());
+  menu.addEventListener('click',e=>{if(e.target===menu||e.target.closest('a'))menu.close();});
+  // 위 바에 지금 보고 있는 절 표시(aria-current)
+  const links=[...document.querySelectorAll('.nav ul a')];
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{if(!en.isIntersecting)return;links.forEach(a=>a.removeAttribute('aria-current'));const a=links.find(l=>l.getAttribute('href')==='#'+en.target.id);if(a)a.setAttribute('aria-current','true');});},{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[id]').forEach(sec=>io.observe(sec));
+})();
+</script>
 </body>
 </html>
