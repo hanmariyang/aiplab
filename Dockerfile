@@ -23,6 +23,7 @@ COPY pusil /srv/pusil
 COPY offtheday /srv/offtheday
 COPY offthereel /srv/offthereel
 COPY timonae /srv/timonae
+COPY dulda /srv/dulda
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt
