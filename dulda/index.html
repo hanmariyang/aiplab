@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>둘다 - 세로 가로 한 번에</title>
+<meta name="description" content="한 번 찍어 세로와 가로를 둘 다 얻는 iOS 영상 앱. 세로 틀은 찍는 중에도, 찍은 뒤에도 옮깁니다.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --black: #000000; --white: #FFFFFF; --warn: #E0392B;
+    --paper: #FFFFFF; --ink: #111214; --ink2: #5A5C5E; --ink3: #8E9092; --line: #ECECEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #000000; --ink: #F2F2F2; --ink2: #A9ABAF; --ink3: #6F7175; --line: #222327; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  a { color: inherit; text-underline-offset: 3px; }
+  .hero { background: var(--black); color: var(--white); padding: 56px 20px 40px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  .hero h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .hero p { margin: 6px 0 28px; font-size: 17px; font-weight: 600; }
+  .shot { display: block; width: 100%; height: auto; border-radius: 14px; }
+  .frame { animation: slide 6s ease-in-out infinite alternate; }
+  @keyframes slide { 0%, 20% { transform: translateX(0); } 80%, 100% { transform: translateX(62px); } }
+  @media (prefers-reduced-motion: reduce) { .frame { animation: none; } }
+  main { padding: 8px 20px 48px; }
+  h2 { margin: 40px 0 8px; font-size: 20px; font-weight: 700; }
+  ul.rows { list-style: none; margin: 0; padding: 0; }
+  ul.rows li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  ul.rows li b { display: block; font-size: 17px; font-weight: 600; }
+  ul.rows li span { color: var(--ink2); font-size: 15px; }
+  dl { margin: 0; }
+  dt { margin-top: 18px; font-size: 17px; font-weight: 600; }
+  dd { margin: 4px 0 0; color: var(--ink2); font-size: 15px; }
+  .mail { display: inline-block; margin-top: 8px; padding: 14px 20px; border-radius: 14px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+  footer { padding: 24px 20px 40px; border-top: 1px solid var(--line); color: var(--ink3); font-size: 13px; }
+  footer a { margin-right: 16px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>둘다</h1>
+    <p>한 번 찍고, 세로와 가로를 둘 다.</p>
+    <svg class="shot" viewBox="0 0 320 180" role="img" aria-label="16:9 원본 위에서 옮겨 다니는 세로 틀">
+      <rect width="320" height="180" fill="#1A1A1A"/>
+      <g fill="#FFFFFF" fill-opacity="0.55">
+        <circle cx="112" cy="70" r="14"/><rect x="94" y="88" width="36" height="70" rx="12"/>
+        <circle cx="196" cy="62" r="14"/><rect x="178" y="80" width="36" height="78" rx="12"/>
+      </g>
+      <g class="frame">
+        <path fill="#000000" fill-opacity="0.6" fill-rule="evenodd" d="M-320 0H640V180H-320Z M83 0H184V180H83Z"/>
+        <rect x="83" y="1" width="101" height="178" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+      </g>
+      <circle cx="298" cy="20" r="5" fill="#E0392B"/>
+    </svg>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>하는 일</h2>
+  <ul class="rows">
+    <li><b>16:9 로 한 번 찍습니다</b><span>원본은 하나. 4K 30fps.</span></li>
+    <li><b>찍는 중에 세로 틀을 옮깁니다</b><span>화면 아무 데나 좌우로 쓸면 됩니다.</span></li>
+    <li><b>찍은 뒤에도 다시 잡습니다</b><span>넘기며 옮기고 「여기에 표시」. 사이는 부드럽게 이어집니다.</span></li>
+    <li><b>세로와 가로를 사진 앱에</b><span>세로 1216 × 2160, 가로 3840 × 2160.</span></li>
+  </ul>
+
+  <h2>약속</h2>
+  <ul class="rows">
+    <li><b>계정이 없습니다</b><span>가입도 로그인도 없습니다.</span></li>
+    <li><b>기기 안에서 끝납니다</b><span>서버도 클라우드도 없습니다. 인터넷에 접속하지 않습니다.</span></li>
+    <li><b>원본은 하나만</b><span>두 파일은 저장할 때만 만듭니다.</span></li>
+    <li><b>재촉하지 않습니다</b><span>알림, 배지, 구독 화면이 없습니다.</span></li>
+  </ul>
+
+  <h2>자주 묻는 것</h2>
+  <dl>
+    <dt>세로 영상이 흐리지 않나요?</dt>
+    <dd>원본 높이 2160 을 그대로 씁니다. 폭은 1216 으로, 세로 숏폼 규격 1080 보다 넓습니다.</dd>
+    <dt>찍은 영상은 어디에 있나요?</dt>
+    <dd>앱 안 보관함에 원본으로 있습니다. 「저장」을 눌러야 사진 앱에 들어갑니다.</dd>
+    <dt>보관함에서 지우면요?</dt>
+    <dd>앱 안의 원본이 지워집니다. 이미 사진 앱에 넣은 영상은 그대로 남습니다.</dd>
+    <dt>사진 앱을 읽나요?</dt>
+    <dd>읽지 않습니다. 영상을 넣는 권한만 묻습니다.</dd>
+    <dt>앱을 지우면요?</dt>
+    <dd>보관함의 원본도 함께 지워집니다. 남길 영상은 먼저 사진 앱에 저장하세요.</dd>
+  </dl>
+
+  <h2>연락</h2>
+  <p>안 되는 것, 바라는 것을 보내 주세요.</p>
+  <a class="mail" href="mailto:hanmari.code@gmail.com?subject=%EB%91%98%EB%8B%A4">hanmari.code@gmail.com</a>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="privacy.html">개인정보 처리방침</a>
+    <span>AIP Lab</span>
+  </div>
+</footer>
+</body>
+</html>
