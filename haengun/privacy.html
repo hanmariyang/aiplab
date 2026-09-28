@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>행운담기 개인정보 처리방침</title>
+<meta name="description" content="행운담기는 어떤 개인정보도 수집하지 않습니다. 담은 복권과 장부는 기기 안에만 있고, 앱이 받는 것은 공개된 당첨번호뿐입니다.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --ink: #111214;
+    --ink2: #5A5C5E;
+    --ink3: #8E9092;
+    --line: #EDEDED;
+    --sink: #F5F5F5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0E0E0F;
+      --ink: #F2F2F2;
+      --ink2: #A9ABAF;
+      --ink3: #6F7175;
+      --line: #26272A;
+      --sink: #1B1C1E;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 20px 96px;
+  }
+  header { margin-bottom: 40px; }
+  .app { font-size: 13px; color: var(--ink3); margin: 0 0 8px; }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .meta { font-size: 15px; color: var(--ink2); margin: 0; font-variant-numeric: tabular-nums; }
+  .lead {
+    margin: 0 0 8px;
+    padding: 18px 20px;
+    background: var(--sink);
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  section { padding: 24px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 10px; color: var(--ink); }
+  p:last-child { margin-bottom: 0; }
+  ul { margin: 0 0 10px; padding-left: 20px; }
+  ul:last-child { margin-bottom: 0; }
+  li { margin: 4px 0; }
+  code { white-space: nowrap;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px;
+    background: var(--sink);
+    padding: 1px 6px;
+    border-radius: 6px;
+    word-break: break-all;
+  }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink3);
+  }
+  footer a { color: var(--ink2); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="app">행운담기 · iOS</p>
+    <h1>개인정보 처리방침</h1>
+    <p class="meta">v1.0 · 시행 2026년 9월 29일 · 운영 AIP Lab</p>
+  </header>
+
+  <p class="lead">행운담기는 어떤 개인정보도 수집하지 않습니다. 담은 복권과 번호, 종이 사진, 장부는 전부 사용자의 기기 안에만 있고, 개발자를 포함해 누구에게도 전송되지 않습니다. 앱이 인터넷에서 받는 것은 누구에게나 공개된 당첨번호뿐입니다.</p>
+
+  <section>
+    <h2>1. 수집하는 정보</h2>
+    <p>없습니다. 앱은 계정을 만들지 않고, 이름·이메일·전화번호·위치·광고 식별자·기기 식별자·사용 기록 어느 것도 모으지 않습니다. 분석 도구나 광고 SDK 도 들어 있지 않습니다.</p>
+    <p>App Store 의 앱 개인정보 항목은 「데이터를 수집하지 않음」입니다.</p>
+  </section>
+
+  <section>
+    <h2>2. 기기 안에 저장되는 것</h2>
+    <p>사용자가 담거나 적은 것만 기기 안에 저장됩니다. 앱 안의 데이터베이스 파일 <code>haengun.db</code> 하나에 들어 있습니다.</p>
+    <ul>
+      <li>담은 복권: 회차, 산 날, 줄마다 번호 여섯 개와 방식(자동·수동·반자동), 종이의 QR 에 적힌 글자 그대로.</li>
+      <li>「내 번호」에 이름을 붙여 둔 번호와, 「이번 주 샀어요」를 켠 회차.</li>
+      <li>「찾았어요」를 누른 날과 금액, 추첨 결과를 한 번 본 기록, 알림 받기·종이 사진 담기 같은 설정 값.</li>
+      <li>서버에서 받아 온 당첨번호의 사본. 공개된 정보라 개인정보가 아닙니다.</li>
+    </ul>
+    <p>「종이 사진도 담기」를 켠 경우에만 종이를 찍은 사진이 앱 안 폴더에 한 장씩 저장됩니다. 이 설정은 처음에 꺼져 있습니다. 사진은 앱 안에서만 쓰이며 사진 보관함에 넣지도, 사진 보관함에서 읽지도 않습니다.</p>
+    <p>이 파일들은 iOS 의 앱 샌드박스 안에 있어 다른 앱이 읽을 수 없습니다. iCloud 백업이나 기기 전체 백업에 포함될지는 iOS 설정을 따르며, 앱이 따로 어디에도 올리지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>3. 앱이 인터넷에서 받는 것</h2>
+    <p>앱은 매주 추첨이 끝난 뒤 개발자가 운영하는 서버 <code>haengun-api</code>(Cloudflare Workers)에서 그 회차의 당첨번호와 등수별 당첨금을 받아 옵니다. 누구에게나 똑같이 공개된 값이며, 운영자가 추첨 뒤 공식 결과를 확인해 직접 올립니다.</p>
+    <ul>
+      <li>앱이 서버에 보내는 정보는 없습니다. 요청은 「가장 최근 회차의 당첨번호를 주세요」 같은 질문 하나이고, 담은 복권·번호·사진·장부·계정·기기 식별자는 실리지 않습니다. 당첨 여부는 기기 안에서 계산됩니다.</li>
+      <li>인터넷 통신의 성질상, 요청을 받는 Cloudflare 는 요청을 보낸 IP 주소를 보게 됩니다. 개발자는 이 주소로 사용자를 구별하거나 따로 모아 두지 않습니다.</li>
+      <li>앱을 앞으로 가져올 때, 이번 주 화면을 아래로 당겨 새로 고칠 때, 그리고 iOS 가 백그라운드 새로 고침으로 앱을 깨울 때 이 질문을 합니다. 그 밖의 때에는 서버에 묻지 않습니다.</li>
+      <li>「공식 결과 페이지 열기」를 누르면 복권 발행 기관의 공식 결과 페이지가 앱 안 브라우저로 열립니다. 그 페이지에서 일어나는 일은 그 사이트의 방침을 따릅니다. 누르지 않으면 열리지 않습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. 권한</h2>
+    <ul>
+      <li><strong>카메라.</strong> 종이 복권의 QR 을 읽을 때, 그리고 「종이 사진도 담기」를 켠 사용자가 종이를 찍을 때만 씁니다. 동영상을 찍거나 소리를 녹음하지 않으며, 마이크 권한을 요청하지 않습니다.</li>
+      <li><strong>알림.</strong> 처음 한 장을 담은 뒤에 묻습니다. 알림은 서버에서 보내지 않고 기기 안에서 예약됩니다. 담은 회차의 결과를 확인하라는 토요일 밤 알림, 찾을 돈의 기한 30일 전과 7일 전 알림, 이 셋뿐입니다.</li>
+    </ul>
+    <p>그 밖의 권한(사진 보관함·마이크·위치·연락처·추적)은 요청하지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>5. 광고와 분석</h2>
+    <p>광고가 없고, 분석 도구·충돌 보고 도구·광고 식별자를 쓰지 않습니다. 앱 안에서 복권을 사거나 돈을 내는 기능도 없습니다.</p>
+  </section>
+
+  <section>
+    <h2>6. 내보내기</h2>
+    <p>설정의 「내보내기」는 담은 복권과 결과를 csv 파일 하나로 만들어 iOS 공유 시트로 넘깁니다. 들어가는 칸은 회차, 산 날, 줄, 방식, 번호, 등수, 금액, 찾은 날입니다. 어디에 보낼지는 사용자가 공유 시트에서 고르며, 앱은 파일을 어디에도 먼저 보내지 않습니다. 사진은 내보내기에 들어가지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>7. 삭제</h2>
+    <ul>
+      <li>담은 한 장은 한 장 보기에서 「지우기」로 바로 지울 수 있습니다. 지운 직후 몇 초 동안은 「되돌리기」로 살릴 수 있고, 그 뒤에는 복구되지 않습니다.</li>
+      <li>앱을 삭제하면 <code>haengun.db</code> 와 종이 사진을 포함해 앱이 만든 모든 데이터가 기기에서 함께 지워집니다. 서버에는 사용자의 것이 처음부터 없으므로 남는 것도 없습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. 아동</h2>
+    <p>아동을 포함해 누구의 개인정보도 수집하지 않으므로, 아동 개인정보와 관련한 별도 처리는 발생하지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>9. 변경</h2>
+    <p>이 방침이 바뀌면 이 페이지의 판과 시행일을 갱신합니다. 「어떤 정보도 수집하지 않는다」는 원칙을 바꾸는 변경은 앱 업데이트 안내에 명시합니다.</p>
+  </section>
+
+  <section>
+    <h2>10. 문의</h2>
+    <p>개인정보에 관한 질문은 아래로 보내 주십시오.</p>
+    <p><a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+  </section>
+
+  <footer>
+    AIP Lab · <a href="./">행운담기 지원 페이지</a>
+  </footer>
+</main>
+</body>
+</html>

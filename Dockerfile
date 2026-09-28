@@ -29,4 +29,5 @@ COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt
 COPY maru /srv/maru
+COPY haengun /srv/haengun
 EXPOSE 8080
