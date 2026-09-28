@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>행운담기 · 산 복권 보관과 당첨 확인</title>
+<meta name="description" content="산 복권을 담아 두면 결과와 찾을 돈과 쓴 돈을 챙겨 주는 iOS 앱. 번호를 골라 주지 않습니다.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --ink: #111214;
+    --ink2: #5A5C5E;
+    --ink3: #8E9092;
+    --line: #EDEDED;
+    --sink: #F5F5F5;
+    --slip: #FCFCFA;
+    --dash: #CFCFCF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0E0E0F;
+      --ink: #F2F2F2;
+      --ink2: #A9ABAF;
+      --ink3: #6F7175;
+      --line: #26272A;
+      --sink: #1B1C1E;
+      --slip: #1B1C1E;
+      --dash: #3A3B3F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 20px 96px;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+  /* 머리 */
+  .hero { margin-bottom: 40px; }
+  .app { font-size: 13px; color: var(--ink3); margin: 0 0 8px; }
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .one { font-size: 19px; font-weight: 500; margin: 0 0 24px; }
+  .get {
+    display: inline-block;
+    padding: 14px 22px;
+    border-radius: 12px;
+    background: var(--sink);
+    color: var(--ink2);
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* 종이 한 장 (장식) */
+  .slip {
+    margin: 32px 0 8px;
+    background: var(--slip);
+    border-radius: 4px;
+    padding: 14px 16px 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+    transform: rotate(-1.1deg);
+    font-size: 13px;
+    color: var(--ink2);
+  }
+  .slip .hd, .slip .ft { display: flex; justify-content: space-between; gap: 12px; white-space: nowrap; }
+  .slip .hd b { color: var(--ink); }
+  .slip .ln {
+    display: flex; gap: 10px; align-items: center;
+    height: 30px; border-top: 1px dashed var(--dash);
+    color: var(--ink); font-size: 15px; white-space: nowrap;
+  }
+  .slip .ln:first-of-type { margin-top: 8px; }
+  .slip .ln .k { font-size: 11px; color: var(--ink3); width: 34px; }
+  .slip .ln .st { margin-left: auto; font-size: 12px; color: var(--ink3); }
+  .slip .ft { border-top: 1px dashed var(--dash); padding-top: 8px; margin-top: 2px; font-size: 11px; }
+
+  section { padding: 28px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 10px; }
+  p:last-child { margin-bottom: 0; }
+
+  ol.does { list-style: none; margin: 0; padding: 0; counter-reset: d; }
+  ol.does li { counter-increment: d; display: grid; grid-template-columns: 32px 1fr; gap: 0 8px; padding: 10px 0; }
+  ol.does li::before {
+    content: counter(d);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px; font-weight: 600; color: var(--ink3); padding-top: 1px;
+  }
+  ol.does b { display: block; }
+  ol.does span { color: var(--ink2); font-size: 16px; }
+
+  ul.not { margin: 0; padding: 0; list-style: none; }
+  ul.not li { padding: 6px 0 6px 22px; position: relative; color: var(--ink2); }
+  ul.not li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 10px; height: 1.5px; background: var(--ink3); }
+
+  details { border-top: 1px solid var(--line); padding: 14px 0; }
+  details:first-of-type { border-top: 0; padding-top: 0; }
+  summary { cursor: pointer; font-weight: 600; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; float: right; color: var(--ink3); font-weight: 400; }
+  details[open] summary::after { content: "-"; }
+  details p { margin-top: 10px; color: var(--ink2); font-size: 16px; }
+
+  .help {
+    padding: 18px 20px;
+    background: var(--sink);
+    border-radius: 12px;
+  }
+  .help b { font-size: 22px; }
+  a { color: var(--ink); text-underline-offset: 3px; }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink3);
+  }
+  footer a { color: var(--ink2); }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <p class="app">행운담기 · iOS</p>
+    <h1>행운담기</h1>
+    <p class="one">산 복권을 담아 두면 결과와 찾을 돈과 쓴 돈을 챙겨 줍니다.</p>
+    <span class="get">App Store 에 곧 올라갑니다</span>
+
+    <div class="slip" aria-hidden="true">
+      <div class="hd mono"><b>제 1244 회</b><span>발행 2026/09/29 (월)</span></div>
+      <div class="ln mono"><b>A</b><span class="k">자동</span><span class="num">04 12 19 23 35 41</span><span class="st">4개</span></div>
+      <div class="ln mono"><b>B</b><span class="k">자동</span><span class="num">02 08 15 27 36 44</span><span class="st">1개</span></div>
+      <div class="ln mono"><b>C</b><span class="k">수동</span><span class="num">07 12 18 27 30 45</span><span class="st">2개</span></div>
+      <div class="ft mono"><span>추첨 2026/10/03 (토)</span><span>금액 ₩3,000</span></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>하는 일</h2>
+    <ol class="does">
+      <li><div><b>담기</b><span>종이 아래쪽 QR 을 비추면 회차와 다섯 줄이 한 번에 담깁니다. QR 이 없으면 번호판으로 직접 적습니다. 담긴 한 장은 산 종이 그대로 그려집니다.</span></div></li>
+      <li><div><b>결과</b><span>토요일 추첨 뒤 처음 열면 공 일곱 개가 굴러 나오고, 내 종이의 맞은 번호에 도장이 찍힙니다. 몇 줄이 몇 등인지 앱이 셉니다.</span></div></li>
+      <li><div><b>찾을 돈</b><span>당첨된 줄만 모아 어디서 찾는지와 기한, 남은 날을 보여 줍니다. 기한 30일 전과 7일 전에 한 번씩 알립니다.</span></div></li>
+      <li><div><b>장부</b><span>그해 산 돈과 받은 돈을 두 숫자와 한 문장으로 적고, 달마다 막대로 보여 줍니다.</span></div></li>
+      <li><div><b>내 번호</b><span>늘 같은 번호를 사는 사람을 위한 자리입니다. 산 주에 「이번 주 샀어요」를 켜면 그 주에 한 장으로 담깁니다.</span></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>하지 않는 일</h2>
+    <ul class="not">
+      <li>번호를 골라 주거나 만들어 주지 않습니다.</li>
+      <li>지난 당첨번호를 모아 분석하거나 다음 번호를 점치지 않습니다.</li>
+      <li>복권을 사는 곳으로 연결하거나 사라고 권하지 않습니다. 앱 안에서 돈을 내는 일이 없습니다.</li>
+      <li>사지 않은 주의 번호로 결과를 계산하지 않습니다.</li>
+      <li>계정을 만들지 않고, 광고를 싣지 않고, 담은 것을 어디에도 보내지 않습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>자주 묻는 것</h2>
+    <details>
+      <summary>QR 이 안 읽혀요</summary>
+      <p>밝은 곳에서 종이를 펴고, 아래쪽 QR 이 화면 가운데 네모에 들어오게 비춰 주세요. 번졌거나 찢어져 읽히지 않으면 카메라 화면 오른쪽 위의 「직접 적기」에서 회차와 산 날을 고르고 번호판으로 줄마다 여섯 개를 누르면 됩니다.</p>
+    </details>
+    <details>
+      <summary>결과가 안 떠요</summary>
+      <p>당첨번호는 토요일 추첨이 끝난 뒤 운영자가 공식 결과를 확인해 직접 올립니다. 올라오기 전에는 「아직 올라오지 않았어요」와 함께 「공식 결과 페이지 열기」 버튼이 보이니, 급하면 그 버튼으로 먼저 확인하세요. 올라온 뒤에는 이번 주 화면을 아래로 당기면 새로 받습니다.</p>
+    </details>
+    <details>
+      <summary>찾을 돈 기한은 어떻게 셈하나요</summary>
+      <p>추첨 다음 날부터 1년으로 셉니다. 예를 들어 10월 3일 추첨이면 다음 해 10월 4일까지로 보여 줍니다. 마지막 날이 휴일이어도 앱은 기한을 늦추지 않고 일찍 알리는 쪽으로 계산합니다. 찾는 곳은 5등과 4등은 판매점, 3등은 판매점 또는 농협은행, 2등은 농협은행 지점, 1등은 농협은행 본점입니다. 정확한 지급 조건은 공식 안내를 따라 주세요.</p>
+    </details>
+    <details>
+      <summary>다른 폰으로 옮길 수 있나요</summary>
+      <p>계정과 동기화가 없어서 저절로 옮겨지지는 않습니다. 설정의 「내보내기」로 담은 복권과 결과를 csv 파일 하나로 받아 두세요. 회차, 산 날, 줄, 방식, 번호, 등수, 금액, 찾은 날이 들어갑니다. csv 를 앱에 다시 불러오는 기능은 아직 없습니다.</p>
+    </details>
+  </section>
+
+  <section>
+    <h2>도박 문제 상담</h2>
+    <div class="help">
+      <p>복권을 사는 일이 부담이 된다면 혼자 버티지 않아도 됩니다.</p>
+      <p>국번 없이 <b class="num"><a href="tel:1336">1336</a></b></p>
+      <p>앱의 설정에도 같은 안내가 있습니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>문의</h2>
+    <p>안 되는 것, 틀린 결과, 바라는 것을 보내 주세요.</p>
+    <p><a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></p>
+  </section>
+
+  <footer>
+    AIP Lab · <a href="privacy.html">개인정보 처리방침</a>
+  </footer>
+</main>
+</body>
+</html>
