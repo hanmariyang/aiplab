@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마루 — 산에서는 폰을 꺼내지 않습니다</title>
+<meta name="description" content="내려와서 사진 한 장과 산 이름만 적으면 오른 높이가 켜켜이 쌓이는 등산 기록 앱. 계정도 서버도 없이 기기 안에서만.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap">
+<style>
+  :root{
+    --bg:#F5F5F2; --paper:#FFFFFF; --ink:#16191B; --body:#3B4046; --sub:#8A9096;
+    --line:#E5E7E3; --moss:#35594E; --moss-deep:#1B3A2F; --tint:#EDF1EE;
+    --num:"Instrument Serif","Times New Roman",serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#131414; --paper:#1B1D1C; --ink:#F0F2EF; --body:#C3C7CC; --sub:#878C92;
+    --line:#272B29; --moss:#7FA898; --moss-deep:#A9C7BB; --tint:#1E2523; color-scheme:dark; } }
+  :root[data-theme="dark"]{
+    --bg:#131414; --paper:#1B1D1C; --ink:#F0F2EF; --body:#C3C7CC; --sub:#878C92;
+    --line:#272B29; --moss:#7FA898; --moss-deep:#A9C7BB; --tint:#1E2523; color-scheme:dark; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--body);
+       font:400 16px/1.75 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+  main{max-width:38em;margin:0 auto;padding:4.5rem 1.4rem 6rem}
+  header{margin-bottom:3.5rem}
+  .eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--sub);margin:0 0 1rem}
+  h1{font-size:2rem;line-height:1.3;color:var(--ink);margin:0 0 1rem;letter-spacing:-.025em;font-weight:700;text-wrap:balance}
+  .lead{font-size:1.05rem;color:var(--body);margin:0 0 1.6rem;max-width:30em}
+  .cta{display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;
+       padding:.85rem 1.3rem;border-radius:10px;font-size:.95rem}
+  .cta.soon{background:var(--tint);color:var(--sub);cursor:default}
+  .fine{display:block;font-size:.8rem;color:var(--sub);margin-top:.6rem}
+  .ridge{display:block;width:100%;max-width:26em;height:auto;margin:0 0 2rem}
+  .column{display:flex;gap:10px;align-items:stretch;margin:2rem 0 3rem;height:260px}
+  .col{flex:1;border-radius:10px;overflow:hidden;background:var(--line);position:relative}
+  .layer{position:absolute;left:0;right:0;border-top:1.5px solid rgba(246,246,244,.55);color:#F6F6F4;
+         display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:.85rem}
+  .layer b{font-weight:500}.layer i{font-style:normal;font-family:var(--num);font-size:1.05rem}
+  .ruler{width:52px;position:relative}
+  .ruler div{position:absolute;left:0;right:0;border-top:1px solid var(--line);height:0}
+  .ruler span{position:absolute;left:0;bottom:2px;font-family:var(--num);font-size:.85rem;color:var(--sub)}
+  h2{font-size:1.05rem;color:var(--ink);margin:2.8rem 0 .8rem;letter-spacing:-.012em;font-weight:700}
+  p{margin:0 0 1rem}
+  ol,ul{margin:0 0 1rem;padding-left:1.15rem}
+  li{margin:.4rem 0}
+  li::marker{color:var(--sub)}
+  .promise{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1rem}
+  .promise div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:.92rem}
+  .promise b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+  footer{margin-top:4rem;padding-top:1.4rem;border-top:1px solid var(--line);color:var(--sub);font-size:.85rem}
+  footer a{color:var(--sub)}
+  @media (max-width:520px){.promise{grid-template-columns:1fr}.column{height:220px}}
+</style>
+</head>
+<body><main>
+<header>
+  <p class="eyebrow">마루 · 등산 기록</p>
+  <h1>산에서는 폰을 꺼내지 않습니다.<br>내려와서 적으면 됩니다.</h1>
+  <p class="lead">사진 한 장과 산 이름이면 충분합니다. 그렇게 적은 높이가 켜켜이 쌓여 기둥이 됩니다.</p>
+  <svg class="ridge" viewBox="0 0 390 150" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink)">
+    <path d="M8 128 C 40 120, 58 96, 84 92 S 128 60, 150 54 S 186 24, 206 30 S 236 70, 262 74 S 296 44, 318 52 S 356 98, 382 108"/>
+  </svg>
+  <span class="cta soon">App Store 심사 중</span>
+  <span class="fine">iOS 15 이상 · 가입 없음 · 무료</span>
+</header>
+
+<h2>기록은 경로가 아니라 높이입니다</h2>
+<p>한 번의 등산이 한 켜가 되어 기둥 위로 올라갑니다. 켜의 두께는 그날 오른 높이, 색은 그 산의 높이대입니다. 사진을 붙이면 그 켜는 사진이 됩니다.</p>
+<div class="column" aria-hidden="true">
+  <div class="col">
+    <div class="layer" style="bottom:0;height:25%;background:#3B6250"><b>관악산</b><i>632</i></div>
+    <div class="layer" style="bottom:25%;height:32%;background:#567D69"><b>북한산 백운대</b><i>1,120</i></div>
+    <div class="layer" style="bottom:57%;height:22%;background:#3B6250"><b>청계산</b><i>656</i></div>
+    <div class="layer" style="bottom:79%;height:21%;background:#789A88"><b>남산(정선)</b><i>959</i></div>
+  </div>
+  <div class="ruler">
+    <div style="bottom:8%"><span>271</span></div>
+    <div style="bottom:31%"><span>836</span></div>
+    <div style="bottom:57%"><span>1,187</span></div>
+    <div style="bottom:96%"><span>2,744</span></div>
+  </div>
+</div>
+
+<h2>세 번이면 끝입니다</h2>
+<ol>
+  <li><b>산을 고릅니다.</b> 산림청 산 목록 3,379곳이 앱 안에 있어 신호가 없어도 찾힙니다. 해발 높이가 자동으로 들어옵니다.</li>
+  <li><b>사진 한 장을 붙입니다.</b> 그날의 사진이 기록의 얼굴이 됩니다.</li>
+  <li><b>남기기.</b> 오른 높이는 산 높이로 갈음하거나 직접 적습니다.</li>
+</ol>
+
+<h2>이정표는 바닥나지 않습니다</h2>
+<p>남산 271m 에서 시작해 관악산, 북한산, 한라산을 지나 백두산 2,744m, 후지산 3,776m, 에베레스트 8,848m 를 넘습니다. 그 위로는 여객기 순항고도, 성층권, 카르만 선 100km 까지 이어집니다.</p>
+
+<h2>가져가지 않습니다</h2>
+<div class="promise">
+  <div><b>가입이 없습니다</b>이메일도 비밀번호도 묻지 않습니다. 서버가 없고 기록은 이 기기 안에 있습니다.</div>
+  <div><b>위치를 읽지 않습니다</b>산에 있는 동안 GPS 를 켜지 않습니다. 위치 권한을 요청하지 않습니다.</div>
+  <div><b>광고도 통계도 없습니다</b>분석 도구를 넣지 않았고 광고 식별자를 읽지 않습니다.</div>
+  <div><b>언제든 꺼낼 수 있습니다</b>설정에서 기록을 파일로 내보내 두세요. 기기를 바꾸기 전에 한 번.</div>
+</div>
+
+<h2>넣지 않은 것</h2>
+<p>실시간 트랙, 순위와 배지, 연속 기록, 푸시 알림, 친구 피드. 전부 산에 있는 동안 폰을 보게 만드는 것들이라 넣지 않았습니다.</p>
+
+<footer>마루 · AIP Lab · <a href="privacy.html">개인정보 처리방침</a> · <a href="/about.html">소개</a></footer>
+</main></body></html>
