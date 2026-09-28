@@ -27,4 +27,5 @@ COPY dulda /srv/dulda
 COPY blog /srv/blog
 COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt
+COPY maru /srv/maru
 EXPOSE 8080
