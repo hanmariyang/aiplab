@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오프더그리드 - 세로 가로 한 번에</title>
+<meta name="description" content="사진 한 장을 넣으면 올릴 만한 포스터가 나옵니다.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="128x128" href="img/icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="오프더그리드 - 사진으로 포스터">
+<meta property="og:description" content="사진 한 장이면 됩니다. 올릴 만한 포스터가 나옵니다.">
+<meta property="og:image" content="https://aiplab.kr/offthegrid/img/og.jpg">
+<meta property="og:url" content="https://aiplab.kr/offthegrid/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --black: #000000; --white: #FFFFFF; --warn: #E0392B;
+    --paper: #FFFFFF; --ink: #111214; --ink2: #5A5C5E; --ink3: #8E9092; --line: #ECECEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #000000; --ink: #F2F2F2; --ink2: #A9ABAF; --ink3: #6F7175; --line: #222327; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  a { color: inherit; text-underline-offset: 3px; }
+  .hero { background: var(--black); color: var(--white); padding: 56px 20px 40px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  .hero h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .hero p { margin: 6px 0 28px; font-size: 17px; font-weight: 600; }
+  .shot { display: block; width: 100%; height: auto; border-radius: 14px; }
+  .frame { animation: slide 6s ease-in-out infinite alternate; }
+  @keyframes slide { 0%, 20% { transform: translateX(0); } 80%, 100% { transform: translateX(62px); } }
+  @media (prefers-reduced-motion: reduce) { .frame { animation: none; } }
+  main { padding: 8px 20px 48px; }
+  h2 { margin: 40px 0 8px; font-size: 20px; font-weight: 700; }
+  ul.rows { list-style: none; margin: 0; padding: 0; }
+  ul.rows li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  ul.rows li b { display: block; font-size: 17px; font-weight: 600; }
+  ul.rows li span { color: var(--ink2); font-size: 15px; }
+  dl { margin: 0; }
+  dt { margin-top: 18px; font-size: 17px; font-weight: 600; }
+  dd { margin: 4px 0 0; color: var(--ink2); font-size: 15px; }
+  .mail { display: inline-block; margin-top: 8px; padding: 14px 20px; border-radius: 14px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+  footer { padding: 24px 20px 40px; border-top: 1px solid var(--line); color: var(--ink3); font-size: 13px; }
+  footer a { margin-right: 16px; }
+  .shot { display: block; width: 100%; max-width: 360px; height: auto; margin: 8px auto 0; border-radius: 10px; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 4px 0 8px; }
+  .shots img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+  @media (max-width: 520px) { .shots { grid-template-columns: repeat(2, 1fr); } .shots img:last-child { display: none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>오프더그리드</h1>
+    <p>사진 한 장이면 됩니다.</p>
+    <img class="shot" src="img/poster.jpg" width="720" height="900" alt="오프더그리드로 만든 포스터. 색 띠 위에 사진 한 장과 글자 두 줄" loading="eager">
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>하는 일</h2>
+  <ul class="rows">
+    <li><b>사진을 먼저 읽습니다</b><span>어울리는 결을 점수와 이유로 권합니다.</span></li>
+    <li><b>결 셋</b><span>격자 어긋내기, 색 줄무늬, 리소 2색.</span></li>
+    <li><b>다시 뽑기</b><span>같은 결이라도 배치가 매번 다릅니다.</span></li>
+    <li><b>글자는 자유 레이어</b><span>판 아무 데나 눌러 넣고 끌어 옮깁니다. 셋까지.</span></li>
+    <li><b>판 셋</b><span>게시물 1080 × 1350, 정사각 1080 × 1080, 스토리 1080 × 1920.</span></li>
+    <li><b>만든 것이 쌓입니다</b><span>내보낸 포스터는 앱 안에 남아 다시 꺼내 쓸 수 있습니다.</span></li>
+  </ul>
+
+  <div class="shots">
+    <img src="img/app-choose.jpg" width="660" height="1430" alt="결 고르기 화면. 권하는 결과 그 이유가 위에 있다" loading="lazy">
+    <img src="img/app-text.jpg" width="660" height="1430" alt="글자 화면. 판 위에 글자 상자를 놓고 끌어 옮긴다" loading="lazy">
+    <img src="img/app-shelf.jpg" width="660" height="1430" alt="만든 것 화면. 내보낸 포스터가 쌓여 있다" loading="lazy">
+  </div>
+
+  <h2>약속</h2>
+  <ul class="rows">
+    <li><b>계정이 없습니다</b><span>가입도 로그인도 없습니다.</span></li>
+    <li><b>기기 안에서 끝납니다</b><span>서버도 클라우드도 없습니다. 인터넷에 접속하지 않습니다.</span></li>
+    <li><b>보관함을 읽지 않습니다</b><span>시스템 사진 선택기로 고른 한 장만 받습니다.</span></li>
+    <li><b>원본 사진은 안 남깁니다</b><span>앱에 쌓이는 것은 내보낸 포스터뿐입니다.</span></li>
+    <li><b>재촉하지 않습니다</b><span>알림, 배지, 구독 화면이 없습니다.</span></li>
+  </ul>
+
+  <h2>자주 묻는 것</h2>
+  <dl>
+    <dt>권한을 왜 안 묻나요?</dt>
+    <dd>사진은 iPhone 의 시스템 선택기로 고른 한 장만 들어옵니다. 앱이 보관함을 열어 볼 일이 없습니다.</dd>
+    <dt>저장할 때만 묻는 권한은 무엇인가요?</dt>
+    <dd>사진 앱에 넣는 권한(추가 전용)입니다. 사진 앱을 읽지는 않습니다.</dd>
+    <dt>만든 포스터는 어디에 있나요?</dt>
+    <dd>사진 앱과 앱 안 「만든 것」 양쪽에 있습니다. 「만든 것」에서 한 장씩 지우거나 전부 비울 수 있습니다.</dd>
+    <dt>같은 사진으로 다시 만들 수 있나요?</dt>
+    <dd>됩니다. 「만든 값 기억하기」를 켜면 다음 사진도 같은 결, 같은 손잡이로 시작합니다.</dd>
+    <dt>필터나 보정은 없나요?</dt>
+    <dd>없습니다. 포스터를 만드는 앱입니다.</dd>
+  </dl>
+
+  <h2>연락</h2>
+  <p>안 되는 것, 바라는 것을 보내 주세요.</p>
+  <a class="mail" href="mailto:hanmari.code@gmail.com?subject=%EC%98%A4%ED%94%84%EB%8D%94%EA%B7%B8%EB%A6%AC%EB%93%9C">hanmari.code@gmail.com</a>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="privacy.html">개인정보 처리방침</a>
+    <span>AIP Lab</span>
+  </div>
+</footer>
+</body>
+</html>
