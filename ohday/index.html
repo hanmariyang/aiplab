@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오데이 (Ohday)</title>
+<meta name="description" content="하루 한 판을 카드로 붙이는 일기. 사진, 10초 영상, 한 줄 글에 날씨와 장소가 먼저 채워져 있어요. iPhone, iPad, Mac 에서 iCloud 로 이어지고, 쓴 일기는 사라지지 않아요.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="오데이 (Ohday)">
+<meta property="og:description" content="하루 한 판을 카드로 붙이는 일기. 쓴 일기는 사라지지 않아요.">
+<meta property="og:image" content="https://aiplab.kr/ohday/img/phone-today.webp">
+<style>
+:root{--bg:#F2F2F7;--paper:#FFFFFF;--ink:#141416;--ink2:#4B4D52;--ink3:#8E8E93;--line:#E4E4E7;--accent:#2E5BFF;--card:#FFFFFF;--gap:12px;--radius:21px}
+@media (prefers-color-scheme:dark){:root{--bg:#000000;--paper:#1C1C1E;--ink:#F2F2F3;--ink2:#B7B9BE;--ink3:#8D8D93;--line:#2C2C2E;--accent:#6D8CFF;--card:#1C1C1E}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Pretendard",sans-serif;line-height:1.55;letter-spacing:-.01em;word-break:keep-all}
+a{color:var(--accent);text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+/* 상단바 */
+.top{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--ink)}
+.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:5px}
+.brand i b{background:#fff;border-radius:2px;opacity:.9}
+.brand i b:last-child{opacity:.45}
+.top nav a{margin-left:18px;font-size:14px;color:var(--ink2)}
+/* 히어로 */
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:center;padding:36px 0 56px}
+.hero h1{font-size:44px;line-height:1.15;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.hero p{font-size:18px;color:var(--ink2);margin:0 0 22px}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:999px}
+.cta.soft{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.note{font-size:13px;color:var(--ink3);margin-top:12px}
+.device{position:relative;margin:0 auto;max-width:300px}
+.device img{border-radius:36px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+/* 스텝 */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);margin:0 0 64px}
+.step{background:var(--card);border-radius:var(--radius);padding:18px}
+.step em{font-style:normal;display:inline-block;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.step b{display:block;font-size:17px;margin-bottom:4px}
+.step p{margin:0;font-size:14px;color:var(--ink2)}
+/* 번갈아 행 */
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;margin:0 0 72px}
+.row.flip .text{order:2}
+.row h2{font-size:30px;line-height:1.2;letter-spacing:-.025em;margin:0 0 10px}
+.row p{font-size:16px;color:var(--ink2);margin:0 0 10px}
+.row .shot img{width:100%;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.14)}
+.row .shot.phone img{max-width:260px;margin:0 auto;border-radius:34px}
+/* 카드 목록 */
+.kinds{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.kinds span{font-size:13px;font-weight:600;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
+.kinds span.on{background:var(--accent);color:#fff;border-color:transparent}
+/* 약속 */
+.promises{background:var(--card);border-radius:var(--radius);padding:26px;margin:0 0 72px}
+.promises h2{font-size:24px;margin:0 0 14px;letter-spacing:-.02em}
+.promises ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 24px}
+.promises li{display:flex;gap:12px;font-size:16px;align-items:flex-start}
+.promises li i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+/* 가격 */
+.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin:0 0 72px}
+.price div{background:var(--card);border-radius:var(--radius);padding:20px}
+.price div b{display:block;font-size:26px;letter-spacing:-.02em}
+.price div small{display:block;color:var(--ink3);font-size:13px;margin-top:4px}
+.price div span{display:block;font-size:14px;color:var(--ink2);margin-top:10px}
+/* FAQ */
+.faq{margin:0 0 72px}
+.faq h2{font-size:24px;margin:0 0 10px}
+.faq details{background:var(--card);border-radius:14px;padding:14px 18px;margin-bottom:8px}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px}
+.faq p{margin:10px 0 0;color:var(--ink2);font-size:15px}
+/* CTA 띠 */
+.band{background:var(--accent);color:#fff;border-radius:var(--radius);padding:34px;text-align:center;margin:0 0 40px}
+.band h2{margin:0 0 6px;font-size:26px;letter-spacing:-.02em}
+.band p{margin:0 0 18px;opacity:.9}
+.band a{background:#fff;color:var(--accent);font-weight:700;padding:12px 20px;border-radius:999px;display:inline-block}
+footer{padding:20px 0 48px;font-size:13px;color:var(--ink3);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+footer a{color:var(--ink3)}
+@media (max-width:800px){
+  .hero{grid-template-columns:1fr;padding-top:16px}
+  .hero h1{font-size:34px}
+  .hero .device{max-width:240px;order:-1}
+  .steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .row,.row.flip{grid-template-columns:minmax(0,1fr)}
+  .row.flip .text{order:0}
+  .promises ol,.price{grid-template-columns:minmax(0,1fr)}
+  .top nav a{margin-left:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./"><i><b></b><b></b><b></b><b></b></i>오데이</a>
+    <nav><a href="#cards">카드</a><a href="#promise">약속</a><a href="#price">구독</a><a href="privacy.html">처리방침</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>하루 한 판,<br>카드로 붙여요</h1>
+      <p>사진 한 장, 10초 영상, 한 줄 글. 날씨와 장소는 먼저 채워져 있어요. 홈 화면을 꾸미던 손버릇 그대로 길게 누르고, 끌어 옮기고, 크기를 바꿔요.</p>
+      <a class="cta soft" href="mailto:hanmari.code@gmail.com">App Store 에 곧 올라갑니다</a>
+      <div class="note">iPhone · iPad · Mac · iOS 17 이상 · iCloud 로 이어짐</div>
+    </div>
+    <div class="device"><img src="img/phone-today.webp" width="560" height="1180" alt="오데이 오늘 판. 날씨와 장소 카드, 사진 두 장, 한 줄 글, 작은 사진 셋이 격자에 붙어 있다"></div>
+  </section>
+
+  <section class="steps" aria-label="쓰는 순서">
+    <div class="step"><em>1</em><b>사진 한 장만 골라요</b><p>새 날 판은 비어 있지 않아요. 날씨와 장소가 먼저 앉아 있고, 큰 사진 자리 하나만 비어 있어요.</p></div>
+    <div class="step"><em>2</em><b>카드를 붙여요</b><p>영상은 딱 10초까지. 글은 그 자리에서 써요. 추가 시트에서 카드를 골라 판에 놓아요.</p></div>
+    <div class="step"><em>3</em><b>길게 눌러 옮겨요</b><p>홈 화면처럼 카드가 흔들리고, 끌면 다른 카드가 비켜요. 크기는 허용된 것만 골라요.</p></div>
+    <div class="step"><em>4</em><b>지난 날을 넘겨 봐요</b><p>달력 칸마다 그날 판의 작은 배치도. 쓰지 않은 날은 그냥 비어 있어요.</p></div>
+  </section>
+
+  <section class="row" id="cards">
+    <div class="text">
+      <h2>카드 58종. 넣는 것, 채워 주는 것, 꾸미는 것</h2>
+      <p>사진, 영상, 글 같은 넣는 카드와 날씨, 해와 달, 걸음 수, 잠처럼 앱이 먼저 채워 두는 카드, 그리고 제목과 색 칩처럼 판을 꾸미는 카드. 값을 지어내지 않아요. 채워지기 전에는 그냥 비어 있어요.</p>
+      <div class="kinds">
+        <span class="on">사진</span><span class="on">영상</span><span class="on">글</span><span>날씨</span><span>장소</span><span>해와 달</span><span>오늘의 질문</span><span>기분</span><span>먹은 것</span><span>N일 전 오늘</span><span>미래의 나에게</span><span>링크</span><span>걸음 수</span><span>잠</span><span>운동</span><span>들은 음악</span><span>일정</span><span>목소리</span><span>손글씨</span><span>본 것</span><span>읽는 책</span><span>인용</span><span>다닌 곳</span><span>하루 띠</span><span>오늘의 색</span><span>제목</span><span>색 칩</span><span>그 밖 31종</span>
+      </div>
+    </div>
+    <div class="shot phone"><img src="img/phone-glass.webp" width="560" height="1168" alt="오늘 판. 스티커가 카드 위에 얹혀 있다"></div>
+  </section>
+
+  <section class="row flip">
+    <div class="text">
+      <h2>iPad 와 Mac 에서는 두 판이 펼쳐져요</h2>
+      <p>왼쪽에 어제, 오른쪽에 오늘. 사이드바에는 달력과 최근 판. Mac 에서는 Finder 나 사진 앱에서 사진을 끌어 놓으면 빈 자리에 앉고, iPad 에서는 Apple Pencil 로 손글씨 카드를 써요.</p>
+      <p>iCloud 로 이어지니 iPhone 에서 붙인 카드가 iPad 와 Mac 에도 그대로 있어요.</p>
+    </div>
+    <div class="shot"><img src="img/ipad.webp" width="1456" height="976" alt="iPad 가로 화면. 어제와 오늘 두 판이 나란히 펼쳐져 있다"></div>
+  </section>
+
+  <section class="row">
+    <div class="text">
+      <h2>쓴 일기는 사라지지 않아요</h2>
+      <p>일기는 기기와 내 iCloud 에만 있어요. 저희 서버는 없어요. 앱을 업데이트하기 전에 사본을 남기고, 지운 것도 30일은 되살릴 수 있어요.</p>
+      <p>구독이 끝나도 쓴 일기는 그대로 보고, 언제든 파일이나 PDF 로 꺼낼 수 있어요.</p>
+    </div>
+    <div class="shot"><img src="img/mac.webp" width="1516" height="1014" alt="Mac 창. 왼쪽 사이드바에 달력과 최근 판, 가운데에 어제와 오늘 판"></div>
+  </section>
+
+  <section class="promises" id="promise">
+    <h2>약속 여섯</h2>
+    <ol>
+      <li><i>1</i>쓴 일기는 사라지지 않아요. 업데이트를 해도, 기기를 바꿔도요.</li>
+      <li><i>2</i>오늘 판은 비어 있지 않아요. 날짜와 날씨, 장소는 먼저 채워 둘게요.</li>
+      <li><i>3</i>구독이 끝나도 쓴 일기는 그대로 보고, 꺼내 갈 수 있어요.</li>
+      <li><i>4</i>코인도 광고도 없어요. 카드 개수도 세지 않아요.</li>
+      <li><i>5</i>일기는 내 iCloud 에만 저장돼요. 저희 서버로 가지 않아요.</li>
+      <li><i>6</i>매일 쓰라고 재촉하지 않아요. 연속 기록도 배지도 없어요.</li>
+    </ol>
+  </section>
+
+  <section id="price">
+    <div class="row" style="margin-bottom:24px">
+      <div class="text">
+        <h2>첫 판은 무료, 그다음은 구독</h2>
+        <p>첫 판 하나는 그냥 써 봐요. 둘째 판부터는 14일 무료 체험 뒤 구독이에요. 한 번 결제로 iPhone, iPad, Mac 전부 써요.</p>
+      </div>
+      <div class="shot phone"><img src="img/phone-sub.webp" width="560" height="1168" alt="구독 화면. 1년, 1개월, 평생 세 가지"></div>
+    </div>
+    <div class="price">
+      <div><b>34,000원<small>1년 · 14일 무료</small></b><span>한 달에 2,833원꼴</span></div>
+      <div><b>4,400원<small>1개월 · 14일 무료</small></b><span>가볍게 시작</span></div>
+      <div><b>89,000원<small>평생 · 한 번 결제</small></b><span>구독 없이 계속</span></div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>자주 묻는 것</h2>
+    <details><summary>어떤 기기에서 쓸 수 있나요?</summary><p>iPhone 과 iPad 는 iOS 17 이상, Mac 은 macOS 14 이상이에요. iOS 26 에서는 Liquid Glass 가 적용돼요. 한 번 결제로 세 기기에서 같이 써요.</p></details>
+    <details><summary>사진이나 일기가 어디로 가나요?</summary><p>기기 안과 내 iCloud 에만 있어요. 저희가 운영하는 서버가 없어서 저희는 볼 수 없어요. 자세한 건 <a href="privacy.html">개인정보 처리방침</a>에 있어요.</p></details>
+    <details><summary>영상은 왜 10초까지인가요?</summary><p>일기에 붙는 영상이라 그래요. 고를 때 구간을 잘라 넣고, 판에서는 소리 없이 돌아요. 원본은 보관하지 않아요.</p></details>
+    <details><summary>구독을 끊으면 일기는 어떻게 되나요?</summary><p>그대로 보여요. 새 판을 만드는 것만 막히고, 보기와 내보내기는 계속 돼요.</p></details>
+    <details><summary>걸음 수나 잠은 어떻게 채워지나요?</summary><p>건강 앱 권한을 허락하면 그날 값만 읽어 카드에 적어요. 읽기만 하고, 어디로도 보내지 않아요.</p></details>
+  </section>
+
+  <section class="band">
+    <h2>App Store 에 곧 올라갑니다</h2>
+    <p>출시되면 이 자리에 받기 버튼이 생겨요.</p>
+    <a href="mailto:hanmari.code@gmail.com">문의하기</a>
+  </section>
+
+  <footer>
+    <span>© AIP Lab · 오데이 (Ohday)</span>
+    <span><a href="privacy.html">개인정보 처리방침</a> · <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a> · <a href="https://aiplab.kr/">aiplab.kr</a></span>
+  </footer>
+</div>
+</body>
+</html>
