@@ -30,4 +30,5 @@ COPY sitemap.xml /srv/sitemap.xml
 COPY robots.txt /srv/robots.txt
 COPY maru /srv/maru
 COPY haengun /srv/haengun
+COPY ohday /srv/ohday
 EXPOSE 8080
