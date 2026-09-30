@@ -33,13 +33,17 @@
 	# ⛔ /pusil 접두사는 여기서 뗀다. 서버는 /b/<id> · /r/<토큰> 으로 듣는다.
 	# ⚠️ `header_up Host` 를 쓰지 않는다 — https 로 프록시하면 Caddy 가 알아서 넣는다
 	#    (caddy validate 가 «Unnecessary header_up Host» 로 경고한다).
+	# ⭐ 2026-09-30 부터 푸실 서버가 제 주소를 가졌다 — https://pusil.aiplab.kr
+	#    프록시 대신 **301** 로 보낸다. 이미 나간 /pusil/r/<토큰> 링크는 그대로 살고(주소만 바뀜),
+	#    카톡·트위터도 301 을 따라가 OG 를 새 주소에서 읽는다.
+	#    한 홉이 빠지니 푸실 쪽에 진짜 방문자 IP 가 간다.
 	handle /pusil/b/* {
 		uri strip_prefix /pusil
-		reverse_proxy https://pusil-api-production.up.railway.app
+		redir https://pusil.aiplab.kr{uri} 301
 	}
 	handle /pusil/r/* {
 		uri strip_prefix /pusil
-		reverse_proxy https://pusil-api-production.up.railway.app
+		redir https://pusil.aiplab.kr{uri} 301
 	}
 
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
