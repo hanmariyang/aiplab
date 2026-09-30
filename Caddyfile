@@ -37,14 +37,10 @@
 	#    프록시 대신 **301** 로 보낸다. 이미 나간 /pusil/r/<토큰> 링크는 그대로 살고(주소만 바뀜),
 	#    카톡·트위터도 301 을 따라가 OG 를 새 주소에서 읽는다.
 	#    한 홉이 빠지니 푸실 쪽에 진짜 방문자 IP 가 간다.
-	handle /pusil/b/* {
-		uri strip_prefix /pusil
-		redir https://pusil.aiplab.kr{uri} 301
-	}
-	handle /pusil/r/* {
-		uri strip_prefix /pusil
-		redir https://pusil.aiplab.kr{uri} 301
-	}
+	# ⚠️ `uri strip_prefix` 뒤에 `{uri}` 를 쓰면 **떼기 전 경로**가 들어간다(2026-09-30 실측 —
+	#    /pusil/b/… 가 pusil.aiplab.kr/pusil/b/… 로 가서 404). 정규식으로 잡아 뒷부분만 붙인다.
+	@pusilSrv path_regexp pusil ^/pusil(/(b|r)/.*)$
+	redir @pusilSrv https://pusil.aiplab.kr{re.pusil.1} 301
 
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
 	handle {
