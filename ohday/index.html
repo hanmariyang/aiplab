@@ -2,191 +2,472 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>오데이 (Ohday)</title>
-<meta name="description" content="하루 한 판을 카드로 붙이는 일기. 사진, 10초 영상, 한 줄 글에 날씨와 장소가 먼저 채워져 있어요. iPhone, iPad, Mac 에서 iCloud 로 이어지고, 쓴 일기는 사라지지 않아요.">
-<meta name="color-scheme" content="light dark">
-<meta property="og:title" content="오데이 (Ohday)">
-<meta property="og:description" content="하루 한 판을 카드로 붙이는 일기. 쓴 일기는 사라지지 않아요.">
-<meta property="og:image" content="https://aiplab.kr/ohday/img/phone-today.webp">
-<style>
-:root{--bg:#F2F2F7;--paper:#FFFFFF;--ink:#141416;--ink2:#4B4D52;--ink3:#8E8E93;--line:#E4E4E7;--accent:#2E5BFF;--card:#FFFFFF;--gap:12px;--radius:21px}
-@media (prefers-color-scheme:dark){:root{--bg:#000000;--paper:#1C1C1E;--ink:#F2F2F3;--ink2:#B7B9BE;--ink3:#8D8D93;--line:#2C2C2E;--accent:#6D8CFF;--card:#1C1C1E}}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Pretendard",sans-serif;line-height:1.55;letter-spacing:-.01em;word-break:keep-all}
-a{color:var(--accent);text-decoration:none}
-img{display:block;max-width:100%;height:auto}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-/* 상단바 */
-.top{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--ink)}
-.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:5px}
-.brand i b{background:#fff;border-radius:2px;opacity:.9}
-.brand i b:last-child{opacity:.45}
-.top nav a{margin-left:18px;font-size:14px;color:var(--ink2)}
-/* 히어로 */
-.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:center;padding:36px 0 56px}
-.hero h1{font-size:44px;line-height:1.15;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
-.hero p{font-size:18px;color:var(--ink2);margin:0 0 22px}
-.cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:999px}
-.cta.soft{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
-.note{font-size:13px;color:var(--ink3);margin-top:12px}
-.device{position:relative;margin:0 auto;max-width:300px}
-.device img{border-radius:36px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
-/* 스텝 */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);margin:0 0 64px}
-.step{background:var(--card);border-radius:var(--radius);padding:18px}
-.step em{font-style:normal;display:inline-block;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
-.step b{display:block;font-size:17px;margin-bottom:4px}
-.step p{margin:0;font-size:14px;color:var(--ink2)}
-/* 번갈아 행 */
-.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;margin:0 0 72px}
-.row.flip .text{order:2}
-.row h2{font-size:30px;line-height:1.2;letter-spacing:-.025em;margin:0 0 10px}
-.row p{font-size:16px;color:var(--ink2);margin:0 0 10px}
-.row .shot img{width:100%;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.14)}
-.row .shot.phone img{max-width:260px;margin:0 auto;border-radius:34px}
-/* 카드 목록 */
-.kinds{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
-.kinds span{font-size:13px;font-weight:600;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
-.kinds span.on{background:var(--accent);color:#fff;border-color:transparent}
-/* 약속 */
-.promises{background:var(--card);border-radius:var(--radius);padding:26px;margin:0 0 72px}
-.promises h2{font-size:24px;margin:0 0 14px;letter-spacing:-.02em}
-.promises ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 24px}
-.promises li{display:flex;gap:12px;font-size:16px;align-items:flex-start}
-.promises li i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
-/* 가격 */
-.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin:0 0 72px}
-.price div{background:var(--card);border-radius:var(--radius);padding:20px}
-.price div b{display:block;font-size:26px;letter-spacing:-.02em}
-.price div small{display:block;color:var(--ink3);font-size:13px;margin-top:4px}
-.price div span{display:block;font-size:14px;color:var(--ink2);margin-top:10px}
-/* FAQ */
-.faq{margin:0 0 72px}
-.faq h2{font-size:24px;margin:0 0 10px}
-.faq details{background:var(--card);border-radius:14px;padding:14px 18px;margin-bottom:8px}
-.faq summary{cursor:pointer;font-weight:600;font-size:16px}
-.faq p{margin:10px 0 0;color:var(--ink2);font-size:15px}
-/* CTA 띠 */
-.band{background:var(--accent);color:#fff;border-radius:var(--radius);padding:34px;text-align:center;margin:0 0 40px}
-.band h2{margin:0 0 6px;font-size:26px;letter-spacing:-.02em}
-.band p{margin:0 0 18px;opacity:.9}
-.band a{background:#fff;color:var(--accent);font-weight:700;padding:12px 20px;border-radius:999px;display:inline-block}
-footer{padding:20px 0 48px;font-size:13px;color:var(--ink3);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
-footer a{color:var(--ink3)}
-@media (max-width:800px){
-  .hero{grid-template-columns:1fr;padding-top:16px}
-  .hero h1{font-size:34px}
-  .hero .device{max-width:240px;order:-1}
-  .steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .row,.row.flip{grid-template-columns:minmax(0,1fr)}
-  .row.flip .text{order:0}
-  .promises ol,.price{grid-template-columns:minmax(0,1fr)}
-  .top nav a{margin-left:12px}
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오데이 - 카드로 붙이는 하루 일기</title>
+<meta name="description" content="하루 한 판. 사진 한 장, 10초 영상, 한 줄 글을 카드로 붙여요. 날씨와 장소는 먼저 채워져 있어요. iPhone · iPad · Mac, iCloud.">
+<link rel="canonical" href="https://aiplab.kr/ohday/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="오데이 - 카드로 붙이는 하루 일기">
+<meta property="og:description" content="하루 한 판을 카드로 붙이는 일기. 사진 한 장으로 시작하고, 날씨와 장소는 먼저 채워져 있어요. iPhone·iPad·Mac.">
+<meta property="og:url" content="https://aiplab.kr/ohday/">
+<meta property="og:image" content="https://aiplab.kr/ohday/og.png">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="shots/icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"오데이","operatingSystem":"iOS, iPadOS, macOS","applicationCategory":"LifestyleApplication","url":"https://aiplab.kr/ohday/","author":{"@type":"Organization","name":"AIP Lab","url":"https://aiplab.kr"},"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="./"><i><b></b><b></b><b></b><b></b></i>오데이</a>
-    <nav><a href="#cards">카드</a><a href="#promise">약속</a><a href="#price">구독</a><a href="privacy.html">처리방침</a></nav>
-  </header>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Gaegu:wght@700&display=swap">
+<style>
+html{color-scheme:light dark}body{font-size:17px}img{max-width:100%}[hidden]{display:none!important}
+/* 레이아웃: 위 바 + 첫 화면에 만져 보는 판(데모) + 흐름 → 카드 58종 → 스티커 → 세 기기 → 약속 → 가격 → 궁금한 것 → 받기. 한 열로 접힌다. */
+:root{
+  --paper:#F6F5F1; --card:#FFFFFF; --ink:#16171A; --ink2:#4A4C52; --ink3:#8B8D93; --line:#E4E3DE; --board:#ECEBE6;
+  --accent:#2E5BFF; --accent-ink:#FFFFFF; --sky:#4F8DF7; --sky2:#2F6BE0; --pen:#1C1B19; --shadow:0 10px 30px rgba(20,20,20,.08);
+  --sans:'Noto Sans KR',-apple-system,'Apple SD Gothic Neo',sans-serif; --hand:'Gaegu','Noto Sans KR',sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#121214; --card:#1C1C1F; --ink:#ECEBE6; --ink2:#B8B9BE; --ink3:#86888E; --line:#2A2A2E; --board:#1A1A1D; --accent:#6D8CFF; --accent-ink:#0E1222; --pen:#ECEBE6; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark } }
+:root[data-theme="dark"]{ --paper:#121214; --card:#1C1C1F; --ink:#ECEBE6; --ink2:#B8B9BE; --ink3:#86888E; --line:#2A2A2E; --board:#1A1A1D; --accent:#6D8CFF; --accent-ink:#0E1222; --pen:#ECEBE6; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;letter-spacing:-0.01em;word-break:keep-all;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{margin:0;letter-spacing:-0.03em;text-wrap:balance;line-height:1.18}
+h2{font-size:clamp(30px,4.4vw,46px);font-weight:800}
+h2 small{display:block;font-size:15px;font-weight:500;color:var(--ink3);letter-spacing:0;margin-top:10px}
+p{margin:0}
+.lead{font-size:clamp(17px,1.8vw,20px);color:var(--ink2);max-width:34em}
+.k{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);font-weight:700;font-size:15px;padding:13px 20px;border-radius:999px;border:1.5px solid var(--ink);transition:transform .15s ease, box-shadow .15s ease;white-space:nowrap}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.blue{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+section{padding-block:clamp(72px,10vw,136px)}
+/* 위 바 */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+.brand img{width:30px;height:30px;border-radius:8px}
+.top nav{display:flex;gap:22px;font-size:14px;color:var(--ink2);font-weight:500}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:720px){.top nav{display:none}}
+/* 첫 화면 */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(40px,6vw,72px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(38px,5.6vw,66px);font-weight:800}
+.hero h1 em{font-style:normal;font-family:var(--hand);font-weight:700;font-size:1.05em;color:var(--accent);display:inline-block;transform:rotate(-2deg)}
+.hero .lead{margin:20px 0 26px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hint{font-size:13.5px;color:var(--ink3);margin-top:14px}
+.hint b{color:var(--ink2);font-weight:600}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero h1{font-size:clamp(34px,9vw,48px)}}
+/* 만져 보는 판 */
+.demo{position:relative;max-width:420px;margin:0 auto;width:100%}
+.phone{background:var(--card);border-radius:34px;padding:22px 12px 18px;box-shadow:0 0 0 10px #15161A, 0 0 0 11px #3a3b40, 0 30px 60px rgba(0,0,0,.22);position:relative;overflow:hidden;margin:12px}
+.phone::before{content:"";position:absolute;left:50%;top:10px;transform:translateX(-50%);width:92px;height:26px;border-radius:999px;background:#15161A}
+.phone .bar{display:flex;align-items:baseline;justify-content:space-between;padding:4px 6px 10px}
+.phone .bar b{font-size:22px;font-weight:800;letter-spacing:-0.03em}
+.phone .bar span{font-size:12px;color:var(--ink3)}
+.phone .tools{display:flex;gap:6px}
+.tb{min-width:34px;height:34px;padding:0 8px;font-size:13px;font-weight:700;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:16px;font-family:inherit;transition:transform .12s}
+.tb:hover{transform:translateY(-1px)}
+.tb[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.board{position:relative;background:var(--board);border-radius:18px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:72px;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none}
+.cd{border-radius:14px;background:var(--card);box-shadow:0 1px 0 rgba(0,0,0,.04);position:relative;overflow:hidden;cursor:grab;transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .2s;will-change:transform}
+.cd:active{cursor:grabbing}
+.cd.w2{grid-column:span 2}.cd.w4{grid-column:span 4}.cd.h2{grid-row:span 2}.cd.h3{grid-row:span 3}
+.cd .in{position:absolute;inset:0;padding:10px 12px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+.cd.weather{background:linear-gradient(160deg,var(--sky),var(--sky2));color:#fff}
+.cd.weather .t{font-size:26px;font-weight:800;line-height:1}
+.cd.weather .s{font-size:10px;opacity:.85}
+.cd.weather .ic{position:absolute;left:12px;top:10px;opacity:.95}
+.cd.place{background:#E9F1EA}
+.cd.place .pin{position:absolute;left:50%;top:38%;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(46,91,255,.2)}
+.cd.place .tag{align-self:flex-start;font-size:10.5px;font-weight:700;background:#fff;color:#16171A;border-radius:999px;padding:2px 8px}
+.cd.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.cd.photo .stamp{position:relative;font-size:10px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5);font-weight:600}
+.cd.text .in{justify-content:flex-start}
+.cd.text .pen{font-family:var(--hand);font-size:17px;line-height:1.25;color:var(--pen)}
+.cd.mood .in{align-items:center;justify-content:center;gap:4px}
+.cd.mood .face{display:block}
+.cd.mood .lb{font-size:10.5px;color:var(--ink2);font-weight:600}
+.cd.swatch{background:#E8D8B8}
+.cd.drinks .in{justify-content:space-between}
+.cd.drinks .lb{font-size:10px;color:var(--ink3);font-weight:600}
+.cd.drinks .cups{display:flex;gap:4px;color:var(--accent)}
+.cd.drinks .n{font-size:14px;font-weight:800}
+.cd .x{position:absolute;left:-6px;top:-6px;width:22px;height:22px;border-radius:50%;background:var(--ink3);color:#fff;display:none;place-items:center;font-size:14px;line-height:1;border:2px solid var(--card);z-index:3}
+.board.edit .cd .x{display:grid}
+.board.edit .cd{animation:jiggle .28s ease-in-out infinite alternate;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.board.edit .cd:nth-child(2n){animation-delay:-.14s}
+.board.edit .cd:nth-child(3n){animation-duration:.32s}
+.cd.lift{transform:scale(1.04);box-shadow:0 14px 34px rgba(0,0,0,.18);z-index:5;animation:none!important;transition:none}
+.cd.pop{animation:pop .5s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes jiggle{from{transform:rotate(-1.4deg)}to{transform:rotate(1.4deg)}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.stk{position:absolute;width:64px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));pointer-events:none;z-index:4;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.demo .float{position:absolute;z-index:6;width:72px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.18));animation:float 5s ease-in-out infinite;pointer-events:none}
+.demo .float.b{right:-18px;top:-10px;width:78px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+/* 흐름 */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 22px 0;overflow:hidden;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step b{font-size:19px;font-weight:800;letter-spacing:-0.02em}
+.step p{font-size:15px;color:var(--ink2)}
+.step .shot{margin:16px -22px -2px auto;width:74%;border-radius:30px 0 0 0;overflow:hidden;padding:9px 0 0 9px;background:#15161A;box-shadow:var(--shadow);transform:translateY(16px);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.step .shot img{aspect-ratio:1320/1500;object-fit:cover;object-position:top;border-radius:22px 0 0 0}
+.in .step .shot{transform:translateY(0)}
+@media (max-width:860px){.steps{grid-template-columns:1fr}.step .shot{width:60%}}
+/* 카드 58종 */
+.kinds{margin-top:34px;display:grid;gap:14px}
+.krow{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;border-top:1px solid var(--line);padding-top:14px}
+.krow b{font-size:15px}
+.krow span{display:inline-block;font-size:14px;font-weight:500;color:var(--ink2);padding:4px 0;margin:0 14px 4px 0;border-bottom:1px solid transparent}
+.krow span::after{content:"·";color:var(--ink3);margin-left:14px}
+.krow span:last-child::after{content:""}
+@media (max-width:640px){.krow{grid-template-columns:1fr;gap:6px}}
+.marq{margin-top:34px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq .track{display:flex;gap:12px;width:max-content;animation:slide 42s linear infinite}
+.marq:hover .track{animation-play-state:paused}
+.tile{width:150px;height:100px;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex:0 0 auto}
+.tile .k2{font-size:11px;color:var(--ink3);font-weight:600}
+.tile .v{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.tile .v small{font-size:12px;font-weight:500;color:var(--ink3);margin-left:4px}
+.tile.sky{background:linear-gradient(160deg,var(--sky),var(--sky2));color:#fff;border:0}.tile.sky .k2{color:rgba(255,255,255,.8)}
+.tile.pink{background:#FBE7EC}.tile.cream{background:#F3E8CF}.tile.ink{background:var(--ink);color:var(--paper)}.tile.ink .k2{color:var(--ink3)}
+@keyframes slide{to{transform:translateX(-50%)}}
+/* 스티커 */
+.stick{position:relative}
+.stick .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.stage{position:relative;height:380px;border-radius:28px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.stage .sheet{position:absolute;left:8%;top:14%;width:52%;aspect-ratio:3/4;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(3,1fr);place-items:center;padding:14px;gap:6px;transform:rotate(-4deg)}
+.stage .sheet img{width:70%;opacity:.35;filter:grayscale(1)}
+.stage .s{position:absolute;z-index:2;width:76px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.2));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.stage .cap{position:absolute;right:14px;bottom:12px;font-size:12px;color:var(--ink3)}
+.ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
+.ul li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.ul li i{width:34px;height:34px;border-radius:11px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:16px}
+.ul li b{display:block;font-size:16px}
+.ul li span{font-size:14.5px;color:var(--ink2)}
+@media (max-width:860px){.stick .wrap{grid-template-columns:1fr}.stage{height:320px}}
+/* 세 기기 */
+.devices{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.devices .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;margin-top:36px;align-items:end}
+.frame{border-radius:18px;overflow:hidden;background:#15161A;padding:8px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.frame img{border-radius:12px}
+.frame.mac img{aspect-ratio:2880/1800;object-fit:cover}
+.frame.ipad img{aspect-ratio:2064/2752;object-fit:cover;object-position:top}
+@media (max-width:860px){.devices .grid{grid-template-columns:1fr}}
+/* 약속 */
+.prom{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px;counter-reset:p}
+.prom div{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;min-height:140px;position:relative;font-size:15.5px;color:var(--ink2);line-height:1.6;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.prom div::before{counter-increment:p;content:counter(p);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;font-weight:800;margin-bottom:10px}
+.prom div b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
+@media (max-width:860px){.prom{grid-template-columns:1fr 1fr}}@media (max-width:560px){.prom{grid-template-columns:1fr}}
+/* 가격 */
+.price .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:start}
+.price .wrap.cmpwrap{display:block;margin-top:48px}
+.plans{display:grid;gap:10px}
+.plan{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.plan b{font-size:16px}.plan span{display:block;font-size:13px;color:var(--ink3)}
+.plan .pr{font-size:20px;font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.plan .pr small{font-size:12px;font-weight:500;color:var(--ink3);margin-left:2px}
+.plan.best{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.plan .tag{font-size:11px;font-weight:700;color:var(--accent);margin-left:6px}
+.fine{font-size:13px;color:var(--ink3);margin-top:12px;line-height:1.6}
+@media (max-width:860px){.price .wrap{grid-template-columns:1fr}}
 
-  <section class="hero">
+/* 무료와 유료 */
+.cmp{margin-top:40px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
+.cmp table{width:100%;border-collapse:collapse;font-size:15px}
+.cmp th,.cmp td{padding:14px 16px;text-align:center;border-top:1px solid var(--line);vertical-align:middle}
+.cmp th{font-weight:800;font-size:15px;border-top:0}
+.cmp td:first-child,.cmp th:first-child{text-align:left;color:var(--ink2);font-weight:500;width:36%}
+.cmp th .sub{display:block;font-size:12px;font-weight:500;color:var(--ink3);margin-top:2px}
+.cmp .pay{background:color-mix(in srgb,var(--accent) 9%,var(--card))}
+.cmp th.pay{color:var(--accent)}
+.cmp .ok{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:13px;font-weight:800}
+.cmp .pay .ok{background:var(--accent);color:var(--accent-ink)}
+.cmp .no{color:var(--ink3)}
+.cmp .part{font-size:13px;color:var(--ink2)}
+.cmp caption{caption-side:top;text-align:left;padding:16px 16px 6px;font-size:13px;color:var(--ink3)}
+@media (max-width:640px){.cmp th,.cmp td{padding:12px 8px;font-size:13.5px}.cmp td:first-child,.cmp th:first-child{width:34%}}
+/* 궁금한 것 */
+.faq{max-width:760px}
+details{border-top:1px solid var(--line);padding:16px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";font-weight:400;color:var(--ink3);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:10px;color:var(--ink2);font-size:15.5px}
+/* 받기 띠 */
+.band{background:var(--ink);color:var(--paper);text-align:center;padding-block:clamp(64px,9vw,110px);position:relative;overflow:hidden}
+.band h2{color:var(--paper)}
+.band .lead{color:color-mix(in srgb,var(--paper) 70%,transparent);margin:16px auto 28px}
+.band .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.band .wrap{position:relative;z-index:1}
+.band .st{position:absolute;z-index:0;width:70px;opacity:.9;filter:drop-shadow(0 10px 16px rgba(0,0,0,.3));animation:float 6s ease-in-out infinite}
+footer{padding-block:28px 48px;font-size:13.5px;color:var(--ink3)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--ink2);margin-right:14px}
+/* 드러나기(이동만, 투명도는 안 건드린다) */
+.reveal{transform:translateY(22px);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{transform:none}
+.reveal .d1{transition-delay:.08s}.reveal .d2{transition-delay:.16s}.reveal .d3{transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.reveal{transform:none}}
+.memo{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:14px 16px;font-size:13.5px;color:var(--ink2);margin:0 auto 10px;max-width:1120px}
+.memo b{color:var(--ink)}
+</style>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="shots/icon.png" alt="">오데이</a>
+    <nav><a href="#flow">쓰는 법</a><a href="#cards">카드 58종</a><a href="#stickers">스티커</a><a href="#devices">iPad · Mac</a><a href="#promise">약속</a><a href="#price">가격</a></nav>
+    <a class="btn" href="https://apps.apple.com/kr/app/id6817827401">App Store 에서 받기</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
     <div>
-      <h1>하루 한 판,<br>카드로 붙여요</h1>
-      <p>사진 한 장, 10초 영상, 한 줄 글. 날씨와 장소는 먼저 채워져 있어요. 홈 화면을 꾸미던 손버릇 그대로 길게 누르고, 끌어 옮기고, 크기를 바꿔요.</p>
-      <a class="cta soft" href="mailto:hanmari.code@gmail.com">App Store 에 곧 올라갑니다</a>
-      <div class="note">iPhone · iPad · Mac · iOS 17 이상 · iCloud 로 이어짐</div>
+      <p class="k">iPhone · iPad · Mac · iCloud</p>
+      <h1 style="margin-top:14px">하루 한 판,<br>카드로 붙여요</h1>
+      <p class="lead">사진 한 장, 10초 영상, 한 줄 글. 홈 화면을 꾸미던 손버릇 그대로 붙이면 오늘 판이 됩니다. 날씨와 장소는 먼저 채워져 있어요.</p>
+      <div class="cta"><a class="btn blue" href="https://apps.apple.com/kr/app/id6817827401">App Store 에서 받기</a><a class="btn ghost" href="#flow">어떻게 쓰나요</a></div>
+      <p class="hint">오른쪽 판을 <b>직접 만져 보세요</b>. 카드를 길게 누르면 흔들리고, 끌면 자리가 바뀌어요.</p>
     </div>
-    <div class="device"><img src="img/phone-today.webp" width="560" height="1180" alt="오데이 오늘 판. 날씨와 장소 카드, 사진 두 장, 한 줄 글, 작은 사진 셋이 격자에 붙어 있다"></div>
-  </section>
-
-  <section class="steps" aria-label="쓰는 순서">
-    <div class="step"><em>1</em><b>사진 한 장만 골라요</b><p>새 날 판은 비어 있지 않아요. 날씨와 장소가 먼저 앉아 있고, 큰 사진 자리 하나만 비어 있어요.</p></div>
-    <div class="step"><em>2</em><b>카드를 붙여요</b><p>영상은 딱 10초까지. 글은 그 자리에서 써요. 추가 시트에서 카드를 골라 판에 놓아요.</p></div>
-    <div class="step"><em>3</em><b>길게 눌러 옮겨요</b><p>홈 화면처럼 카드가 흔들리고, 끌면 다른 카드가 비켜요. 크기는 허용된 것만 골라요.</p></div>
-    <div class="step"><em>4</em><b>지난 날을 넘겨 봐요</b><p>달력 칸마다 그날 판의 작은 배치도. 쓰지 않은 날은 그냥 비어 있어요.</p></div>
-  </section>
-
-  <section class="row" id="cards">
-    <div class="text">
-      <h2>카드 58종. 넣는 것, 채워 주는 것, 꾸미는 것</h2>
-      <p>사진, 영상, 글 같은 넣는 카드와 날씨, 해와 달, 걸음 수, 잠처럼 앱이 먼저 채워 두는 카드, 그리고 제목과 색 칩처럼 판을 꾸미는 카드. 값을 지어내지 않아요. 채워지기 전에는 그냥 비어 있어요.</p>
-      <div class="kinds">
-        <span class="on">사진</span><span class="on">영상</span><span class="on">글</span><span>날씨</span><span>장소</span><span>해와 달</span><span>오늘의 질문</span><span>기분</span><span>먹은 것</span><span>N일 전 오늘</span><span>미래의 나에게</span><span>링크</span><span>걸음 수</span><span>잠</span><span>운동</span><span>들은 음악</span><span>일정</span><span>목소리</span><span>손글씨</span><span>본 것</span><span>읽는 책</span><span>인용</span><span>다닌 곳</span><span>하루 띠</span><span>오늘의 색</span><span>제목</span><span>색 칩</span><span>그 밖 31종</span>
+    <div class="demo" id="demo">
+      <img class="float b" src="shots/sticker-sun.png" alt="">
+      <div class="phone">
+        <div class="bar" style="padding-top:22px"><div><span>10월 1일 목요일 · 오늘</span><br><b>오늘</b></div>
+          <div class="tools"><button class="tb" id="edit" aria-pressed="false" title="판 편집"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></button><button class="tb" id="add" title="카드 추가">+</button></div></div>
+        <div class="board" id="board">
+          <div class="cd weather w2" data-k="weather"><span class="x">−</span><svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><div class="in"><div class="t">18°</div><div class="s">최고 22° 최저 13°</div></div></div>
+          <div class="cd place w2" data-k="place"><span class="x">−</span><span class="pin"></span><div class="in"><span class="tag">성수동</span></div></div>
+          <div class="cd photo w4 h3" data-k="photo"><span class="x">−</span><img src="shots/iphone-1-옷장.png" alt="" style="object-position:50% 34%"><div class="in"><span class="stamp">오전 10:14</span></div></div>
+          <div class="cd text w4" data-k="text"><span class="x">−</span><div class="in"><div class="pen">바람이 차서 니트 하나 더. 오늘은 줄무늬.</div></div></div>
+          <div class="cd drinks w2" data-k="drinks"><span class="x">−</span><div class="in"><span class="lb">커피</span><span class="cups"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M14 7h2a2 2 0 0 1 0 4h-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M14 7h2a2 2 0 0 1 0 4h-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span style="opacity:.25"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M14 7h2a2 2 0 0 1 0 4h-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span><span class="n">2잔</span></div></div>
+          <div class="cd mood" data-k="mood"><span class="x">−</span><div class="in"><svg class="face" viewBox="0 0 40 40" width="30" height="30"><circle cx="20" cy="20" r="18" fill="#F7D35B"/><circle cx="14" cy="17" r="2" fill="#2B2B2B"/><circle cx="26" cy="17" r="2" fill="#2B2B2B"/><path d="M13 25c3 3 11 3 14 0" stroke="#2B2B2B" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span class="lb">좋음</span></div></div>
+          <div class="cd swatch" data-k="swatch"><span class="x">−</span></div>
+          <img class="stk" src="shots/sticker-star.png" alt="" style="left:14px;top:118px;transform:rotate(-12deg)">
+        </div>
+        <div class="toast" id="toast">길게 누르면 흔들려요</div>
       </div>
     </div>
-    <div class="shot phone"><img src="img/phone-glass.webp" width="560" height="1168" alt="오늘 판. 스티커가 카드 위에 얹혀 있다"></div>
-  </section>
+  </div>
+</section>
 
-  <section class="row flip">
-    <div class="text">
-      <h2>iPad 와 Mac 에서는 두 판이 펼쳐져요</h2>
-      <p>왼쪽에 어제, 오른쪽에 오늘. 사이드바에는 달력과 최근 판. Mac 에서는 Finder 나 사진 앱에서 사진을 끌어 놓으면 빈 자리에 앉고, iPad 에서는 Apple Pencil 로 손글씨 카드를 써요.</p>
-      <p>iCloud 로 이어지니 iPhone 에서 붙인 카드가 iPad 와 Mac 에도 그대로 있어요.</p>
+<section id="flow">
+  <div class="wrap reveal">
+    <p class="k">쓰는 법</p>
+    <h2 style="margin-top:10px">사진 한 장으로 시작해서,<br>오늘 판을 끝내요</h2>
+    <div class="steps">
+      <div class="step d1"><span class="k">1</span><b>사진 한 장 고르기</b><p>오늘 찍은 사진 중 한 장만. 나머지는 오데이가 채워 둬요. 날씨, 장소, 날짜.</p><div class="shot"><img src="shots/iphone-3-파리.png" alt="사진 한 장이 붙은 판"></div></div>
+      <div class="step d2"><span class="k">2</span><b>카드 붙이기</b><p>한 줄 글, 기분, 마신 것, 산 것. 길게 누르면 흔들리고, 끌면 다른 카드가 비켜요.</p><div class="shot"><img src="shots/iphone-2-여행.png" alt="카드 여러 장이 붙은 판"></div></div>
+      <div class="step d3"><span class="k">3</span><b>스티커 얹고 끝</b><p>키우고 돌리고 뒤집어서 아무 데나. 오늘 판은 이걸로 끝. 내일은 새 판.</p><div class="shot"><img src="shots/iphone-5-고양이.png" alt="스티커가 붙은 판"></div></div>
     </div>
-    <div class="shot"><img src="img/ipad.webp" width="1456" height="976" alt="iPad 가로 화면. 어제와 오늘 두 판이 나란히 펼쳐져 있다"></div>
-  </section>
+  </div>
+</section>
 
-  <section class="row">
-    <div class="text">
-      <h2>쓴 일기는 사라지지 않아요</h2>
-      <p>일기는 기기와 내 iCloud 에만 있어요. 저희 서버는 없어요. 앱을 업데이트하기 전에 사본을 남기고, 지운 것도 30일은 되살릴 수 있어요.</p>
-      <p>구독이 끝나도 쓴 일기는 그대로 보고, 언제든 파일이나 PDF 로 꺼낼 수 있어요.</p>
+<section id="cards" style="padding-top:0">
+  <div class="wrap reveal">
+    <p class="k">카드 58종</p>
+    <h2 style="margin-top:10px">넣는 것, 채워 주는 것, 꾸미는 것<small>카드마다 크기가 있고, 같은 칸에 두 번 들어가지 않아요</small></h2>
+    <div class="kinds">
+      <div class="krow"><b>넣는 것</b><div><span>사진</span><span>영상 10초</span><span>글</span><span>오늘의 질문</span><span>기분</span><span>먹은 것</span><span>미래의 나에게</span><span>링크</span><span>본 것</span><span>읽는 책</span><span>인용</span><span>목소리</span><span>손글씨</span><span>티켓</span><span>세 컷</span><span>옷</span><span>산 것</span><span>반려</span><span>한 단어</span></div></div>
+      <div class="krow"><b>채워 주는 것</b><div><span>날씨</span><span>장소</span><span>해와 달</span><span>N년 전 오늘</span><span>디데이</span><span>걸음 수</span><span>잠</span><span>운동</span><span>들은 음악</span><span>일정</span><span>다닌 곳</span><span>하루 띠</span><span>이번 주</span><span>오늘의 색</span></div></div>
+      <div class="krow"><b>꾸미는 것</b><div><span>제목</span><span>색 칩</span><span>여백</span><span>구분선</span><span>스티커</span></div></div>
     </div>
-    <div class="shot"><img src="img/mac.webp" width="1516" height="1014" alt="Mac 창. 왼쪽 사이드바에 달력과 최근 판, 가운데에 어제와 오늘 판"></div>
-  </section>
-
-  <section class="promises" id="promise">
-    <h2>약속 여섯</h2>
-    <ol>
-      <li><i>1</i>쓴 일기는 사라지지 않아요. 업데이트를 해도, 기기를 바꿔도요.</li>
-      <li><i>2</i>오늘 판은 비어 있지 않아요. 날짜와 날씨, 장소는 먼저 채워 둘게요.</li>
-      <li><i>3</i>구독이 끝나도 쓴 일기는 그대로 보고, 꺼내 갈 수 있어요.</li>
-      <li><i>4</i>코인도 광고도 없어요. 카드 개수도 세지 않아요.</li>
-      <li><i>5</i>일기는 내 iCloud 에만 저장돼요. 저희 서버로 가지 않아요.</li>
-      <li><i>6</i>매일 쓰라고 재촉하지 않아요. 연속 기록도 배지도 없어요.</li>
-    </ol>
-  </section>
-
-  <section id="price">
-    <div class="row" style="margin-bottom:24px">
-      <div class="text">
-        <h2>첫 판은 무료, 그다음은 구독</h2>
-        <p>첫 판 하나는 그냥 써 봐요. 둘째 판부터는 14일 무료 체험 뒤 구독이에요. 한 번 결제로 iPhone, iPad, Mac 전부 써요.</p>
-      </div>
-      <div class="shot phone"><img src="img/phone-sub.webp" width="560" height="1168" alt="구독 화면. 1년, 1개월, 평생 세 가지"></div>
+  </div>
+  <div class="marq" aria-hidden="true">
+    <div class="track" id="track">
+      <div class="tile sky"><span class="k2">날씨 · 성수동</span><span class="v">18°<small>최고 22°</small></span></div>
+      <div class="tile"><span class="k2">걸음</span><span class="v">18,420<small>13.1km</small></span></div>
+      <div class="tile pink"><span class="k2">디데이 · 도쿄</span><span class="v">3일째</span></div>
+      <div class="tile"><span class="k2">마신 것 · 커피</span><span class="v">2잔<small>/ 3</small></span></div>
+      <div class="tile cream"><span class="k2">티켓</span><span class="v" style="font-size:15px">도쿄타워 전망대</span></div>
+      <div class="tile"><span class="k2">컨디션</span><span class="v">8<small>/10</small></span></div>
+      <div class="tile ink"><span class="k2">한 단어</span><span class="v">느긋</span></div>
+      <div class="tile"><span class="k2">잠</span><span class="v">7시간 20분</span></div>
+      <div class="tile"><span class="k2">N년 전 오늘</span><span class="v" style="font-size:15px">2024년, 제주</span></div>
+      <div class="tile"><span class="k2">산 것</span><span class="v" style="font-size:15px">튤립 한 단<small>€12</small></span></div>
     </div>
-    <div class="price">
-      <div><b>34,000원<small>1년 · 14일 무료</small></b><span>한 달에 2,833원꼴</span></div>
-      <div><b>4,400원<small>1개월 · 14일 무료</small></b><span>가볍게 시작</span></div>
-      <div><b>89,000원<small>평생 · 한 번 결제</small></b><span>구독 없이 계속</span></div>
+  </div>
+</section>
+
+<section class="stick" id="stickers">
+  <div class="wrap reveal">
+    <div class="stage" id="stage">
+      <div class="sheet"><img src="shots/sticker-sun.png" alt=""><img src="shots/sticker-heart.png" alt=""><img src="shots/sticker-coffee.png" alt=""><img src="shots/sticker-star.png" alt=""><img src="shots/sticker-cat.png" alt=""><img src="shots/sticker-leaf.png" alt=""></div>
+      <img class="s" src="shots/sticker-sun.png" alt="" data-x="58" data-y="18" data-r="-10">
+      <img class="s" src="shots/sticker-heart.png" alt="" data-x="76" data-y="38" data-r="8">
+      <img class="s" src="shots/sticker-coffee.png" alt="" data-x="54" data-y="62" data-r="-6">
+      <img class="s" src="shots/sticker-cat.png" alt="" data-x="78" data-y="72" data-r="12">
+      <span class="cap">시트를 찍으면 낱장으로 떨어져요</span>
     </div>
-  </section>
+    <div>
+      <p class="k">스티커는 내가 만들어요</p>
+      <h2 style="margin-top:10px">문구점 스티커도,<br>오늘 찍은 셀카도</h2>
+      <ul class="ul">
+        <li><i><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></i><div><b>시트에서 떼기</b><span>산 스티커 시트를 찍으면 낱장으로 떨어져 내 서랍에 들어와요. 원본 시트는 보관하지 않아요.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><path d="M9.5 8.8 20 19M9.5 15.2 20 5"/></svg></i><div><b>사진에서 떼기</b><span>사진을 고르면 피사체만 떼어져요. 고양이도, 커피잔도.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></i><div><b>셀카 스티커</b><span>판 위 동그라미에 셀카를 찍으면 한마디 말풍선과 그 시각이 붙어 바로 판에 붙어요.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <section class="faq">
-    <h2>자주 묻는 것</h2>
-    <details><summary>어떤 기기에서 쓸 수 있나요?</summary><p>iPhone 과 iPad 는 iOS 17 이상, Mac 은 macOS 14 이상이에요. iOS 26 에서는 Liquid Glass 가 적용돼요. 한 번 결제로 세 기기에서 같이 써요.</p></details>
-    <details><summary>사진이나 일기가 어디로 가나요?</summary><p>기기 안과 내 iCloud 에만 있어요. 저희가 운영하는 서버가 없어서 저희는 볼 수 없어요. 자세한 건 <a href="privacy.html">개인정보 처리방침</a>에 있어요.</p></details>
-    <details><summary>영상은 왜 10초까지인가요?</summary><p>일기에 붙는 영상이라 그래요. 고를 때 구간을 잘라 넣고, 판에서는 소리 없이 돌아요. 원본은 보관하지 않아요.</p></details>
-    <details><summary>구독을 끊으면 일기는 어떻게 되나요?</summary><p>그대로 보여요. 새 판을 만드는 것만 막히고, 보기와 내보내기는 계속 돼요.</p></details>
-    <details><summary>걸음 수나 잠은 어떻게 채워지나요?</summary><p>건강 앱 권한을 허락하면 그날 값만 읽어 카드에 적어요. 읽기만 하고, 어디로도 보내지 않아요.</p></details>
-  </section>
+<section class="devices" id="devices">
+  <div class="wrap reveal">
+    <p class="k">iPhone · iPad · Mac</p>
+    <h2 style="margin-top:10px">한 번 결제로 세 기기,<br>iCloud 로 같은 판<small>iPad 와 Mac 에서는 어제와 오늘 두 판이 나란히 펼쳐져요. Mac 에서는 사진을 끌어 놓으면 빈 자리에 앉아요.</small></h2>
+    <div class="grid">
+      <div class="frame mac d1"><img src="shots/mac-1-펼친면.png" alt="Mac 에서 어제와 오늘이 나란히 펼쳐진 화면"></div>
+      <div class="frame ipad d2"><img src="shots/ipad-5-고양이.png" alt="iPad 세로 화면, 사이드바와 판"></div>
+    </div>
+  </div>
+</section>
 
-  <section class="band">
-    <h2>App Store 에 곧 올라갑니다</h2>
-    <p>출시되면 이 자리에 받기 버튼이 생겨요.</p>
-    <a href="mailto:hanmari.code@gmail.com">문의하기</a>
-  </section>
+<section id="promise">
+  <div class="wrap reveal">
+    <p class="k">약속 여섯</p>
+    <h2 style="margin-top:10px">일기 앱이 지켜야 할 것</h2>
+    <div class="prom">
+      <div><b>쓴 일기는 사라지지 않아요.</b>업데이트를 해도, 기기를 바꿔도요. 지운 것도 30일은 돌아와요.</div>
+      <div><b>오늘 판은 비어 있지 않아요.</b>날짜와 날씨, 장소는 먼저 채워 둘게요.</div>
+      <div><b>구독이 끝나도 그대로 봐요.</b>쓴 일기는 보고, 꺼내 갈 수 있어요.</div>
+      <div><b>코인도 광고도 없어요.</b>카드 개수도 세지 않아요.</div>
+      <div><b>일기는 내 iCloud 에만.</b>저희 서버로 가지 않아요. 서버가 없어요.</div>
+      <div><b>매일 쓰라고 재촉하지 않아요.</b>연속 기록도 배지도 없어요.</div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <span>© AIP Lab · 오데이 (Ohday)</span>
-    <span><a href="privacy.html">개인정보 처리방침</a> · <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a> · <a href="https://aiplab.kr/">aiplab.kr</a></span>
-  </footer>
+<section class="price" id="price">
+  <div class="wrap reveal">
+    <div>
+      <p class="k">가격</p>
+      <h2 style="margin-top:10px">첫 판은 무료,<br>그다음은 구독</h2>
+      <p class="lead" style="margin-top:16px">첫 판 하나는 그냥 써 보세요. 둘째 판부터 14일 무료 체험이 시작되고, 그 뒤에 고르면 돼요. 한 번 결제로 iPhone·iPad·Mac 전부.</p>
+    </div>
+    <div class="plans">
+      <div class="plan"><div><b>1개월<span class="tag">14일 무료 체험</span></b><span>언제든 끊어요</span></div><div class="pr">₩4,400</div></div>
+      <div class="plan best"><div><b>1년<span class="tag">14일 무료 체험</span></b><span>한 달 2,833원 꼴</span></div><div class="pr">₩34,000</div></div>
+      <div class="plan"><div><b>평생 이용권</b><span>한 번만</span></div><div class="pr">₩89,000</div></div>
+      <p class="fine">구독은 Apple 계정으로 결제되고, 기간이 끝나기 24시간 전에 취소하지 않으면 자동 갱신돼요. 설정의 구독 관리에서 언제든 끊을 수 있어요. 구독이 끝나도 쓴 일기는 그대로 보고 내보낼 수 있어요.</p>
+    </div>
+  </div>
+
+  <div class="wrap reveal cmpwrap">
+    <div class="cmp">
+      <table>
+        <caption>무료로 어디까지, 구독하면 무엇이 달라지는지</caption>
+        <thead><tr><th>할 수 있는 것</th><th>무료<span class="sub">첫 판 하나</span></th><th class="pay">구독 · 평생<span class="sub">14일 무료 체험부터</span></th><th>구독이 끝나면<span class="sub">쓴 일기는 그대로</span></th></tr></thead>
+        <tbody>
+          <tr><td>첫 판 만들기, 카드·스티커 붙이기</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>매일 새 판 만들기</td><td><span class="no">−</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="no">−</span></td></tr>
+          <tr><td>카드 58종 전부 붙이기</td><td><span class="part">첫 판에만</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="part">있는 판 고치기만</span></td></tr>
+          <tr><td>내 스티커 만들기 · 붙이기</td><td><span class="part">첫 판에만</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="part">있는 판에는 붙여요</span></td></tr>
+          <tr><td>쓴 판 보기 · 고치기</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>iCloud 로 iPhone · iPad · Mac</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>PDF · 원본 묶음으로 내보내기</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>광고 · 코인 · 카드 개수 제한</td><td><span class="no">없음</span></td><td class="pay"><span class="no">없음</span></td><td><span class="no">없음</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap reveal">
+    <p class="k">궁금한 것</p>
+    <div class="faq" style="margin-top:18px">
+      <details><summary>계정을 만들어야 하나요?</summary><p>아니요. 로그인이 없어요. 일기는 기기와 내 iCloud 에만 저장되고, iCloud 를 켜면 iPhone·iPad·Mac 이 같은 판을 봐요.</p></details>
+      <details><summary>구독이 끝나면 일기는요?</summary><p>그대로 있어요. 보고, PDF 로 내보내고, 원본 묶음으로 꺼내 갈 수 있어요. 새 판을 만드는 것만 구독이 필요해요.</p></details>
+      <details><summary>영상은 왜 10초인가요?</summary><p>하루를 돌아볼 때 긴 영상은 안 보게 되더라고요. 10초를 고르는 과정 자체가 기록이에요. 판 위에서 소리 없이 돌아요.</p></details>
+      <details><summary>건강 데이터는 어디로 가나요?</summary><p>걸음·잠·운동 카드는 읽기만 하고, 그날 값을 카드 한 장에 적어요. 기기와 내 iCloud 밖으로 나가지 않아요. 개발자 서버가 없어요.</p></details>
+      <details><summary>Android 는요?</summary><p>지금은 iPhone·iPad·Mac 이에요. 일기를 적어 두는 곳이 iCloud 라서요.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="band" id="get">
+  <div class="wrap">
+    <h2>오늘 판부터 시작해요</h2>
+    <p class="lead" style="max-width:30em">첫 판은 무료. iPhone·iPad·Mac 에서, 내 iCloud 에.</p>
+    <a class="btn" href="https://apps.apple.com/kr/app/id6817827401" id="appstore">App Store 에서 받기</a>
+    
+  </div>
 </div>
+<footer>
+  <div class="wrap">
+    <div>© AIP Lab · 오데이</div>
+    <div><a href="privacy.html">개인정보 처리방침</a><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">이용약관</a><span>문의 hanmari.code@gmail.com</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var board=document.getElementById('board'), editBtn=document.getElementById('edit'), addBtn=document.getElementById('add'), toast=document.getElementById('toast');
+  var editing=false, tt, editIcon=editBtn.innerHTML;
+  function say(m){ toast.textContent=m; toast.classList.add('on'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('on')},1600); }
+  function setEdit(on){ editing=on; board.classList.toggle('edit',on); editBtn.setAttribute('aria-pressed',on?'true':'false'); editBtn.classList.toggle('done',on); editBtn.innerHTML=on?'완료':editIcon; if(on) say('끌어서 자리를 바꿔 보세요'); }
+  editBtn.addEventListener('click',function(){ setEdit(!editing); });
+  // 길게 누르면 편집, 편집 중엔 끌어서 자리 바꾸기(놓은 카드와 자리를 맞바꾼다)
+  var press, dragging=null, startX=0, startY=0, moved=false;
+  board.addEventListener('pointerdown',function(e){
+    var cd=e.target.closest('.cd'); if(!cd) return;
+    if(e.target.classList.contains('x')){ cd.remove(); say('뺐어요'); return; }
+    startX=e.clientX; startY=e.clientY; moved=false;
+    if(!editing){ press=setTimeout(function(){ setEdit(true); begin(cd,e); },420); }
+    else begin(cd,e);
+  });
+  function begin(cd,e){ dragging=cd; cd.classList.add('lift'); try{cd.setPointerCapture(e.pointerId)}catch(_){} }
+  board.addEventListener('pointermove',function(e){
+    if(!dragging){ if(press && (Math.abs(e.clientX-startX)>8||Math.abs(e.clientY-startY)>8)){ clearTimeout(press); press=null; } return; }
+    moved=true; dragging.style.transform='translate('+(e.clientX-startX)+'px,'+(e.clientY-startY)+'px) scale(1.04)';
+  });
+  function end(e){
+    clearTimeout(press); press=null;
+    if(!dragging) return;
+    var d=dragging; dragging=null; d.style.transform=''; d.classList.remove('lift');
+    d.style.visibility='hidden'; var under=document.elementFromPoint(e.clientX,e.clientY); d.style.visibility='';
+    var target=under && under.closest ? under.closest('.cd') : null;
+    if(moved && target && target!==d && target.parentNode===board){
+      var a=document.createElement('span'); board.replaceChild(a,d); board.replaceChild(d,target); board.replaceChild(target,a); say('자리를 바꿨어요');
+    }
+  }
+  board.addEventListener('pointerup',end); board.addEventListener('pointercancel',end);
+  // 카드 더하기: 종류를 돌아가며 하나씩
+  var pool=[
+    '<div class="cd mood" data-k="mood"><span class="x">−</span><div class="in"><svg class=\"face\" viewBox=\"0 0 40 40\" width=\"30\" height=\"30\"><circle cx=\"20\" cy=\"20\" r=\"18\" fill=\"#F7D35B\"/><circle cx=\"14\" cy=\"17\" r=\"2\" fill=\"#2B2B2B\"/><circle cx=\"26\" cy=\"17\" r=\"2\" fill=\"#2B2B2B\"/><path d=\"M13 24h14\" stroke=\"#2B2B2B\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\"/></svg><span class="lb">느긋</span></div></div>',
+    '<div class="cd text w2" data-k="text"><span class="x">−</span><div class="in"><div class="pen">점심 먹고 한 바퀴.</div></div></div>',
+    '<div class="cd swatch" data-k="swatch" style="background:#9FB4D8"><span class="x">−</span></div>',
+    '<div class="cd drinks w2" data-k="drinks"><span class="x">−</span><div class="in"><span class="lb">물</span><span class="cups"><svg viewBox=\"0 0 20 20\" width=\"14\" height=\"14\" fill=\"currentColor\"><path d=\"M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><path d=\"M14 7h2a2 2 0 0 1 0 4h-2z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg><svg viewBox=\"0 0 20 20\" width=\"14\" height=\"14\" fill=\"currentColor\"><path d=\"M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><path d=\"M14 7h2a2 2 0 0 1 0 4h-2z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg><svg viewBox=\"0 0 20 20\" width=\"14\" height=\"14\" fill=\"currentColor\"><path d=\"M3 5h11v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><path d=\"M14 7h2a2 2 0 0 1 0 4h-2z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></span><span class="n">3잔</span></div></div>',
+    '<div class="cd weather" data-k="weather" style="background:#FBE7EC;color:var(--ink)"><span class="x">−</span><div class="in"><div class="t" style="font-size:18px">D+3</div><div class="s" style="opacity:.6">도쿄</div></div></div>'
+  ]; var pi=0;
+  addBtn.addEventListener('click',function(){
+    var w=document.createElement('div'); w.innerHTML=pool[pi++%pool.length]; var el=w.firstChild; el.classList.add('pop'); board.appendChild(el); say('카드를 붙였어요'); setTimeout(function(){el.classList.remove('pop')},600);
+  });
+  // 스크롤에 드러나기(이동만)
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target);} }); },{threshold:.15}); document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); }); }
+  else document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  // 스티커 무대: 보이면 시트에서 떨어져 나와 자리로, 마우스에 살짝 따라온다
+  var stage=document.getElementById('stage'); var ss=stage.querySelectorAll('.s');
+  function place(ox,oy){ ss.forEach(function(s,i){ var x=+s.dataset.x, y=+s.dataset.y, r=+s.dataset.r; s.style.left=x+'%'; s.style.top=y+'%'; s.style.transform='translate('+(ox*(i+1)*3)+'px,'+(oy*(i+1)*3)+'px) rotate('+r+'deg)'; }); }
+  ss.forEach(function(s){ s.style.left='24%'; s.style.top='30%'; s.style.transform='rotate(-4deg) scale(.6)'; s.style.opacity='.9'; });
+  var sio=new IntersectionObserver(function(es){ es.forEach(function(x){ if(x.isIntersecting){ setTimeout(function(){ place(0,0); ss.forEach(function(s){s.style.opacity='1'}); },150); sio.unobserve(x.target);} }); },{threshold:.3}); sio.observe(stage);
+  stage.addEventListener('pointermove',function(e){ var b=stage.getBoundingClientRect(); place((e.clientX-b.left)/b.width-.5,(e.clientY-b.top)/b.height-.5); });
+  stage.addEventListener('pointerleave',function(){ place(0,0); });
+  // 띠: 두 벌 이어 붙여 끝없이
+  var track=document.getElementById('track'); track.innerHTML+=track.innerHTML;
+})();
+</script>
+
 </body>
 </html>
