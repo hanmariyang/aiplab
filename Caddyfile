@@ -42,6 +42,20 @@
 	@pusilSrv path_regexp pusil ^/pusil(/(b|r)/.*)$
 	redir @pusilSrv https://pusil.aiplab.kr{re.pusil.1} 301
 
+	# ⭐ 오데이 제 주소 — https://ohday.aiplab.kr (2026-10-01 오너). 같은 서비스에 Railway Custom Domain 으로 붙고,
+	#    호스트가 ohday.aiplab.kr 이면 /srv/ohday 를 루트로 그대로 서빙한다(파일은 한 벌).
+	#    /hit·/admin 은 위 handle 이 먼저 잡으니 서브도메인에서도 방문 분석이 같은 origin 으로 간다.
+	# ⚠️ aiplab.kr/ohday/ 경로는 그대로 둔다 — ASC 의 지원·처리방침 URL 이 이 경로다(심사 중). 게시 뒤 301 로 바꿀지 결정.
+	@ohdayHost host ohday.aiplab.kr
+	handle @ohdayHost {
+		root * /srv/ohday
+		try_files {path} {path}.html {path}/index.html
+		file_server {
+			index index.html
+		}
+		header Cache-Control "public, max-age=300"
+	}
+
 	# 그 외: 정적 서빙 + 확장자 없는 깔끔한 URL(/blog/foo → foo.html, 기존 .html 링크도 동작)
 	handle {
 		# ⛔ 디렉토리를 슬래시 없이 열면 상대경로가 한 단계 위로 풀려 이미지가 전부 깨진다.
