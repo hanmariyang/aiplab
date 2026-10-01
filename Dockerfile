@@ -1,5 +1,7 @@
 # AIP Lab 스튜디오 랜딩 — 정적 단일 페이지를 Caddy 로 서빙 (Railway).
 # 빌드는 Railway 원격에서 수행(로컬 docker build 금지 — Mac mini 디스크 보호).
+# ⚠️ 오데이 랜딩은 서비스 둘이 같은 ohday/ 를 낸다: aiplab-web(/ohday/ 경로)과 ohday-web(ohday.aiplab.kr, Dockerfile.ohday).
+#    ohday/ 를 바꾸면 `railway up` 과 `railway up -s ohday-web` 둘 다 친다.
 FROM caddy:2-alpine
 # 주의: 제품 랜딩을 새로 만들면 아래 COPY 목록에 반드시 추가할 것.
 # 빠뜨리면 배포는 성공하는데 그 경로만 404 가 난다 (planning 에서 실제로 겪음).
