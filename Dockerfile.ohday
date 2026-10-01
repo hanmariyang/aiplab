@@ -1,0 +1,6 @@
+# 오데이 랜딩 전용 서비스(ohday-web, ohday.aiplab.kr). 서비스 변수 RAILWAY_DOCKERFILE_PATH=Dockerfile.ohday 로 고른다.
+# 같은 저장소 ohday/ 폴더를 루트로 서빙한다 — aiplab.kr/ohday/ 와 같은 파일 한 벌.
+FROM caddy:2-alpine
+COPY Caddyfile.ohday /etc/caddy/Caddyfile
+COPY ohday /srv
+EXPOSE 8080
