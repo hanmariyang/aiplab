@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Gaegu:wght@700&display=swap">
 <style>
 html{color-scheme:light dark}body{font-size:17px}img{max-width:100%}[hidden]{display:none!important}
-/* 레이아웃: 위 바 + 첫 화면에 만져 보는 판(데모) + 흐름 → 카드 58종 → 스티커 → 세 기기 → 약속 → 가격 → 궁금한 것 → 받기. 한 열로 접힌다. */
+/* 레이아웃: 위 바 + 첫 화면에 만져 보는 판(데모) + 흐름 → 카드 59종 → 스티커 → 세 기기 → 약속 → 가격 → 궁금한 것 → 받기. 한 열로 접힌다. */
 :root{
   --paper:#F6F5F1; --card:#FFFFFF; --ink:#16171A; --ink2:#4A4C52; --ink3:#8B8D93; --line:#E4E3DE; --board:#ECEBE6;
   --accent:#2E5BFF; --accent-ink:#FFFFFF; --sky:#4F8DF7; --sky2:#2F6BE0; --pen:#1C1B19; --shadow:0 10px 30px rgba(20,20,20,.08);
@@ -132,7 +132,7 @@ section{padding-block:clamp(72px,10vw,136px)}
 .step .shot img{aspect-ratio:1320/1500;object-fit:cover;object-position:top;border-radius:22px 0 0 0}
 .in .step .shot{transform:translateY(0)}
 @media (max-width:860px){.steps{grid-template-columns:1fr}.step .shot{width:60%}}
-/* 카드 58종 */
+/* 카드 59종 */
 .kinds{margin-top:34px;display:grid;gap:14px}
 .krow{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;border-top:1px solid var(--line);padding-top:14px}
 .krow b{font-size:15px}
@@ -237,7 +237,7 @@ footer a{color:var(--ink2);margin-right:14px}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#"><img src="shots/icon.png" alt="">오데이</a>
-    <nav><a href="#flow">쓰는 법</a><a href="#cards">카드 58종</a><a href="#stickers">스티커</a><a href="#devices">iPad · Mac</a><a href="#promise">약속</a><a href="#price">가격</a></nav>
+    <nav><a href="#flow">쓰는 법</a><a href="#cards">카드 59종</a><a href="#stickers">스티커</a><a href="#devices">iPad · Mac</a><a href="#promise">약속</a><a href="#price">가격</a></nav>
     <a class="btn" href="https://apps.apple.com/kr/app/id6817827401">App Store 에서 받기</a>
   </div>
 </header>
@@ -286,11 +286,11 @@ footer a{color:var(--ink2);margin-right:14px}
 
 <section id="cards" style="padding-top:0">
   <div class="wrap reveal">
-    <p class="k">카드 58종</p>
+    <p class="k">카드 59종</p>
     <h2 style="margin-top:10px">넣는 것, 채워 주는 것, 꾸미는 것<small>카드마다 크기가 있고, 같은 칸에 두 번 들어가지 않아요</small></h2>
     <div class="kinds">
-      <div class="krow"><b>넣는 것</b><div><span>사진</span><span>영상 10초</span><span>글</span><span>오늘의 질문</span><span>기분</span><span>먹은 것</span><span>미래의 나에게</span><span>링크</span><span>본 것</span><span>읽는 책</span><span>인용</span><span>목소리</span><span>손글씨</span><span>티켓</span><span>세 컷</span><span>옷</span><span>산 것</span><span>반려</span><span>한 단어</span></div></div>
-      <div class="krow"><b>채워 주는 것</b><div><span>날씨</span><span>장소</span><span>해와 달</span><span>N년 전 오늘</span><span>디데이</span><span>걸음 수</span><span>잠</span><span>운동</span><span>들은 음악</span><span>일정</span><span>다닌 곳</span><span>하루 띠</span><span>이번 주</span><span>오늘의 색</span></div></div>
+      <div class="krow"><b>넣는 것</b><div><span>사진</span><span>영상 10초</span><span>글</span><span>오늘 한 일</span><span>기억에 남는 대화</span><span>오늘 들은 말</span><span>오늘의 질문</span><span>기분</span><span>먹은 것</span><span>미래의 나에게</span><span>링크</span><span>본 것</span><span>읽는 책</span><span>인용</span><span>목소리</span><span>손글씨</span><span>티켓</span><span>세 컷</span><span>옷</span><span>산 것</span><span>반려</span><span>한 단어</span></div></div>
+      <div class="krow"><b>채워 주는 것</b><div><span>날씨</span><span>장소</span><span>해와 달</span><span>N년 전 오늘</span><span>디데이</span><span>걸음 수</span><span>잠</span><span>운동</span><span>들은 음악</span><span>캘린더</span><span>하루 띠</span><span>이번 주</span><span>오늘의 색</span></div></div>
       <div class="krow"><b>꾸미는 것</b><div><span>제목</span><span>색 칩</span><span>여백</span><span>구분선</span><span>스티커</span></div></div>
     </div>
   </div>
@@ -381,7 +381,7 @@ footer a{color:var(--ink2);margin-right:14px}
         <tbody>
           <tr><td>첫 판 만들기, 카드·스티커 붙이기</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
           <tr><td>매일 새 판 만들기</td><td><span class="no">−</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="no">−</span></td></tr>
-          <tr><td>카드 58종 전부 붙이기</td><td><span class="part">첫 판에만</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="part">있는 판 고치기만</span></td></tr>
+          <tr><td>카드 59종 전부 붙이기</td><td><span class="part">첫 판에만</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="part">있는 판 고치기만</span></td></tr>
           <tr><td>내 스티커 만들기 · 붙이기</td><td><span class="part">첫 판에만</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="part">있는 판에는 붙여요</span></td></tr>
           <tr><td>쓴 판 보기 · 고치기</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
           <tr><td>iCloud 로 iPhone · iPad · Mac</td><td><span class="ok">✓</span></td><td class="pay"><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
