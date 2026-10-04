@@ -34,4 +34,5 @@ COPY maru /srv/maru
 COPY haengun /srv/haengun
 COPY ohday /srv/ohday
 COPY foodly /srv/foodly
+COPY owol /srv/owol
 EXPOSE 8080
