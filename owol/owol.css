@@ -20,6 +20,7 @@ h2{font-size:24px;font-weight:800;letter-spacing:-.02em}
 .cta{display:block;margin-top:28px;background:var(--acc);color:#0b0b0c;border-radius:20px;padding:22px 20px;text-decoration:none}
 .cta .k{font-size:12px;font-weight:700;opacity:.65;display:block}.cta .t{font-size:26px;font-weight:800;letter-spacing:-.02em;display:block;margin-top:6px}
 .cta .d{font-size:15px;line-height:1.55;display:block;margin-top:8px;font-weight:500}.cta .go{display:block;margin-top:16px;font-weight:800;font-size:15px}
+.ask-box .go{font-size:14px;line-height:1.5}
 .cta.ghost{background:var(--card);color:var(--ink)}
 .sec{font-size:12px;letter-spacing:.14em;color:var(--ink2);font-weight:700;margin:34px 0 12px}
 .latest{display:flex;gap:16px;align-items:flex-start}.shot{width:120px;border-radius:16px;flex:0 0 auto;display:block}.latest .shot{transform:rotate(-2deg)}
