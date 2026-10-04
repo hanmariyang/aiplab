@@ -21,6 +21,26 @@
 	# 키: Railway ohday-web 서비스 변수 KAKAO_REST_KEY(오데이 전용 카카오 앱의 REST API 키, Admin 키 금지). 저장소엔 절대 없다.
 	# query·target·size 는 카카오 이름 그대로라 질의문을 손대지 않는다. 검색어를 남기지 않는다(log 지시어 없음).
 	# 키가 비어 있으면 503 + 이유. 조용히 빈 결과를 주지 않는다(앱이 「결과 없음」과 「검색 불가」를 구분해 iTunes 로 넘어간다).
+	# 총 쪽수(오데이 읽는 책, 2026-10-04). 국립중앙도서관 서지 API 의 PAGE. 앱은 ISBN 만 보내고 이 서버가 인증키를 붙인다.
+	# 키: Railway ohday-web 변수 NL_CERT_KEY. 저장소엔 없다. ⚠️ 국중은 키가 틀려도 200 + RESULT:ERROR 를 준다(앱이 몸통을 본다).
+	handle /api/pages {
+		@nokey expression `{env.NL_CERT_KEY} == ""`
+		handle @nokey {
+			header Content-Type application/json
+			respond `{"error":"pages_unavailable"}` 503
+		}
+		handle {
+			header Cache-Control "public, max-age=86400"
+			rewrite * /seoji/SearchApi.do?cert_key={env.NL_CERT_KEY}&result_style=json&page_no=1&page_size=1&isbn={query.isbn}
+			reverse_proxy https://www.nl.go.kr {
+				header_up Host www.nl.go.kr
+				header_up -Cookie
+				header_up -X-Forwarded-For
+				header_down -Set-Cookie
+			}
+		}
+	}
+
 	handle /api/books {
 		@nokey expression `{env.KAKAO_REST_KEY} == ""`
 		handle @nokey {
