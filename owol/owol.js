@@ -10,6 +10,9 @@ try{const dn=Math.floor((Date.now()+324e5-Date.parse('2026-09-08'))/864e5)+1;if(
 hit(location.pathname);
 document.addEventListener('click',(e)=>{const t=e.target.closest('[data-ev]');if(t)ev(t.dataset.ev)});
 let tt;const toast=(m)=>{let el=document.querySelector('.toast');if(!el){el=document.createElement('div');el.className='toast';el.setAttribute('role','status');document.body.appendChild(el)}el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),1600)};
+// 복사
+const copy=async(t)=>{try{await navigator.clipboard.writeText(t);return true}catch(e){const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();return ok}};
+document.querySelectorAll('.cp').forEach(b=>b.addEventListener('click',async()=>{const ok=await copy(b.closest('.pr').querySelector('pre').innerText);b.textContent=ok?'복사했어요':'길게 눌러 복사';b.classList.toggle('ok',ok);setTimeout(()=>{b.textContent='복사';b.classList.remove('ok')},1600)}));
 const days=[...document.querySelectorAll('.day')];if(!days.length)return;
 // 체크한 날
 const fin=LS.get('fin',[]);const paint=()=>{days.forEach(d=>d.classList.toggle('fin',fin.includes(+d.dataset.n)));document.querySelectorAll('.pn').forEach(p=>p.textContent=fin.length)};
@@ -29,7 +32,5 @@ document.querySelectorAll('[data-in]').forEach(i=>{i.value=vals[i.dataset.in]||'
 const picks=LS.get('picks',{});const pp=()=>{document.querySelectorAll('.pick').forEach(s=>{const o=JSON.parse(s.dataset.opts);s.textContent=o[(picks[s.dataset.key]||0)%o.length]});const w=(picks['웹|앱']||0)%2;document.querySelectorAll('[data-seg]').forEach(b=>b.classList.toggle('on',+b.dataset.seg===w))};
 document.querySelectorAll('.pick').forEach(s=>s.onclick=()=>{picks[s.dataset.key]=(picks[s.dataset.key]||0)+1;LS.set('picks',picks);pp()});
 document.querySelectorAll('[data-seg]').forEach(b=>b.onclick=()=>{picks['웹|앱']=+b.dataset.seg;LS.set('picks',picks);pp();ev('fork-'+(b.dataset.seg==='0'?'web':'app'))});pp();
-// 복사
-const copy=async(t)=>{try{await navigator.clipboard.writeText(t);return true}catch(e){const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();return ok}};
-document.querySelectorAll('.cp').forEach(b=>b.addEventListener('click',async()=>{const ok=await copy(b.closest('.pr').querySelector('pre').innerText);b.textContent=ok?'복사했어요':'길게 눌러 복사';b.classList.toggle('ok',ok);setTimeout(()=>{b.textContent='복사';b.classList.remove('ok')},1600)}));
+
 })();
