@@ -33,4 +33,5 @@ COPY robots.txt /srv/robots.txt
 COPY maru /srv/maru
 COPY haengun /srv/haengun
 COPY ohday /srv/ohday
+COPY foodly /srv/foodly
 EXPOSE 8080
