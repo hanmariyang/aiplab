@@ -4,7 +4,7 @@ html{-webkit-text-size-adjust:100%}
 body{background:var(--g);color:var(--ink);font-family:'Wanted Sans Variable','Wanted Sans',-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere;line-height:1.5}
 a{color:inherit}
 .top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;max-width:600px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 20px 14px;background:linear-gradient(var(--g) 72%,rgba(9,9,11,0))}
-.logo{font-size:13px;letter-spacing:.26em;font-weight:800;text-decoration:none}.logo i{color:var(--acc);font-style:normal}
+.logo{display:block;line-height:0}.logo img{height:27px;width:auto}
 .tr{font-size:13px;color:var(--ink2);font-weight:600}.tr b{color:var(--ink);font-family:'JetBrains Mono',monospace}.prog .pn{color:var(--acc)}
 .wrap{max-width:600px;margin:0 auto;padding:8px 20px 28px}
 .chip{display:inline-block;border:1px solid rgba(255,255,255,.8);border-radius:99px;padding:6px 12px;font-size:11px;letter-spacing:.14em;font-weight:700}.chip em{font-style:normal;opacity:.5;margin:0 4px}
