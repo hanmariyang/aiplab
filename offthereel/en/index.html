@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OffTheReel · A 1-second vlog camera that shoots on the beat</title>
+<meta name="description" content="Pick a song and press the shutter. It records exactly one beat's length. Fill your vlog, tap once, and you have a video. No editing, all on your phone.">
+<meta property="og:title" content="OffTheReel · A 1-second vlog camera that shoots on the beat">
+<meta property="og:description" content="Pick a song and press the shutter. It records exactly one beat's length. Fill your vlog, tap once, and you have a video. No editing, all on your phone.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiplab.kr/offthereel/en/">
+<meta property="og:site_name" content="OffTheReel">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://aiplab.kr/offthereel/og.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF9F6">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"OffTheReel","alternateName":"오프더릴","inLanguage":"en",
+ "operatingSystem":"iOS","applicationCategory":"PhotoApplication",
+ "description":"Shoot 1 to 2 second cuts on the beat, and when you're done, your video is ready.",
+ "url":"https://aiplab.kr/offthereel/en/","installUrl":"https://apps.apple.com/kr/app/id6814367003",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+ "author":{"@type":"Organization","name":"AIP Lab","url":"https://aiplab.kr"}}
+</script>
+<link rel="canonical" href="https://aiplab.kr/offthereel/en/">
+<link rel="alternate" hreflang="ko" href="https://aiplab.kr/offthereel/">
+<link rel="alternate" hreflang="en" href="https://aiplab.kr/offthereel/en/">
+<link rel="alternate" hreflang="ja" href="https://aiplab.kr/offthereel/ja/">
+<link rel="alternate" hreflang="x-default" href="https://aiplab.kr/offthereel/en/">
+<link rel="icon" href="../favicon.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Nanum+Pen+Script&display=swap">
+<style>
+/* 앱과 같은 규칙: 종이색 바탕 · 먹색 · 여백. 손글씨(나눔 펜)는 제목과 큰 숫자에만. 색은 박자(주황) 한 군데. 한컷이는 한 자리. */
+:root{
+  --paper:#FAF9F6; --paper2:#F1EEE8; --ink:#1B1A18; --ink2:#6E6A63; --ink3:#ABA69E; --line:#E6E2DA;
+  --accent:#FF4A2E;
+  --sans:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --hand:"Nanum Pen Script","Apple SD Gothic Neo",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.25;font-weight:600}
+h2{font-size:clamp(24px,3.4vw,34px)}
+h2 small{display:block;font-size:14px;font-weight:400;color:var(--ink3);margin-top:8px;letter-spacing:0}
+p{margin:0}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--ink2);max-width:36em}
+b{font-weight:600;color:var(--ink)}
+.hand{font-family:var(--hand);font-weight:400;letter-spacing:0}
+header{position:sticky;top:0;z-index:30;background:rgba(250,249,246,.88);backdrop-filter:blur(10px) saturate(1.2);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;white-space:nowrap}
+.logo img{width:26px;height:26px;border-radius:7px}
+nav.n{display:flex;gap:20px;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+nav.n a:hover{color:var(--ink)}
+@media(max-width:640px){nav.n{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;white-space:nowrap;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{padding:8px 14px;font-size:12px}
+.hero{padding:72px 0 48px;text-align:center}
+.hero .k{margin-bottom:18px}
+.hero h1{font-size:clamp(44px,8vw,88px);line-height:1.02;font-family:var(--hand);font-weight:400;letter-spacing:0}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{margin:22px auto 0}
+.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:30px}
+.micro{font-family:var(--mono);font-size:12px;color:var(--ink3);margin-top:18px;letter-spacing:.02em}
+/* 박자 줄: 컷 경계가 전부 박자 위에 */
+.beats{max-width:560px;margin:52px auto 0;text-align:left}
+.beats .row{display:flex;gap:3px;height:10px}
+.beats .row i{flex:1;border-radius:2px;background:var(--ink);opacity:.9}
+.beats .row i:nth-child(odd){opacity:.55}
+.beats .dots{display:flex;justify-content:space-between;margin-top:8px}
+.beats .dots i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.beats .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:8px}
+section{padding:88px 0;border-top:1px solid var(--line)}
+section.tint{background:var(--paper2)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.two.rev .txt{order:2}
+@media(max-width:800px){.two{grid-template-columns:1fr;gap:36px}.two.rev .txt{order:0}}
+.txt h2{margin-bottom:18px}
+.txt p+p{margin-top:14px}
+.txt p{color:var(--ink2)}
+.phone{width:min(300px,80vw);margin:0 auto;border-radius:38px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(27,26,24,.35),0 0 0 1px var(--line)}
+.phone img{width:100%}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--paper)}
+.step .num{font-family:var(--hand);font-size:52px;line-height:1;color:var(--accent);margin-bottom:12px}
+.step h3{font-size:20px;margin-bottom:8px}
+.step p{color:var(--ink2);font-size:15.5px}
+.vows{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:40px;background:var(--paper)}
+@media(max-width:720px){.vows{grid-template-columns:1fr}}
+.vow{padding:28px 28px 26px;border-bottom:1px solid var(--line)}
+.vow:nth-child(odd){border-right:1px solid var(--line)}
+.vow:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:720px){.vow{border-right:0!important}.vow:nth-last-child(2){border-bottom:1px solid var(--line)}}
+.vow .k{color:var(--accent);margin-bottom:10px}
+.vow h3{font-size:21px;margin-bottom:8px}
+.vow p{color:var(--ink2);font-size:15.5px}
+.shots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin-top:40px}
+@media(max-width:900px){.shots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.shot img{border-radius:18px;box-shadow:0 0 0 1px var(--line)}
+.shot .cap{margin-top:12px;font-size:14px;color:var(--ink2)}
+.shot .cap b{display:block;font-size:14.5px}
+.reeli{display:flex;align-items:center;gap:40px;justify-content:center;text-align:left}
+.reeli img{width:170px;flex-shrink:0}
+@media(max-width:560px){.reeli{flex-direction:column;text-align:center;gap:20px}.reeli img{width:130px}}
+.reeli p{color:var(--ink2);max-width:30em}
+.faq{margin-top:36px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:500;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--ink3);flex-shrink:0}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:40em}
+.contact{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;font-size:15px;color:var(--ink2)}
+.contact a{color:var(--ink);border-bottom:1px solid currentColor}
+footer{border-top:1px solid var(--line);padding:36px 0 56px;font-family:var(--mono);font-size:12px;color:var(--ink3)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.last{text-align:center;padding:96px 0}
+.last h2{font-family:var(--hand);font-weight:400;font-size:clamp(36px,5.4vw,60px);letter-spacing:0}
+.last h2 em{font-style:normal;color:var(--accent)}
+
+/* v2 — 시안(캔버스 「오프더릴 랜딩」)대로: 왜 비교 카드 · 하는 일 다섯 · 현상 결과 세 장 */
+.hero2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center;text-align:left;padding:88px 24px 40px}
+.hero2 h1{font-size:clamp(46px,6.4vw,96px);text-align:left}
+.hero2 .lead{margin:22px 0 0}
+.hero2 .cta{justify-content:flex-start}
+.hero2 .micro{text-align:left}
+.hero2 .ph{position:relative;display:flex;justify-content:center}
+.hero2 .ph img{width:min(330px,72vw);border-radius:44px;outline:3px solid var(--ink);transform:rotate(-2deg);box-shadow:0 40px 80px -40px rgba(27,26,24,.45)}
+.tag{position:absolute;right:6%;top:26%;font-family:var(--hand);font-size:34px;color:var(--accent);background:var(--paper);border:2.5px solid var(--accent);border-radius:16px;padding:2px 16px 0;transform:rotate(-4deg)}
+@media(max-width:800px){.hero2{grid-template-columns:1fr;text-align:center;padding:56px 24px 24px}.hero2 h1{text-align:center}.hero2 .lead{margin:18px auto 0}.hero2 .cta{justify-content:center}.hero2 .micro{text-align:center}.tag{right:0}}
+.beats{max-width:none;margin:0 0 20px}
+.beats .row{height:12px;gap:4px}
+.beats .dots i{width:9px;height:9px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+@media(max-width:720px){.cmp{grid-template-columns:1fr}}
+.cmp .c{border:1px solid var(--line);border-radius:16px;padding:28px 30px;background:var(--paper);display:flex;flex-direction:column;gap:10px;font-size:16px;color:var(--ink2)}
+.cmp .c.dk{background:var(--ink);color:#C9C4BA;border-color:var(--ink)}
+.cmp .c .k{margin-bottom:4px}
+.cmp .c .hand{font-family:var(--hand);font-size:30px;color:var(--ink);margin-top:6px;line-height:1.1}
+.cmp .c.dk .hand{color:var(--paper)}
+.cmp .c .hand em{font-style:normal;color:var(--accent)}
+.cmp .c .foot{font-size:14px;color:var(--ink3);margin-top:auto;padding-top:10px}
+.five{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:40px}
+@media(max-width:1000px){.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.five{grid-template-columns:1fr;gap:26px}}
+.five .st{display:flex;flex-direction:column;gap:12px;border-top:1.5px solid var(--line);padding-top:16px}
+.five .st.on{border-top-color:var(--ink)}
+.five .num{font-family:var(--hand);font-size:44px;line-height:1;color:var(--ink3)}
+.five .st.on .num{color:var(--accent)}
+.five img{width:100%;border-radius:22px;outline:2px solid var(--ink)}
+.five h3{font-size:17px}
+.five p{font-size:14px;line-height:1.6;color:var(--ink2)}
+@media(max-width:640px){.five .st{display:grid;grid-template-columns:110px 1fr;gap:6px 16px}.five .st .num{grid-column:2}.five img{grid-row:1/4;border-radius:16px;align-self:start}}
+.dev{display:grid;grid-template-columns:400px minmax(0,1fr);gap:60px;align-items:center}
+@media(max-width:900px){.dev{grid-template-columns:1fr;gap:28px}}
+.dev .txt p{color:var(--ink2)}
+.frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:560px){.frames{gap:10px}}
+.frames img{width:100%;border-radius:14px;box-shadow:0 0 0 1px var(--line)}
+.frames .cap{margin-top:8px;font-size:14px;color:var(--ink2)}
+.frames .cap b{font-size:14px}
+.hero2 .beatwrap{grid-column:1/-1}
+.beats .cap{gap:10px}
+.beats .cap span:first-child,.beats .cap span:last-child{white-space:nowrap;flex-shrink:0}
+
+/* 언어 고르기 · 1.4 새로 생긴 것 */
+.right{display:flex;align-items:center;gap:16px}
+.lang{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--ink3);white-space:nowrap}
+.lang a{color:var(--ink3)}
+.lang a:hover{color:var(--ink)}
+.lang a[aria-current]{color:var(--ink);font-weight:500}
+.lang .s{display:none}
+@media(max-width:1000px){nav.n{display:none}}
+@media(max-width:640px){.lang .f{display:none}.lang .s{display:inline}.right{gap:12px}}
+.news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+@media(max-width:900px){.news{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.news{grid-template-columns:1fr}}
+.nw{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--paper2);display:flex;flex-direction:column;gap:8px}
+.nw.wide{grid-column:span 2}
+@media(max-width:600px){.nw.wide{grid-column:auto}}
+.nw .k{color:var(--accent);margin-bottom:2px}
+.nw h3{font-size:20px}
+.nw p{color:var(--ink2);font-size:15.5px}
+.nw .hand{font-size:24px;line-height:1.2;color:var(--ink2);margin-top:auto;padding-top:6px}
+
+/* English: Latin sans, same handwriting (Nanum Pen has Latin) */
+:root{--sans:"IBM Plex Sans",-apple-system,"Helvetica Neue",sans-serif}
+body{word-break:normal;overflow-wrap:break-word}
+.hero2 h1{font-size:clamp(40px,5vw,64px);line-height:1.1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="./"><img src="../apple-touch-icon.png" alt="" width="26" height="26">OffTheReel</a>
+    <nav class="n">
+      <a href="#how">How it works</a>
+      <a href="#new">1.4</a>
+      <a href="#dual">Front &amp; back</a>
+      <a href="#daily">Daily cut</a>
+      <a href="#develop">Make video</a>
+      <a href="#vows">Promises</a>
+      <a href="#support">FAQ</a>
+    </nav>
+    <div class="right">
+      <nav class="lang" aria-label="Language">
+        <a href="../" hreflang="ko" lang="ko"><span class="f">한국어</span><span class="s">KO</span></a>·
+        <a href="./" hreflang="en" lang="en" aria-current="page"><span class="f">English</span><span class="s">EN</span></a>·
+        <a href="../ja/" hreflang="ja" lang="ja"><span class="f">日本語</span><span class="s">JA</span></a>
+      </nav>
+      <a class="btn sm" href="https://apps.apple.com/kr/app/id6814367003">App Store</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Hero ─────────────────────────────────── -->
+<div class="hero hero2 wrap">
+  <div>
+    <div class="k">1-second vlog camera · iOS</div>
+    <h1>Shoot on the beat.<br>When you're done,<br><em>it's a video.</em></h1>
+    <p class="lead">Pick a song and press the shutter. It records <b>exactly one beat's length</b>, nothing more. Fill your vlog, tap “Make video” once, and that's it. No editing afterward.</p>
+    <div class="cta">
+      <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">Get it on the App Store</a>
+      <a class="btn g" href="#how">How does it work?</a>
+    </div>
+    <p class="micro">Free · No account · No server · No watermark</p>
+  </div>
+  <div class="ph">
+    <img src="../shots/en/capture.png" alt="Camera screen with the beat ring and shutter" width="1290" height="2796">
+    <div class="tag" aria-hidden="true">Just 1.2s</div>
+  </div>
+  <div class="beats beatwrap" aria-label="A timeline of twelve cuts, each one on the beat">
+    <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="cap"><span>0s</span><span>Every cut lands on the beat · 1.2s each</span><span>14.4s</span></div>
+  </div>
+</div>
+
+<!-- ── Why: editing app vs OffTheReel ───────────────────────── -->
+<section class="tint" id="how">
+  <div class="wrap">
+    <h2>1-second vlogs are easy to shoot. Stitching them together is where people quit.<small>Open an editor on the weekend, trim, line it up with the beat… and by week three you stop.</small></h2>
+    <div class="cmp">
+      <div class="c">
+        <div class="k">With an editing app</div>
+        <div>1. Shoot a few cuts a day</div>
+        <div>2. Open an editing app on the weekend</div>
+        <div>3. Trim every cut to 1 second</div>
+        <div>4. Add music and match the beat</div>
+        <div>5. Add captions</div>
+        <div class="hand">→ Give up by week three</div>
+      </div>
+      <div class="c dk">
+        <div class="k">With OffTheReel</div>
+        <div>1. Pick a song. The app listens for the beat</div>
+        <div>2. Press the shutter. It records exactly one beat's length</div>
+        <div class="hand">→ Done shooting, one tap, <em>one video</em></div>
+        <div class="foot">There's no editor. The beat sets the length of each cut. You just shoot.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Five steps ──────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>Five steps, <span class="hand" style="font-family:var(--hand);font-weight:400;color:var(--accent)">you do two</span><small>Pick a song and shoot. The app does the rest.</small></h2>
+    <div class="five">
+      <div class="st on"><div class="num">1</div><img src="../shots/en/tempo.png" alt="Pick a song screen" width="1290" height="2796" loading="lazy"><h3>Pick a song</h3><p>Search Apple Music and play a 30-second preview. The app measures the beat and sets the length of a cut. No subscription needed.</p></div>
+      <div class="st on"><div class="num">2</div><img src="../shots/en/capture.png" alt="Camera screen" width="1290" height="2796" loading="lazy"><h3>Shoot on the beat</h3><p>You feel the beat in your hand, and when the ring goes around once, the cut is done. Lenses from .5x to 3x. Turn the phone sideways for a landscape vlog.</p></div>
+      <div class="st"><div class="num">3</div><img src="../shots/en/roll.png" alt="Cut list screen" width="1290" height="2796" loading="lazy"><h3>Fill the cuts</h3><p>12, 24 or 36 cuts make one vlog. Shoot several at once. Finished ones gather in Collection.</p></div>
+      <div class="st"><div class="num">4</div><img src="../shots/en/develop-text.png" alt="Make video screen" width="1290" height="2796" loading="lazy"><h3>Make the video on your phone</h3><p>A title, the time, neighborhood and a short note on each cut, plus color and effects. Nothing gets uploaded.</p></div>
+      <div class="st"><div class="num">5</div><img src="../shots/en/export.png" alt="Export screen" width="1290" height="2796" loading="lazy"><h3>Ready for Reels</h3><p>Text stays clear of the buttons on Reels, Shorts and TikTok. Save it and go straight to Reels. Add the song when you post.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── New in 1.4 ───────────────────────── -->
+<section id="new">
+  <div class="wrap">
+    <h2>New in 1.4<small>One cut, even without a vlog. Even without unlocking.</small></h2>
+    <div class="news">
+      <div class="nw wide"><div class="k">Saved cuts</div><h3>Shoot first, no vlog needed</h3><p>Tap “Save a cut” at the top of Home to shoot a single 1.2-second cut. It lands in Saved cuts, sorted by date. Later, pick a few and turn them into a new vlog, or pull them into a vlog you're shooting from “Fill” to fill its empty slots. Cuts move over, so nothing is stored twice.</p><p class="hand">Shoot now, decide where it goes later →</p></div>
+      <div class="nw"><div class="k">One cut, still locked</div><h3>Shoot without unlocking</h3><p>Tap it on the Lock Screen, in Control Center or with the Action button, and the camera opens while your phone stays locked. When you unlock and open the app, the cut goes into your pinned or most recent vlog. No vlog yet? It goes to Saved cuts. iOS 18 or later.</p></div>
+      <div class="nw"><div class="k">Live Activity</div><h3>Today's progress on the Lock Screen</h3><p>On days you shoot daily, like with Today mode or the 24-Day Challenge, “DAY 9 · Not yet today” shows on the Lock Screen and in the Dynamic Island. It updates as soon as you shoot and clears at midnight.</p></div>
+      <div class="nw"><div class="k">Beat effect</div><h3>Breathe · Glow · Side pan</h3><p>On each beat the picture leans in a touch, brightens a little, or drifts slowly sideways across a cut. Every effect is back at rest when the cut changes, so nothing jumps. In Make video › Effects, Soft or Normal.</p></div>
+      <div class="nw"><div class="k">English · 日本語</div><h3>Now in English and Japanese</h3><p>Choose 한국어, English or 日本語 in Settings › Language. By default it follows your phone. Dates and Broadcast text in your video follow the language too.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Front & back (1.2) ─────────────────────────────── -->
+<section class="tint" id="dual">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>Selfie and back camera,<br>in one press</h2>
+      <p>Turn on the <b>Front &amp; back</b> button on the camera screen and one press of the shutter shoots both. With <b>Together on one screen</b>, your selfie sits small in the top left of the back camera view, where Reels text won't cover it. In Make video you can switch to Half &amp; half or Back only.</p>
+      <p><b>As two cuts</b> fills two slots per press: one back cut, then one selfie cut. A 12-cut vlog fills up in six presses. It works in landscape vlogs too, and for retakes you choose Back, Selfie or Front &amp; back.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">One press, both sides →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/en/dual.png" alt="Camera screen with a small selfie inset in the top left of the back camera view" width="1179" height="2556" loading="lazy"><p class="cap"><b>Front &amp; back</b> · Camera</p></div>
+      <div><img src="../shots/en/dual-dev.png" alt="Make video, layout options for front and back cuts: Inset, Half &amp; half, Back only" width="1179" height="2556" loading="lazy"><p class="cap"><b>Layout</b> · Make video</p></div>
+      <div><img src="../shots/en/dual-cuts.png" alt="Cut list with an inset mark on front and back cuts" width="1179" height="2556" loading="lazy"><p class="cap"><b>Front &amp; back cuts</b> · Cut list</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── A cut a day (1.1) ─────────────────── -->
+<section id="daily">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>A cut a day,<br>without opening the app</h2>
+      <p>Put the <b>One cut</b> button on the Lock Screen, in Control Center or on the Action button, and one tap takes you straight to the camera. The cut goes into the vlog you shot last. Tap the name at the top to switch vlogs. Tapping a reminder takes you straight to the camera too.</p>
+      <p>Each day you shoot shows up as that day's first cut in this week's seven squares and this month's calendar on Home, and in Collection as a <b>1-year activity grid</b>. You can also put the calendar on your Home Screen as a widget.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">One cut in two taps →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/en/quick.png" alt="Quick shoot screen with the target vlog name at the top" width="1179" height="2556" loading="lazy"><p class="cap"><b>Quick shoot</b> · From the Lock Screen</p></div>
+      <div><img src="../shots/en/home-cal.png" alt="This month's calendar on Home, each day showing its first cut" width="1179" height="2556" loading="lazy"><p class="cap"><b>This month's calendar</b> · Home</p></div>
+      <div><img src="../shots/en/archive.png" alt="The 1-year activity grid and finished vlogs in Collection" width="1179" height="2556" loading="lazy"><p class="cap"><b>1-year grid</b> · Collection</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Month recap (1.3) ─────────────────── -->
+<section id="month">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>One cut a day<br>becomes a month recap</h2>
+      <p>Tap <b>Make September recap</b> in Collection and the month's cuts come together, one per day, in a single video. Use each day's first cut, last cut or morning cut, or pick them yourself, and set one beat from a song or by tapping. Choose <b>As a calendar</b> and each day's cut pops up big for a beat, then drops into its square, ending on a full calendar.</p>
+      <p>Between clips, add a <b>Text card</b> with just words on a color or photo. On screen, add <b>Broadcast text</b> styled like a variety show, the news, a documentary or a vlog, in the four corners and a strip along the bottom. Save the 1-year grid and this month's calendar as story-size images, and the grid filling up from January as a 6-second video.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">Made only when you tap →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/en/month-pick.png" alt="Picking a month recap: the September calendar with each day's first cut" width="590" height="1282" loading="lazy"><p class="cap"><b>Month recap</b> · Picking</p></div>
+      <div><img src="../shots/en/month-cal.png" alt="As a calendar video, a day's cut dropping into its calendar square" width="540" height="960" loading="lazy"><p class="cap"><b>As a calendar</b> · Finished video</p></div>
+      <div><img src="../shots/en/broadcast.png" alt="Broadcast text in variety style, with a title box in the top left and a yellow caption bubble" width="540" height="960" loading="lazy"><p class="cap"><b>Broadcast text</b> · Variety style</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Three finished videos ──────────────────────────────── -->
+<section class="tint" id="develop">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>Black and white in just one spot,<br>a hand-drawn border on the window</h2>
+      <p>Choose the inside of a box you draw by hand, the person, or the background, and the color look goes <b>only there</b>. Make just the background black and white and only the person stays in color.</p>
+      <p>Borders come in Hand-drawn, Paper or Film. The time stamp can show the weekday, the date, a camcorder readout or the day count, and you can add the neighborhood and a handwritten note.</p>
+      <p class="hand" style="font-family:var(--hand);font-size:24px;color:var(--ink2)">Three real videos made in the app →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/frame-hand.jpg" alt="A video made with the hand-drawn border" width="506" height="900" loading="lazy"><p class="cap"><b>Hand-drawn</b> · Default</p></div>
+      <div><img src="../shots/frame-paper.jpg" alt="A video made with the paper border" width="506" height="900" loading="lazy"><p class="cap"><b>Paper</b> · Like a pasted photo</p></div>
+      <div><img src="../shots/frame-film.jpg" alt="A video made with the film border" width="506" height="900" loading="lazy"><p class="cap"><b>Film</b> · Strip and holes</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Four promises ───────────────────────────────────────── -->
+<section id="vows">
+  <div class="wrap">
+    <h2>Four promises we keep<small>We won't add a feature that breaks them.</small></h2>
+    <div class="vows">
+      <div class="vow"><div class="k">01</div><h3>No editor</h3><p>There's no timeline to drag and trim. The beat sets the length of each cut. You just shoot.</p></div>
+      <div class="vow"><div class="k">02</div><h3>Every vlog has an end</h3><p>Fill 12, 24 or 36 cuts and it's one vlog. Not a drawer of clips that piles up forever.</p></div>
+      <div class="vow"><div class="k">03</div><h3>Nothing leaves your phone</h3><p>No account, no server. The internet is used only to search for songs. Your cuts and videos live on this phone and in Photos, nowhere else.</p></div>
+      <div class="vow"><div class="k">04</div><h3>No watermark</h3><p>It's free, and nothing gets stamped on the videos you export.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Mascot ──────────────────────────────────────────── -->
+<section class="tint">
+  <div class="wrap">
+    <div class="reeli">
+      <img src="../hancut.png" alt="The mascot, a character whose body is a single film frame" width="170" height="170" loading="lazy">
+      <div>
+        <h2 style="margin-bottom:12px;font-family:var(--hand);font-weight:400;font-size:40px">A little friend is waiting</h2>
+        <p>Its body is a single frame of film. It only shows up when nothing is being shot, while your video is being made, and when it's done. Never on the camera screen. It would get in the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────── -->
+<section id="support">
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details><summary>Does the song go into the video?</summary><p>No. The Apple Music preview is used only to measure and check the beat. Your video comes out silent or with the sound you recorded, and you add the song when you post to Reels or Shorts. The cuts already sit on the beat, so it lines right up.</p></details>
+      <details><summary>Do I need an Apple Music subscription?</summary><p>No. Search and 30-second previews work without one.</p></details>
+      <details><summary>How long is a cut?</summary><p>It's set by the beat of the song you pick. On “Normal”, a mid-tempo song gives about 1.2 seconds. There's also Fast and Easy. Without a song, it's 1.2 seconds.</p></details>
+      <details><summary>Can I retake a cut?</summary><p>Once per cut. Tap a cut and choose “Retake”. If you don't like the new one, you can go back to the previous cut, and cleared cuts can be restored for 30 days. Press and drag to change the order.</p></details>
+      <details><summary>Can I shoot in landscape?</summary><p>Yes. Choose “Landscape” when you create a new vlog, shoot with the phone sideways, and make a landscape video or a landscape video inside a vertical frame.</p></details>
+      <details><summary>Does it add where I shot?</summary><p>If you turn it on. It's off at first. When it's on, it checks your location only when you press the shutter and adds a neighborhood name like “Williamsburg”. Coordinates never leave your phone.</p></details>
+      <details><summary>What if I forget to shoot?</summary><p>Get a reminder at set times every day, or turn on Today mode for a nudge every hour. There are Home Screen and Lock Screen widgets too.</p></details>
+      <details><summary>Does a month recap double my cuts?</summary><p>No. A month recap points to the cuts in your original vlogs. No files are copied, and deleting the recap leaves the original cuts in place.</p></details>
+      <details><summary>Can it pick up the beat from a song playing nearby?</summary><p>Yes. Tap the ear button in Pick a song and it listens for a few seconds to recognize the track (Apple ShazamKit). It uses the mic only when you tap, and it doesn't save the sound.</p></details>
+      <details><summary>Can I use my old Live Photos?</summary><p>Yes. In “Fill from Photos”, pick Live Photos or videos you already shot, and the steadiest moment comes in as a cut.</p></details>
+      <details><summary>How do I shoot the selfie and back camera together?</summary><p>On the camera screen, tap the Front &amp; back button under the flip button and choose “Together on one screen” or “As two cuts”. Each vlog remembers your choice. In Front &amp; back, zoom goes up to 2x, and the button appears on iPhones that can run both cameras at once (XS and later).</p></details>
+      <details><summary>How do I shoot right from the Lock Screen?</summary><p>On iOS 18 or later, touch and hold the Lock Screen, tap “Customize”, tap the flashlight or camera spot at the bottom, and pick “OffTheReel · One cut”. You can also put it in Control Center and on the Action button (iPhone 15 Pro or later). The steps are in the app under Settings &gt; Quick shoot.</p></details>
+      <details><summary>Where do my videos go?</summary><p>Nowhere. Your cuts stay in the app and in the “OffTheReel” album in Photos (you can turn that off), and finished videos are saved to Photos only when you tap Export. <a href="privacy.html">Privacy Policy</a></p></details>
+    </div>
+    <div class="contact">
+      <span>Contact <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></span>
+      <span><a href="privacy.html">Privacy Policy</a></span>
+    </div>
+  </div>
+</section>
+
+<section class="last">
+  <div class="wrap">
+    <h2>Just shoot.<br><em>The video will be waiting.</em></h2>
+    <div class="cta"><a class="btn" href="https://apps.apple.com/kr/app/id6814367003">Get it on the App Store</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 AIP Lab · OffTheReel</span>
+    <span><a href="https://aiplab.kr/">aiplab.kr</a> · <a href="privacy.html">privacy</a></span>
+  </div>
+</footer>
+</body></html>

@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>オフザリール · ビートで撮る1秒ブイログカメラ</title>
+<meta name="description" content="曲を選んでシャッターを押すと、ちょうどその拍の長さだけ撮れます。撮り終えて1回押せば動画が1本。編集なしで、すべてスマホの中で。">
+<meta property="og:title" content="オフザリール · ビートで撮る1秒ブイログカメラ">
+<meta property="og:description" content="曲を選んでシャッターを押すと、ちょうどその拍の長さだけ撮れます。撮り終えて1回押せば動画が1本。編集なしで、すべてスマホの中で。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiplab.kr/offthereel/ja/">
+<meta property="og:site_name" content="オフザリール">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://aiplab.kr/offthereel/og.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF9F6">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"オフザリール","alternateName":"OffTheReel","inLanguage":"ja",
+ "operatingSystem":"iOS","applicationCategory":"PhotoApplication",
+ "description":"ビートに合わせて1〜2秒ずつ撮れば、撮り終えたときには動画ができています。",
+ "url":"https://aiplab.kr/offthereel/ja/","installUrl":"https://apps.apple.com/kr/app/id6814367003",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+ "author":{"@type":"Organization","name":"AIP Lab","url":"https://aiplab.kr"}}
+</script>
+<link rel="canonical" href="https://aiplab.kr/offthereel/ja/">
+<link rel="alternate" hreflang="ko" href="https://aiplab.kr/offthereel/">
+<link rel="alternate" hreflang="en" href="https://aiplab.kr/offthereel/en/">
+<link rel="alternate" hreflang="ja" href="https://aiplab.kr/offthereel/ja/">
+<link rel="alternate" hreflang="x-default" href="https://aiplab.kr/offthereel/en/">
+<link rel="icon" href="../favicon.png?v=1" sizes="64x64">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@300;400;500;600&family=Klee+One:wght@400;600&display=swap">
+<style>
+/* 앱과 같은 규칙: 종이색 바탕 · 먹색 · 여백. 손글씨(나눔 펜)는 제목과 큰 숫자에만. 색은 박자(주황) 한 군데. 한컷이는 한 자리. */
+:root{
+  --paper:#FAF9F6; --paper2:#F1EEE8; --ink:#1B1A18; --ink2:#6E6A63; --ink3:#ABA69E; --line:#E6E2DA;
+  --accent:#FF4A2E;
+  --sans:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --hand:"Nanum Pen Script","Apple SD Gothic Neo",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.25;font-weight:600}
+h2{font-size:clamp(24px,3.4vw,34px)}
+h2 small{display:block;font-size:14px;font-weight:400;color:var(--ink3);margin-top:8px;letter-spacing:0}
+p{margin:0}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--ink2);max-width:36em}
+b{font-weight:600;color:var(--ink)}
+.hand{font-family:var(--hand);font-weight:400;letter-spacing:0}
+header{position:sticky;top:0;z-index:30;background:rgba(250,249,246,.88);backdrop-filter:blur(10px) saturate(1.2);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;white-space:nowrap}
+.logo img{width:26px;height:26px;border-radius:7px}
+nav.n{display:flex;gap:20px;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+nav.n a:hover{color:var(--ink)}
+@media(max-width:640px){nav.n{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;white-space:nowrap;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn.g{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{padding:8px 14px;font-size:12px}
+.hero{padding:72px 0 48px;text-align:center}
+.hero .k{margin-bottom:18px}
+.hero h1{font-size:clamp(44px,8vw,88px);line-height:1.02;font-family:var(--hand);font-weight:400;letter-spacing:0}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{margin:22px auto 0}
+.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:30px}
+.micro{font-family:var(--mono);font-size:12px;color:var(--ink3);margin-top:18px;letter-spacing:.02em}
+/* 박자 줄: 컷 경계가 전부 박자 위에 */
+.beats{max-width:560px;margin:52px auto 0;text-align:left}
+.beats .row{display:flex;gap:3px;height:10px}
+.beats .row i{flex:1;border-radius:2px;background:var(--ink);opacity:.9}
+.beats .row i:nth-child(odd){opacity:.55}
+.beats .dots{display:flex;justify-content:space-between;margin-top:8px}
+.beats .dots i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.beats .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:8px}
+section{padding:88px 0;border-top:1px solid var(--line)}
+section.tint{background:var(--paper2)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.two.rev .txt{order:2}
+@media(max-width:800px){.two{grid-template-columns:1fr;gap:36px}.two.rev .txt{order:0}}
+.txt h2{margin-bottom:18px}
+.txt p+p{margin-top:14px}
+.txt p{color:var(--ink2)}
+.phone{width:min(300px,80vw);margin:0 auto;border-radius:38px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(27,26,24,.35),0 0 0 1px var(--line)}
+.phone img{width:100%}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--paper)}
+.step .num{font-family:var(--hand);font-size:52px;line-height:1;color:var(--accent);margin-bottom:12px}
+.step h3{font-size:20px;margin-bottom:8px}
+.step p{color:var(--ink2);font-size:15.5px}
+.vows{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:40px;background:var(--paper)}
+@media(max-width:720px){.vows{grid-template-columns:1fr}}
+.vow{padding:28px 28px 26px;border-bottom:1px solid var(--line)}
+.vow:nth-child(odd){border-right:1px solid var(--line)}
+.vow:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:720px){.vow{border-right:0!important}.vow:nth-last-child(2){border-bottom:1px solid var(--line)}}
+.vow .k{color:var(--accent);margin-bottom:10px}
+.vow h3{font-size:21px;margin-bottom:8px}
+.vow p{color:var(--ink2);font-size:15.5px}
+.shots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin-top:40px}
+@media(max-width:900px){.shots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.shot img{border-radius:18px;box-shadow:0 0 0 1px var(--line)}
+.shot .cap{margin-top:12px;font-size:14px;color:var(--ink2)}
+.shot .cap b{display:block;font-size:14.5px}
+.reeli{display:flex;align-items:center;gap:40px;justify-content:center;text-align:left}
+.reeli img{width:170px;flex-shrink:0}
+@media(max-width:560px){.reeli{flex-direction:column;text-align:center;gap:20px}.reeli img{width:130px}}
+.reeli p{color:var(--ink2);max-width:30em}
+.faq{margin-top:36px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:500;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--ink3);flex-shrink:0}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:40em}
+.contact{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;font-size:15px;color:var(--ink2)}
+.contact a{color:var(--ink);border-bottom:1px solid currentColor}
+footer{border-top:1px solid var(--line);padding:36px 0 56px;font-family:var(--mono);font-size:12px;color:var(--ink3)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.last{text-align:center;padding:96px 0}
+.last h2{font-family:var(--hand);font-weight:400;font-size:clamp(36px,5.4vw,60px);letter-spacing:0}
+.last h2 em{font-style:normal;color:var(--accent)}
+
+/* v2 — 시안(캔버스 「오프더릴 랜딩」)대로: 왜 비교 카드 · 하는 일 다섯 · 현상 결과 세 장 */
+.hero2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center;text-align:left;padding:88px 24px 40px}
+.hero2 h1{font-size:clamp(46px,6.4vw,96px);text-align:left}
+.hero2 .lead{margin:22px 0 0}
+.hero2 .cta{justify-content:flex-start}
+.hero2 .micro{text-align:left}
+.hero2 .ph{position:relative;display:flex;justify-content:center}
+.hero2 .ph img{width:min(330px,72vw);border-radius:44px;outline:3px solid var(--ink);transform:rotate(-2deg);box-shadow:0 40px 80px -40px rgba(27,26,24,.45)}
+.tag{position:absolute;right:6%;top:26%;font-family:var(--hand);font-size:34px;color:var(--accent);background:var(--paper);border:2.5px solid var(--accent);border-radius:16px;padding:2px 16px 0;transform:rotate(-4deg)}
+@media(max-width:800px){.hero2{grid-template-columns:1fr;text-align:center;padding:56px 24px 24px}.hero2 h1{text-align:center}.hero2 .lead{margin:18px auto 0}.hero2 .cta{justify-content:center}.hero2 .micro{text-align:center}.tag{right:0}}
+.beats{max-width:none;margin:0 0 20px}
+.beats .row{height:12px;gap:4px}
+.beats .dots i{width:9px;height:9px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+@media(max-width:720px){.cmp{grid-template-columns:1fr}}
+.cmp .c{border:1px solid var(--line);border-radius:16px;padding:28px 30px;background:var(--paper);display:flex;flex-direction:column;gap:10px;font-size:16px;color:var(--ink2)}
+.cmp .c.dk{background:var(--ink);color:#C9C4BA;border-color:var(--ink)}
+.cmp .c .k{margin-bottom:4px}
+.cmp .c .hand{font-family:var(--hand);font-size:30px;color:var(--ink);margin-top:6px;line-height:1.1}
+.cmp .c.dk .hand{color:var(--paper)}
+.cmp .c .hand em{font-style:normal;color:var(--accent)}
+.cmp .c .foot{font-size:14px;color:var(--ink3);margin-top:auto;padding-top:10px}
+.five{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:40px}
+@media(max-width:1000px){.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.five{grid-template-columns:1fr;gap:26px}}
+.five .st{display:flex;flex-direction:column;gap:12px;border-top:1.5px solid var(--line);padding-top:16px}
+.five .st.on{border-top-color:var(--ink)}
+.five .num{font-family:var(--hand);font-size:44px;line-height:1;color:var(--ink3)}
+.five .st.on .num{color:var(--accent)}
+.five img{width:100%;border-radius:22px;outline:2px solid var(--ink)}
+.five h3{font-size:17px}
+.five p{font-size:14px;line-height:1.6;color:var(--ink2)}
+@media(max-width:640px){.five .st{display:grid;grid-template-columns:110px 1fr;gap:6px 16px}.five .st .num{grid-column:2}.five img{grid-row:1/4;border-radius:16px;align-self:start}}
+.dev{display:grid;grid-template-columns:400px minmax(0,1fr);gap:60px;align-items:center}
+@media(max-width:900px){.dev{grid-template-columns:1fr;gap:28px}}
+.dev .txt p{color:var(--ink2)}
+.frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:560px){.frames{gap:10px}}
+.frames img{width:100%;border-radius:14px;box-shadow:0 0 0 1px var(--line)}
+.frames .cap{margin-top:8px;font-size:14px;color:var(--ink2)}
+.frames .cap b{font-size:14px}
+.hero2 .beatwrap{grid-column:1/-1}
+.beats .cap{gap:10px}
+.beats .cap span:first-child,.beats .cap span:last-child{white-space:nowrap;flex-shrink:0}
+
+/* 언어 고르기 · 1.4 새로 생긴 것 */
+.right{display:flex;align-items:center;gap:16px}
+.lang{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--ink3);white-space:nowrap}
+.lang a{color:var(--ink3)}
+.lang a:hover{color:var(--ink)}
+.lang a[aria-current]{color:var(--ink);font-weight:500}
+.lang .s{display:none}
+@media(max-width:1000px){nav.n{display:none}}
+@media(max-width:640px){.lang .f{display:none}.lang .s{display:inline}.right{gap:12px}}
+.news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+@media(max-width:900px){.news{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.news{grid-template-columns:1fr}}
+.nw{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--paper2);display:flex;flex-direction:column;gap:8px}
+.nw.wide{grid-column:span 2}
+@media(max-width:600px){.nw.wide{grid-column:auto}}
+.nw .k{color:var(--accent);margin-bottom:2px}
+.nw h3{font-size:20px}
+.nw p{color:var(--ink2);font-size:15.5px}
+.nw .hand{font-size:24px;line-height:1.2;color:var(--ink2);margin-top:auto;padding-top:6px}
+
+/* 日本語: 本文 IBM Plex Sans JP, 手書きは Klee One (Nanum Pen にかながない)。Klee One は字幅が広いので手書きの大きさを下げる */
+:root{--sans:"IBM Plex Sans JP",-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;--hand:"Klee One","Hiragino Maru Gothic ProN",cursive}
+body{word-break:normal;line-break:strict;overflow-wrap:break-word}
+@supports (word-break:auto-phrase){body{word-break:auto-phrase}}
+h1,h2,h3{letter-spacing:0}
+.hero h1,.hero2 h1{font-size:clamp(40px,5vw,66px);font-weight:600;line-height:1.2}
+.tag{font-size:24px;font-weight:600;padding:4px 14px 2px}
+.cmp .c .hand{font-size:22px;font-weight:600;line-height:1.4}
+.five .num,.step .num{font-weight:600}
+.five .num{font-size:36px}
+.nw .hand{font-size:19px;font-weight:600}
+.last h2{font-size:clamp(28px,4.2vw,46px);font-weight:600;line-height:1.35}
+.k{letter-spacing:.02em}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="./"><img src="../apple-touch-icon.png" alt="" width="26" height="26">オフザリール</a>
+    <nav class="n">
+      <a href="#how">できること</a>
+      <a href="#new">1.4</a>
+      <a href="#dual">前後同時</a>
+      <a href="#daily">毎日ワンカット</a>
+      <a href="#develop">動画を作る</a>
+      <a href="#vows">約束</a>
+      <a href="#support">FAQ</a>
+    </nav>
+    <div class="right">
+      <nav class="lang" aria-label="言語">
+        <a href="../" hreflang="ko" lang="ko"><span class="f">한국어</span><span class="s">KO</span></a>·
+        <a href="../en/" hreflang="en" lang="en"><span class="f">English</span><span class="s">EN</span></a>·
+        <a href="./" hreflang="ja" lang="ja" aria-current="page"><span class="f">日本語</span><span class="s">JA</span></a>
+      </nav>
+      <a class="btn sm" href="https://apps.apple.com/kr/app/id6814367003">App Store</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── ヒーロー ─────────────────────────────────── -->
+<div class="hero hero2 wrap">
+  <div>
+    <div class="k">1秒ブイログカメラ · iOS</div>
+    <h1>ビートで撮る。<br>撮り終えたら<br><em>もう動画。</em></h1>
+    <p class="lead">曲を選んでシャッターを押すと、<b>ちょうどその拍の長さだけ</b>撮れます。撮り終えたら「動画を作る」を1回押すだけ。撮ったあとに編集する時間はいりません。</p>
+    <div class="cta">
+      <a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Storeで入手</a>
+      <a class="btn g" href="#how">どういう仕組み？</a>
+    </div>
+    <p class="micro">無料 · アカウント不要 · サーバーなし · 透かしなし</p>
+  </div>
+  <div class="ph">
+    <img src="../shots/ja/capture.png" alt="撮影画面、ビートのリングとシャッター" width="1290" height="2796">
+    <div class="tag" aria-hidden="true">ぴったり1.2秒</div>
+  </div>
+  <div class="beats beatwrap" aria-label="12個のカットがビートの上に並んだタイムライン">
+    <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="cap"><span>0秒</span><span>カットはビートで切り替わる · 1カット1.2秒</span><span>14.4秒</span></div>
+  </div>
+</div>
+
+<!-- ── なぜ：編集アプリ vs オフザリール ───────────────────────── -->
+<section class="tint" id="how">
+  <div class="wrap">
+    <h2>1秒ブイログ、撮るのは簡単。<br>つなげるところで挫折します<small>週末に編集アプリを開いて、切って、ビートに合わせて… 3週目でやめてしまう</small></h2>
+    <div class="cmp">
+      <div class="c">
+        <div class="k">編集アプリだと</div>
+        <div>1. 1日に何カットか撮っておく</div>
+        <div>2. 週末に編集アプリを開く</div>
+        <div>3. カットを1秒ずつ切る</div>
+        <div>4. 音楽を敷いてビートに合わせる</div>
+        <div>5. 字幕をのせる</div>
+        <div class="hand">→ 3週目で挫折</div>
+      </div>
+      <div class="c dk">
+        <div class="k">オフザリールなら</div>
+        <div>1. 曲を選ぶ。アプリがビートを聴き取る</div>
+        <div>2. シャッターを押す。ちょうどその拍の長さだけ撮れる</div>
+        <div class="hand">→ 撮り終えて押せば<em>動画が1本</em></div>
+        <div class="foot">編集画面はありません。カットの長さはビートが決めて、人は撮るだけ。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── やることは5つ ──────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <h2>やることは5つ、<span class="hand" style="font-family:var(--hand);font-weight:600;color:var(--accent)">人がやるのは2つ</span><small>曲を選ぶことと撮ること。あとはアプリがやります</small></h2>
+    <div class="five">
+      <div class="st on"><div class="num">1</div><img src="../shots/ja/tempo.png" alt="曲を選ぶ画面" width="1290" height="2796" loading="lazy"><h3>曲を選ぶ</h3><p>Apple Musicで検索して30秒試聴。アプリがビートを測って1カットの長さを決めます。サブスクなしで使えます。</p></div>
+      <div class="st on"><div class="num">2</div><img src="../shots/ja/capture.png" alt="撮影画面" width="1290" height="2796" loading="lazy"><h3>ビートで撮る</h3><p>手にビートが伝わり、リングが1周したら完了。レンズは.5倍から3倍、横にすれば横長ブイログ。</p></div>
+      <div class="st"><div class="num">3</div><img src="../shots/ja/roll.png" alt="カット一覧画面" width="1290" height="2796" loading="lazy"><h3>カットを埋める</h3><p>12・24・36カットで1本。何本も同時に撮れて、撮り終えたものは「まとめて見る」に集まります。</p></div>
+      <div class="st"><div class="num">4</div><img src="../shots/ja/develop-text.png" alt="動画を作る画面" width="1290" height="2796" loading="lazy"><h3>スマホの中で動画を作る</h3><p>タイトル、カットごとの時刻・撮った街・ひとこと、色味とエフェクト。サーバーには上がりません。</p></div>
+      <div class="st"><div class="num">5</div><img src="../shots/ja/export.png" alt="書き出し画面" width="1290" height="2796" loading="lazy"><h3>リールのサイズで</h3><p>リール・ショート・TikTokのボタンに隠れない位置に文字を置きます。保存してそのままリールへ。曲は投稿するときに入れてください。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 1.4の新機能 ───────────────────────── -->
+<section id="new">
+  <div class="wrap">
+    <h2>1.4の新機能<small>ブイログがなくても、ロックを解除しなくても、ワンカット</small></h2>
+    <div class="news">
+      <div class="nw wide"><div class="k">ためたカット</div><h3>まずはブイログなしでワンカット</h3><p>ホームのいちばん上にある「ワンカットためておく」を押すと、1.2秒のカットが撮れて「ためたカット」に日付順にたまります。あとで何カットか選んで新しいブイログにしたり、撮影中のブイログの「埋める」から呼び出して空きマスに入れたり。入れたカットはそちらへ移るので、二重には残りません。</p><p class="hand">とりあえず撮って、行き先はあとで →</p></div>
+      <div class="nw"><div class="k">ロックしたままワンカット</div><h3>ロックを解除せずに撮る</h3><p>ロック画面・コントロールセンター・アクションボタンから押すと、ロックしたまま撮影画面が開きます。撮ったカットは、ロックを解除してアプリを開いたときに、固定したブイログか最後に撮ったブイログへ。どちらもなければ「ためたカット」に入ります。iOS 18以降。</p></div>
+      <div class="nw"><div class="k">ライブアクティビティ</div><h3>今日の進みをロック画面に</h3><p>「今日モード」や24日チャレンジのように毎日撮る日は、ロック画面とダイナミックアイランドに「DAY 9 · 今日はまだ」が出ます。撮るとすぐ切り替わり、夜12時に消えます。</p></div>
+      <div class="nw"><div class="k">ビート効果</div><h3>呼吸 · 光 · 横スライド</h3><p>拍ごとにほんの少し寄って戻る、ふわっと明るくなる、1カットかけてゆっくり横に流れる。カットが切り替わる瞬間はいつも止まっているので、跳ねません。「動画を作る › エフェクト」で、弱め・ふつう。</p></div>
+      <div class="nw"><div class="k">English · 日本語</div><h3>日本語と英語に対応</h3><p>設定 › 言語で、한국어・English・日本語から選べます。最初は端末の言語に合わせます。動画に入る日付やテロップも選んだ言語で出ます。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 前後同時 (1.2) ─────────────────────────────── -->
+<section class="tint" id="dual">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>セルフィーも背面も、<br>一度に</h2>
+      <p>撮影画面の<b>「前後」ボタン</b>をオンにすると、シャッター1回で両方撮れます。<b>1つの画面に一緒に</b>なら、背面の映像の左上にセルフィーが小さく入ります。リールの文字に隠れない位置です。「動画を作る」で半分ずつや背面のみにも変えられます。</p>
+      <p><b>2カットに分ける</b>なら、1回で2マス埋まります。背面1カット、セルフィー1カットの順に入るので、12カットのブイログが6回で埋まります。横長ブイログでも使えて、撮り直すときは背面・セルフィー・前後から選べます。</p>
+      <p class="hand" style="font-family:var(--hand);font-size:20px;color:var(--ink2)">1回押せば両側 →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/ja/dual.png" alt="撮影画面、背面の映像の左上にセルフィーの小さい画面" width="1179" height="2556" loading="lazy"><p class="cap"><b>前後同時</b> · 撮影</p></div>
+      <div><img src="../shots/ja/dual-dev.png" alt="動画を作る、前後カットの置き方：小さい画面・半分ずつ・背面のみ" width="1179" height="2556" loading="lazy"><p class="cap"><b>置き方</b> · 動画を作る</p></div>
+      <div><img src="../shots/ja/dual-cuts.png" alt="カット一覧、前後で撮ったカットに小さい画面の印" width="1179" height="2556" loading="lazy"><p class="cap"><b>前後カット</b> · カット一覧</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 毎日ワンカット (1.1) ─────────────────── -->
+<section id="daily">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>毎日ワンカット、<br>アプリを開かずに</h2>
+      <p>ロック画面・コントロールセンター・アクションボタンに<b>「ワンカット」ボタン</b>を置けば、押してすぐ撮影画面。最後に撮ったブイログに入り、上の名前を押せば別のブイログに変えられます。通知を押してもそのまま撮影へ。</p>
+      <p>撮った日は、ホームの今週の7マスと今月のカレンダーにその日の最初のカットで並び、「まとめて見る」では<b>1年の記録グリッド</b>になります。カレンダーはホーム画面のウィジェットにも置けます。</p>
+      <p class="hand" style="font-family:var(--hand);font-size:20px;color:var(--ink2)">2タップでワンカット →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/ja/quick.png" alt="すばやく撮る画面、上に入れ先のブイログ名" width="1179" height="2556" loading="lazy"><p class="cap"><b>すばやく撮る</b> · ロック画面から</p></div>
+      <div><img src="../shots/ja/home-cal.png" alt="ホームの今月のカレンダー、日付のマスごとにその日の最初のカット" width="1179" height="2556" loading="lazy"><p class="cap"><b>今月のカレンダー</b> · ホーム</p></div>
+      <div><img src="../shots/ja/archive.png" alt="まとめて見るの1年の記録グリッドと撮り終えたブイログ" width="1179" height="2556" loading="lazy"><p class="cap"><b>1年の記録</b> · まとめて見る</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 月のまとめ (1.3) ─────────────────── -->
+<section id="month">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>1日ワンカットが、<br>1か月のまとめに</h2>
+      <p>「まとめて見る」の<b>「9月のまとめを作る」</b>を押すと、その月に撮ったカットを1日1カットずつ集めて1本に。その日の最初・最後・朝のカットから選ぶか、自分で選びます。ビートは曲か、手で叩いて1つに合わせます。<b>「カレンダーで」</b>を選ぶと、その日のカットが1拍だけ大きく出てからカレンダーのマスに収まり、最後はぎっしり埋まったカレンダーで終わります。</p>
+      <p>動画の合間には、色や写真の背景に文字だけをのせた<b>文字カット</b>を。画面には、バラエティ・ニュース・ドキュメンタリー・ブイログ風に、四隅と下の帯へ<b>テロップ</b>を。1年の記録と今月のカレンダーはストーリーサイズの画像で、1月から埋まっていく記録は6秒の動画で保存できます。</p>
+      <p class="hand" style="font-family:var(--hand);font-size:20px;color:var(--ink2)">押したときだけ作ります →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/ja/month-pick.png" alt="月のまとめを選ぶ画面、9月のカレンダーのマスごとにその日の最初のカット" width="590" height="1282" loading="lazy"><p class="cap"><b>月のまとめ</b> · 選ぶ</p></div>
+      <div><img src="../shots/ja/month-cal.png" alt="カレンダーで作った動画、その日のカットがカレンダーのマスに収まる場面" width="540" height="960" loading="lazy"><p class="cap"><b>カレンダーで</b> · できた動画</p></div>
+      <div><img src="../shots/ja/broadcast.png" alt="バラエティ風のテロップ、左上のタイトルボックスと黄色い吹き出し字幕" width="540" height="960" loading="lazy"><p class="cap"><b>テロップ</b> · バラエティ風</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 作った動画3つ ──────────────────────────────── -->
+<section class="tint" id="develop">
+  <div class="wrap dev">
+    <div class="txt">
+      <h2>一部だけモノクロ、<br>窓には手描きのふち</h2>
+      <p>手で描いた四角の中・人物・背景から選んで、<b>そこだけ</b>に色味をのせます。背景だけモノクロにすれば、人物だけがカラーで残ります。</p>
+      <p>ふちは手描き・紙・フィルムから。時刻表示は曜日・日付・ビデオカメラ・何日目から選べて、撮った街と手書きのひとことも付きます。</p>
+      <p class="hand" style="font-family:var(--hand);font-size:20px;color:var(--ink2)">実際に作った動画3つ →</p>
+    </div>
+    <div class="frames">
+      <div><img src="../shots/frame-hand.jpg" alt="手描きのふちで作った動画" width="506" height="900" loading="lazy"><p class="cap"><b>手描き</b> · 基本</p></div>
+      <div><img src="../shots/frame-paper.jpg" alt="紙のふちで作った動画" width="506" height="900" loading="lazy"><p class="cap"><b>紙</b> · 貼った写真のように</p></div>
+      <div><img src="../shots/frame-film.jpg" alt="フィルムのふちで作った動画" width="506" height="900" loading="lazy"><p class="cap"><b>フィルム</b> · 帯と穴</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4つの約束 ───────────────────────────────────────── -->
+<section id="vows">
+  <div class="wrap">
+    <h2>破らない4つの約束<small>これを破る機能は入れません</small></h2>
+    <div class="vows">
+      <div class="vow"><div class="k">01</div><h3>編集画面がない</h3><p>タイムラインを引っぱって切る画面はありません。カットの長さはビートが決めて、人は撮るだけ。</p></div>
+      <div class="vow"><div class="k">02</div><h3>1本には終わりがある</h3><p>12・24・36カットを埋めたら1本。どこまでもたまっていくクリップの引き出しではありません。</p></div>
+      <div class="vow"><div class="k">03</div><h3>スマホの外に出ない</h3><p>アカウントもサーバーもありません。インターネットは曲の検索にしか使いません。カットと動画は、このスマホと写真アプリにだけあります。</p></div>
+      <div class="vow"><div class="k">04</div><h3>透かしがない</h3><p>無料で、書き出した動画には何も入りません。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── マスコット ──────────────────────────────────────────── -->
+<section class="tint">
+  <div class="wrap">
+    <div class="reeli">
+      <img src="../hancut.png" alt="マスコット、フィルム1コマが体のキャラクター" width="170" height="170" loading="lazy">
+      <div>
+        <h2 style="margin-bottom:12px;font-family:var(--hand);font-weight:600;font-size:30px">マスコットが待っています</h2>
+        <p>体はフィルム1コマ。撮っているものがないとき、動画を作っているとき、できあがったときだけ出てきます。撮影画面には出ません。じゃまになるので。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────── -->
+<section id="support">
+  <div class="wrap">
+    <h2>よくある質問</h2>
+    <div class="faq">
+      <details><summary>曲は動画に入りますか？</summary><p>いいえ。Apple Musicの試聴は、ビートを測って確かめるためだけに使います。動画は無音か、撮ったときの音で書き出されます。曲はリールやショートに投稿するときに入れてください。ビートが合っているので、そのままぴったり重なります。</p></details>
+      <details><summary>Apple Musicのサブスクは必要ですか？</summary><p>いいえ。検索と30秒の試聴はサブスクなしで使えます。</p></details>
+      <details><summary>カットの長さはどれくらい？</summary><p>選んだ曲のビートで決まります。「ふつう」なら、ふつうのテンポの曲で約1.2秒。「速め」「ゆったり」もあります。曲なしで撮ると1.2秒です。</p></details>
+      <details><summary>撮り直せますか？</summary><p>カットごとに1回。カットを押して「撮り直す」。気に入らなければ前のカットに戻せて、空にしたカットは30日間復元できます。長押しして引っぱれば順番が変わります。</p></details>
+      <details><summary>横でも撮れますか？</summary><p>はい。新しいブイログを作るときに「横」を選べば、スマホを横にして撮り、横長の動画か、縦の中に横長を収めた動画を作れます。</p></details>
+      <details><summary>撮った場所は入りますか？</summary><p>オンにすれば入ります。最初はオフです。オンにすると、シャッターを押したときだけ位置を見て「下北沢」のように街の名前を付けます。座標はスマホの外に出ません。</p></details>
+      <details><summary>撮るのを忘れたら？</summary><p>毎日決めた時刻にお知らせするか、「今日モード」をオンにすれば毎正時にお知らせします。ホーム画面・ロック画面のウィジェットもあります。</p></details>
+      <details><summary>月のまとめを作ると、カットが2倍にたまりますか？</summary><p>いいえ。月のまとめは、元のブイログのカットをそのまま指しています。ファイルはコピーしないので、まとめを消しても元のカットは残ります。</p></details>
+      <details><summary>まわりで流れている曲でビートを取れますか？</summary><p>はい。「曲を選ぶ」の耳ボタンを押すと、数秒聴いて曲を聞き分けます（Apple ShazamKit）。マイクを使うのは押したときだけで、音は保存しません。</p></details>
+      <details><summary>前に撮ったLive Photosも使えますか？</summary><p>はい。「写真から埋める」でLive Photosや撮っておいた動画を選ぶと、一番ブレの少ない瞬間をカットにします。</p></details>
+      <details><summary>セルフィーと背面を一緒に撮るには？</summary><p>撮影画面の切り替えボタンの下にある「前後」ボタンを押して、「1つの画面に一緒に」か「2カットに分ける」を選んでください。ブイログごとに覚えます。前後同時のときズームは1・2倍まで。2つのカメラを同時に使えるiPhone（XS以降）で表示されます。</p></details>
+      <details><summary>ロック画面からすぐ撮るには？</summary><p>iOS 18以降で、ロック画面を長押しして「カスタマイズ」→ 下の懐中電灯かカメラの場所を押して「オフザリール · ワンカット」を選びます。コントロールセンターとアクションボタン（iPhone 15 Pro以降）にも置けます。アプリの「設定 &gt; すばやく撮る」に手順があります。</p></details>
+      <details><summary>自分の動画はどこへ行きますか？</summary><p>どこにも行きません。撮ったカットはアプリの中と、写真アプリの「オフザリール」アルバム（オフにできます）にだけあります。作った動画は「書き出す」を押したときだけ写真アプリに保存されます。<a href="privacy.html">プライバシーポリシー</a></p></details>
+    </div>
+    <div class="contact">
+      <span>お問い合わせ <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a></span>
+      <span><a href="privacy.html">プライバシーポリシー</a></span>
+    </div>
+  </div>
+</section>
+
+<section class="last">
+  <div class="wrap">
+    <h2>撮るだけでいい。<br><em>動画は、もうできてる。</em></h2>
+    <div class="cta"><a class="btn" href="https://apps.apple.com/kr/app/id6814367003">App Storeで入手</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 AIP Lab · オフザリール</span>
+    <span><a href="https://aiplab.kr/">aiplab.kr</a> · <a href="privacy.html">privacy</a></span>
+  </div>
+</footer>
+</body></html>

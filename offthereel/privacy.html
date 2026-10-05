@@ -3,6 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="favicon.png">
+<link rel="alternate" hreflang="ko" href="https://aiplab.kr/offthereel/privacy.html">
+<link rel="alternate" hreflang="en" href="https://aiplab.kr/offthereel/en/privacy.html">
+<link rel="alternate" hreflang="ja" href="https://aiplab.kr/offthereel/ja/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://aiplab.kr/offthereel/en/privacy.html">
 <title>오프더릴 개인정보 처리방침</title>
 <meta name="description" content="오프더릴은 개인정보를 수집하지 않습니다. 계정도 서버도 없는 1초 브이로그 카메라의 개인정보 처리방침.">
 <style>
@@ -28,18 +32,22 @@
   th{color:var(--ink);font-weight:600;white-space:nowrap;padding-right:1.6rem}
   thead th{border-bottom:1px solid var(--line);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);font-weight:600}
   .lede{font-size:1.06rem;color:var(--ink);border-left:2px solid var(--ink);padding-left:1rem;margin:0 0 2.6rem}
+  .lang{display:flex;gap:.5rem;font-size:.82rem;color:var(--sub);margin:0 0 2.2rem}
+  .lang a{color:var(--sub);text-decoration:none}
+  .lang a[aria-current]{color:var(--ink);font-weight:600}
   footer{margin-top:4rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.86rem;color:var(--sub)}
 </style>
 </head><body>
 <main>
+  <nav class="lang" aria-label="언어"><a href="privacy.html" hreflang="ko" lang="ko" aria-current="page">한국어</a>·<a href="en/privacy.html" hreflang="en" lang="en">English</a>·<a href="ja/privacy.html" hreflang="ja" lang="ja">日本語</a></nav>
   <h1>오프더릴 개인정보 처리방침</h1>
-  <p class="meta">최종 수정 2026년 10월 4일 (1.3: 주변 노래 알아듣기)</p>
+  <p class="meta">최종 수정 2026년 10월 5일 (1.4: 잠금 그대로 한 컷 · 라이브 액티비티 · 영어 · 일본어)</p>
 
   <p class="lede">오프더릴은 개인정보를 <strong>수집하지 않습니다</strong>.
   계정이 없고, 서버가 없습니다. 찍은 영상은 전부 이 기기 안에서 만들어지고 이 기기 안에 남습니다.</p>
 
   <h2>수집하는 정보</h2>
-  <p><strong>없습니다.</strong> 이름·이메일·전화번호·위치·기기 식별자 어느 것도 오프더릴이 받지 않습니다. 「찍은 곳 붙이기」를 켜서 기록하는 위치도 이 기기 안에만 있습니다.
+  <p><strong>없습니다.</strong> 이름·이메일·전화번호·위치·기기 식별자 어느 것도 오프더릴이 받지 않습니다. 「장소」를 켜서 기록하는 위치도 이 기기 안에만 있습니다.
   회원가입이 없고 로그인이 없습니다. 분석 도구, 광고 SDK, 크래시 리포터를 넣지 않았습니다.</p>
 
   <h2>내가 찍은 컷과 영상은 어디에 있나</h2>
@@ -50,13 +58,15 @@
   오프더릴은 그 백업에 접근할 수 없습니다.</p>
 
   <h2>네트워크</h2>
-  <p>오프더릴이 인터넷에 연결하는 곳은 <strong>두 군데</strong>이고, 둘 다 Apple 입니다. 하나는 「노래 고르기」에서 쓰는 Apple Music 카탈로그입니다.
+  <p>오프더릴이 인터넷에 연결하는 곳은 <strong>세 군데</strong>이고, 셋 다 Apple 입니다. 하나는 「노래 고르기」에서 쓰는 Apple Music 카탈로그입니다(검색과 지금 많이 듣는 노래 목록).
   이용자가 입력한 <strong>검색어</strong>가 Apple 의 서버(<code>api.music.apple.com</code>)로 가고,
   곡 목록과 30초 미리듣기 파일이 돌아옵니다. 이 요청에는 계정 정보나 기기 식별자가 붙지 않습니다.
   앱은 미리듣기를 들으며 박자를 계산하고, 그 계산은 기기 안에서 합니다.
   Apple 이 이 요청을 어떻게 다루는지는 <a href="https://www.apple.com/kr/legal/privacy/">Apple 개인정보 처리방침</a>을 따릅니다.</p>
-  <p>다른 하나는 「찍은 곳 붙이기」를 켰을 때입니다. 셔터를 누른 순간의 좌표로 동네 이름과 가까운 장소 이름을 찾으려고 iOS 의 Apple 지도 기능에 좌표를 보냅니다. 오프더릴의 서버는 없고, 이 요청은 Apple 개인정보 처리방침을 따릅니다. 꺼 두면 위치를 읽지 않습니다.</p>
-  <p>노래 없이 찍고 찍은 곳 붙이기를 꺼 두면 인터넷에 전혀 연결하지 않습니다. 고른 노래는 영상 파일에 들어가지 않습니다.</p>
+  <p>둘째는 「장소」를 켰을 때입니다. 셔터를 누른 순간의 좌표로 동네 이름과 가까운 장소 이름을 찾으려고 iOS 의 Apple 지도 기능에 좌표를 보냅니다. 오프더릴의 서버는 없고, 이 요청은 Apple 개인정보 처리방침을 따릅니다. 꺼 두면 위치를 읽지 않습니다.</p>
+  <p>셋째는 노래 고르기의 귀 단추를 눌러 「주변 노래」를 찾을 때입니다. 몇 초 들은 소리에서 만든 소리 서명을 Apple ShazamKit 이 곡을 찾는 데 씁니다. 소리 자체는 저장하지 않고, 앱이 따로 보내거나 모으지 않습니다.</p>
+  <p>잠금 화면에서 「잠금 그대로 한 컷」으로 찍을 때는 인터넷에 연결하지 않고 위치도 읽지 않습니다. 찍은 컷은 잠금을 풀고 앱을 열 때 앱 안으로 옮겨집니다. 잠금 화면 · 다이내믹 아일랜드의 오늘 진행(라이브 액티비티)도 이 기기 안에서만 만들고, 서버로 보내지 않습니다.</p>
+  <p>노래 없이 찍고 장소를 꺼 두고 귀 단추를 누르지 않으면 인터넷에 전혀 연결하지 않습니다. 고른 노래는 영상 파일에 들어가지 않습니다.</p>
 
   <h2>권한</h2>
   <div class="wrap"><table>
@@ -65,9 +75,9 @@
       <tr><td>카메라</td><td>찍기 화면을 열 때</td><td>1~2초 컷을 찍습니다. 파일은 앱 안에만 저장됩니다</td></tr>
       <tr><td>마이크</td><td>찍기 화면을 열 때</td><td>컷에 찍을 때 소리를 담습니다. 「찍을 때 소리」를 끄면 소리 없는 영상이 됩니다</td></tr>
       <tr><td>마이크(주변 노래)</td><td>노래 고르기의 귀 단추를 누를 때만</td><td>몇 초 듣고 Apple ShazamKit 으로 곡을 찾습니다. 소리는 저장하지 않고, 앱이 따로 보내거나 모으지 않습니다</td></tr>
-      <tr><td>사진 (읽기)</td><td>「사진첩에서 채우기」를 누를 때</td><td>라이브 포토와 영상에서 컷으로 쓸 순간을 고릅니다. 고른 것만 앱 안으로 복사되고, 그 사진에 든 위치는 「찍은 곳 붙이기」를 켰을 때만 씁니다</td></tr>
+      <tr><td>사진 (읽기)</td><td>「사진첩에서 채우기」를 누를 때</td><td>라이브 포토와 영상에서 컷으로 쓸 순간을 고릅니다. 고른 것만 앱 안으로 복사되고, 그 사진에 든 위치는 「장소」를 켰을 때만 씁니다</td></tr>
       <tr><td>사진 (추가)</td><td>컷을 찍을 때(원본 저장을 켰을 때) · 「내보내기」를 누를 때</td><td>찍은 컷 원본과 만든 영상을 사진 앱에 저장합니다</td></tr>
-      <tr><td>위치 (앱을 쓰는 동안)</td><td>「찍은 곳 붙이기」를 켜고 셔터를 누를 때</td><td>그 순간의 위치를 한 번 읽어 동네 이름을 찾습니다. 좌표와 이름은 이 기기 안에만 저장됩니다</td></tr>
+      <tr><td>위치 (앱을 쓰는 동안)</td><td>「장소」를 켜고 셔터를 누를 때</td><td>그 순간의 위치를 한 번 읽어 동네 이름을 찾습니다. 좌표와 이름은 이 기기 안에만 저장됩니다</td></tr>
       <tr><td>알림</td><td>「매일 찍을 시각」이나 「오늘 담기」를 켤 때</td><td>이 기기 안에서 예약한 알림만 보냅니다. 서버에서 보내는 알림은 없습니다</td></tr>
     </tbody>
   </table></div>
