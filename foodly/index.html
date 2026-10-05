@@ -3,133 +3,345 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>푸들리 지원</title>
-<meta name="description" content="푸들리 지원 페이지. 레시피를 요리하는 순간에 꺼내 주고, 다닌 동네가 밝혀지는 맛집 지도.">
-<meta name="color-scheme" content="light dark">
+<title>푸들리 · 젖은 손으로 넘기는 레시피</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:image" content="https://aiplab.kr/foodly/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://aiplab.kr/foodly/">
+<meta property="og:type" content="website">
+<meta name="description" content="요리할 때 꺼내 쓰는 레시피와 다닌 동네가 밝혀지는 맛집 지도. 주먹을 쥐었다 펴면 다음 단계로 넘어갑니다. 계정 없이, 전부 폰 안에서.">
+<meta property="og:title" content="푸들리 · 젖은 손으로 넘기는 레시피">
+<meta property="og:description" content="주먹을 쥐었다 펴면 다음 단계. 다녀온 동네는 지도에서 불이 켜지듯 밝아집니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css">
 <style>
-  :root {
-    --paper: #FFFFFF;
-    --ink: #111214;
-    --ink2: #5A5C5E;
-    --ink3: #8E9092;
-    --line: #EDEDED;
-    --sink: #F5F5F5;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #0E0E0F;
-      --ink: #F2F2F2;
-      --ink2: #A9ABAF;
-      --ink3: #6F7175;
-      --line: #26272A;
-      --sink: #1B1C1E;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
-    font-size: 17px;
-    line-height: 1.65;
-    word-break: keep-all;
-    -webkit-font-smoothing: antialiased;
-  }
-  main {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 56px 20px 96px;
-  }
-  header { margin-bottom: 40px; }
-  .app { font-size: 13px; color: var(--ink3); margin: 0 0 8px; }
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    margin: 0 0 12px;
-  }
-  .meta { font-size: 15px; color: var(--ink2); margin: 0; font-variant-numeric: tabular-nums; }
-  .lead {
-    margin: 0 0 8px;
-    padding: 18px 20px;
-    background: var(--sink);
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  section { padding: 24px 0; border-top: 1px solid var(--line); }
-  h2 {
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0 0 10px;
-    letter-spacing: -0.01em;
-  }
-  p { margin: 0 0 10px; color: var(--ink); }
-  p:last-child { margin-bottom: 0; }
-  ul { margin: 0 0 10px; padding-left: 20px; }
-  ul:last-child { margin-bottom: 0; }
-  li { margin: 4px 0; }
-  code { white-space: nowrap;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 15px;
-    background: var(--sink);
-    padding: 1px 6px;
-    border-radius: 6px;
-    word-break: break-all;
-  }
-  a { color: var(--ink); text-underline-offset: 3px; }
-  footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
-    font-size: 13px;
-    color: var(--ink3);
-  }
-  footer a { color: var(--ink2); }
-  .store { display: inline-block; margin: 0 0 24px; padding: 12px 20px; border-radius: 12px; background: #F0462C; color: #fff; text-decoration: none; font-weight: 600; }
+:root{
+  --ground:#E9EAEC; --sheet:#F2F3F5; --card:#fff;
+  --ink:#141416; --ink2:#55585E; --ink3:#8B8E94; --ink4:#C9CBD0; --line:#E6E7EA; --hair:#F0F1F3;
+  --fire:#F0462C; --fire-soft:#FFEDE9; --cook:#0F1012; --cook-card:#1E1F22;
+  --e1:0 1px 2px rgba(35,31,26,.05); --e2:0 6px 20px rgba(35,31,26,.09); --e3:0 18px 50px rgba(35,31,26,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Pretendard",-apple-system,system-ui,sans-serif;color:var(--ink);background:var(--sheet);word-break:keep-all;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* 내비 */
+.n{position:sticky;top:0;z-index:10;background:rgba(242,243,245,.86);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(0,0,0,.04)}
+.n .wrap{display:flex;align-items:center;height:62px;gap:26px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;text-decoration:none;letter-spacing:-.02em}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--fire);display:grid;place-items:center}
+.n nav{display:flex;gap:22px;font-size:14px;color:var(--ink2)}
+.n nav a{text-decoration:none}.n nav a:hover{color:var(--ink)}
+.get{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px;border-radius:12px}
+.get.fire{background:var(--fire)}
+/* 첫 화면 */
+.hero{padding:64px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.eyebrow{font-size:13px;color:var(--fire);font-weight:700;letter-spacing:.04em}
+h1{font-size:54px;line-height:1.18;letter-spacing:-.035em;margin:12px 0 18px;font-weight:800}
+.lede{font-size:18px;color:var(--ink2);margin:0 0 28px;max-width:520px}
+.ctas{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ghost{font-size:14px;color:var(--ink2);text-decoration:none;padding:10px 6px}
+.meta{margin-top:18px;font-size:13px;color:var(--ink3)}
+/* 데모 1: 요리 중 */
+.phone{width:340px;margin:0 auto;border-radius:46px;padding:11px;background:linear-gradient(155deg,#D7D9DD,#A9ACB3 46%,#DFE1E5);box-shadow:var(--e3)}
+.scr{border-radius:36px;overflow:hidden;background:var(--cook);color:#F4F4F5;height:640px;display:flex;flex-direction:column;padding:26px 22px 20px;position:relative}
+.scr .top{display:flex;justify-content:space-between;font-size:12px;color:#9A9CA1;letter-spacing:.05em}
+.step{font-size:27px;font-weight:700;line-height:1.42;margin-top:18px;min-height:150px;transition:opacity .25s,transform .25s}
+.step.out{opacity:0;transform:translateX(-24px)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;min-height:32px}
+.chip{background:var(--cook-card);font-size:12.5px;padding:6px 11px;border-radius:14px}
+.timer{display:flex;align-items:baseline;gap:9px;margin-top:22px;min-height:52px}
+.timer b{font-size:42px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.timer span{font-size:12.5px;color:#9A9CA1}
+.bars{display:flex;gap:5px;margin-top:18px}.bars i{flex:1;height:3px;border-radius:2px;background:#2A2B2F}.bars i.on{background:var(--fire)}
+.hand{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.ring{width:96px;height:96px;border-radius:50%;background:rgba(240,70,44,.10);display:grid;place-items:center;transition:transform .2s,background .2s}
+.ring .core{width:70px;height:70px;border-radius:50%;border:1.5px solid #5A2A22;display:grid;place-items:center;transition:border-color .2s}
+.hand.fist .ring{transform:scale(.88);background:rgba(240,70,44,.24)}.hand.fist .core{border-color:var(--fire)}
+.hand.pulse .ring{transform:scale(1.25)}
+.hand b{font-size:13.5px;font-weight:600}.hand small{font-size:11px;color:#9A9CA1;margin-top:-6px}
+.buttons{display:flex;gap:8px;margin-top:14px}.buttons button{flex:1;height:50px;border:0;border-radius:14px;background:var(--cook-card);color:#F4F4F5;font:inherit;font-weight:600;font-size:15px;cursor:pointer}
+.buttons button.next{flex:2}.buttons button:disabled{opacity:.35}
+.done{position:absolute;inset:0;background:rgba(15,16,18,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
+.done.show{display:flex}.done b{font-size:22px}.done button{border:0;background:var(--fire);color:#fff;font:inherit;font-weight:600;padding:12px 18px;border-radius:12px;cursor:pointer}
+.hint{text-align:center;font-size:12.5px;color:var(--ink3);margin-top:14px}
+kbd{font-family:inherit;font-size:11.5px;background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px}
+/* 공통 섹션 */
+section{padding:84px 0}
+section.tint{background:var(--card)}
+h2{font-size:38px;line-height:1.25;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.sub{font-size:17px;color:var(--ink2);margin:0 0 36px;max-width:640px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.shots{display:flex;gap:16px;justify-content:center}
+.shot{width:220px;border-radius:30px;box-shadow:var(--e2);border:6px solid #fff;background:#fff}
+.shot.lg{width:260px}
+/* 문제 */
+.stat{display:flex;gap:40px;margin:26px 0 8px}
+.stat div b{display:block;font-size:56px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.stat div span{font-size:14px;color:var(--ink3)}
+.stat .hl b{color:var(--fire)}
+/* 하는 일 */
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.four div{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--e1)}
+.four b{display:block;font-size:17px;margin:12px 0 6px}.four p{margin:0;font-size:14px;color:var(--ink2)}
+.ic{width:38px;height:38px;border-radius:11px;background:var(--fire-soft);display:grid;place-items:center}
+/* 데모 2: 동네 밝히기 */
+.mapdemo{position:relative;border-radius:26px;overflow:hidden;background:#141519;height:440px;box-shadow:var(--e2);cursor:crosshair}
+.mapdemo svg{position:absolute;inset:0;width:100%;height:100%}
+.mapdemo .lab{position:absolute;left:18px;top:16px;color:#fff;font-size:13px;opacity:.75}
+.mapdemo .cnt{position:absolute;right:16px;top:14px;background:rgba(255,255,255,.1);color:#fff;font-size:12.5px;padding:6px 11px;border-radius:12px}
+.legend{display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--ink3)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+/* 데모 3: 장보기 */
+.cart{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px}
+.pick{display:flex;flex-direction:column;gap:8px}
+.pick label{display:flex;align-items:center;gap:12px;background:var(--sheet);border-radius:14px;padding:13px 14px;cursor:pointer;font-weight:600;font-size:15px}
+.pick input{width:20px;height:20px;accent-color:var(--fire)}
+.list{background:var(--sheet);border-radius:18px;padding:6px 16px;min-height:300px}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1px solid var(--line);gap:10px}
+.row:first-child{border-top:0}
+.row b{font-size:15px}.row small{display:block;font-size:11.5px;color:var(--ink3);font-weight:400;margin-top:1px}
+.row span{font-size:14px;color:var(--ink2);white-space:nowrap}
+.row.merged span{color:var(--fire);font-weight:600}
+.empty{color:var(--ink3);font-size:14px;padding:28px 0;text-align:center}
+.recs{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.recs span{background:var(--card);border-radius:14px;padding:7px 12px;font-size:13px;box-shadow:var(--e1)}
+/* 약속 */
+.vows{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.vows div{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--card)}
+.vows b{display:block;font-size:17px;margin-bottom:6px}.vows p{margin:0;font-size:14px;color:var(--ink2)}
+/* 질문 */
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{font-weight:700;font-size:16.5px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--ink3);font-weight:400}
+details[open] summary::after{content:"−"}
+details p{margin:10px 0 0;color:var(--ink2);font-size:15px}
+.last{background:var(--cook);color:#fff;text-align:center}
+.last h2{color:#fff}.last .sub{color:#9A9CA1;margin:0 auto 26px}
+footer{padding:30px 0 50px;font-size:13px;color:var(--ink3)}
+footer .wrap{display:flex;gap:18px;flex-wrap:wrap}
+footer a{color:var(--ink2)}
+@media (max-width:860px){
+  .n nav{display:none}
+  .hero .wrap,.split,.cart{grid-template-columns:1fr}
+  h1{font-size:38px}h2{font-size:29px}
+  .four,.vows{grid-template-columns:1fr 1fr}
+  .shot{width:46%}.shot.lg{width:70%}
+  .stat{gap:24px}.stat div b{font-size:44px}
+}
+@media (max-width:520px){.four,.vows{grid-template-columns:1fr}.phone{width:300px}.scr{height:600px}}
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <p class="app">푸들리 · iOS</p>
-    <h1>푸들리 지원</h1>
-    <p class="meta">레시피를 요리하는 순간에 꺼내 주고, 다닌 동네가 밝혀지는 맛집 지도</p>
-  </header>
 
-  <p><a class="store" href="https://apps.apple.com/kr/app/id6819035674">App Store 에서 받기</a></p>
+<header class="n"><div class="wrap">
+  <a class="logo" href="#"><i><svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h11a5.5 5.5 0 0 1-11 0z"/><path d="M7 6c-.6-.8.6-1.5 0-2.4M10.5 6c-.6-.8.6-1.5 0-2.4"/></svg></i>푸들리</a>
+  <nav><a href="#cook">요리 중</a><a href="#map">맛집 지도</a><a href="#recipes">레시피·장보기</a><a href="#vows">약속</a><a href="#faq">질문</a></nav>
+  <a class="get" href="https://apps.apple.com/kr/app/id6819035674">App Store 에서 받기</a>
+</div></header>
 
-  <p class="lead">문의는 <a href="mailto:hanmari.code@gmail.com">hanmari.code@gmail.com</a> 으로 보내 주세요. 쓰시는 iPhone 기종과 iOS 버전을 함께 적어 주시면 빨리 볼 수 있습니다.</p>
+<!-- 첫 화면: 직접 넘겨 보는 요리 중 화면 -->
+<div class="hero" id="cook"><div class="wrap">
+  <div>
+    <div class="eyebrow">레시피와 맛집 · iPhone</div>
+    <h1>젖은 손으로도<br>다음 단계로.</h1>
+    <p class="lede">요리하는 손은 늘 젖어 있어서 화면을 못 만집니다. 푸들리는 폰을 보고 <b>주먹을 쥐었다 펴면</b> 다음 단계로 넘어갑니다. 타이머는 저절로 돌고, 그 단계에 쓰는 재료만 보여 줍니다.</p>
+    <div class="ctas">
+      <a class="get fire" href="https://apps.apple.com/kr/app/id6819035674">App Store 에서 받기</a>
+      <a class="ghost" href="#map">다녀온 동네가 밝혀지는 지도 →</a>
+    </div>
+    <div class="meta">무료 · 계정 없음 · 광고 없음 · 데이터는 폰 안에만</div>
+  </div>
+  <div>
+    <div class="phone"><div class="scr">
+      <div class="top"><span id="stitle">첫 번째 · 다섯 단계 중</span><span>된장 마파두부</span></div>
+      <div class="step" id="step"></div>
+      <div class="chips" id="chips"></div>
+      <div class="timer" id="timer"></div>
+      <div class="bars" id="bars"></div>
+      <div class="hand" id="hand">
+        <div class="ring"><div class="core"><svg width="26" height="26" viewBox="0 0 18 18" fill="none" stroke="#F0462C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5V4.2a1 1 0 0 1 2 0V8m0-.5V3a1 1 0 0 1 2 0v4.5m0 0V3.8a1 1 0 0 1 2 0V9m0-1.5a1 1 0 0 1 2 0v3.5c0 2.8-2 4.5-4.5 4.5S6.6 14.6 5.5 13L3.6 10a1 1 0 0 1 1.6-1.2L6 9.8"/></svg></div></div>
+        <b>주먹을 쥐었다 펴면 넘어가요</b><small>여기를 꾹 눌렀다 떼 보세요</small>
+      </div>
+      <div class="buttons"><button id="prev">이전</button><button class="next" id="next">다음</button></div>
+      <div class="done" id="done"><b>다 만들었어요</b><span style="color:#9A9CA1;font-size:14px">된장 마파두부 · 5단계</span><button id="again">처음부터</button></div>
+    </div></div>
+    <div class="hint">손 동그라미를 꾹 눌렀다 떼거나 <kbd>스페이스</kbd> 를 눌러 보세요. 앱에서는 카메라가 주먹을 봅니다.</div>
+  </div>
+</div></div>
 
-  <section>
-    <h2>요리 중에 손짓이 안 넘어가요</h2>
-    <p>폰을 세워 두고 화면을 보며 주먹을 쥐었다가 펴 주세요. 화면 아래 손 동그라미가 빨갛게 켜지면 손이 보이는 것입니다. 손이 화면을 벗어날 만큼 가깝거나 부엌이 어두우면 손을 놓칩니다. 「나」 탭에서 손짓을 끄면 큰 단추로만 넘깁니다.</p>
-  </section>
+<!-- 문제 -->
+<section class="tint"><div class="wrap split">
+  <div>
+    <h2>레시피는 잘 담습니다.<br>다시 꺼내지 않을 뿐.</h2>
+    <p class="sub" style="margin-bottom:0">우리가 쓰던 보관 도구에서 직접 세어 봤습니다. 담기는 하루 열 건씩 꾸준했는데, 다시 연 것은 일곱 개 중 하나였습니다. 그래서 푸들리는 담는 앱이 아니라 <b>쓰는 순간에 꺼내 주는</b> 앱으로 만들었습니다.</p>
+    <div class="stat"><div><b>318</b><span>담은 것</span></div><div class="hl"><b>46</b><span>다시 본 것</span></div><div><b>14%</b><span>꺼내 쓴 비율</span></div></div>
+  </div>
+  <div class="four" style="grid-template-columns:1fr 1fr">
+    <div><span class="ic"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#F0462C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h11a5.5 5.5 0 0 1-11 0z"/><path d="M7 6c-.6-.8.6-1.5 0-2.4M10.5 6c-.6-.8.6-1.5 0-2.4"/></svg></span><b>부엌에 섰을 때</b><p>한 단계씩 크게. 주먹으로 넘기고, 타이머는 저절로.</p></div>
+    <div><span class="ic"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#F0462C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3h2l1.6 7.5h7.4l1.5-5.5H5"/><circle cx="7" cy="14" r="1"/><circle cx="12.5" cy="14" r="1"/></svg></span><b>장 볼 때</b><p>고른 레시피의 재료를 한 줄로 합쳐 줍니다.</p></div>
+    <div><span class="ic"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#F0462C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 16s5-4.6 5-8.5A5 5 0 0 0 4 7.5C4 11.4 9 16 9 16z"/><circle cx="9" cy="7.5" r="1.8"/></svg></span><b>그 동네에 갔을 때</b><p>담아 둔 맛집 중 지금 동네의 곳을 먼저.</p></div>
+    <div><span class="ic"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#F0462C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.5v9M5.8 5.5L9 2.5l3.2 3"/><path d="M4 9.5v5h10v-5"/></svg></span><b>다녀오고 나서</b><p>「혹시 다녀오셨나요?」 점수와 사진이 쌓입니다.</p></div>
+  </div>
+</div></section>
 
-  <section>
-    <h2>위치를 왜 「항상」으로 쓰나요</h2>
-    <p>「다녀온 곳 물어보기」와 「다닌 길 밝히기」를 켤 때만 필요합니다. 앱을 닫아 두어도 머문 곳과 지나간 길을 알아야 하기 때문입니다. 위치는 기기 안에만 남고, 두 기능은 「나」 탭에서 언제든 끌 수 있습니다.</p>
-  </section>
+<!-- 데모 2: 동네 밝히기 -->
+<section id="map"><div class="wrap split">
+  <div>
+    <div class="eyebrow">맛집 지도</div>
+    <h2>다녀온 동네가<br>불이 켜지듯 밝아집니다.</h2>
+    <p class="sub">어두운 지도에서 가 본 곳 둘레만 원래 색이 돌아옵니다. 자주 갈수록 넓게, 가 본 곳이 몰린 동네일수록 크게. 아래 지도에서 점을 눌러 「가 봤어요」를 해 보세요.</p>
+    <div class="mapdemo" id="mapdemo"><svg id="mapsvg" viewBox="0 0 560 440" preserveAspectRatio="xMidYMid slice"></svg><div class="lab">을지로 · 명동 · 충무로</div><div class="cnt" id="mapcnt">가 본 곳 0</div></div>
+    <div class="legend"><span><i style="background:#F0462C"></i>가 본 곳(누를수록 넓게)</span><span><i style="background:#fff;border:2px solid #F0462C"></i>갈 곳</span></div>
+  </div>
+  <div class="shots"><img class="shot" src="shots/places.jpg" alt="내 맛집 화면"><img class="shot" src="shots/place.jpg" alt="장소 화면"></div>
+</div></section>
 
-  <section>
-    <h2>다닌 길 밝히기가 배터리를 많이 쓰나요</h2>
-    <p>GPS 를 쓰기 때문에 켜 두면 배터리를 더 씁니다. 멈춰 있을 때는 iOS 가 위치를 쉬게 합니다. 신경 쓰이면 「다녀온 곳 물어보기」만 켜 두세요. 이쪽은 iOS 의 「머문 곳」 기능이라 배터리를 거의 쓰지 않습니다.</p>
-  </section>
+<!-- 레시피 · 장보기 -->
+<section class="tint" id="recipes"><div class="wrap">
+  <div class="eyebrow">레시피 · 장보기</div>
+  <h2>기본 레시피 50가지로 바로 시작하고,<br>장은 한 줄로 봅니다.</h2>
+  <p class="sub">푸들리가 새로 쓴 2인분 기본 레시피 50가지가 들어 있습니다. 직접 적거나, 가진 PDF 레시피북에서 가져올 수도 있습니다. 만들 레시피를 고르면 같은 재료는 한 줄로 합쳐집니다. 직접 골라 보세요.</p>
+  <div class="cart">
+    <div class="pick" id="pick"></div>
+    <div class="list" id="list"><div class="empty">왼쪽에서 레시피를 골라 보세요</div></div>
+  </div>
+  <div class="recs" id="recs"></div>
+</div></section>
 
-  <section>
-    <h2>지도 한 장은 어떻게 만드나요</h2>
-    <p>「나」 탭 아래 「내가 밝힌 맛집 지도 한 장 만들기」를 누르면 가 본 곳과 다닌 길로 그린 그림이 나옵니다. 「저장하거나 보내기」로 사진에 저장하거나 인스타그램 스토리로 보낼 수 있습니다.</p>
-  </section>
+<!-- 실제 화면 -->
+<section><div class="wrap split">
+  <div class="shots"><img class="shot lg" src="shots/recommend.jpg" alt="추천 레시피"><img class="shot" src="shots/cart.jpg" alt="장보기"></div>
+  <div>
+    <div class="eyebrow">지도 한 장</div>
+    <h2>내가 밝힌 맛집 지도를<br>그림 한 장으로.</h2>
+    <p class="sub">가 본 곳과 다닌 길로 그린 밤 지도를 인스타그램 스토리 크기로 저장하거나 보냅니다. 남의 지도를 캡처한 게 아니라 푸들리가 직접 그린 그림입니다.</p>
+    <img class="shot" src="shots/poster.jpg" alt="지도 한 장">
+  </div>
+</div></section>
 
-  <section>
-    <h2>데이터는 어디에 있나요</h2>
-    <p>전부 기기 안에 있습니다. 계정이 없어서 기기를 바꾸면 iOS 백업으로만 옮겨집니다. 자세한 내용은 <a href="privacy.html">개인정보 처리방침</a>에 적어 두었습니다.</p>
-  </section>
+<!-- 약속 -->
+<section class="tint" id="vows"><div class="wrap">
+  <h2>깨지 않는 약속 넷</h2>
+  <p class="sub">먹는 기록은 사적인 기록입니다.</p>
+  <div class="vows">
+    <div><b>계정이 없습니다</b><p>가입도 로그인도 없습니다. 열면 바로 씁니다.</p></div>
+    <div><b>폰 안에만 둡니다</b><p>레시피, 사진, 다녀온 곳, 다닌 길. 어디에도 올리지 않습니다.</p></div>
+    <div><b>영상을 남기지 않습니다</b><p>손짓을 볼 때도 카메라는 손 모양만 보고 바로 버립니다.</p></div>
+    <div><b>광고가 없습니다</b><p>분석 도구도 광고 식별자도 쓰지 않습니다.</p></div>
+  </div>
+</div></section>
 
-  <footer>AIP Lab · <a href="privacy.html">개인정보 처리방침</a></footer>
-</main>
+<!-- 질문 -->
+<section id="faq"><div class="wrap" style="max-width:820px">
+  <h2>자주 묻는 질문</h2>
+  <details><summary>손짓이 정말 젖은 손에서도 되나요?</summary><p>카메라는 손의 모양만 봅니다. 물기와 상관없이 주먹을 쥐었다 펴는 모양이 보이면 넘어갑니다. 잘 안 될 때나 손이 말랐을 때는 아래 큰 단추로 넘기면 됩니다.</p></details>
+  <details><summary>요리하다가 저절로 넘어가 버리면요?</summary><p>「이전」을 누르면 됩니다. 푸들리는 손짓 직후 되돌린 횟수를 기록해서 손짓을 계속 다듬습니다. 손짓이 거슬리면 「나」 탭에서 끌 수 있습니다.</p></details>
+  <details><summary>지도가 밝아지려면 위치를 계속 켜 둬야 하나요?</summary><p>아니요. 가 본 곳을 담기만 해도 그 둘레가 밝아집니다. 「다녀온 곳 물어보기」와 「다닌 길 밝히기」는 원할 때만 켜는 선택 기능입니다.</p></details>
+  <details><summary>기본 레시피는 어디서 왔나요?</summary><p>집에서 많이 해 먹는 요리를 골라 푸들리가 2인분 기준으로 새로 썼습니다. 분량과 시간이 다르면 고쳐 쓸 수 있고, 내 레시피북에 담은 뒤에는 내 것입니다.</p></details>
+  <details><summary>폰을 바꾸면 기록은요?</summary><p>계정이 없어서 iOS 백업으로 옮겨집니다. 서버에 따로 모아 두지 않습니다.</p></details>
+</div></section>
+
+<section class="last"><div class="wrap">
+  <h2>오늘 저녁부터 쓰세요.</h2>
+  <p class="sub">기본 레시피 하나 골라 「요리 시작」을 누르면 됩니다.</p>
+  <a class="get fire" href="https://apps.apple.com/kr/app/id6819035674" style="margin:0 auto">App Store 에서 받기</a>
+</div></section>
+
+<footer><div class="wrap"><span>푸들리 · AIP Lab</span><a href="./privacy.html">개인정보 처리방침</a><a href="mailto:hanmari.code@gmail.com">문의</a></div></footer>
+
+<script>
+// ── 데모 1: 요리 중. 단계 글은 앱의 기본 레시피 「된장 마파두부」 그대로.
+const STEPS = [{"text":"두부는 깍둑 썰고 대파는 잘게 썰어요.","seconds":null,"chips":["두부 1모","대파 1대"]},{"text":"팬에 식용유, 대파, 다진마늘을 넣고 약불에 2분 볶아 향을 내요.","seconds":120,"chips":["대파 1대","다진마늘 1큰술","식용유 2큰술"]},{"text":"다진고기를 넣고 중불에 3분 볶아요.","seconds":180,"chips":["다진고기 150g"]},{"text":"양념과 물을 넣고 끓으면 두부를 넣어 5분 끓여요.","seconds":300,"chips":["양념","두부 1모","물 1컵"]},{"text":"반죽을 조금씩 부어 걸쭉하게 만들고 참기름을 둘러요.","seconds":null,"chips":["반죽","참기름 1작은술"]}];
+const ORD = ['첫', '두', '세', '네', '다섯'];
+let idx = 0, left = null, tick = null;
+const $ = (id) => document.getElementById(id);
+function clock(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function show(k, dir) {
+  idx = k; const st = STEPS[k];
+  const el = $('step'); el.classList.add('out');
+  setTimeout(() => { el.textContent = st.text; el.classList.remove('out'); }, dir ? 180 : 0);
+  $('stitle').textContent = ORD[k] + ' 번째 · 다섯 단계 중';
+  $('chips').innerHTML = st.chips.map((c) => '<span class="chip">' + c + '</span>').join('');
+  $('bars').innerHTML = STEPS.map((_, i) => '<i class="' + (i <= k ? 'on' : '') + '"></i>').join('');
+  $('prev').disabled = k === 0; $('next').textContent = k === STEPS.length - 1 ? '다 만들었어요' : '다음';
+  clearInterval(tick); left = st.seconds;
+  const t = $('timer');
+  if (left) {
+    // 데모라 1초를 10초처럼 흐르게 한다
+    t.innerHTML = '<b>' + clock(left) + '</b><span>남았어요 · 빨리 감기</span>';
+    tick = setInterval(() => { left = Math.max(0, left - 10); t.firstChild.textContent = clock(left); if (!left) { clearInterval(tick); t.lastChild.textContent = '다 됐어요'; } }, 1000);
+  } else t.innerHTML = '';
+}
+function next() { if (idx < STEPS.length - 1) show(idx + 1, 1); else { clearInterval(tick); $('done').classList.add('show'); } }
+function pulse() { const h = $('hand'); h.classList.add('pulse'); setTimeout(() => h.classList.remove('pulse'), 220); }
+const hand = $('hand');
+const down = () => hand.classList.add('fist');
+const up = () => { if (!hand.classList.contains('fist')) return; hand.classList.remove('fist'); pulse(); next(); };
+hand.addEventListener('pointerdown', down); hand.addEventListener('pointerup', up); hand.addEventListener('pointerleave', () => hand.classList.remove('fist'));
+document.addEventListener('keydown', (e) => { if (e.code === 'Space' && !e.repeat && e.target === document.body) { e.preventDefault(); down(); } });
+document.addEventListener('keyup', (e) => { if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); up(); } });
+$('next').onclick = next; $('prev').onclick = () => idx > 0 && show(idx - 1, 1);
+$('again').onclick = () => { $('done').classList.remove('show'); show(0); };
+show(0);
+
+// ── 데모 2: 동네 밝히기. 우리가 그린 밤 지도(길·물·공원). 점을 누르면 둘레가 밝아지고, 또 누르면 넓어진다.
+const svg = $('mapsvg');
+const ROADS = 'M0 150 L560 138 M0 268 L560 280 M60 0 L90 440 M210 0 L196 440 M350 0 L372 440 M480 0 L470 440 M0 60 L560 90 M0 380 L560 360 M120 440 L520 0';
+const PLACES = [
+  { x: 205, y: 150, n: '을지로 냉면집', been: 0 }, { x: 140, y: 238, n: '명동 칼국수', been: 0 }, { x: 362, y: 272, n: '충무로 국밥', been: 0 },
+  { x: 240, y: 120, n: '노가리골목 호프', been: 0 }, { x: 300, y: 95, n: '청계천 커피', been: 0 }, { x: 470, y: 160, n: '종로 빈대떡', been: 0 },
+  { x: 110, y: 330, n: '회현 노포 중식', been: 0 }, { x: 420, y: 360, n: '남산 돈까스', been: 0 },
+];
+function drawMap() {
+  const glow = PLACES.filter((p) => p.been).map((p) => {
+    const near = PLACES.filter((q) => q !== p && q.been && Math.hypot(q.x - p.x, q.y - p.y) < 130).length;
+    const r = 70 * Math.min(2.2, 1 + 0.3 * (p.been - 1)) * Math.min(1.6, 1 + 0.15 * near);
+    return `<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="url(#lit)"/>`;
+  }).join('');
+  svg.innerHTML = `<defs>
+    <radialGradient id="lit"><stop offset=".8" stop-color="#FFBE78" stop-opacity="0"/><stop offset=".95" stop-color="#FFBE78" stop-opacity=".35"/><stop offset="1" stop-color="#FFBE78" stop-opacity="0"/></radialGradient>
+    <radialGradient id="hole"><stop offset="0" stop-color="#fff"/><stop offset=".78" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <mask id="m"><rect width="560" height="440" fill="#000"/>${glow.replaceAll('url(#lit)', 'url(#hole)')}</mask></defs>
+    <rect width="560" height="440" fill="#141519"/>
+    <path d="M0 190 C120 170 220 210 330 190 S520 180 560 200" stroke="#1D2A33" stroke-width="16" fill="none"/>
+    <path d="${ROADS}" stroke="#24262B" stroke-width="7" fill="none"/>
+    <g mask="url(#m)"><rect width="560" height="440" fill="#F4F2EE"/><path d="M0 190 C120 170 220 210 330 190 S520 180 560 200" stroke="#9CC8E8" stroke-width="16" fill="none"/>
+      <rect x="380" y="300" width="120" height="90" rx="14" fill="#D5E8C9"/><path d="${ROADS}" stroke="#fff" stroke-width="7" fill="none"/>
+      <path d="M0 150 L560 138" stroke="#58B368" stroke-width="5"/><path d="M350 0 L372 440" stroke="#F28A2E" stroke-width="5"/></g>
+    <g style="mix-blend-mode:screen">${glow}</g>
+    ${PLACES.map((p, i) => `<g data-i="${i}" style="cursor:pointer"><circle cx="${p.x}" cy="${p.y}" r="18" fill="transparent"/>
+      <circle cx="${p.x}" cy="${p.y}" r="10" fill="${p.been ? '#F0462C' : '#fff'}" stroke="${p.been ? '#fff' : '#F0462C'}" stroke-width="${p.been ? 2.5 : 3}"/>
+      ${p.been > 1 ? `<text x="${p.x}" y="${p.y - 16}" text-anchor="middle" font-size="11" font-weight="700" fill="#141416">${p.been}번</text>` : ''}</g>`).join('')}`;
+  $('mapcnt').textContent = '가 본 곳 ' + PLACES.filter((p) => p.been).length;
+}
+svg.addEventListener('click', (e) => { const g = e.target.closest('g[data-i]'); if (!g) return; PLACES[+g.dataset.i].been++; drawMap(); });
+drawMap();
+
+// ── 데모 3: 장보기. 기본 레시피 데이터 그대로. 같은 재료·같은 단위는 분량을 더하고, 단위가 다르면 나란히.
+const RECIPES = [{"name":"순살 닭곰탕","ings":[["닭다리살","400","g"],["양파","1","개"],["대파","1","대"],["마늘","6","쪽"],["생강","1","쪽"],["물","6","컵"],["소금","1","작은술"],["후추","약간",""],["밥","2","공기"]]},{"name":"소고기 무밥","ings":[["쌀","1과 1/2","컵"],["무","1","토막"],["소고기","150","g"],["물","1","컵"],["들기름","1","큰술"],["간장","1","큰술"],["다진마늘","1/2","작은술"],["간장","2","큰술"],["고춧가루","1/2","작은술"],["쪽파","2","대"],["참기름","1","작은술"]]},{"name":"된장 마파두부","ings":[["두부","1","모"],["다진고기","150","g"],["대파","1","대"],["다진마늘","1","큰술"],["식용유","2","큰술"],["물","1","컵"],["참기름","1","작은술"],["된장","1과 1/2","큰술"],["고추장","1/2","큰술"],["설탕","1","작은술"],["간장","1","작은술"],["전분","1","큰술"],["물","2","큰술"]]},{"name":"콩나물무침","ings":[["콩나물","300","g"],["소금","1/2","작은술"],["다진마늘","1/2","작은술"],["대파","1/4","대"],["참기름","1","큰술"],["깨","1","작은술"],["고춧가루","1/2","작은술"]]},{"name":"오이생채","ings":[["오이","2","개"],["소금","1","작은술"],["양파","1/4","개"],["고춧가루","1","큰술"],["식초","1","큰술"],["설탕","1","작은술"],["다진마늘","1/2","작은술"],["깨","1","작은술"]]},{"name":"삼겹 두루치기","ings":[["삼겹살","400","g"],["배추김치","1","컵"],["양파","1/2","개"],["대파","1","대"],["두부","1/2","모"],["물","1/2","컵"],["고춧가루","1","큰술"],["고추장","1","큰술"],["간장","1","큰술"],["다진마늘","1","큰술"],["설탕","1","작은술"]]}];
+const amt = (s) => { s = String(s).replace(/\s/g, ''); let m; if (s === '반') return .5; if ((m = /^(\d+)과(\d+)\/(\d+)$/.exec(s))) return +m[1] + m[2] / m[3]; if ((m = /^(\d+)\/(\d+)$/.exec(s))) return m[1] / m[2]; if (/^\d+(\.\d+)?$/.test(s)) return +s; return null; };
+const fmt = (x) => { if (Number.isInteger(x)) return String(x); for (const d of [2, 3, 4]) { const n = Math.round(x * d); if (Math.abs(n / d - x) < 1e-6) { const w = Math.floor(n / d), r = n - w * d; return (w ? w + '과 ' : '') + r + '/' + d; } } return x.toFixed(1); };
+const picked = new Set(['삼겹 두루치기', '된장 마파두부']);
+$('pick').innerHTML = RECIPES.map((r) => `<label><input type="checkbox" value="${r.name}" ${picked.has(r.name) ? 'checked' : ''}>${r.name}</label>`).join('');
+$('pick').addEventListener('change', (e) => { e.target.checked ? picked.add(e.target.value) : picked.delete(e.target.value); drawCart(); });
+function drawCart() {
+  const rows = new Map();
+  for (const r of RECIPES) if (picked.has(r.name)) for (const [n, a, u] of r.ings) {
+    const k = n + '|' + u; const row = rows.get(k) ?? { n, u, sum: 0, words: [], from: [] };
+    const v = amt(a); v == null ? (a && row.words.push(a)) : (row.sum += v);
+    if (!row.from.includes(r.name)) row.from.push(r.name); rows.set(k, row);
+  }
+  const list = [...rows.values()].sort((a, b) => b.from.length - a.from.length || a.n.localeCompare(b.n, 'ko'));
+  const MAX = 10, more = Math.max(0, list.length - MAX);
+  $('list').innerHTML = list.length ? list.slice(0, MAX).map((r) => `<div class="row ${r.from.length > 1 ? 'merged' : ''}"><b>${r.n}<small>${r.from.join(' · ')}</small></b><span>${[r.sum ? fmt(r.sum) + r.u : '', ...r.words].filter(Boolean).join(' + ') || r.u}</span></div>`).join('') + (more ? `<div class="row"><b style="color:var(--ink3);font-weight:500">외 ${more}줄</b><span></span></div>` : '') : '<div class="empty">왼쪽에서 레시피를 골라 보세요</div>';
+}
+drawCart();
+$('recs').innerHTML = ["전복 문어 솥밥","소갈비살 덮밥","버섯 소고기 솥밥","가리비 솥밥","김치 삼겹 솥밥","가브리살 솥밥","짜장밥","닭고기 양배추 덮밥","닭다리 대파 덮밥","나시고랭","매생이 달걀말이","황태 감자국","우엉조림","애호박 소고기 볶음","순살 닭곰탕","돈테키","소고기 무밥","된장 마파두부","배추 물김치","순살 갈비탕","연근 샐러드","콩나물무침","새송이 두부조림","미역줄기볶음","오이생채","고추 멸치 다대기","백김치","소고기 고추 다짐","메추리알 장조림","파프리카 물김치","떠먹는 파김치","무나물 콩나물","황태채무침","두부 야채전","마늘종 소고기볶음","원팬 떡잡채","부타노가쿠니","오삼불고기","삼겹 두루치기","몽골리안 비프","오징어전","채소튀김","순살 갈비찜","항정 수육","당면 팟타이","해물 냉채","마파두부","우삼겹 두부조림","해물 부추전","영양부추 항정구이"].map((n) => '<span>' + n + '</span>').join('');
+</script>
 </body>
 </html>
